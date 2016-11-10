@@ -2,7 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/app.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -39,6 +39,12 @@ module.exports = {
       }
     ]
   },
+  //添加，否则类似const Bar = { template: '<div>bar</div>' };不可用
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue'
+    }
+  },
   devServer: {
     historyApiFallback: true,
     noInfo: true
@@ -59,6 +65,9 @@ if (process.env.NODE_ENV === 'production') {
       compress: {
         warnings: false
       }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: false
     })
   ])
 }

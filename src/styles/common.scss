@@ -1,6 +1,14 @@
-.el-breadcrumb{
-  padding:24px 24px 24px 0;
+.el-breadcrumb {
+  padding: 24px 24px 24px 0;
+  border-bottom: 1px solid #dee;
+  margin-bottom: 10px;
 }
-.el-form{
-  width: 440px;
+
+.el-form {
+  width: 540px;
+  padding: 20px 0px;
+}
+
+.el-form-item__error {
+  position: relative;
 }
