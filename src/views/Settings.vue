@@ -1,8 +1,10 @@
 <template lang="jade">
   include ./../jade/components.jade
-  #settings
+  #settings.main-block
     +form("formData")(:rules="rules" ref="formData")
-      +formItem("SSID:")(prop="Ssid",:rules="{type: 'string', required: true,fields:{value:{required: true, message: '域名不能为空', trigger: 'blur'}}}")
+      el-form-item(label="yuming" prop="Ssid")
+        el-input(v-model="formData.Ssid")
+      //-+formItem("SSID:")(prop="Ssid",:rules="{type: 'string', required: true,fields:{value:{required: true, message: '域名不能为空', trigger: 'blur'}}}")
         el-input(v-model="formData.Ssid")
       +select("WMode:")(v-model.mumber="formData.WMode")
         el-option(label="802.11b", :value.number="1")
@@ -31,23 +33,25 @@
         el-option(label="Auto",:value.number="0")
         el-option(v-for="v in 13",:label="v",:value.number="v")
       +select("max_numsta:")(v-model="formData.max_numsta")
-        el-option(v-for="v in 15",:label="v",:value.number="v")   
+        el-option(v-for="v in 15",:label="v",:value.number="v")
       +formItem("SSID broadcast:")
         el-switch(v-model="formData.SsidHidden" on-text="" off-text="")
       +radios("ApStatus:")
         el-radio(v-model="formData.ApStatus",:label.number="1") ON
         el-radio(v-model="formData.ApStatus",:label.number="0") OFF
+      +formItem("max_numsta")
+        el-input-number(v-model="formData.max_numsta",:min="1",:max="15")
       +formItem("")
         +button("Cancel")(@click="handleReset")
-        +button("Apply")(type="primary" @click="update")
+        +button("Apply")(type="primary" @click="update",:loading="loading")
 </template>
 <script>
 export default {
   data () {
     return {
+      loading:false,
       showPassword:false,
       formData: {
-        Ssids:"",
         "WlanAPID": 0,
         "ApStatus": 1,
         "WMode": 3,
@@ -61,14 +65,14 @@ export default {
         "WpaKey": "GE747TNT",
         "CountryCode": "IT",
         "ApIsolation": 0,
-        "max_numsta": 15,
+        "max_numsta": 10,
         "curr_num": 0,
         "CurChannel": 8,
         "Bandwidth": 0
       },
       rules: {
         Ssid: [
-          { required: true, message: '请输入活动名称请输入活动名称请输入活动名称请输入活动名称 请输入活动名称', trigger: 'blur' },
+          { required: true, message: '请输入活动名称请', trigger: 'blur' },
           { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ]
       }
@@ -79,6 +83,11 @@ export default {
       this.$refs.formData.resetFields();
     },
     update (ev){
+      let vm = this;
+      vm.loading = true;
+      setTimeout(() => {
+        vm.loading = false;
+      },3000)
       this.$refs.formData.validate((valid) => {
         if (valid) {
           this.$message('submit!');
