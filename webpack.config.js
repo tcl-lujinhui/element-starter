@@ -8,9 +8,10 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  /*
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),
-  },
+  },*/
   module: {
     loaders: [
       {
@@ -65,9 +66,8 @@ if (process.env.NODE_ENV === 'production') {
       compress: {
         warnings: false
       }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: false
     })
   ])
 }
+
+

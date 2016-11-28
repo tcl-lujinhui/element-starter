@@ -1,6 +1,11 @@
 <template lang="jade">
   include ./../jade/components.jade
   #settings.main-block
+    el-tabs(type="card" @tab-click="open")
+      el-tab-pane(label="用户管理")
+      el-tab-pane(label="用户管理")
+      el-tab-pane(label="用户管理")
+      el-tab-pane(label="用户管理")
     +form("formData")(:rules="rules" ref="formData")
       el-form-item(label="yuming" prop="Ssid")
         el-input(v-model="formData.Ssid")
@@ -18,7 +23,7 @@
         el-option(label="WPA/WPA2 PSK", :value.number="4")
       div(v-if='formData.SecurityMode==1')
         +radios("Cipher Type:")
-          el-radio(v-model="formData.WepType",:label.number="1") Share
+          el-radio(v-model="formData.WepType",:label.number="1") Sharedsfdf
           el-radio(v-model="formData.WepType",:label.number="0") Open
         +input("WepKey:")(v-model="formData.WepKey",:type="showPassword?'text':'password'")
       div(v-if='formData.SecurityMode==2||formData.SecurityMode==3||formData.SecurityMode==4')
@@ -81,6 +86,13 @@ export default {
   methods: {
     handleReset() {
       this.$refs.formData.resetFields();
+    },
+    open (tab){
+      console.log(tab)
+      this.$message({
+        message:"ok lfldsfjlk  kfdsjflkdf jlkj kdlsjfldks kfjdlsk sdfjkjlkdjsflkafj !",
+        type: 'success'
+      });
     },
     update (ev){
       let vm = this;
