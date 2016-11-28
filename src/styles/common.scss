@@ -1,6 +1,5 @@
-
 .el-breadcrumb {
-  padding: 10px 10px 10px 0;
+  padding: 10px 10px 0 0;
   margin-bottom: 10px;
 }
 
@@ -13,11 +12,48 @@
   position: relative;
 }
 
+.el-tabs {
+  display: block;
+  margin-top: 5px;
+  margin-left: -1px;
+}
+
 .main-block {
   border: 1px solid #eaeefb;
   border-radius: 4px;
+  padding: 0 0 10px 0;
+  min-height: 500px;
   transition: .2s;
-  &:hover,.hover{
-    box-shadow: 0 0 8px 0 rgba(232,237,250,.6),0 2px 4px 0 rgba(232,237,250,.5);
+  &:hover,
+  .hover {
+    box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5);
+  }
+  .main-body {
+    padding: 20px;
+  }
+}
+
+.tabs-menu {
+  a {
+    padding: 0 16px;
+    height: 42px;
+    box-sizing: border-box;
+    line-height: 42px;
+    float: left;
+    list-style: none;
+    font-size: 14px;
+    color: #8492a6;
+    margin-bottom: -1px;
+    position: relative;
+    border: 1px solid transparent;
+    -webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    cursor: pointer;
+    &:hover {
+      color: #20a0ff;
+      border: 1px solid #d3dce6;
+      border-bottom-color: #fff;
+      border-radius: 4px 4px 0 0;
+    }
   }
 }

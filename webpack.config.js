@@ -19,6 +19,10 @@ module.exports = {
         loader: 'vue'
       },
       {
+        test: /\.jade$/,
+        loader: 'jade'
+      },
+      {
         test: /\.js$/,
         loader: 'babel',
         exclude: /node_modules/

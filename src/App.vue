@@ -28,18 +28,13 @@
         template(slot="title") System
         el-menu-item(index="index") Device Info
         el-menu-item(index="index") Reboot & Reset
-        el-menu-item(index="index") Upgrade
+        el-menu-item(index="systemSettings") Upgrade
         el-menu-item(index="foo") Device Mgmt
     el-breadcrumb(separator="/")
-      el-breadcrumb-item index332321
-      el-breadcrumb-item 活动页面21321
-      el-breadcrumb-item 活动管理
-    //-+button("fds")(@click.native="openFullScreen" v-loading.fullscreen.lock="fullscreenLoading")
-    //-el-steps(:active="1" finish-status="success")
-      el-step(title="已完成1" description="这是一段很长很长很长的描述性文字")
-      el-step(title="进行中" description="这是一段很长很长很长的描述性文字")
-      el-step(title="步骤 3" description="这是一段很长很长很长的描述性文字")
-    router-view
+      el-breadcrumb-item Index
+      el-breadcrumb-item System
+      el-breadcrumb-item Device Mgmt
+    router-view.main-block
     .footer Copyright 2014-2016 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.
 </template>
 
@@ -74,6 +69,7 @@ body {
   width:1004px;
   margin: 0 auto;
 }
+
 .footer{
   height: 30px;
   background: #eff2f7;

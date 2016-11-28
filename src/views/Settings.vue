@@ -1,11 +1,12 @@
 <template lang="jade">
   include ./../jade/components.jade
-  #settings.main-block
-    el-tabs(type="card" @tab-click="open")
-      el-tab-pane(label="用户管理")
-      el-tab-pane(label="用户管理")
-      el-tab-pane(label="用户管理")
-      el-tab-pane(label="用户管理")
+  #settings
+    el-tabs(type="card")
+      el-tab-pane(label="Wlan")
+    //-el-tabs(type="card" @tab-click="open")
+      el-tab-pane(label="用户管理" to="index")
+      el-tab-pane(label="用户管理" to="changePassword")
+      el-tab-pane(label="用户管理" to="systemSettings")
     +form("formData")(:rules="rules" ref="formData")
       el-form-item(label="yuming" prop="Ssid")
         el-input(v-model="formData.Ssid")
@@ -47,10 +48,11 @@
       +formItem("max_numsta")
         el-input-number(v-model="formData.max_numsta",:min="1",:max="15")
       +formItem("")
-        +button("Cancel")(@click="handleReset")
+        +button("Cancel")(type="reset" @click="handleReset")
         +button("Apply")(type="primary" @click="update",:loading="loading")
 </template>
 <script>
+import $ from 'jquery'
 export default {
   data () {
     return {
@@ -83,24 +85,21 @@ export default {
       }
     }
   },
+  beforeMount () {
+    console.log('beforeMount')
+    this.dos()
+  },
   methods: {
+    dos(){
+      console.log("dfsdf888")  
+    },
     handleReset() {
+      Object.assign(this.$data, this.$options.data())
       this.$refs.formData.resetFields();
     },
-    open (tab){
-      console.log(tab)
-      this.$message({
-        message:"ok lfldsfjlk  kfdsjflkdf jlkj kdlsjfldks kfjdlsk sdfjkjlkdjsflkafj !",
-        type: 'success'
-      });
-    },
     update (ev){
-      let vm = this;
-      vm.loading = true;
-      setTimeout(() => {
-        vm.loading = false;
-      },3000)
       this.$refs.formData.validate((valid) => {
+        console.log(valid)
         if (valid) {
           this.$message('submit!');
         } else {
