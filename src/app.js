@@ -12,8 +12,9 @@ Vue.use(ElementUI)
 
 Vue.http.options.emulateJSON = false;
 Vue.http.interceptors.push((request, next) => {
-  var apiURL = 'http://127.0.0.1:9096/jrd/webapi';
+  var apiURL = '/jrd/webapi';
   if (request.url === apiURL && request.method === "POST") {
+    request.url="http://127.0.0.1:9096"+apiURL;
     var requestBody = {
       "id": 12,
       "jsonrpc": "2.0"

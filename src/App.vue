@@ -15,7 +15,7 @@
         el-menu-item(index="bar") Share
       el-submenu(index="3")
         template(slot="title") Basic Settings
-        el-menu-item(index="bar") Dial-UP
+        el-menu-item(index="mobileConnection") Dial-UP
         el-menu-item(index="2-2") WAN
         el-menu-item(index="bar") WLAN
         el-menu-item(index="bar") Security

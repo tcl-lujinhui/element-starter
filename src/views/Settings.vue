@@ -48,16 +48,18 @@
       +formItem("max_numsta")
         el-input-number(v-model="formData.max_numsta",:min="1",:max="15")
       +formItem("")
-        +button("Cancel")(type="reset" @click="handleReset")
-        +button("Apply")(type="primary" @click="update",:loading="loading")
+        +button("Cancel")(@click="reset")
+        +button("Apply")(type="primary" @click="update")
 </template>
 <script>
 import $ from 'jquery'
 export default {
   data () {
     return {
-      loading:false,
+      apiUrl:"http://127.0.0.1:9096/jrd/webapi",
       showPassword:false,
+      formData: {},
+      /*
       formData: {
         "WlanAPID": 0,
         "ApStatus": 1,
@@ -76,7 +78,7 @@ export default {
         "curr_num": 0,
         "CurChannel": 8,
         "Bandwidth": 0
-      },
+      },*/
       rules: {
         Ssid: [
           { required: true, message: '请输入活动名称请', trigger: 'blur' },
@@ -86,24 +88,40 @@ export default {
     }
   },
   beforeMount () {
-    console.log('beforeMount')
-    this.dos()
+    var vm = this;
+    var apiData = {
+      isSet:false,
+      apiName:"GetWlanSettings"
+    }
+    vm.$http.post(vm.apiUrl,apiData).then((response) => {
+      vm.formData=response.body.result.APList[0];
+      console.log(response.body.result.APList[0])
+    })
   },
   methods: {
-    dos(){
-      console.log("dfsdf888")  
-    },
-    handleReset() {
+    reset() {
       Object.assign(this.$data, this.$options.data())
       this.$refs.formData.resetFields();
     },
     update (ev){
-      this.$refs.formData.validate((valid) => {
+      var vm = this;
+      vm.$refs.formData.validate((valid) => {
         console.log(valid)
         if (valid) {
-          this.$message('submit!');
+          var apiData = {
+            isSet:false,
+            apiName:"SetWlanSettings",
+            data:{
+              "WlanAPMode": 0,
+              "APList":[vm.formData]
+            }
+          }
+          vm.$http.post(vm.apiUrl,apiData).then((response) => {
+            console.log(response.body)
+          })
+          //vm.$message('submit!');
         } else {
-          this.$message('error submit!!');
+          vm.$message('error submit!!');
           return false;
         }
       });

@@ -53,3 +53,8 @@ mixin formItem(label)
     if block
       block
 
+mixin formBtn()
+  +formItem("")
+    +button("Cancel1")(@click="reset")
+    +button("Apply")(type="primary" @click="update")
+
