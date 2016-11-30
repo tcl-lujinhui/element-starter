@@ -13,10 +13,11 @@
 
 </template>
 <script>
+import Config from '../../config.js'
+console.log(Config)
 export default {
   data () {
     return {
-      apiUrl:"/jrd/webapi",
       formData: {}
     }
   },
@@ -25,29 +26,16 @@ export default {
   },
   methods: {
     init(){
-      var apiData = {
-        isSet:false,
-        apiName:"GetConnectionSettings"
-      }
-      this.$http.post(this.apiUrl,apiData).then((response) => {
-        this.formData=response.body.result;
-        console.log(response.body.result)
+      this.sdk.get("GetConnectionSettings",null,(res)=>{
+        this.formData = res;
       })
     },
     reset() {
       this.init()
-      //Object.assign(this.$data, this.$options.data())
-      //this.$refs.formData.resetFields();
     },
     update (ev){
-      var vm = this;
-      var apiData = {
-        isSet:false,
-        apiName:"SetConnectionSettings",
-        data:vm.formData
-      }
-      vm.$http.post(vm.apiUrl,apiData).then((response) => {
-        console.log(response.body)
+      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
+        console.log(res)
       })
     }
   }

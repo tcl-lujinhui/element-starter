@@ -28,8 +28,10 @@
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "transfer-webpack-plugin": "^0.1.4",
+    "vue-i18n-plugin": "^0.2.2",
     "vue-loader": "^9.5.1",
     "webpack": "2.1.0-beta.22",
+    "webpack-dev-middleware": "^1.8.4",
     "webpack-dev-server": "^2.1.0-beta.0"
   }
 }

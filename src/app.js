@@ -1,15 +1,27 @@
 import $ from 'jquery'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import App from './app.vue'
 import Routers from './router'
+
+import sdk from './plugin/sdk'
+
+Vue.use(sdk)
+
 Vue.use(VueRouter)
-Vue.use(VueResource)
 Vue.use(ElementUI)
 
+Vue.sdk.get('GetCurrentLanguage',{},function(data){
+  $.get('/i18n/en.res',function(data){
+    console.log(data)
+  })
+  console.log(data.Language)
+})
+
+/*
 Vue.http.options.emulateJSON = false;
 Vue.http.interceptors.push((request, next) => {
   var apiURL = '/jrd/webapi';
@@ -33,7 +45,7 @@ Vue.http.interceptors.push((request, next) => {
     });
   }
 });
-
+*/
 const router = new VueRouter({
   routes:Routers
 });
