@@ -26,8 +26,8 @@
         el-menu-item(index="index") QoS
       el-submenu(index="5")
         template(slot="title") System
-        el-menu-item(index="index") Device Info
-        el-menu-item(index="index") Reboot & Reset
+        el-menu-item(index="deviceInfo") Device Info
+        el-menu-item(index="reboot") Reboot & Reset
         el-menu-item(index="systemSettings") Upgrade
         el-menu-item(index="foo") Device Mgmt
     el-breadcrumb(separator="/")

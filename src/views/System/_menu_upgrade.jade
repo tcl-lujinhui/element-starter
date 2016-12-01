@@ -1,0 +1,5 @@
+
+//-router-link(:to="/systemSettings") System Settings
+el-tabs(type="card" @tab-click="tabs")
+  el-tab-pane(label="Reboot" router="reboot")
+  el-tab-pane(label="Factory Reset" router="reset")

@@ -5,7 +5,11 @@
 
 .el-form {
   width: 540px;
+  margin:0 auto;
   padding: 20px 0px;
+  .el-select{
+    width: 250px;
+  }
 }
 
 .el-form-item__error {
@@ -16,6 +20,10 @@
   display: block;
   margin-top: 5px;
   margin-left: -1px;
+}
+.el-tabs__item{
+  height: 34px;
+  line-height: 34px;
 }
 
 .main-block {

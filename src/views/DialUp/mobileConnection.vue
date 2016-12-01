@@ -2,38 +2,30 @@
   include ../components.jade
   #mobileConnection
     +form("formData")
-      +select("Connection Mode:")(v-model.mumber="formData.ConnectMode")
-        el-option(label="Manual", :value.number="0")
-        el-option(label="Auto", :value.number="1")
-      +select("Connection Mode:")(v-model.mumber="formData.PdpType")
-        el-option(label="IPV4", :value.number="0")
-        el-option(label="IPV6", :value.number="2")
-        el-option(label="IPv4v6", :value.number="3")
+      +radio("Connection Mode:","ConnectMode")
+      +selects("PdpType:","PdpType")
       +formBtn()
-
 </template>
+
 <script>
 import Config from '../../config.js'
-console.log(Config)
 export default {
   data () {
     return {
+      config:Config.mobileConnection,
       formData: {}
     }
   },
-  beforeMount () {
+  created () {
     this.init()
   },
   methods: {
-    init(){
+    init (){
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })
     },
-    reset() {
-      this.init()
-    },
-    update (ev){
+    update (){
       this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
         console.log(res)
       })
@@ -41,5 +33,6 @@ export default {
   }
 }
 </script>
+
 <style lang="sass">
 </style>

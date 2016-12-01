@@ -25,18 +25,28 @@ mixin select(label)
     el-select&attributes(attributes)
       if block
         block
+
+
 mixin option()
   el-option&attributes(attributes)
 
+mixin selects(label,name)
+  div&attributes(attributes)
+    el-form-item(label="#{label}")
+      el-select(v-model.mumber="formData.#{name}")
+        el-option(v-for="val in config.form.#{name}",:label="val[1]",:value.number="val[0]")
+
 mixin text(label,val)
-  div #{label} #{val}
+  el-form-item(label="#{label}")
+    div #{val}
 
 mixin radios(label)
   el-form-item(label="#{label}")
     if block
       block
-mixin radio(label,val)
-  el-radio.radio(v-model="radio" label="#{val}")&attributes(attributes) #{label}
+mixin radio(label,name)
+  el-form-item(label="#{label}")&attributes(attributes)
+    el-radio(v-for="val in config.form.#{name}" v-model="formData.#{name}",:label="val[0]") {{val[1]}}
 
 mixin vnavbar(items)
   div.navbar.navbar-default(role="navigation")
@@ -55,6 +65,6 @@ mixin formItem(label)
 
 mixin formBtn()
   +formItem("")
-    +button("Cancel1")(@click="reset")
+    +button("Cancel")(@click="init")
     +button("Apply")(type="primary" @click="update")
 

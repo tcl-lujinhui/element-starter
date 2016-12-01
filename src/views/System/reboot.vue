@@ -1,5 +1,8 @@
 <template lang="jade">
-  include ./../jade/components.jade
+  include ../components.jade
+  #reboot
+    include _menu_reboot_reset.jade
+    div reboot {{$route.name}}
 
 </template>
 <script>
@@ -8,8 +11,13 @@ export default {
     return {
     }
   },
+  created () {
+    console.log(this.$route)
+  },
   methods: {
-    
+    tabs(tabs){
+      this.$router.push(tabs.$el.getAttribute("name"))
+    }
   }
 }
 </script>
