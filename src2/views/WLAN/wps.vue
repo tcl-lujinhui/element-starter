@@ -1,6 +1,6 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
+  #wps
     include ./menu.jade
     div {{$route.name}}
     +form("formData")
@@ -23,10 +23,6 @@ export default {
   methods: {
     tabs(tabs){
       this.$router.push(tabs.$el.getAttribute("router"))
-    },
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
     },
     init (){
       this.sdk.get("GetConnectionSettings",null,(res)=>{

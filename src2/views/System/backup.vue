@@ -1,20 +1,14 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
-    include ./menu.jade
+  #backup
+    include _menu_device_mgmt.jade
     div {{$route.name}}
-    +form("formData")
-      
-      +formBtn()
-</template>
 
+</template>
 <script>
-import Config from '../../config.js'
 export default {
   data () {
     return {
-      config:Config.mobileConnection,
-      formData: {}
     }
   },
   created () {
@@ -24,23 +18,18 @@ export default {
     tabs(tabs){
       this.$router.push(tabs.$el.getAttribute("router"))
     },
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
-    },
     init (){
       this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
+        
       })
     },
     update (){
       this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
+        
       })
     }
   }
 }
 </script>
-
 <style lang="sass" scoped>
 </style>

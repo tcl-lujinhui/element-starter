@@ -1,0 +1,6 @@
+el-tabs(type="card" @tab-click="tabs", :active-name="$route.name")
+  el-tab-pane(label="inbox" name="inbox" router="inbox")
+  el-tab-pane(label="outbox" name="outbox" router="outbox")
+  el-tab-pane(label="draft" name="draft" router="draft")
+  el-tab-pane(label="newSNS" name="newSNS" router="newSNS")
+  el-tab-pane(label="smsSettings" name="smsSettings" router="smsSettings")

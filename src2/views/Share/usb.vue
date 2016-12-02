@@ -24,10 +24,6 @@ export default {
     tabs(tabs){
       this.$router.push(tabs.$el.getAttribute("router"))
     },
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
-    },
     init (){
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;

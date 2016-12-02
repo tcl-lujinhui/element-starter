@@ -1,5 +1,10 @@
-const config = {};
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+import ElementUI from 'element-ui'
+Vue.use(VueResource)
+let apiURI = 'http://127.0.0.1:9096/jrd/webapi'
 
+const config = {};
 config.mobileConnection = {
   formOptions: {
     ConnectMode: [
@@ -53,4 +58,12 @@ config.changePassword = {
   }
 };
 
-export default config;
+export default {
+  install(Vue) {
+    Vue.appConfig = config;
+    Vue.prototype.appConfig=config
+    Vue.prototype.tabs= function(tabs){
+      Vue.router.push(tabs.$el.getAttribute("router"))
+    }
+  }
+}

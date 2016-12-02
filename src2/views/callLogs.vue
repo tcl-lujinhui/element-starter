@@ -1,7 +1,6 @@
 <template lang="jade">
-  include ../components.jade
+  include ./components.jade
   #wanConfigure
-    include ./menu.jade
     div {{$route.name}}
     +form("formData")
       
@@ -9,7 +8,7 @@
 </template>
 
 <script>
-import Config from '../../config.js'
+import Config from '../config.js'
 export default {
   data () {
     return {
@@ -21,13 +20,6 @@ export default {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
-    },
     init (){
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
