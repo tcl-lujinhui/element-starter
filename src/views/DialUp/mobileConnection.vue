@@ -1,6 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #mobileConnection
+    include ./menu.jade
     +form("formData")
       +radio("Connection Mode:","ConnectMode")
       +selects("PdpType:","PdpType")
@@ -20,6 +21,9 @@ export default {
     this.init()
   },
   methods: {
+    tabs(tabs){
+      this.$router.push(tabs.$el.getAttribute("router"))
+    },
     init (){
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;

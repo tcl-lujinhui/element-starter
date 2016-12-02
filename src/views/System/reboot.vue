@@ -12,14 +12,14 @@ export default {
     }
   },
   created () {
-    console.log(this.$route)
+    
   },
   methods: {
     tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("name"))
+      this.$router.push(tabs.$el.getAttribute("router"))
     }
   }
 }
 </script>
-<style lang="sass">
+<style lang="sass" scoped>
 </style>

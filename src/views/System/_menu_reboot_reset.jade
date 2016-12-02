@@ -1,5 +1,3 @@
-
-//-router-link(:to="/systemSettings") System Settings
-el-tabs(type="card" @tab-click="tabs" active-name="$route.name")
-  el-tab-pane(label="Reboot" name="reboot")
-  el-tab-pane(label="Factory Reset" name="reset")
+el-tabs(type="card" @tab-click="tabs", :active-name="$route.name")
+  el-tab-pane(label="Reboot" name="reboot" router="reboot")
+  el-tab-pane(label="Factory Reset" name="reset" router="reset")

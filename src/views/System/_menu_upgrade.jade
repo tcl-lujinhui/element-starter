@@ -1,5 +1,4 @@
-
-//-router-link(:to="/systemSettings") System Settings
-el-tabs(type="card" @tab-click="tabs")
-  el-tab-pane(label="Reboot" router="reboot")
-  el-tab-pane(label="Factory Reset" router="reset")
+el-tabs(type="card" @tab-click="tabs", :active-name="$route.name")
+  el-tab-pane(label="Local Upgrade" name="localUpgrade" router="localUpgrade")
+  el-tab-pane(label="Online Upgrade" name="onlineUpgrade" router="onlineUpgrade")
+  el-tab-pane(label="TR069" name="tr069" router="tr069")

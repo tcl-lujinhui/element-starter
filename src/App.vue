@@ -10,26 +10,26 @@
         el-menu-item(index="index") Setup Wizard
       el-submenu(index="2")
         template(slot="title") Services
-        el-menu-item(index="bar") SMS
-        el-menu-item(index="2-2") Call Logs
-        el-menu-item(index="bar") Share
+        el-menu-item(index="inbox") SMS
+        el-menu-item(index="callLogs") Call Logs
+        el-menu-item(index="usb") Share
       el-submenu(index="3")
         template(slot="title") Basic Settings
         el-menu-item(index="mobileConnection") Dial-UP
-        el-menu-item(index="2-2") WAN
-        el-menu-item(index="bar") WLAN
-        el-menu-item(index="bar") Security
-        el-menu-item(index="2-2") LAN
+        el-menu-item(index="wanStatus") WAN
+        el-menu-item(index="basic") WLAN
+        el-menu-item(index="pinManagement") Security
+        el-menu-item(index="lan") LAN
       el-submenu(index="4")
         template(slot="title") Advance Settings
-        el-menu-item(index="index") NAT Settings
-        el-menu-item(index="index") QoS
+        el-menu-item(index="dmz") NAT Settings
+        el-menu-item(index="qos") QoS
       el-submenu(index="5")
         template(slot="title") System
         el-menu-item(index="deviceInfo") Device Info
         el-menu-item(index="reboot") Reboot & Reset
-        el-menu-item(index="systemSettings") Upgrade
-        el-menu-item(index="foo") Device Mgmt
+        el-menu-item(index="localUpgrade") Upgrade
+        el-menu-item(index="changePassword") Device Mgmt
     el-breadcrumb(separator="/")
       el-breadcrumb-item Index
       el-breadcrumb-item System

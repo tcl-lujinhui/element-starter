@@ -2,7 +2,7 @@
   include ../components.jade
   #reset
     include _menu_reboot_reset.jade
-    div reset
+    div reset {{$route.name}}
 
 </template>
 <script>
@@ -14,10 +14,10 @@ export default {
   },
   methods: {
     tabs(tabs){
-      this.$router.push(tabs.$el.name)
+      this.$router.push(tabs.$el.getAttribute("router"))
     }
   }
 }
 </script>
-<style lang="sass">
+<style lang="sass" scoped>
 </style>

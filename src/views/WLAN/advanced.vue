@@ -1,14 +1,20 @@
 <template lang="jade">
   include ../components.jade
-  #systemSettings
-    include _menu_device_mgmt.jade
+  #advance
+    include ./menu.jade
     div {{$route.name}}
-
+    +form("formData")
+      
+      +formBtn()
 </template>
+
 <script>
+import Config from '../../config.js'
 export default {
   data () {
     return {
+      config:Config.mobileConnection,
+      formData: {}
     }
   },
   created () {
@@ -20,16 +26,17 @@ export default {
     },
     init (){
       this.sdk.get("GetConnectionSettings",null,(res)=>{
-        
+        this.formData = res;
       })
     },
     update (){
       this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        
+        console.log(res)
       })
     }
   }
 }
 </script>
+
 <style lang="sass" scoped>
 </style>
