@@ -67,3 +67,14 @@
     }
   }
 }
+
+.status{
+  float: right;
+}
+
+.main-menu.el-menu{
+  background: #01a9f0;
+  .el-submenu .el-menu-item.is-active, .el-menu-item.is-active,.el-menu-item{
+    color: #fff;
+  }
+}

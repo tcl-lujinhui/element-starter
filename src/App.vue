@@ -2,7 +2,8 @@
   include ./jade/components.jade
   #app
     img(src="./images/logo.png")
-    el-menu.el-menu-demo(default-active="index" mode="horizontal" router=true)
+    img.status(src="./images/status.png")
+    el-menu.main-menu.el-menu-demo(default-active="index" mode="horizontal" router=true)
       el-menu-item(index="1") Home
       el-menu-item(index="mobileConnection") Services
       el-menu-item(index="basic") Basic Settings

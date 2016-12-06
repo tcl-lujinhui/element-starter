@@ -18,12 +18,20 @@
 import _config from '../../config.js'
 var Config = _config.lanSettings;
 export default {
+  data() {
+    var validates = {};
+    return {
+      formOptions: {},
+      formData: {},
+      formRules: {}
+    }
+  },
   created() {
     this.init()
   },
   methods: {
     init (){
-      this.data(Config);
+      this.data(Config,this);
       this.sdk.get("GetLanSettings",null,(res)=>{
         this.formData = res;
       })

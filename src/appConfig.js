@@ -4,6 +4,16 @@ import ElementUI from 'element-ui'
 Vue.use(VueResource)
 let apiURI = 'http://127.0.0.1:9096/jrd/webapi'
 
+var validatePass2 = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请再次输入密码'));
+  } else if (value !== this.ruleForm2.pass) {
+    callback(new Error('两次输入密码不一致!'));
+  } else {
+    callback();
+  }
+};
+
 const config = {};
 config.mobileConnection = {
   formOptions: {
@@ -42,6 +52,16 @@ config.changePassword = {
     ConfirmPassword: "",
   },
   formOptions: {},
+  validates: {
+    Confirm: (rule, value, callback) => {
+      if (value !== this.NewPassword.pass) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    }
+
+  },
   formRules: {
     CurrPassword: [
       { required: true, message: '请输入活动名称请', trigger: 'blur' },
@@ -72,10 +92,11 @@ export default {
       },
 
       methods: {
-        data(Config){
-          this.formData=Config.formData;
-          this.formOptions=Config.formOptions,
-          this.formRules=Config.formRules
+        data(Config,vm) {
+          //this.validates = Config.validates(vm);
+          this.formData = Config.formData;
+          this.formOptions = Config.formOptions;
+          this.formRules = Config.formRules
         },
         init() {
           console.log("mixin init")
@@ -91,7 +112,6 @@ export default {
               callback();
               this.reset()
             } else {
-              //this.$message.error('error submit!!888888888');
               return false;
             }
           })

@@ -1,5 +1,4 @@
 const config = {};
-
 config.mobileConnection = {
   formOptions: {
     ConnectMode: [
@@ -12,8 +11,9 @@ config.mobileConnection = {
       [3, 'IPv4v6']
     ]
   },
-  formData:{},
-  formRules:{}
+  validates: (vm) => {},
+  formData: {},
+  formRules: {}
 };
 
 config.networkSettings = {
@@ -29,8 +29,9 @@ config.networkSettings = {
       [3, '4G Only']
     ]
   },
-  formData:{},
-  formRules:{}
+  validates: (vm) => {},
+  formData: {},
+  formRules: {}
 };
 
 config.networkSettings = {
@@ -46,8 +47,9 @@ config.networkSettings = {
       [3, '4G Only']
     ]
   },
-  formData:{},
-  formRules:{}
+  validates: (vm) => {},
+  formData: {},
+  formRules: {}
 };
 
 config.pinManagement = {
@@ -63,8 +65,9 @@ config.pinManagement = {
       [3, '4G Only']
     ]
   },
-  formData:{},
-  formRules:{}
+  validates: (vm) => {},
+  formData: {},
+  formRules: {}
 };
 
 config.lanSettings = {
@@ -74,9 +77,12 @@ config.lanSettings = {
       [1, 'Disable']
     ]
   },
-  formData:{},
-  formRules:{}
+  validates: (vm) => {},
+  formData: {},
+  formRules: {}
 };
+
+
 
 config.changePassword = {
   formData: {
@@ -86,6 +92,18 @@ config.changePassword = {
     ConfirmPassword: "",
   },
   formOptions: {},
+  validates: {
+    Confirm: (vm) => {
+      return (rule, value, callback) => {
+        console.log(rule)
+        let errMsg='';
+        if (value !== vm.formData.NewPassword) {
+          errMsg = '两次输入密码不一致888888999945454!'
+        }
+        callback(errMsg!==''?new Error(errMsg):undefined);
+      };
+    }
+  },
   formRules: {
     CurrPassword: [
       { required: true, message: '请输入活动名称请', trigger: 'blur' },
@@ -97,8 +115,10 @@ config.changePassword = {
     ],
     ConfirmPassword: [
       { required: true, message: '请输入活动名称请', trigger: 'blur' },
-      { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
     ]
+  },
+  formRulesExtension:{
+    ConfirmPassword:{ validator: "Confirm", trigger: 'blur' }
   }
 };
 

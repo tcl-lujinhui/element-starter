@@ -10,15 +10,38 @@
 
 </template>
 <script>
+import $ from 'jquery'
 import _config from '../../config.js'
 var Config = _config.changePassword;
 export default {
+  data() {
+    var extensionRules = {};
+    if(Config.validates){
+      $.each(Config.validates,(k,v)=>{
+        extensionRules[k] = v(this)
+      })
+    }
+    return {
+      formOptions: {},
+      formData: {},
+      formRules: {},
+      extensionRules:extensionRules
+    }
+  },
   created() {
     this.init()
   },
   methods: {
     init (){
-      this.data(Config)
+      this.data(Config,this)
+      if(Config.formRulesExtension){
+        $.each(Config.formRulesExtension,(k,v)=>{
+          let rule = {};
+          rule.trigger = v.trigger
+          rule.validator=this.extensionRules[v.validator]
+          this.formRules[k].push(rule)
+        })
+      }
     },
     update (){
       this.submit("formData",()=>{
