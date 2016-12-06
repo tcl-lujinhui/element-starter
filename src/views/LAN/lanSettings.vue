@@ -1,35 +1,35 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
-    div {{$route.name}}
+  #lanSettings
     +form("formData")
+      +input("IPv4 IP address:","IPv4IPAddress")
+      +input("SubnetMask","SubnetMask")
+      +formItem("DHCP Server:")
+        el-checkbox(v-model="formData.DHCPServerStatus",:true-label.number="1",:false-label.number="0")
+      div(v-if="formData.DHCPServerStatus==1")
+        +input("Start IP Address:","StartIPAddress")
+        +input("End IP Address:","EndIPAddress")
+        +input("DHCP Lease Time:","DHCPLeaseTime")
       
       +formBtn()
 </template>
 
 <script>
-import Config from '../../config.js'
+import _config from '../../config.js'
+var Config = _config.lanSettings;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
-  created () {
+  created() {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
     init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
+      this.data(Config);
+      this.sdk.get("GetLanSettings",null,(res)=>{
         this.formData = res;
       })
     },
     update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
+      this.sdk.post("SetLanSettings",this.formData,(res)=>{
         console.log(res)
       })
     }
@@ -37,5 +37,5 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 </style>

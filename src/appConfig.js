@@ -61,10 +61,43 @@ config.changePassword = {
 export default {
   install(Vue) {
     Vue.appConfig = config;
-    Vue.prototype.appConfig=config
-    Vue.prototype.tabs= function(tabs){
-      console.log(tabs.$el)
-     Vue.router.push(tabs.$el.getAttribute("router"))
-    }
+    Vue.prototype.appConfig = config
+    Vue.mixin({
+      data() {
+        return {
+          formOptions: {},
+          formData: {},
+          formRules: {}
+        }
+      },
+
+      methods: {
+        data(Config){
+          this.formData=Config.formData;
+          this.formOptions=Config.formOptions,
+          this.formRules=Config.formRules
+        },
+        init() {
+          console.log("mixin init")
+        },
+        reset() {
+          console.log("mixin reset")
+          this.init()
+          this.$refs.formData.resetFields();
+        },
+        submit(form, callback) {
+          this.$refs[form].validate((valid) => {
+            if (valid) {
+              callback();
+              this.reset()
+            } else {
+              //this.$message.error('error submit!!888888888');
+              return false;
+            }
+          })
+        }
+      }
+    })
+
   }
 }

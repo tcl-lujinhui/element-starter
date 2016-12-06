@@ -3,38 +3,45 @@
   #app
     img(src="./images/logo.png")
     el-menu.el-menu-demo(default-active="index" mode="horizontal" router=true)
-      el-submenu(index="1")
-        template(slot="title") Home
-        el-menu-item(index="index") Status
-        el-menu-item(index="index") Statistics
-        el-menu-item(index="index") Setup Wizard
-      el-submenu(index="2")
-        template(slot="title") Services
-        el-menu-item(index="inbox") SMS
-        el-menu-item(index="callLogs") Call Logs
-        el-menu-item(index="usb") Share
-      el-submenu(index="3")
-        template(slot="title") Basic Settings
-        el-menu-item(index="mobileConnection") Dial-UP
-        el-menu-item(index="wanStatus") WAN
-        el-menu-item(index="basic") WLAN
-        el-menu-item(index="pinManagement") Security
-        el-menu-item(index="lan") LAN
-      el-submenu(index="4")
-        template(slot="title") Advance Settings
-        el-menu-item(index="dmz") NAT Settings
-        el-menu-item(index="qos") QoS
-      el-submenu(index="5")
-        template(slot="title") System
-        el-menu-item(index="deviceInfo") Device Info
-        el-menu-item(index="reboot") Reboot & Reset
-        el-menu-item(index="localUpgrade") Upgrade
-        el-menu-item(index="changePassword") Device Mgmt
+      el-menu-item(index="1") Home
+      el-menu-item(index="mobileConnection") Services
+      el-menu-item(index="basic") Basic Settings
+      el-menu-item(index="dmz") Advance Settings
+      el-menu-item(index="changePassword") System
     el-breadcrumb(separator="/")
       el-breadcrumb-item Index
       el-breadcrumb-item System
       el-breadcrumb-item Device Mgmt
-    router-view.main-block
+    div
+      el-row
+        el-col(:span="6")
+          el-menu(router=true,unique-opened=true)
+            el-submenu(index="1")
+              template(slot="title") Dial-UP
+              el-menu-item(index="mobileConnection") Mobile Connection
+              el-menu-item(index="profileManagement") Profile Management
+              el-menu-item(index="networkSettings") Network Settings
+              el-menu-item(index="monthlyPlan")  Monthly Plan
+            el-submenu(index="2")
+              template(slot="title") WAN
+              el-menu-item(index="wanStatus") WAN Status
+              el-menu-item(index="wanConfigure") WAN Configure
+              el-menu-item(index="macClone") MAC Clone
+            el-submenu(index="3")
+              template(slot="title") WLAN
+              el-menu-item(index="basic") Basic
+              el-menu-item(index="advanced") Advanced
+              el-menu-item(index="wps") WPS
+            el-submenu(index="4")
+              template(slot="title") Security
+              el-menu-item(index="pinManagement") PIN Management
+              el-menu-item(index="routingRules") Routing Rules
+              el-menu-item(index="firewall") Firewall
+              el-menu-item(index="filter") Filter
+            el-menu-item(index="lanSettings") LAN
+        el-col(:span="18")
+          router-view.main-block
+
     .footer Copyright 2014-2016 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.
 </template>
 

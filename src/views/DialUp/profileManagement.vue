@@ -1,7 +1,6 @@
 <template lang="jade">
   include ../components.jade
   #wanConfigure
-    include ./menu.jade
     div {{$route.name}}
     +form("formData")
       
@@ -21,9 +20,6 @@ export default {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
     reset() {
       this.init()
       this.$refs.formData.resetFields();

@@ -1,7 +1,6 @@
 <template lang="jade">
   include ../components.jade
   #mobileConnection
-    include ./menu.jade
     +form("formData")
       +radio("Connection Mode:","ConnectMode")
       +select("PdpType:","PdpType")
@@ -12,23 +11,12 @@
 import _config from '../../config.js'
 var Config = _config.mobileConnection;
 export default {
-  data () {
-    return {
-      formOptions:Config.formOptions,
-      formData: {}
-    }
-  },
-  created () {
-    console.log("sfadfasfsadfsd")
-    console.log(this.appConfig)
+  created() {
     this.init()
   },
   methods: {
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
-    },
     init (){
+      this.data(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })

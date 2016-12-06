@@ -1,8 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #changePassword
-    include _menu_device_mgmt.jade
-    +form("formData")(:rules="rules" ref="formData")
+    +form("formData")
       +input("User name:","UserName")(disabled)
       +input("Current password:","CurrPassword")(type="password")
       +input("New password:","NewPassword")(type="password")
@@ -11,39 +10,21 @@
 
 </template>
 <script>
-import Config from '../../config.js'
-var _Config = Config.changePassword
+import _config from '../../config.js'
+var Config = _config.changePassword;
 export default {
-  data () {
-    return {
-      formData:{},
-      rules: _Config.rules
-    }
-  },
-  created () {
+  created() {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
-    },
     init (){
-      this.formData=_Config.formData
+      this.data(Config)
     },
     update (){
-      this.$refs.formData.validate((valid) => {
-        if(valid){
-          this.sdk.post("ChangePassword",this.formData,(res)=>{
+      this.submit("formData",()=>{
+        this.sdk.post("ChangePassword",this.formData,(res)=>{
             this.reset()
           })
-        }else{
-          this.$message.error('error submit!!');
-          return false;
-        }
       })
       
     }

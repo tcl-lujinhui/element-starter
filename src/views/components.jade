@@ -1,5 +1,5 @@
 mixin form(form)
-  el-form(ref="form",:model="#{form}" label-width="160px")&attributes(attributes)
+  el-form(:rules="formRules" ref="#{form}",:model="#{form}" label-width="160px")&attributes(attributes)
     if block
       block
 
@@ -16,6 +16,15 @@ mixin select(label,name)
 mixin radio(label,name)
   el-form-item(label="#{label}")&attributes(attributes)
     el-radio(v-for="val in formOptions.#{name}" v-model="formData.#{name}",:label="val[0]") {{val[1]}}
+
+mixin checkbox(label,name)
+  el-form-item(label="#{label}")
+    el-checkbox(v-model="formData.#{name}" true-label)
+
+mixin formItem(label)
+  el-form-item(label="#{label}")&attributes(attributes)
+    if block
+      block
 
 mixin formBtn()
   +formItem("")
@@ -35,11 +44,7 @@ mixin password(id,label)
 mixin button(label)
   el-button&attributes(attributes) #{label}
 
-mixin checkbox(label)
-  .checkbox
-    label
-      input(type="checkbox")&attributes(attributes)
-      | #{label}
+
 
 
 mixin option()
@@ -67,10 +72,5 @@ mixin vnavbar(items)
 mixin lirouterLink(state,text)
   li
     router-link.router-link(to="/#{state}")&attributes(attributes) #{text}
-mixin formItem(label)
-  el-form-item(label="#{label}")&attributes(attributes)
-    if block
-      block
-
 
 

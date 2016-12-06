@@ -1,29 +1,25 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
-    include ./menu.jade
-    div {{$route.name}}
+  #pinManagement
     +form("formData")
-      
       +formBtn()
 </template>
 
 <script>
-import Config from '../../config.js'
+import _config from '../../config.js'
+var Config = _config.pinManagement;
 export default {
   data () {
     return {
-      config:Config.mobileConnection,
-      formData: {}
+      formOptions:Config.formOptions,
+      formData: {},
+      formRules:Config.formRules
     }
   },
-  created () {
+  mounted() {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
     init (){
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;

@@ -1,10 +1,8 @@
 <template lang="jade">
   include ../components.jade
   #advance
-    include ./menu.jade
     div {{$route.name}}
     +form("formData")
-      
       +formBtn()
 </template>
 
@@ -21,8 +19,9 @@ export default {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
+    reset() {
+      this.init()
+      this.$refs.formData.resetFields();
     },
     init (){
       this.sdk.get("GetConnectionSettings",null,(res)=>{

@@ -11,7 +11,9 @@ config.mobileConnection = {
       [2, 'IPV6'],
       [3, 'IPv4v6']
     ]
-  }
+  },
+  formData:{},
+  formRules:{}
 };
 
 config.networkSettings = {
@@ -26,12 +28,59 @@ config.networkSettings = {
       [2, '3G Only'],
       [3, '4G Only']
     ]
-  }
+  },
+  formData:{},
+  formRules:{}
+};
+
+config.networkSettings = {
+  formOptions: {
+    NetselectionMode: [
+      [0, 'Auto'],
+      [1, 'Manual']
+    ],
+    NetworkMode: [
+      [0, 'AUTO'],
+      [1, '2G Only'],
+      [2, '3G Only'],
+      [3, '4G Only']
+    ]
+  },
+  formData:{},
+  formRules:{}
+};
+
+config.pinManagement = {
+  formOptions: {
+    NetselectionMode: [
+      [0, 'Auto'],
+      [1, 'Manual']
+    ],
+    NetworkMode: [
+      [0, 'AUTO'],
+      [1, '2G Only'],
+      [2, '3G Only'],
+      [3, '4G Only']
+    ]
+  },
+  formData:{},
+  formRules:{}
+};
+
+config.lanSettings = {
+  formOptions: {
+    DHCPServerStatus: [
+      [0, 'Enable'],
+      [1, 'Disable']
+    ]
+  },
+  formData:{},
+  formRules:{}
 };
 
 config.changePassword = {
   formData: {
-    UserName: "admims",
+    UserName: "admim",
     CurrPassword: "",
     NewPassword: "",
     ConfirmPassword: "",
