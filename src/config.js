@@ -1,4 +1,11 @@
 const config = {};
+
+const Unit={
+  validates:(callback,errMsg)=>{
+    return callback(errMsg!==''?new Error(errMsg):undefined);
+  }
+}
+
 config.mobileConnection = {
   formOptions: {
     ConnectMode: [
@@ -93,32 +100,31 @@ config.changePassword = {
   },
   formOptions: {},
   validates: {
-    Confirm: (vm) => {
+    Confirm:(vm) => {
       return (rule, value, callback) => {
-        console.log(rule)
-        let errMsg='';
+        var errMsg=''
         if (value !== vm.formData.NewPassword) {
-          errMsg = '两次输入密码不一致888888999945454!'
+          errMsg = 'Confirm!'
         }
-        callback(errMsg!==''?new Error(errMsg):undefined);
+        Unit.validates(callback,errMsg)
       };
     }
   },
   formRules: {
     CurrPassword: [
-      { required: true, message: '请输入活动名称请', trigger: 'blur' },
-      { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+      {type: "string", required: true,pattern: /^[a-z]+$/, message: '请输入字母'},
+      { min: 3, max: 5, message: '长度在 3 到 5 个字符'}
     ],
     NewPassword: [
-      { required: true, message: '请输入活动名称请', trigger: 'blur' },
-      { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+      { required: true, message: '请输入活动名称请'},
+      { min: 3, max: 5, message: '长度在 3 到 5 个字符'}
     ],
     ConfirmPassword: [
-      { required: true, message: '请输入活动名称请', trigger: 'blur' },
+      { required: true, message: '请输入活动名称请'},
     ]
   },
   formRulesExtension:{
-    ConfirmPassword:{ validator: "Confirm", trigger: 'blur' }
+    ConfirmPassword:{ validator: "Confirm"},
   }
 };
 

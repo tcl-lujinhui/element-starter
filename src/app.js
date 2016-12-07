@@ -14,7 +14,7 @@ import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(sdk)
 Vue.use(appConfig)
-console.log(Vue.appConfig)
+
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { locale })
