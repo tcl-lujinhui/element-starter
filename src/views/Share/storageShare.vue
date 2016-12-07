@@ -1,8 +1,7 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
-    include ./menu.jade
-    div {{$route.name}}
+  #storageShare
+    +breadcrumb("Storage Share")
     +form("formData")
       
       +formBtn()

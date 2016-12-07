@@ -29,6 +29,11 @@ import lanSettings from './views/LAN/lanSettings.vue';
 //system
 import changePassword from './views/System/changePassword.vue';
 
+//NatSettings
+import alg from './views/NatSettings/alg.vue';
+import dmz from './views/NatSettings/dmz.vue';
+import upnp from './views/NatSettings/upnp.vue';
+import virtualServer from './views/NatSettings/virtualServer.vue';
 
 const routers = [
   //other
@@ -64,7 +69,11 @@ const routers = [
 
   //system
   { name: 'changePassword', path: '/changePassword', component: changePassword },
-
+  //NatSettings
+  { name: 'alg', path: '/alg', component: alg },
+  { name: 'upnp', path: '/upnp', component: upnp },
+  { name: 'dmz', path: '/dmz', component: dmz },
+  { name: 'virtualServer', path: '/virtualServer', component: virtualServer },
 ];
 
 export default routers;

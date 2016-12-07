@@ -1,7 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #wps
-    div {{$route.name}}
+    +breadcrumb("WLAN Basic")
     +form("formData")
       
       +formBtn()

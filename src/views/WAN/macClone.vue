@@ -1,7 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #macClone
-    div {{$route.name}}
+    +breadcrumb("MAC Clone")
     +form("formData")
       
       +formBtn()

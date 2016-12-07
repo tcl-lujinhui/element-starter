@@ -1,6 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #changePassword
+    +breadcrumb("Password Change")
     +form("formData")
       +input("User name:","UserName")(disabled)
       +input("Current password:","CurrPassword")(type="password")
@@ -10,7 +11,6 @@
 
 </template>
 <script>
-import $ from 'jquery'
 import _config from '../../config.js'
 var Config = _config.changePassword;
 export default {

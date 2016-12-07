@@ -8,10 +8,9 @@ mixin input(label,model)
     el-input(v-model="formData.#{model}")&attributes(attributes)
 
 mixin select(label,name)
-  div&attributes(attributes)
-    el-form-item(label="#{label}")
-      el-select(v-model.mumber="formData.#{name}")
-        el-option(v-for="val in formOptions.#{name}",:label="val[1]",:value.number="val[0]")
+  el-form-item(label="#{label}")
+    el-select(v-model.mumber="formData.#{name}")&attributes(attributes)
+      el-option(v-for="val in formOptions.#{name}",:label="val[1]",:value.number="val[0]")
 
 mixin radio(label,name)
   el-form-item(label="#{label}")&attributes(attributes)
@@ -25,11 +24,16 @@ mixin formItem(label)
   el-form-item(label="#{label}")&attributes(attributes)
     if block
       block
+mixin button(label)
+  el-button&attributes(attributes)(size="small") #{label}
 
 mixin formBtn()
   +formItem("")
     +button("Cancel")(@click="reset")
     +button("Apply")(type="primary" @click="update")
+
+mixin breadcrumb(title)
+  h3.breadcrumb&attributes(attributes) #{title}
 
 
 
@@ -41,8 +45,7 @@ mixin password(id,label)
     label(for="#{id}") #{label}
     input.form-control(type="password" id="#{id}")&attributes(attributes)
 
-mixin button(label)
-  el-button&attributes(attributes) #{label}
+
 
 
 

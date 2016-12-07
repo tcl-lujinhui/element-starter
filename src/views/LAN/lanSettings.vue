@@ -1,6 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #lanSettings
+    +breadcrumb("Lan Settings")
     +form("formData")
       +input("IPv4 IP address:","IPv4IPAddress")
       +input("SubnetMask","SubnetMask")

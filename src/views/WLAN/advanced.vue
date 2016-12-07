@@ -1,7 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #advance
-    div {{$route.name}}
+    +breadcrumb("WLAN Advance")
     +form("formData")
       +formBtn()
 </template>

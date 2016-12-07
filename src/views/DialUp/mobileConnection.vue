@@ -1,6 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #mobileConnection
+    +breadcrumb("Mobile Connection")
     +form("formData")
       +radio("Connection Mode:","ConnectMode")
       +select("PdpType:","PdpType")

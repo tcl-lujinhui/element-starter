@@ -1,30 +1,26 @@
 <template lang="jade">
   include ../components.jade
   #wanConfigure
-    div {{$route.name}}
+    +breadcrumb("Monthly Plan")
     +form("formData")
-      
-      +formBtn()
+      div {{page.name}}
+      +button("change")(@click="edit")
 </template>
 
 <script>
 import Config from '../../config.js'
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
   created () {
     this.init()
   },
   methods: {
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
+    edit (){
+      this.page.name="5555555555555555wo"
     },
     init (){
+      this.page={
+        name:"898989898"
+      }
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })

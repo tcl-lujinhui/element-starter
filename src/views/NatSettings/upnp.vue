@@ -1,30 +1,22 @@
 <template lang="jade">
   include ../components.jade
-  #upnp
-    include ./menu.jade
-    div {{$route.name}}
+  #upnpSettings
+    +breadcrumb("UPnP Settings")
     +form("formData")
       
       +formBtn()
 </template>
 
 <script>
-import Config from '../../config.js'
+import _config from '../../config.js'
+var Config = _config.upnpSettings;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
   created () {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
     init (){
+      this.data(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })

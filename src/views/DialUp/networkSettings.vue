@@ -1,6 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #networkSettings
+    +breadcrumb("Network Settings")
     +form("formData")
       +radio("NetselectionMode:","NetselectionMode")
       +select("NetworkMode:","NetworkMode")

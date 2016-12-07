@@ -1,6 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #pinManagement
+    +breadcrumb("PIN Management")
     +form("formData")
       +formBtn()
 </template>

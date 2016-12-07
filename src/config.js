@@ -1,8 +1,8 @@
 const config = {};
 
-const Unit={
-  validates:(callback,errMsg)=>{
-    return callback(errMsg!==''?new Error(errMsg):undefined);
+const Unit = {
+  validates: (callback, errMsg) => {
+    return callback(errMsg !== '' ? new Error(errMsg) : undefined);
   }
 }
 
@@ -18,7 +18,6 @@ config.mobileConnection = {
       [3, 'IPv4v6']
     ]
   },
-  validates: (vm) => {},
   formData: {},
   formRules: {}
 };
@@ -36,7 +35,6 @@ config.networkSettings = {
       [3, '4G Only']
     ]
   },
-  validates: (vm) => {},
   formData: {},
   formRules: {}
 };
@@ -54,7 +52,6 @@ config.networkSettings = {
       [3, '4G Only']
     ]
   },
-  validates: (vm) => {},
   formData: {},
   formRules: {}
 };
@@ -72,7 +69,6 @@ config.pinManagement = {
       [3, '4G Only']
     ]
   },
-  validates: (vm) => {},
   formData: {},
   formRules: {}
 };
@@ -84,7 +80,6 @@ config.lanSettings = {
       [1, 'Disable']
     ]
   },
-  validates: (vm) => {},
   formData: {},
   formRules: {}
 };
@@ -100,32 +95,122 @@ config.changePassword = {
   },
   formOptions: {},
   validates: {
-    Confirm:(vm) => {
+    Confirm: (vm) => {
       return (rule, value, callback) => {
-        var errMsg=''
+        var errMsg = ''
         if (value !== vm.formData.NewPassword) {
           errMsg = 'Confirm!'
         }
-        Unit.validates(callback,errMsg)
+        Unit.validates(callback, errMsg)
       };
     }
   },
   formRules: {
     CurrPassword: [
-      {type: "string", required: true,pattern: /^[a-z]+$/, message: '请输入字母'},
-      { min: 3, max: 5, message: '长度在 3 到 5 个字符'}
+      { type: "string", required: true, pattern: /^[a-z]+$/, message: '请输入字母' },
+      { min: 3, max: 5, message: '长度在 3 到 5 个字符' }
     ],
     NewPassword: [
-      { required: true, message: '请输入活动名称请'},
-      { min: 3, max: 5, message: '长度在 3 到 5 个字符'}
+      { required: true, message: '请输入活动名称请' },
     ],
     ConfirmPassword: [
-      { required: true, message: '请输入活动名称请'},
+      { required: true, message: '请输入活动名称请' },
     ]
   },
-  formRulesExtension:{
-    ConfirmPassword:{ validator: "Confirm"},
+  formRulesExtension: {
+    ConfirmPassword: { validator: "Confirm" },
   }
 };
+
+config.profileManagement = {
+  initNewData: {
+    "ProfileName": "",
+    "APN": "",
+    "Password": "",
+    "AuthType": 0,
+    "DailNumber": "",
+    "UserName": ""
+  },
+  formData: {},
+  formOptions: {
+    AuthType: [
+      [0, 'None'],
+      [1, 'PAP'],
+      [2, 'CHAP'],
+      [3, 'PAP& CHAP']
+    ]
+  },
+  formRules: {
+    ProfileName: [
+      { required: true, message: '请输入APN',trigger: 'blur'},
+    ],
+    DailNumber: [
+      { required: true, message: '请输入APN',trigger: 'blur'},
+    ],
+    APN: [
+      { required: true, message: '请输入Password',trigger: 'blur'},
+    ]
+  },
+}
+
+config.algSettings = {
+  formOptions: {
+    PptpStatus: [
+      [0, 'Enable'],
+      [1, 'Disable']
+    ],
+    H323AlgStatus: [
+      [0, 'Enable'],
+      [1, 'Disable']
+    ],
+    SipAlgStatus: [
+      [0, 'Enable'],
+      [1, 'Disable']
+    ]
+  },
+  formData: {},
+  formRules: {}
+}
+
+
+config.dmzSettings = {
+  formOptions: {
+    dmz_status: [
+      [0, 'Enable'],
+      [1, 'Disable']
+    ]
+  },
+  formData: {
+    dmz_status:0,
+    dmz_ip:''
+  },
+  formRules: {}
+}
+
+
+
+config.upnpSettings = {
+  formOptions: {
+    DHCPServerStatus: [
+      [0, 'Enable'],
+      [1, 'Disable']
+    ]
+  },
+  formData: {},
+  formRules: {}
+}
+
+
+config.virtualServer = {
+  formOptions: {
+    DHCPServerStatus: [
+      [0, 'Enable'],
+      [1, 'Disable']
+    ]
+  },
+  formData: {},
+  formRules: {}
+}
+
 
 export default config;

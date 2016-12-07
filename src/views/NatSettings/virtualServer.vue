@@ -1,30 +1,24 @@
 <template lang="jade">
   include ../components.jade
   #virtualServer
-    include ./menu.jade
-    div {{$route.name}}
+    +breadcrumb("Virtual Server")
     +form("formData")
-      
       +formBtn()
+    +button("open")(@click="dialogFormVisible = true")
+    el-dialog(title="收货地址" v-model="dialogFormVisible")
+      p asdfasdf安抚
 </template>
 
 <script>
-import Config from '../../config.js'
+import _config from '../../config.js'
+var Config = _config.virtualServer;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
   created () {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
     init (){
+      this.data(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })

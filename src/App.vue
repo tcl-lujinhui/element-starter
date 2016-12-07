@@ -1,19 +1,20 @@
 <template lang="jade">
   include ./jade/components.jade
   #app
-    img(src="./images/logo.png")
-    img.status(src="./images/status.png")
+    div.header
+      img(src="./images/logo.png")
+      img.status(src="./images/status.png")
     el-menu.main-menu.el-menu-demo(default-active="index" mode="horizontal" router=true)
       el-menu-item(index="1") Home
       el-menu-item(index="mobileConnection") Services
       el-menu-item(index="basic") Basic Settings
       el-menu-item(index="dmz") Advance Settings
       el-menu-item(index="changePassword") System
-    el-breadcrumb(separator="/")
+    //-el-breadcrumb(separator="/")
       el-breadcrumb-item Index
       el-breadcrumb-item System
       el-breadcrumb-item Device Mgmt
-    div
+    div.main
       el-row
         el-col(:span="6")
           el-menu(router=true,unique-opened=true)
@@ -40,6 +41,12 @@
               el-menu-item(index="firewall") Firewall
               el-menu-item(index="filter") Filter
             el-menu-item(index="lanSettings") LAN
+            el-submenu(index="5")
+              template(slot="title") NAT Settings
+              el-menu-item(index="dmz") DMZ Settings
+              el-menu-item(index="alg") ALG Settings
+              el-menu-item(index="upnp") UPnP Settings
+              el-menu-item(index="virtualServer") Virtual Server
         el-col(:span="18")
           router-view.main-block
 

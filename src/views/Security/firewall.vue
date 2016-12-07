@@ -1,7 +1,7 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
-    div {{$route.name}}
+  #firewall
+    +breadcrumb("Firewall")
     +form("formData")
       
       +formBtn()

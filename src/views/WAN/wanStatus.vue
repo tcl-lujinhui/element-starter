@@ -1,7 +1,7 @@
 <template lang="jade">
   include ../components.jade
   #wanStatus
-    div {{$route.name}}
+    +breadcrumb("WAN Sstatus")
     +form("formData")
       
       +formBtn()

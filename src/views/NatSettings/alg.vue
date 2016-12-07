@@ -1,30 +1,25 @@
 <template lang="jade">
   include ../components.jade
-  #alg
-    include ./menu.jade
-    div {{$route.name}}
+  #algSettings
+    +breadcrumb("ALG Settings")
     +form("formData")
-      
+      +radio("PPTP:","PptpStatus")
+      +radio("H.323 ALG Status:","H323AlgStatus")
+      +radio("SIP ALG Status:","SipAlgStatus")
+      +input("SIP port","SipAlgPort")
       +formBtn()
 </template>
 
 <script>
-import Config from '../../config.js'
+import _config from '../../config.js'
+var Config = _config.algSettings;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
   created () {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
     init (){
+      this.data(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })

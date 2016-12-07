@@ -1,30 +1,23 @@
 <template lang="jade">
   include ../components.jade
-  #dmz
-    include ./menu.jade
-    div {{$route.name}}
+  #dmzSettings
+    +breadcrumb("DMZ Settings")
     +form("formData")
-      
+      +radio("dmz status:","dmz_status")
+      +input("dmz ip","dmz_ip")
       +formBtn()
 </template>
 
 <script>
-import Config from '../../config.js'
+import _config from '../../config.js'
+var Config = _config.dmzSettings;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
   created () {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
     init (){
+      this.data(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })

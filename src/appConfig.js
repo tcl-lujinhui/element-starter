@@ -9,6 +9,7 @@ export default {
     Vue.mixin({
       data() {
         return {
+          page:{},
           formOptions: {},
           formData: {},
           formRules: {},
@@ -36,10 +37,8 @@ export default {
           }
         },
         init() {
-          console.log("mixin init")
         },
         reset() {
-          console.log("mixin reset")
           this.init()
           this.$refs.formData.resetFields();
         },
