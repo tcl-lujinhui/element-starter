@@ -17,7 +17,7 @@ export default {
         }
       },
       methods: {
-        data(Config) {
+        initdata(Config) {
           //this.validates = Config.validates(vm);
           this.formData = Config.formData;
           this.formOptions = Config.formOptions;

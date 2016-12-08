@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     init (){
-      this.data(Config)
+      this.initdata(Config)
       this.sdk.get("GetNetworkSettings",null,(res)=>{
         this.formData = res;
       })

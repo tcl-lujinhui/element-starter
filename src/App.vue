@@ -16,7 +16,7 @@
       el-breadcrumb-item Device Mgmt
     div.main
       el-row
-        el-col(:span="6")
+        el-col(:span="5")
           el-menu(router=true,unique-opened=true)
             el-submenu(index="1")
               template(slot="title") Dial-UP
@@ -47,10 +47,10 @@
               el-menu-item(index="alg") ALG Settings
               el-menu-item(index="upnp") UPnP Settings
               el-menu-item(index="virtualServer") Virtual Server
-        el-col(:span="18")
+        el-col(:span="19")
           router-view.main-block
 
-    .footer Copyright 2014-2016 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.
+    .footer Copyright 2014-2018 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.
 </template>
 
 <script>

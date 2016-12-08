@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     init (){
-      this.data(Config,this);
+      this.initdata(Config,this);
       this.sdk.get("GetLanSettings",null,(res)=>{
         this.formData = res;
       })

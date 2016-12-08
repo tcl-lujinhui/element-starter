@@ -191,7 +191,7 @@ config.dmzSettings = {
 
 config.upnpSettings = {
   formOptions: {
-    DHCPServerStatus: [
+    upnp_switch: [
       [0, 'Enable'],
       [1, 'Disable']
     ]

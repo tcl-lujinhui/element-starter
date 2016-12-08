@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     init (){
-      this.data(Config)
+      this.initdata(Config)
     },
     update (){
       this.submit("formData",()=>{

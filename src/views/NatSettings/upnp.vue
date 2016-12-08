@@ -3,7 +3,7 @@
   #upnpSettings
     +breadcrumb("UPnP Settings")
     +form("formData")
-      
+      +radio("UPnP Status","upnp_switch")
       +formBtn()
 </template>
 
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     init (){
-      this.data(Config);
+      this.initdata(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })

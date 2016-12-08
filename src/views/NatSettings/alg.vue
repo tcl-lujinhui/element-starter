@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     init (){
-      this.data(Config);
+      this.initdata(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })
