@@ -19,6 +19,7 @@ export default {
     init (){
       this.initdata(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
+        console.log(res)
         this.formData = res;
       })
     },

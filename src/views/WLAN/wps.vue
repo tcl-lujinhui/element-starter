@@ -3,38 +3,24 @@
   #wps
     +breadcrumb("WLAN Basic")
     +form("formData")
-      
+      +select("WPS Mode:","wpsMode")
+      div(v-if="formData.wpsMode==0")
+        +input("WPS PIN:","wpsPin")
       +formBtn()
 </template>
 
-<script>
-import Config from '../../config.js'
+<script lang="coffee">
+import _config from '../../config.js'
+Config = _config.wps
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
-  created () {
+  created:()->
     this.init()
-  },
-  methods: {
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
-    },
-    init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
-    },
-    update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
-    }
-  }
+  methods:
+    init:()->
+      this.initdata Config
+      console.log 'init'
+    update:()->
+      console.log 'update'
 }
 </script>
 

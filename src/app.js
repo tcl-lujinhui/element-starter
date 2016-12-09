@@ -9,6 +9,8 @@ import Routers from './router'
 import sdk from './plugin/sdk'
 
 import appConfig from './appConfig'
+import configs from './config.coffee'
+console.log(configs)
 
 import locale from 'element-ui/lib/locale/lang/en'
 

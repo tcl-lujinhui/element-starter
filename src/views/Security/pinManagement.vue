@@ -3,35 +3,27 @@
   #pinManagement
     +breadcrumb("PIN Management")
     +form("formData")
+      div(v-if="formData.pinState==1")
+        +select('PIN operation:',"Operation")
+      div(v-if="formData.pinState==0")
+        +formItem("PIN operation:")
+          div Eanbel PIN
+      +input("PIN  Code","pinCode")
       +formBtn()
 </template>
 
-<script>
+<script lang='coffee'>
 import _config from '../../config.js'
-var Config = _config.pinManagement;
+Config = _config.pinManagement;
 export default {
-  data () {
-    return {
-      formOptions:Config.formOptions,
-      formData: {},
-      formRules:Config.formRules
-    }
-  },
-  mounted() {
+  created:()->
     this.init()
-  },
-  methods: {
-    init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
-    },
-    update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
-    }
-  }
+  methods:
+    init:()->
+      this.initdata Config
+      console.log 'init'
+    update:()->
+      console.log 'update'
 }
 </script>
 

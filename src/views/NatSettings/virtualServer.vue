@@ -1,9 +1,7 @@
-<template lang="jade" option="{doctype: 'html'}">
-
+<template lang="jade">
   include ../components.jade
   #virtualServer
     +breadcrumb("Virtual Server")
-    +button("new")(@click="page.dialogFormVisible = true")
     el-table(:data="tableData" style="width: 90%;margin:20px auto")
       el-table-column(prop="date" label="Name" width='180')
       el-table-column(prop="name" label="WAN Port" width='100')
@@ -14,17 +12,20 @@
       el-table-column(label="Operation" fixed="right",:context="_self" width='130' inline-template)
         span
           +button("")(icon="search" size="mini")
-          +button("")(icon="edit" size="mini")
-          +button("")(icon="delete" size="mini" type="danger" @click="page.visible2=true")
-    +button("open")(@click="page.dialogFormVisible = true")
-    +button('del2')(v-popover:popover5)
+          +button("")(icon="edit" size="mini" @click="edit(row.name)")
+          +button("")(icon="delete" size="mini" type="danger" @click="del(row.name)")
+    +button("open")(@click="add")
+    
+    el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible" size='tiny')
+      +form("formData")
+        +input("Name:","portfwd_name")
+        +input("WAN Port:","private_ip")
+        +input("LAN IP Address:","private_port")
+        +input("LAN Port:","global_port")
+        +select("Protocol:","fwding_protocol")
+        +select("Status:","fwding_status")
+        +formBtn()
 
-    el-dialog(title="收货地址" v-model="page.dialogFormVisible")
-      p asdfasdf安抚
-    el-popover(ref="popover5" placement="top" width="160" v-model="page.visible2")
-      p 这是一段内容这是一段内容确定删除吗？
-      +button("cancel")(@click="page.visible2 = false")
-      +button("ok")(@click="page.visible2 = false")
 </template>
 
 <script>
@@ -38,26 +39,39 @@ export default {
     init (){
       this.initdata(Config);
       this.page ={
-        visible2:false,
+        actionType:0,//0:list;1:edit;2:new
         dialogFormVisible:false
       }
       this.tableData=[{
         date: 'name sadf asdf asdf asf sadf ',
         name: '65556',
         address: '192.168.2.1 sdffa'
-      }, {
-        date: 'name',
-        name: '65556',
-        address: '192.168.2.1'
-      }, {
-        date: 'name',
-        name: '65556',
-        address: '192.168.2.1'
       }];
       this.sdk.get("getPortFwding",null,(res)=>{
-        this.formData = res;
+        
       })
     },
+    
+    del(name) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', 'Confirm', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+
+      }).catch(() => {
+
+      });
+    },
+    add(){
+      this.page.actionType=2;
+      this.page.dialogFormVisible = true;
+    },
+    edit(id){
+      this.page.actionType=1;
+      this.page.dialogFormVisible = true;
+    },
+
     update (){
       this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
         console.log(res)

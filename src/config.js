@@ -6,6 +6,10 @@ const Unit = {
   }
 }
 
+const common = {
+  
+}
+
 config.mobileConnection = {
   formOptions: {
     ConnectMode: [
@@ -56,20 +60,19 @@ config.networkSettings = {
   formRules: {}
 };
 
+
+//pinManagement
 config.pinManagement = {
   formOptions: {
-    NetselectionMode: [
-      [0, 'Auto'],
-      [1, 'Manual']
-    ],
-    NetworkMode: [
-      [0, 'AUTO'],
-      [1, '2G Only'],
-      [2, '3G Only'],
-      [3, '4G Only']
+    Operation: [
+      [0, 'Disable'],
+      [1, 'Change PIN']
     ]
   },
-  formData: {},
+  formData: {
+    pinState:0
+
+  },
   formRules: {}
 };
 
@@ -142,13 +145,13 @@ config.profileManagement = {
   },
   formRules: {
     ProfileName: [
-      { required: true, message: '请输入APN',trigger: 'blur'},
+      { required: true, message: '请输入APN', trigger: 'blur' },
     ],
     DailNumber: [
-      { required: true, message: '请输入APN',trigger: 'blur'},
+      { required: true, message: '请输入APN', trigger: 'blur' },
     ],
     APN: [
-      { required: true, message: '请输入Password',trigger: 'blur'},
+      { required: true, message: '请输入Password', trigger: 'blur' },
     ]
   },
 }
@@ -181,8 +184,8 @@ config.dmzSettings = {
     ]
   },
   formData: {
-    dmz_status:0,
-    dmz_ip:''
+    dmz_status: 0,
+    dmz_ip: ''
   },
   formRules: {}
 }
@@ -203,12 +206,44 @@ config.upnpSettings = {
 
 config.virtualServer = {
   formOptions: {
-    DHCPServerStatus: [
-      [0, 'Enable'],
-      [1, 'Disable']
+    fwding_status: [
+      [0, 'Off'],
+      [1, 'On']
+    ],
+    fwding_protocol:[
+      [6, 'TCP'],
+      [17, 'UDP'],
+      [253, 'UDP']
     ]
   },
-  formData: {},
+  formData: {
+    portfwd_name: 'name24',
+    private_ip: '192.168.1.5',
+    private_port: '3242',
+    global_port: '324',
+    fwding_protocol: 17,
+    fwding_status: 0
+  },
+  formRules: {
+    portfwd_name: [],
+    private_ip: [],
+    private_port: [],
+    global_port: []
+  }
+
+}
+
+//wps
+config.wps = {
+  formOptions: {
+    wpsMode: [
+      [0, 'WPS PIN'],
+      [1, 'PBC(Push Button Configuration) ']
+    ]
+  },
+  formData: {
+    wpsMode:0
+  },
   formRules: {}
 }
 

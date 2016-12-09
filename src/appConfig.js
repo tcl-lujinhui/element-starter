@@ -3,6 +3,11 @@ import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import $ from 'jquery'
 Vue.use(VueResource)
+if($("#ie9").length>0){
+  $('html').attr("id",'ie-9')
+}else{
+  $('html').attr("id",'no-ie-9')
+}
 
 export default {
   install(Vue) {

@@ -81,7 +81,7 @@ body {
   font-family: Helvetica, sans-serif;
 }
 #app{
-  width:1004px;
+  max-width:1200px;
   margin: 0 auto;
 }
 
