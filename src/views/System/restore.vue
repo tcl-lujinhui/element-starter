@@ -1,5 +1,5 @@
 <template lang="jade">
-  include ./../jade/components.jade
+  include ../components.jade
 
 </template>
 <script>

@@ -9,8 +9,6 @@ import Routers from './router'
 import sdk from './plugin/sdk'
 
 import appConfig from './appConfig'
-import configs from './config.coffee'
-console.log(configs)
 
 import locale from 'element-ui/lib/locale/lang/en'
 
@@ -24,6 +22,22 @@ Vue.use(ElementUI, { locale })
 const router = new VueRouter({
   routes:Routers
 });
+
+
+router.beforeEach((to, from, next) => {
+  console.log(from)
+  console.log(to)
+
+  Vue.sdk.get('GetLoginState',null,(res)=>{
+    console.log(res)
+    if(res.State===5){
+      next()
+    }else{
+      console.log("dsf")
+    }
+  })
+  
+})
 
 
 const app = new Vue({

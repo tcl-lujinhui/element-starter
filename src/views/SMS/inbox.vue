@@ -1,7 +1,6 @@
 <template lang="jade">
   include ../components.jade
   #wanConfigure
-    include ./menu.jade
     div {{$route.name}}
     +form("formData")
       

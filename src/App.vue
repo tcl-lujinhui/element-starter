@@ -1,19 +1,16 @@
 <template lang="jade">
-  include ./jade/components.jade
+  include ./views/components.jade
   #app
     div.header
       img(src="./images/logo.png")
       img.status(src="./images/status.png")
-    el-menu.main-menu.el-menu-demo(default-active="index" mode="horizontal" router=true)
+    el-menu.main-menu.el-menu-demo(mode="horizontal" router=true)
       el-menu-item(index="1") Home
       el-menu-item(index="mobileConnection") Services
       el-menu-item(index="basic") Basic Settings
       el-menu-item(index="dmz") Advance Settings
       el-menu-item(index="changePassword") System
-    //-el-breadcrumb(separator="/")
-      el-breadcrumb-item Index
-      el-breadcrumb-item System
-      el-breadcrumb-item Device Mgmt
+
     div.main
       el-row
         el-col(:span="5")
@@ -81,7 +78,7 @@ body {
   font-family: Helvetica, sans-serif;
 }
 #app{
-  max-width:1200px;
+  max-width:1004px;
   margin: 0 auto;
 }
 

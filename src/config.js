@@ -247,5 +247,14 @@ config.wps = {
   formRules: {}
 }
 
+//login
+config.login = {
+  formOptions: {},
+  formData: {
+    UserName:'',
+    password:''
+  },
+  formRules: {}
+};
 
 export default config;

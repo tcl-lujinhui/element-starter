@@ -3,25 +3,23 @@
   #wanConfigure
     div {{$route.name}}
     +form("formData")
-      
+      +input("username:","UserName")
+      +input("password:","Password")
       +formBtn()
 </template>
 
 <script>
-import Config from '../config.js'
+import _config from '../../config.js'
+var Config = _config.login;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
-  created () {
+  created() {
     this.init()
   },
   methods: {
     init (){
+      this.initdata(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
+        console.log(res)
         this.formData = res;
       })
     },

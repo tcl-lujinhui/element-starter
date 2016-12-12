@@ -1,7 +1,6 @@
 <template lang="jade">
   include ../components.jade
   #backup
-    include _menu_device_mgmt.jade
     div {{$route.name}}
 
 </template>

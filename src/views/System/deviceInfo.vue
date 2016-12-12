@@ -1,7 +1,6 @@
 <template lang="jade">
   include ../components.jade
   div#deviceInfo
-    include _menu_device_info.jade
     el-form(label-width="200px")
       +text("Device Name:","{{SystemInfo.DeviceName}}")
       +text("IMEI:","{{SystemInfo.IMEI}}")

@@ -1,7 +1,6 @@
 /**
  * Created by jinhui.lu on 16/11/09.
  */
-import Index from './views/Index.vue';
 
 //DiaUp
 import mobileConnection from './views/DialUp/mobileConnection.vue';
@@ -37,7 +36,6 @@ import virtualServer from './views/NatSettings/virtualServer.vue';
 
 const routers = [
   //other
-  { name: 'index', path: '/index', component: Index },
 
 
   //DiaUp

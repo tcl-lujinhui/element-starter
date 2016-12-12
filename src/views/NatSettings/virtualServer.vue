@@ -16,7 +16,7 @@
           +button("")(icon="delete" size="mini" type="danger" @click="del(row.name)")
     +button("open")(@click="add")
     
-    el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible" size='tiny')
+    el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible")
       +form("formData")
         +input("Name:","portfwd_name")
         +input("WAN Port:","private_ip")
