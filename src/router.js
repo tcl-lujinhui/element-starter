@@ -34,10 +34,27 @@ import dmz from './views/NatSettings/dmz.vue';
 import upnp from './views/NatSettings/upnp.vue';
 import virtualServer from './views/NatSettings/virtualServer.vue';
 
+//Statistics
+import internetStatistics from './views/Statistics/internetStatistics.vue';
+import lanStatistics from './views/Statistics/lanStatistics.vue';
+import wlanStatistics from './views/Statistics/wlanStatistics.vue';
+
+//Status
+import internetStatus from './views/Status/internetStatus.vue';
+import lanStatus from './views/Status/lanStatus.vue';
+import wlanStatus from './views/Status/wlanStatus.vue';
+
 const routers = [
   //other
 
-
+  //Statistics
+  { name: 'internetStatistics', path: '/internetStatistics', component: internetStatistics },
+  { name: 'lanStatistics', path: '/lanStatistics', component: lanStatistics },
+  { name: 'wlanStatistics', path: '/wlanStatistics', component: wlanStatistics },
+  //Status
+  { name: 'internetStatus', path: '/internetStatus', component: internetStatus },
+  { name: 'lanStatus', path: '/lanStatus', component: lanStatus },
+  { name: 'wlanStatus', path: '/wlanStatus', component: wlanStatus },
   //DiaUp
   { name: 'mobileConnection', path: '/mobileConnection', component: mobileConnection },
   { name: 'monthlyPlan', path: '/monthlyPlan', component: monthlyPlan },

@@ -5,7 +5,7 @@
       img(src="./images/logo.png")
       img.status(src="./images/status.png")
     el-menu.main-menu.el-menu-demo(mode="horizontal" router=true)
-      el-menu-item(index="1") Home
+      el-menu-item(index="1") Home {{common.age}}
       el-menu-item(index="mobileConnection") Services
       el-menu-item(index="basic") Basic Settings
       el-menu-item(index="dmz") Advance Settings
@@ -44,6 +44,15 @@
               el-menu-item(index="alg") ALG Settings
               el-menu-item(index="upnp") UPnP Settings
               el-menu-item(index="virtualServer") Virtual Server
+            el-submenu(index="6")
+              template(slot="title") Status&Statistics
+              el-menu-item(index="internetStatus") internetStatus
+              el-menu-item(index="lanStatus") lanStatus
+              el-menu-item(index="wlanStatus") wlanStatus
+              el-menu-item(index="internetStatistics") internetStatistics
+              el-menu-item(index="lanStatistics") lanStatistics
+              el-menu-item(index="wlanStatistics") wlanStatistics
+              
         el-col(:span="19")
           router-view.main-block
 
@@ -51,21 +60,30 @@
 </template>
 
 <script>
+import _config from './config.js'
+
 export default {
   data () {
     return {
+      common:_config.$G,
       radio: '1',
       input: '',
       msg: 'Use Vue 2.0 Today!',
       fullscreenLoading: false
     }
   },
+  created() {
+    setInterval(() => {
 
+        this.common.age++;
+        console.log("App set:"+this.common.age)
+      }, 3000);
+  },
   methods: {
     openFullScreen() {
       this.fullscreenLoading = true;
       setTimeout(() => {
-        this.fullscreenLoading = false;
+        this.common.age++;
       }, 3000);
     }
   }

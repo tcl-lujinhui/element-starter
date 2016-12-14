@@ -30,8 +30,8 @@ mixin button(label)
 
 mixin formBtn()
   +formItem("")
-    +button("Cancel")(@click="reset")
     +button("Apply")(type="primary" @click="update")
+    +button("Cancel")(@click="reset")
 
 mixin breadcrumb(title)
   h3.breadcrumb&attributes(attributes) #{title}

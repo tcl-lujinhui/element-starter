@@ -3,8 +3,8 @@
   #networkSettings
     +breadcrumb("Network Settings")
     +form("formData")
-      +radio("NetselectionMode:","NetselectionMode")
-      +select("NetworkMode:","NetworkMode")
+      +radio("NetselectionMode2222:","NetselectionMode")
+      +select("NetworkMode222222:","NetworkMode")
       +formBtn()
 </template>
 

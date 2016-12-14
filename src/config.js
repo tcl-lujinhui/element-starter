@@ -10,6 +10,11 @@ const common = {
   
 }
 
+config.$G={
+  name:"hui",
+  age:2
+}
+
 config.mobileConnection = {
   formOptions: {
     ConnectMode: [
@@ -43,22 +48,6 @@ config.networkSettings = {
   formRules: {}
 };
 
-config.networkSettings = {
-  formOptions: {
-    NetselectionMode: [
-      [0, 'Auto'],
-      [1, 'Manual']
-    ],
-    NetworkMode: [
-      [0, 'AUTO'],
-      [1, '2G Only'],
-      [2, '3G Only'],
-      [3, '4G Only']
-    ]
-  },
-  formData: {},
-  formRules: {}
-};
 
 
 //pinManagement
@@ -91,7 +80,7 @@ config.lanSettings = {
 
 config.changePassword = {
   formData: {
-    UserName: "admim",
+    UserName: "admi111m",
     CurrPassword: "",
     NewPassword: "",
     ConfirmPassword: "",

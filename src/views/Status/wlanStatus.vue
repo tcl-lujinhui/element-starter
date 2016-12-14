@@ -1,14 +1,7 @@
 <template lang="jade">
   include ../components.jade
-  #changePassword
-    +breadcrumb("Password Change")
-    +form("formData")
-      +input("User name:","UserName")(disabled)
-      +input("Current password:","CurrPassword")(type="password")
-      +input("New password:","NewPassword")
-      +input("Confirm password:","ConfirmPassword")(type="password")
-      +formBtn()
-
+  #wlanStatus
+    +breadcrumb("WLAN Status")
 </template>
 <script>
 import _config from '../../config.js'
