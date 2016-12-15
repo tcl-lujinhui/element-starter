@@ -15,6 +15,75 @@ config.$G={
   age:2
 }
 
+config.menu = {
+
+  "Dial-UP":[
+    ["mobileConnection","Mobile Connection"],
+    ["profileManagement","Profile Management"],
+    ["networkSettings","Network Settings"],
+    ["monthlyPlan","Monthly Plan"]
+  ],
+  "WAN":[
+    ["wanStatus","WAN Status"],
+    ["wanConfigure","WAN Configure"],
+    ["macClone","MAC Clone"]
+  ],
+  "Lan dss":"lanSettings",
+  "WLAN":[
+    ["basic","Basic"],
+    ["advanced","Advanced"],
+    ["wps","WPS"]
+  ],
+
+}
+
+config.menus = {
+  home:{
+    title:"Home",
+    router:'1',
+    submenu:{
+      Status:{
+        title:"Status",
+        submenu:{
+          internetStatus:{
+            title:"Internet",
+            router:"internetStatus"
+          },
+          lanStatus:{
+            title:"LAN",
+            router:"lanStatus"
+          },
+          wlanStatus:{
+            title:"WLAN",
+            router:"wlanStatus"
+          }
+        }
+      },
+      Statistics:{
+        title:"Statistics",
+        submenu:{
+          internetStatistics:{
+            title:"Internet",
+            router:"internetStatistics"
+          },
+          lanStatistics:{
+            title:"LAN",
+            router:"lanStatistics"
+          },
+          wlanStatistics:{
+            title:"WLAN",
+            router:"wlanStatistics"
+          }
+        }
+      },
+      SetupWizard:{
+        title:"Setup Wizard",
+        router:"lanSettings"
+      }
+    }
+  }
+}
+
 config.mobileConnection = {
   formOptions: {
     ConnectMode: [
@@ -80,7 +149,7 @@ config.lanSettings = {
 
 config.changePassword = {
   formData: {
-    UserName: "admi111m",
+    UserName: "admim",
     CurrPassword: "",
     NewPassword: "",
     ConfirmPassword: "",

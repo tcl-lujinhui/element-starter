@@ -15,8 +15,8 @@ export default {
       data() {
         return {
           page:{},
-          formOptions: {},
           formData: {},
+          formOptions: {},
           formRules: {},
           extensionRules:{}
         }

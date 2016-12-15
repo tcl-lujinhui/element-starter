@@ -3,8 +3,8 @@
   #networkSettings
     +breadcrumb("Network Settings")
     +form("formData")
-      +radio("NetselectionMode2222:","NetselectionMode")
-      +select("NetworkMode222222:","NetworkMode")
+      +radio("NetselectionMode:","NetselectionMode")
+      +select("NetworkMode:","NetworkMode")
       +formBtn()
 </template>
 
@@ -33,4 +33,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
 </style>

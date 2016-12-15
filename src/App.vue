@@ -15,6 +15,13 @@
       el-row
         el-col(:span="5")
           el-menu(router=true,unique-opened=true)
+            div(v-for="(val, key, index) in menu")
+              el-submenu(:index="index.toString()" v-if="val instanceof Array")
+                template(slot="title") {{key}}
+                el-menu-item(:index="item[0]" v-for="item in val") {{item[1]}}
+              el-menu-item(:index="val" v-if="typeof val == 'string'") {{key}}
+        //-el-col(:span="5")
+          el-menu(router=true,unique-opened=true)
             el-submenu(index="1")
               template(slot="title") Dial-UP
               el-menu-item(index="mobileConnection") Mobile Connection
@@ -55,7 +62,7 @@
               
         el-col(:span="19")
           router-view.main-block
-
+     
     .footer Copyright 2014-2018 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.
 </template>
 
@@ -65,6 +72,7 @@ import _config from './config.js'
 export default {
   data () {
     return {
+      menu:_config.menu,
       common:_config.$G,
       radio: '1',
       input: '',
@@ -74,7 +82,6 @@ export default {
   },
   created() {
     setInterval(() => {
-
         this.common.age++;
         console.log("App set:"+this.common.age)
       }, 3000);

@@ -44,6 +44,12 @@ import internetStatus from './views/Status/internetStatus.vue';
 import lanStatus from './views/Status/lanStatus.vue';
 import wlanStatus from './views/Status/wlanStatus.vue';
 
+//Share
+import usb from './views/Share/usb.vue';
+import storageShare from './views/Share/storageShare.vue';
+import dlna from './views/Share/dlna.vue';
+import userSettings from './views/Share/userSettings.vue';
+
 const routers = [
   //other
 
@@ -79,16 +85,23 @@ const routers = [
   { name: 'pinManagement', path: '/pinManagement', component: pinManagement },
   { name: 'routingRules', path: '/routingRules', component: routingRules },
 
-   //lan
+  //lan
   { name: 'lanSettings', path: '/lanSettings', component: lanSettings },
 
   //system
   { name: 'changePassword', path: '/changePassword', component: changePassword },
+
   //NatSettings
   { name: 'alg', path: '/alg', component: alg },
   { name: 'upnp', path: '/upnp', component: upnp },
   { name: 'dmz', path: '/dmz', component: dmz },
   { name: 'virtualServer', path: '/virtualServer', component: virtualServer },
+
+  //Share
+  { name: 'usb', path: '/usb', component: usb },
+  { name: 'storageShare', path: '/storageShare', component: storageShare },
+  { name: 'dlna', path: '/dlna', component: dlna },
+  { name: 'userSettings', path: '/userSettings', component: userSettings }
 ];
 
 export default routers;

@@ -19,14 +19,6 @@
 import _config from '../../config.js'
 var Config = _config.lanSettings;
 export default {
-  data() {
-    var validates = {};
-    return {
-      formOptions: {},
-      formData: {},
-      formRules: {}
-    }
-  },
   created() {
     this.init()
   },
