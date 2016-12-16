@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 Vue.use(VueResource)
-let apiURI = 'http://127.0.0.1:9096/jrd/webapi'
+let apiURI = '/jrd/webapi'
 
 export default {
   install(Vue) {

@@ -1,23 +1,24 @@
 <template lang="jade">
   include ../components.jade
   #profileManagement
-    +breadcrumb("Profile Management")
-    +form("formData")
-      +formItem("Profile Management:")
-        el-select(v-model.mumber="page.currentProfileId" @change="changeProfile()")
-          el-option(v-for="val in profileList",:label="val.Default==1?val.ProfileName+'(D)':val.ProfileName",:value.number="val.ProfileID")
-      +input("Profile Name:","ProfileName")(:disabled="page.actionType==0")
-      +input("Dial Number:","DailNumber")(:disabled="page.actionType==0")
-      +input("APN:","APN")(:disabled="page.actionType==0")
-      +input("User Name:","UserName")(:disabled="page.actionType==0")
-      +input("Password:","Password")(type="password",:disabled="page.actionType==0")
-      +select("Protocol:","AuthType")(:disabled="page.actionType==0")
-      div.center
-        +button("New")(@click="newProfile",:disabled="page.actionType==2||page.actionType==1")
-        +button("edit")(@click="editProfile",:disabled="page.actionType==2||page.actionType==1")
-        +button("Save")(@click="saveProfile",:disabled="page.actionType==0")
-        +button("Delete")(@click="delProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0")
-        +button("Set Default")(@click="setDefaultProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0")
+    +sideMenuPage('Settings')
+      +breadcrumb("Profile Management")
+      +form("formData")
+        +formItem("Profile Management:")
+          el-select(v-model.mumber="page.currentProfileId" @change="changeProfile()")
+            el-option(v-for="val in profileList",:label="val.Default==1?val.ProfileName+'(D)':val.ProfileName",:value.number="val.ProfileID")
+        +input("Profile Name:","ProfileName")(:disabled="page.actionType==0")
+        +input("Dial Number:","DailNumber")(:disabled="page.actionType==0")
+        +input("APN:","APN")(:disabled="page.actionType==0")
+        +input("User Name:","UserName")(:disabled="page.actionType==0")
+        +input("Password:","Password")(type="password",:disabled="page.actionType==0")
+        +select("Protocol:","AuthType")(:disabled="page.actionType==0")
+        div.center
+          +button("New")(@click="newProfile",:disabled="page.actionType==2||page.actionType==1")
+          +button("edit")(@click="editProfile",:disabled="page.actionType==2||page.actionType==1")
+          +button("Save")(@click="saveProfile",:disabled="page.actionType==0")
+          +button("Delete")(@click="delProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0")
+          +button("Set Default")(@click="setDefaultProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0")
 
 </template>
 

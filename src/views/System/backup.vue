@@ -1,7 +1,8 @@
 <template lang="jade">
   include ../components.jade
   #backup
-    div {{$route.name}}
+    +sideMenuPage('System')
+      div {{$route.name}}
 
 </template>
 <script>

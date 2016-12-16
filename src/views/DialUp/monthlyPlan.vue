@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #wanConfigure
-    +breadcrumb("Monthly Plan")
-    +form("formData")
-      div {{page.name}}
-      +button("change")(@click="edit")
+    +sideMenuPage('Settings')
+      +breadcrumb("Monthly Plan")
+      +form("formData")
+        div {{page.name}}
+        +button("change")(@click="edit")
 </template>
 
 <script>

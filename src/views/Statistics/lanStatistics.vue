@@ -1,7 +1,8 @@
 <template lang="jade">
   include ../components.jade
   #lanStatistics
-    +breadcrumb("LAN Statistics")
+    +sideMenuPage('Home')
+      +breadcrumb("LAN Statistics")
 </template>
 <script>
 import _config from '../../config.js'

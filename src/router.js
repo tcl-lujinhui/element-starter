@@ -27,12 +27,24 @@ import lanSettings from './views/LAN/lanSettings.vue';
 
 //system
 import changePassword from './views/System/changePassword.vue';
+import backup from './views/System/backup.vue';
+import deviceInfo from './views/System/deviceInfo.vue';
+import localUpgrade from './views/System/localUpgrade.vue';
+import onlineUpgrade from './views/System/onlineUpgrade.vue';
+import reboot from './views/System/reboot.vue';
+import reset from './views/System/reset.vue';
+import restore from './views/System/restore.vue';
+import systemSettings from './views/System/systemSettings.vue';
+import tr069 from './views/System/tr069.vue';
+
 
 //NatSettings
 import alg from './views/NatSettings/alg.vue';
 import dmz from './views/NatSettings/dmz.vue';
 import upnp from './views/NatSettings/upnp.vue';
 import virtualServer from './views/NatSettings/virtualServer.vue';
+
+import qos from './views/qos.vue';
 
 //Statistics
 import internetStatistics from './views/Statistics/internetStatistics.vue';
@@ -44,13 +56,27 @@ import internetStatus from './views/Status/internetStatus.vue';
 import lanStatus from './views/Status/lanStatus.vue';
 import wlanStatus from './views/Status/wlanStatus.vue';
 
+//setupWizard
+import setupWizard from './views/setupWizard.vue';
+
 //Share
 import usb from './views/Share/usb.vue';
 import storageShare from './views/Share/storageShare.vue';
 import dlna from './views/Share/dlna.vue';
 import userSettings from './views/Share/userSettings.vue';
 
-const routers = [
+//SMS
+import draft from './views/SMS/draft.vue';
+import inbox from './views/SMS/inbox.vue';
+import newSMS from './views/SMS/newSMS.vue';
+import outbox from './views/SMS/outbox.vue';
+import smsSettings from './views/SMS/smsSettings.vue';
+
+
+import login from './views/login.vue';
+import callLogs from './views/callLogs.vue';
+
+let routers = [
   //other
 
   //Statistics
@@ -61,6 +87,10 @@ const routers = [
   { name: 'internetStatus', path: '/internetStatus', component: internetStatus },
   { name: 'lanStatus', path: '/lanStatus', component: lanStatus },
   { name: 'wlanStatus', path: '/wlanStatus', component: wlanStatus },
+  
+  //setupWizard
+  { name: 'setupWizard', path: '/setupWizard', component: setupWizard },
+
   //DiaUp
   { name: 'mobileConnection', path: '/mobileConnection', component: mobileConnection },
   { name: 'monthlyPlan', path: '/monthlyPlan', component: monthlyPlan },
@@ -90,6 +120,15 @@ const routers = [
 
   //system
   { name: 'changePassword', path: '/changePassword', component: changePassword },
+  { name: 'backup', path: '/backup', component: backup },
+  { name: 'deviceInfo', path: '/deviceInfo', component: deviceInfo },
+  { name: 'localUpgrade', path: '/localUpgrade', component: localUpgrade },
+  { name: 'onlineUpgrade', path: '/onlineUpgrade', component: onlineUpgrade },
+  { name: 'reboot', path: '/reboot', component: reboot },
+  { name: 'reset', path: '/reset', component: reset },
+  { name: 'restore', path: '/restore', component: restore },
+  { name: 'systemSettings', path: '/systemSettings', component: systemSettings },
+  { name: 'tr069', path: '/tr069', component: tr069 },
 
   //NatSettings
   { name: 'alg', path: '/alg', component: alg },
@@ -101,7 +140,23 @@ const routers = [
   { name: 'usb', path: '/usb', component: usb },
   { name: 'storageShare', path: '/storageShare', component: storageShare },
   { name: 'dlna', path: '/dlna', component: dlna },
-  { name: 'userSettings', path: '/userSettings', component: userSettings }
+  { name: 'userSettings', path: '/userSettings', component: userSettings },
+
+  { name: 'qos', path: '/qos', component: qos },
+
+  //SMS
+  { name: 'draft', path: '/draft', component: draft },
+  { name: 'inbox', path: '/inbox', component: inbox },
+  { name: 'newSMS', path: '/newSMS', component: newSMS },
+  { name: 'outbox', path: '/outbox', component: outbox },
+  { name: 'smsSettings', path: '/smsSettings', component: smsSettings },
+
+  { name: 'login', path: '/login', component: login },
+  { name: 'incomingCall', path: '/incomingCall', component: callLogs },
+  { name: 'outgoingCall', path: '/outgoingCall', component: callLogs },
+  { name: 'missedCall', path: '/missedCall', component: callLogs }
+
+
 ];
 
 export default routers;

@@ -1,8 +1,8 @@
 <template lang="jade">
   include ../components.jade
   #onlineUpgrade
-    include _menu_upgrade.jade
-    div {{$route.name}}
+    +sideMenuPage('System')
+      div {{$route.name}}
 
 </template>
 <script>

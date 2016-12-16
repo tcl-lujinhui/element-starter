@@ -1,12 +1,13 @@
 <template lang="jade">
   include ../components.jade
   #mobileConnection
-    +breadcrumb("Mobile Connection{{common.age}}")
-    +form("formData")
-      +radio("Connection Mode:","ConnectMode")
-      +select("PdpType:","PdpType")
-      +formBtn()
-</template>
+    +sideMenuPage('Settings')
+      +breadcrumb("Mobile Connection{{common.age}}")
+      +form("formData")
+        +radio("Connection Mode:","ConnectMode")
+        +select("PdpType:","PdpType")
+        +formBtn()
+  </template>
 
 <script>
 import _config from '../../config.js'
@@ -31,9 +32,6 @@ export default {
         console.log(res)
         this.formData = res;
       })
-    },
-    add (){
-      alert("huan")
     },
     update (){
       this.sdk.post("SetConnectionSettings",this.formData,(res)=>{

@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #filter
-    +breadcrumb("Filter")
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("Filter")
+      +form("formData")
+        
+        +formBtn()
 </template>
 
 <script>

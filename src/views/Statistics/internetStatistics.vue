@@ -1,7 +1,8 @@
 <template lang="jade">
   include ../components.jade
   #internetStatistics
-    +breadcrumb("Internet Statistics")
+    +sideMenuPage('Home')
+      +breadcrumb("Internet Statistics")
 </template>
 <script>
 import _config from '../../config.js'

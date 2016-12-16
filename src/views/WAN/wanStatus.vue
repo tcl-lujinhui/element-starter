@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #wanStatus
-    +breadcrumb("WAN Sstatus")
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("WAN Sstatus")
+      +form("formData")
+        
+        +formBtn()
 </template>
 
 <script>

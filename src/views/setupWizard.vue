@@ -1,34 +1,58 @@
 <template lang="jade">
   include ./components.jade
-  #wanConfigure
-    div {{$route.name}}
-    +form("formData")
-      
-      +formBtn()
+  #setupWizard
+    +sideMenuPage('Home')
+      +breadcrumb("Setup Wizard")
+      el-steps.margin-auto(:space="200",:active.number="page.setp_status")
+        el-step(title="Internet")
+        el-step(title="WLAN")
+        el-step(title="WLAN Security")
+        el-step(title="Confirm")
+      +form("formData")(v-show="page.setp_status==0") 
+        +input("User name:","UserName")(disabled)
+        +input("Current password:","CurrPassword")(type="password")
+      +form("formData")(v-show="page.setp_status==1") 
+        +input("User name:","UserName")(disabled)
+        +input("Current password:","CurrPassword")(type="password")
+      +form("formData")(v-show="page.setp_status==2") 
+        +input("User name:","UserName")(disabled)
+        +input("Current password:","CurrPassword")(type="password")
+      +form("formData")(v-show="page.setp_status==3") 
+        +input("User name:","UserName")(disabled)
+        +input("Current password:","CurrPassword")(type="password")
+      +form("formData")(v-show="page.setp_status==4") 
+        h1 х╥хо
+      div.center
+        +button("Back")(@click="prev" type="primary")
+        +button("Next")(@click="next" type="primary")
 </template>
 
 <script>
-import Config from '../config.js'
+import _config from '../config.js'
+let Config = _config.setupWizard;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
   created () {
     this.init()
   },
   methods: {
     init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
+      this.page={
+        setp_status:0
+      }
+      this.initdata(Config);
     },
     update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+      
+    },
+    prev(){
+      if (this.page.setp_status-- <= 0){
+        this.page.setp_status = 0;
+      }
+    },
+    next() {
+      if (this.page.setp_status++ > 3){
+        this.page.setp_status = 4;
+      }
     }
   }
 }

@@ -1,30 +1,31 @@
 <template lang="jade">
   include ../components.jade
   #virtualServer
-    +breadcrumb("Virtual Server")
-    el-table(:data="tableData" style="width: 90%;margin:20px auto")
-      el-table-column(prop="date" label="Name" width='180')
-      el-table-column(prop="name" label="WAN Port" width='100')
-      el-table-column(prop="address" label="LAN IP Address" width='180')
-      el-table-column(prop="address" label="LAN Port" width='100')
-      el-table-column(prop="address" label="Protocol" width='100')
-      el-table-column(prop="name" label="Status")
-      el-table-column(label="Operation" fixed="right",:context="_self" width='130' inline-template)
-        span
-          +button("")(icon="search" size="mini")
-          +button("")(icon="edit" size="mini" @click="edit(row.name)")
-          +button("")(icon="delete" size="mini" type="danger" @click="del(row.name)")
-    +button("open")(@click="add")
-    
-    el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible")
-      +form("formData")
-        +input("Name:","portfwd_name")
-        +input("WAN Port:","private_ip")
-        +input("LAN IP Address:","private_port")
-        +input("LAN Port:","global_port")
-        +select("Protocol:","fwding_protocol")
-        +select("Status:","fwding_status")
-        +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("Virtual Server")
+      el-table(:data="tableData" style="width: 90%;margin:20px auto")
+        el-table-column(prop="date" label="Name" width='180')
+        el-table-column(prop="name" label="WAN Port" width='100')
+        el-table-column(prop="address" label="LAN IP Address" width='180')
+        el-table-column(prop="address" label="LAN Port" width='100')
+        el-table-column(prop="address" label="Protocol" width='100')
+        el-table-column(prop="name" label="Status")
+        el-table-column(label="Operation" fixed="right",:context="_self" width='130' inline-template)
+          span
+            +button("")(icon="search" size="mini")
+            +button("")(icon="edit" size="mini" @click="edit(row.name)")
+            +button("")(icon="delete" size="mini" type="danger" @click="del(row.name)")
+      +button("open")(@click="add")
+      
+      el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible")
+        +form("formData")
+          +input("Name:","portfwd_name")
+          +input("WAN Port:","private_ip")
+          +input("LAN IP Address:","private_port")
+          +input("LAN Port:","global_port")
+          +select("Protocol:","fwding_protocol")
+          +select("Status:","fwding_status")
+          +formBtn()
 
 </template>
 

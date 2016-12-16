@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #routingRules
-    +breadcrumb("Routing Rules")
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("Routing Rules")
+      +form("formData")
+        
+        +formBtn()
 </template>
 
 <script>

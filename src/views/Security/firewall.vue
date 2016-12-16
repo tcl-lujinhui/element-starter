@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #firewall
-    +breadcrumb("Firewall")
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("Firewall")
+      +form("formData")
+        
+        +formBtn()
 </template>
 
 <script>

@@ -1,5 +1,8 @@
 <template lang="jade">
   include ../components.jade
+  #restore
+    +sideMenuPage('System')
+      p restore
 
 </template>
 <script>

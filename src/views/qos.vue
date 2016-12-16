@@ -1,10 +1,11 @@
 <template lang="jade">
   include ./components.jade
   #wanConfigure
-    div {{$route.name}}
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Settings')
+      div {{$route.name}}
+      +form("formData")
+        
+        +formBtn()
 </template>
 
 <script>

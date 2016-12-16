@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #upnpSettings
-    +breadcrumb("UPnP Settings")
-    +form("formData")
-      +radio("UPnP Status","upnp_switch")
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("UPnP Settings")
+      +form("formData")
+        +radio("UPnP Status","upnp_switch")
+        +formBtn()
 </template>
 
 <script>

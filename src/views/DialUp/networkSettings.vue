@@ -1,11 +1,12 @@
 <template lang="jade">
   include ../components.jade
   #networkSettings
-    +breadcrumb("Network Settings")
-    +form("formData")
-      +radio("NetselectionMode:","NetselectionMode")
-      +select("NetworkMode:","NetworkMode")
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("Network Settings")
+      +form("formData")
+        +radio("NetselectionMode:","NetselectionMode")
+        +select("NetworkMode:","NetworkMode")
+        +formBtn()
 </template>
 
 <script>
@@ -33,5 +34,4 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
 </style>

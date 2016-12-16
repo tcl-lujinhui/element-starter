@@ -6,7 +6,8 @@ mixin form(form)
 
 mixin input(label,model)
   el-form-item(label="#{label}",prop="#{model}")
-    el-input(v-model="formData.#{model}")&attributes(attributes)
+    el-input-number(v-model="formData.#{model}" v-if="typeof formData.#{model} =='number'")&attributes(attributes)
+    el-input(v-model="formData.#{model}" v-else)&attributes(attributes)
 
 mixin select(label,name)
   el-form-item(label="#{label}")
@@ -25,6 +26,7 @@ mixin formItem(label)
   el-form-item(label="#{label}")&attributes(attributes)
     if block
       block
+
 mixin button(label)
   el-button&attributes(attributes)(size="small") #{label}
 
@@ -35,6 +37,16 @@ mixin formBtn()
 
 mixin breadcrumb(title)
   h3.breadcrumb&attributes(attributes) #{title}
+
+mixin sideMenuPage(menu)
+  el-row
+    el-col(:span="5")
+      side-menu(submenu="#{menu}")
+    el-col(:span="19")
+      .main-block
+        if block
+        block
+
 
 
 

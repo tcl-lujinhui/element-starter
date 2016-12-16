@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #wlanBasic
-    +breadcrumb("WLAN Basic")
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("WLAN Basic")
+      +form("formData")
+        
+        +formBtn()
 </template>
 
 <script>

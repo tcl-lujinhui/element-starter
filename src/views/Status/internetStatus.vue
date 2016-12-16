@@ -1,7 +1,8 @@
 <template lang="jade">
   include ../components.jade
   #internetStatus
-    +breadcrumb("Internet Status")
+    +sideMenuPage('Home')
+      +breadcrumb("Internet Status")
 </template>
 <script>
 import _config from '../../config.js'

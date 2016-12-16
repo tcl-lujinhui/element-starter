@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #wanConfigure
-    +breadcrumb("USB")
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Services')
+      +breadcrumb("USB")
+      +form("formData")
+        
+        +formBtn()
 </template>
 
 <script>

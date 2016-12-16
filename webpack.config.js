@@ -17,36 +17,29 @@ module.exports = {
     root: path.join(__dirname, 'node_modules'),
   },*/
   module: {
-    loaders: [
-      {
-        test: /\.vue$/,
-        loader: 'vue'
-      },
-      {
-        test: /\.jade$/,
-        loader: 'jade'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        loader: 'style!css'
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
-        loader: 'file'
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
-        loader: 'file',
-        query: {
-          name: '[name].[ext]?[hash]'
-        }
+    loaders: [{
+      test: /\.vue$/,
+      loader: 'vue'
+    }, {
+      test: /\.jade$/,
+      loader: 'jade'
+    }, {
+      test: /\.js$/,
+      loader: 'babel',
+      exclude: /node_modules/
+    }, {
+      test: /\.css$/,
+      loader: 'style!css'
+    }, {
+      test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+      loader: 'file'
+    }, {
+      test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
+      loader: 'file',
+      query: {
+        name: '[name].[ext]?[hash]'
       }
-    ]
+    }]
   },
   //添加，否则类似const Bar = { template: '<div>bar</div>' };不可用
   resolve: {
@@ -56,14 +49,20 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    proxy: {
+      '/jrd/webapi': {
+        target: 'http://127.0.0.1:9096',
+        secure: false
+      }
+    }
   },
   devtool: '#eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
+    // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
@@ -77,5 +76,3 @@ if (process.env.NODE_ENV === 'production') {
     })
   ])
 }
-
-

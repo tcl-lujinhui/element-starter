@@ -1,15 +1,14 @@
 <template lang="jade">
   include ./components.jade
-  #wanConfigure
-    div {{$route.name}}
+  #login
     +form("formData")
-      +input("username:","UserName")
-      +input("password:","Password")
+      +input("username:","UserName")(type="password")
+      +input("password:","Password")(type="password")
       +formBtn()
 </template>
 
 <script>
-import _config from '../../config.js'
+import _config from '../config.js'
 var Config = _config.login;
 export default {
   created() {
@@ -18,14 +17,10 @@ export default {
   methods: {
     init (){
       this.initdata(Config);
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        console.log(res)
-        this.formData = res;
-      })
     },
     update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
+      this.sdk.post("Login",this.formData,(res)=>{
+        this.$router.push('internetStatistics')
       })
     }
   }
@@ -33,4 +28,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+#login{
+  padding:150px;
+}
 </style>

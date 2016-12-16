@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #wanConfigure
-    +breadcrumb("WAN Configure")
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("WAN Configure")
+      +form("formData")
+        
+        +formBtn()
 </template>
 
 <script>

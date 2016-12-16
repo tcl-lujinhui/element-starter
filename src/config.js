@@ -1,87 +1,226 @@
-const config = {};
+let config = {};
 
-const Unit = {
+let Unit = {
   validates: (callback, errMsg) => {
     return callback(errMsg !== '' ? new Error(errMsg) : undefined);
   }
 }
 
-const common = {
-  
-}
-
-config.$G={
-  name:"hui",
-  age:2
-}
-
-config.menu = {
-
-  "Dial-UP":[
-    ["mobileConnection","Mobile Connection"],
-    ["profileManagement","Profile Management"],
-    ["networkSettings","Network Settings"],
-    ["monthlyPlan","Monthly Plan"]
-  ],
-  "WAN":[
-    ["wanStatus","WAN Status"],
-    ["wanConfigure","WAN Configure"],
-    ["macClone","MAC Clone"]
-  ],
-  "Lan dss":"lanSettings",
-  "WLAN":[
-    ["basic","Basic"],
-    ["advanced","Advanced"],
-    ["wps","WPS"]
-  ],
+let common = {
 
 }
 
-config.menus = {
-  home:{
-    title:"Home",
-    router:'1',
-    submenu:{
-      Status:{
-        title:"Status",
-        submenu:{
-          internetStatus:{
-            title:"Internet",
-            router:"internetStatus"
-          },
-          lanStatus:{
-            title:"LAN",
-            router:"lanStatus"
-          },
-          wlanStatus:{
-            title:"WLAN",
-            router:"wlanStatus"
-          }
-        }
-      },
-      Statistics:{
-        title:"Statistics",
-        submenu:{
-          internetStatistics:{
-            title:"Internet",
-            router:"internetStatistics"
-          },
-          lanStatistics:{
-            title:"LAN",
-            router:"lanStatistics"
-          },
-          wlanStatistics:{
-            title:"WLAN",
-            router:"wlanStatistics"
-          }
-        }
-      },
-      SetupWizard:{
-        title:"Setup Wizard",
-        router:"lanSettings"
-      }
-    }
-  }
+config.$G = {
+  name: "hui",
+  age: 2
+}
+//主菜单
+config.nav = [{
+  name: "Home",
+  text: "Home",
+  router: 'internetStatus'
+}, {
+  name: "Services",
+  text: "Services",
+  router: 'inbox'
+}, {
+  name: "Settings",
+  text: "Settings",
+  router: 'mobileConnection'
+}, {
+  name: "System",
+  text: "System",
+  router: 'deviceInfo'
+}];
+//左侧菜单
+config.sideMenu = {
+  "Home": [{
+    text: "Status",
+    submenu: [{
+      text: "Internet",
+      router: "internetStatus"
+    }, {
+      text: "LAN",
+      router: "lanStatus"
+    }, {
+      text: "WLAN",
+      router: "wlanStatus"
+    }]
+  }, {
+    text: "Statistics",
+    submenu: [{
+      text: "Internet",
+      router: "internetStatistics"
+    }, {
+      text: "LAN",
+      router: "lanStatistics"
+    }, {
+      text: "WLAN",
+      router: "wlanStatistics"
+    }]
+  }, {
+    text: "Setup Wizard",
+    router: "setupWizard"
+  }],
+  "Services": [{
+    text: "SMS",
+    submenu: [{
+      text: "Inbox",
+      router: "inbox"
+    }, {
+      text: "Outbox",
+      router: "outbox"
+    }, {
+      text: "Draft",
+      router: "draft"
+    }, {
+      text: "New Message",
+      router: "newSMS"
+    }, {
+      text: "SMS Settings",
+      router: "smsSettings"
+    }]
+  }, {
+    text: "Call Logs",
+    submenu: [{
+      text: "Incoming Call",
+      router: "incomingCall"
+    }, {
+      text: "Outgoing Call",
+      router: "outgoingCall"
+    }, {
+      text: "Missed Call",
+      router: "missedCall"
+    }]
+  }, {
+    text: "Shared",
+    submenu: [{
+      text: "USB",
+      router: "usb"
+    }, {
+      text: "Storage Share",
+      router: "storageShare"
+    }, {
+      text: "DLNA",
+      router: "dlna"
+    }, {
+      text: "User Settings",
+      router: "userSettings"
+    }]
+  }],
+  "Settings": [{
+    text: "Dial-UP",
+    submenu: [{
+      text: "Mobile Connection",
+      router: "mobileConnection"
+    }, {
+      text: "Profile Management",
+      router: "profileManagement"
+    }, {
+      text: "Network Settings",
+      router: "networkSettings"
+    }, {
+      text: "Monthly Plan",
+      router: "monthlyPlan"
+    }]
+  }, {
+    text: "WAN",
+    submenu: [{
+      text: "WAN Status",
+      router: "wanStatus"
+    }, {
+      text: "WAN Configure",
+      router: "wanConfigure"
+    }, {
+      text: "MAC Clone",
+      router: "macClone"
+    }]
+  }, {
+    text: "WLAN",
+    submenu: [{
+      text: "Basic",
+      router: "basic"
+    }, {
+      text: "Advanced",
+      router: "advanced"
+    }, {
+      text: "WPS",
+      router: "wps"
+    }]
+  }, {
+    text: "Security",
+    submenu: [{
+      text: "PIN Management",
+      router: "pinManagement"
+    }, {
+      text: "Routing Rules",
+      router: "routingRules"
+    }, {
+      text: "Firewall",
+      router: "firewall"
+    }, {
+      text: "Filter",
+      router: "filter"
+    }]
+  }, {
+    text: "NAT Settings",
+    submenu: [{
+      text: "DMZ Settings",
+      router: "dmz"
+    }, {
+      text: "ALG Settings",
+      router: "alg"
+    }, {
+      text: "UPnP Settings",
+      router: "upnp"
+    }, {
+      text: "Virtual Server",
+      router: "virtualServer"
+    }]
+  }, {
+    text: "QoS",
+    router: "qos"
+  }, {
+    text: "LAN",
+    router: "lanSettings"
+  }],
+  "System": [{
+    text: "Device Info",
+    router: "deviceInfo"
+  }, {
+    text: "Reboot & Reset",
+    submenu: [{
+      text: "Reboot",
+      router: "reboot"
+    }, {
+      text: "Factory Reset",
+      router: "reset"
+    }]
+  }, {
+    text: "Upgrade",
+    submenu: [{
+      text: "Local Upgrade",
+      router: "localUpgrade"
+    }, {
+      text: "Online Upgrade",
+      router: "onlineUpgrade"
+    }, {
+      text: "TR069",
+      router: "tr069"
+    }]
+  }, {
+    text: "Device Mgmt",
+    submenu: [{
+      text: "Password Change",
+      router: "changePassword"
+    }, {
+      text: "System Settings",
+      router: "systemSettings"
+    }, {
+      text: "Backup&Restore",
+      router: "restore"
+    }]
+  }]
 }
 
 config.mobileConnection = {
@@ -128,7 +267,7 @@ config.pinManagement = {
     ]
   },
   formData: {
-    pinState:0
+    pinState: 0
 
   },
   formRules: {}
@@ -268,7 +407,7 @@ config.virtualServer = {
       [0, 'Off'],
       [1, 'On']
     ],
-    fwding_protocol:[
+    fwding_protocol: [
       [6, 'TCP'],
       [17, 'UDP'],
       [253, 'UDP']
@@ -300,7 +439,7 @@ config.wps = {
     ]
   },
   formData: {
-    wpsMode:0
+    wpsMode: 0
   },
   formRules: {}
 }
@@ -309,8 +448,61 @@ config.wps = {
 config.login = {
   formOptions: {},
   formData: {
-    UserName:'',
-    password:''
+    UserName: '',
+    Password: ''
+  },
+  formRules: {}
+};
+//dlna
+config.dlna = {
+  formData: {},
+  formOptions: {},
+  formRules: {}
+};
+
+//samba
+config.samba = {
+  formData: {},
+  formOptions: {
+    AuthType: [
+      [0, 'Read Only'],
+      [1, 'Read and Write']
+    ]
+  },
+  formRules: {}
+};
+
+//ftp
+config.ftp = {
+  formData: {},
+  formOptions: {
+    AuthType: [
+      [0, 'Read Only'],
+      [1, 'Read and Write']
+    ]
+  },
+  formRules: {}
+};
+
+//user settings
+config.userSettings = {
+  formData: {
+    "DeviceName": ""
+  },
+  formOptions: {},
+  formRules: {
+    DeviceName: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+      { min: 1, max: 32, message: 'The maximum length of 32 characters.' }
+    ]
+  }
+}
+
+//setupWizard
+config.setupWizard = {
+  formOptions: {},
+  formData: {
+    
   },
   formRules: {}
 };

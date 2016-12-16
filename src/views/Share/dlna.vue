@@ -1,41 +1,42 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
-    +breadcrumb("DLNA")
-    +form("formData")
-      
-      +formBtn()
+  #dlna
+    +sideMenuPage('Services')
+      +breadcrumb("DLNA")
+      +form("formData")
+        +formItem("DLNA:")
+          el-switch(v-model="page.dlnaStatus" @change="update()" on-text="" off-text="")
+        div(v-if="formData.DlnaStatus==1")
+          +formItem("Storage:")
+            | USB Hard Disk        
 </template>
 
 <script>
-import Config from '../../config.js'
+import _config from '../../config.js'
+var Config = _config.dlna;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
-  created () {
-    this.init()
-  },
-  methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
+  created() {
+      this.init()
     },
-    init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
-    },
-    update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+    methods: {
+      init() {
+        this.initdata(Config);
+        this.page = {
+          dlnaStatus: false
+        }
+        this.sdk.get("GetDLNASettings", null, (res) => {
+          this.formData = res;
+          this.page.dlnaStatus = this.formData.DlnaStatus == 1 ? true : false;
+        })
+      },
+      update() {
+        this.formData.DlnaStatus = this.page.dlnaStatus == true ? 1 : 0;
+        this.sdk.post("SetDLNASettings", this.formData, (res) => {          
+          console.log(res)
+        })
+      }
     }
-  }
 }
 </script>
-
 <style lang="sass" scoped>
 </style>

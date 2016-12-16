@@ -1,10 +1,11 @@
 <template lang="jade">
   include ../components.jade
   #macClone
-    +breadcrumb("MAC Clone")
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("MAC Clone")
+      +form("formData")
+        
+        +formBtn()
 </template>
 
 <script>

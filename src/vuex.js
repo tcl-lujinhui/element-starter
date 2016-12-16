@@ -1,0 +1,5 @@
+exports.vuex = {
+  SimInfo:{},
+  SystemStatus:{}
+};
+

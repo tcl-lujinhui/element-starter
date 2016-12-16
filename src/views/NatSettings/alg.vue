@@ -1,13 +1,14 @@
 <template lang="jade">
   include ../components.jade
   #algSettings
-    +breadcrumb("ALG Settings")
-    +form("formData")
-      +radio("PPTP:","PptpStatus")
-      +radio("H.323 ALG Status:","H323AlgStatus")
-      +radio("SIP ALG Status:","SipAlgStatus")
-      +input("SIP port","SipAlgPort")
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("ALG Settings")
+      +form("formData")
+        +radio("PPTP:","PptpStatus")
+        +radio("H.323 ALG Status:","H323AlgStatus")
+        +radio("SIP ALG Status:","SipAlgStatus")
+        +input("SIP port","SipAlgPort")
+        +formBtn()
 </template>
 
 <script>

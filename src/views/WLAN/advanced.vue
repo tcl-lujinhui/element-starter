@@ -1,9 +1,10 @@
 <template lang="jade">
   include ../components.jade
   #advance
-    +breadcrumb("WLAN Advance")
-    +form("formData")
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("WLAN Advance")
+      +form("formData")
+        +formBtn()
 </template>
 
 <script>

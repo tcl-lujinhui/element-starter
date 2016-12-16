@@ -1,8 +1,8 @@
 <template lang="jade">
   include ../components.jade
   #reboot
-    include _menu_reboot_reset.jade
-    div reboot {{$route.name}}
+    +sideMenuPage('System')
+      div reboot {{$route.name}}
 
 </template>
 <script>

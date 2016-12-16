@@ -1,12 +1,13 @@
 <template lang="jade">
   include ../components.jade
   #wps
-    +breadcrumb("WLAN Basic")
-    +form("formData")
-      +select("WPS Mode:","wpsMode")
-      div(v-if="formData.wpsMode==0")
-        +input("WPS PIN:","wpsPin")
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("WLAN Basic")
+      +form("formData")
+        +select("WPS Mode:","wpsMode")
+        div(v-if="formData.wpsMode==0")
+          +input("WPS PIN:","wpsPin")
+        +formBtn()
 </template>
 
 <script lang="coffee">

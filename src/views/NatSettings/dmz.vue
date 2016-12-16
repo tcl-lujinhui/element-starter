@@ -1,11 +1,12 @@
 <template lang="jade">
   include ../components.jade
   #dmzSettings
-    +breadcrumb("DMZ Settings")
-    +form("formData")
-      +radio("dmz status:","dmz_status")
-      +input("dmz ip","dmz_ip")
-      +formBtn()
+    +sideMenuPage('Settings')
+      +breadcrumb("DMZ Settings")
+      +form("formData")
+        +radio("dmz status:","dmz_status")
+        +input("dmz ip","dmz_ip")
+        +formBtn()
 </template>
 
 <script>

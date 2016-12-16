@@ -1,41 +1,21 @@
 <template lang="jade">
   include ../components.jade
   #storageShare
-    +breadcrumb("Storage Share")
-    +form("formData")
-      
-      +formBtn()
+    +sideMenuPage('Services')
+      +breadcrumb("Storage Share")
+      samba
+      ftp
 </template>
 
 <script>
-import Config from '../../config.js'
+import samba from './samba.vue'
+import ftp from './ftp.vue'
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
+    components: {
+      samba,
+      ftp
     }
-  },
-  created () {
-    this.init()
-  },
-  methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
-    init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
-    },
-    update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
-    }
-  }
 }
 </script>
-
 <style lang="sass" scoped>
 </style>

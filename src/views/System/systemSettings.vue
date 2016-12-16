@@ -1,8 +1,8 @@
 <template lang="jade">
   include ../components.jade
   #systemSettings
-    include _menu_device_mgmt.jade
-    div {{$route.name}}
+    +sideMenuPage('System')
+      div {{$route.name}}
 
 </template>
 <script>

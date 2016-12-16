@@ -126,3 +126,22 @@
     transform: translateY(0%)\9\0;
   }
 }
+
+.el-input-number{
+  width: auto;
+  .el-input__inner{
+    padding-right:10px;
+  }
+  .el-icon-plus,.el-icon-minus{
+    display: none;
+  }
+}
+
+.margin-auto{
+  margin:30px auto;
+  text-align: center;
+}
+
+.el-step__title{
+  text-align: center;
+}
