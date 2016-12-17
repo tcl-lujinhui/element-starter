@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
+import api from './api/api.js'
 Vue.use(VueResource)
 let apiURI = '/jrd/webapi'
-
 export default {
   install(Vue) {
     Vue.sdk = {
@@ -14,8 +14,18 @@ export default {
           "method": apiName,
           "params": params || {}
         };
+        if (api.hasOwnProperty(apiName)) {
+          if (api[apiName].hasOwnProperty("Request")) {
+            requestBody = api[apiName].Request(requestBody)
+          }
+        }
         Vue.http.post(apiURI, requestBody).then((response) => {
           var res = response.body.result
+          if (api.hasOwnProperty(apiName)) {
+            if (api[apiName].hasOwnProperty("Response")) {
+              res = api[apiName].Request(res)
+            }
+          }
           callback(res)
         }, (response) => {
           ElementUI.Message.error("error")
@@ -28,9 +38,19 @@ export default {
           "method": apiName,
           "params": params || {}
         };
+        if (api.hasOwnProperty(apiName)) {
+          if (api[apiName].hasOwnProperty("Request")) {
+            requestBody = api[apiName].Request(requestBody)
+          }
+        }
         Vue.http.post(apiURI, requestBody).then((response) => {
           var res = response.body
           ElementUI.Message.success("succeed");
+          if (api.hasOwnProperty(apiName)) {
+            if (api[apiName].hasOwnProperty("Response")) {
+              res = api[apiName].Request(res)
+            }
+          }
           callback(res);
         }, (response) => {
           ElementUI.Message.error("error");

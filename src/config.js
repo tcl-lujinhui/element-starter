@@ -507,4 +507,19 @@ config.setupWizard = {
   formRules: {}
 };
 
+
+//simState
+config.simState = {
+  formOptions: {},
+  formData: {
+    Pin:"",
+    Puk:"",
+    ConfirmPin:"",
+    SIMLockCode:""
+  },
+  formRules: {}
+};
+
+
+
 export default config;

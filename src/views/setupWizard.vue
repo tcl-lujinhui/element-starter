@@ -9,8 +9,8 @@
         el-step(title="WLAN Security")
         el-step(title="Confirm")
       +form("formData")(v-show="page.setp_status==0") 
-        +input("User name:","UserName")(disabled)
-        +input("Current password:","CurrPassword")(type="password")
+        +select("Network mode:","NetselectionMode")
+        +select("Connection mode:","NetworkMode")
       +form("formData")(v-show="page.setp_status==1") 
         +input("User name:","UserName")(disabled)
         +input("Current password:","CurrPassword")(type="password")
@@ -21,15 +21,17 @@
         +input("User name:","UserName")(disabled)
         +input("Current password:","CurrPassword")(type="password")
       +form("formData")(v-show="page.setp_status==4") 
-        h1 х╥хо
+        h1 
       div.center
         +button("Back")(@click="prev" type="primary")
         +button("Next")(@click="next" type="primary")
 </template>
 
 <script>
+import _ from 'underscore';
 import _config from '../config.js'
 let Config = _config.setupWizard;
+_.extend(Config,_config.networkSettings);
 export default {
   created () {
     this.init()

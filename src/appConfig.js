@@ -14,6 +14,7 @@ export default {
     Vue.mixin({
       data() {
         return {
+          vuex:{},
           page:{},
           formData: {},
           formOptions: {},

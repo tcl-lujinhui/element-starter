@@ -54,6 +54,10 @@ module.exports = {
       '/jrd/webapi': {
         target: 'http://127.0.0.1:9096',
         secure: false
+      },
+      '/setSimState/*': {
+        target: 'http://127.0.0.1:9096',
+        secure: false
       }
     }
   },
