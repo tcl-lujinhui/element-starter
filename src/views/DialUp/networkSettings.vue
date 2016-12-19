@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import _ from 'underscore';
 import _Config from '../../config.js'
 import vuex from '../../vuex.js';
 var Config = _Config.networkSettings
@@ -25,13 +26,14 @@ export default {
         this.vuex = vuex
         vuex.initSimInfo()
         this.sdk.get("GetNetworkSettings", null, (res) => {
-          this.formData = res;
+          this.formData=res
         })
       },
 
       update() {
+        var vm = this;
         this.sdk.post("SetNetworkSettings", this.formData, (res) => {
-          console.log(res)
+          vm.init()
         })
       }
     }

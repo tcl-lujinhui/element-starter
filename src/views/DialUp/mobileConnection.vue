@@ -29,13 +29,13 @@ export default {
       this.initdata(Config);
       this.common=_config.$G,
       this.sdk.get("GetConnectionSettings",null,(res)=>{
-        console.log(res)
         this.formData = res;
       })
     },
     update (){
+      let vm = this;
       this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
+        this.init()
       })
     }
   }

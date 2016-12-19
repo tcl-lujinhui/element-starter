@@ -500,23 +500,23 @@ config.userSettings = {
 
 //setupWizard
 config.setupWizard = {
-  formOptions: {},
   formData: {
     
   },
+  formOptions: {},
   formRules: {}
 };
 
 
 //simState
 config.simState = {
-  formOptions: {},
   formData: {
     Pin:"",
     Puk:"",
     ConfirmPin:"",
     SIMLockCode:""
   },
+  formOptions: {},
   formRules: {}
 };
 
