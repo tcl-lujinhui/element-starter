@@ -45,12 +45,12 @@ export default {
         }
         Vue.http.post(apiURI, requestBody).then((response) => {
           var res = response.body
+          //ElementUI.Message.success("succeed");
           if (api.hasOwnProperty(apiName)) {
             if (api[apiName].hasOwnProperty("Response")) {
               res = api[apiName].Request(res)
             }
           }
-          ElementUI.Message.success("succeed");
           callback(res);
         }, (response) => {
           ElementUI.Message.error("error");

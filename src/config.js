@@ -11,10 +11,10 @@ let common = {
 }
 
 config.$G = {
-  name: "hui",
-  age: 2
-}
-//主菜单
+    name: "hui",
+    age: 2
+  }
+  //主菜单
 config.nav = [{
   name: "Home",
   text: "Home",
@@ -252,7 +252,9 @@ config.networkSettings = {
       [3, '4G Only']
     ]
   },
-  formData: {},
+  formData: {
+
+  },
   formRules: {}
 };
 
@@ -501,7 +503,7 @@ config.userSettings = {
 //setupWizard
 config.setupWizard = {
   formData: {
-    
+
   },
   formOptions: {},
   formRules: {}
@@ -511,14 +513,112 @@ config.setupWizard = {
 //simState
 config.simState = {
   formData: {
-    Pin:"",
-    Puk:"",
-    ConfirmPin:"",
-    SIMLockCode:""
+    Pin: "",
+    Puk: "",
+    ConfirmPin: "",
+    SIMLockCode: ""
   },
-  formOptions: {},
-  formRules: {}
+  formOptions: {
+
+  },
+  formRules: {
+    Pin: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+    ],
+    Puk: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+
+    ],
+    ConfirmPin: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+    ],
+    SIMLockCode: [
+      { required: true, message: 'Required!', trigger: 'blur' }
+    ]
+  }
 };
+
+config.newSms = {
+  formData: {
+    PhoneNumber: "",
+    SMSContent: "",
+  },
+  formOptions: {
+
+  },
+  formRules: {
+    PhoneNumber: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+    ],
+    SMSContent: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+
+    ],
+  }
+};
+
+config.Wlan = {
+  formData: {
+    "AP2G_Ssid":"ds9",
+    "CountryCode": "IT",
+    "WiFiOffTime": 0,
+    "AP2G": {
+      "ApStatus": 1,
+      "WMode": 3,
+      "Ssid": "WebPocket-BAB5",
+      "SsidHidden": 0,
+      "Channel": 0,
+      "SecurityMode": 3,
+      "WepType": 0,
+      "WepKey": "1234567890",
+      "WpaType": 1,
+      "WpaKey": "GE747TNT",
+      "ApIsolation": 0,
+      "max_numsta": 15,
+      "curr_num": 0,
+      "CurChannel": 8,
+      "Bandwidth": 0
+    },
+    "AP5G": {
+      "ApStatus": 1,
+      "WMode": 3,
+      "Ssid": "WebPocket-BAB5-5G",
+      "SsidHidden": 0,
+      "Channel": 0,
+      "SecurityMode": 3,
+      "WepType": 0,
+      "WepKey": "1234567890",
+      "WpaType": 1,
+      "WpaKey": "GE747TNT",
+      "ApIsolation": 0,
+      "max_numsta": 15,
+      "curr_num": 0,
+      "CurChannel": 8,
+      "Bandwidth": 0
+    }
+  },
+  formOptions: {
+    CountryCode: [
+      ["IT", 'IT'],
+      ["CN", 'CN']
+    ],
+    AP2G: {
+      ApStatus: [
+        [0, 'Read Only'],
+        [1, 'Read and Write']
+      ]
+    }
+  },
+  formRules: {
+    "AP2G_Ssid": [
+      { required: true, message: 'Required!88', trigger: 'blur' },
+    ],
+    "AP2G:Ssid": [
+      { required: true, message: 'Required!889', trigger: 'blur' }
+    ],
+  },
+}
+
 
 
 

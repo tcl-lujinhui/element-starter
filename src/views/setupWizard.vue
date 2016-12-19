@@ -8,20 +8,21 @@
         el-step(title="WLAN")
         el-step(title="WLAN Security")
         el-step(title="Confirm")
-      +form("formData")(v-show="page.setp_status==0") 
-        +select("Network mode:","NetselectionMode")
-        +select("Connection mode:","NetworkMode")
-      +form("formData")(v-show="page.setp_status==1") 
-        +input("User name:","UserName")(disabled)
-        +input("Current password:","CurrPassword")(type="password")
-      +form("formData")(v-show="page.setp_status==2") 
-        +input("User name:","UserName")(disabled)
-        +input("Current password:","CurrPassword")(type="password")
-      +form("formData")(v-show="page.setp_status==3") 
-        +input("User name:","UserName")(disabled)
-        +input("Current password:","CurrPassword")(type="password")
-      +form("formData")(v-show="page.setp_status==4") 
-        h1 
+      +form("formData")
+        div(v-if="page.setp_status==0")
+          +select("Network mode:","NetselectionMode")
+          +select("Connection mode:","NetworkMode")
+        div(v-if="page.setp_status==1")
+          +select("CountryCode:","CountryCode")
+          +input("Current password:","AP2G.Ssid")
+        div(v-if="page.setp_status==2") 
+          +input("User name:","UserName")(disabled)
+          +input("Current password:","CurrPassword")(type="password")
+        div(v-if="page.setp_status==3")
+          +input("User name:","UserName")(disabled)
+          +input("Current password:","CurrPassword")(type="password")
+        div(v-if="page.setp_status==4")
+          h2 cofasdfsd
       div.center
         +button("Back")(@click="prev" type="primary")
         +button("Next")(@click="next" type="primary")
@@ -31,7 +32,11 @@
 import _ from 'underscore';
 import _config from '../config.js'
 let Config = _config.setupWizard;
-_.extend(Config,_config.networkSettings);
+console.log(_config.networkSettings)
+_.extend(Config.formData,_config.networkSettings.formData,_config.Wlan.formData);
+_.extend(Config.formOptions,_config.networkSettings.formOptions,_config.Wlan.formOptions);
+_.extend(Config.formRules,_config.networkSettings.formRules,_config.Wlan.formRules);
+console.log(Config)
 export default {
   created () {
     this.init()
@@ -42,6 +47,9 @@ export default {
         setp_status:0
       }
       this.initdata(Config);
+      this.sdk.get("GetNetworkSettings", null, (res) => {
+          this.formData=_.extend(this.formData,res);
+        })
     },
     update (){
       

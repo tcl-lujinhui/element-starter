@@ -4,31 +4,32 @@
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pinReq'")
       h2.center{{vuex.SimInfo.SIMStateStr}}
       +form("formData")
-        +input('Pin Code:','Pin')
+        +input('Pin Code:','Pin')(type="password")
         +formItem("")
-          +button("Apply")(type="primary")
+          +button("Apply")(type="primary" @click="UnlockPin")
           +button("Cancel")(@click="reset")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pukReq'")
       h2.center{{vuex.SimInfo.SIMStateStr}}
       +form("formData")
-        +input("PUK","Puk")
-        +input('Pin Code:','Pin')
-        +input('Confirm Pin:','ConfirmPin')
+        +input("PUK","Puk")(type="password")
+        +input('Pin Code:','Pin')(type="password")
+        +input('Confirm Pin:','ConfirmPin')(type="password")
         +formItem("")
-          +button("Apply")(type="primary")
+          +button("Apply")(type="primary" @click="UnlockPuk")
           +button("Cancel")(@click="reset")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='simLock'")
       h2.center{{vuex.SimInfo.SIMStateStr}}
       +form("formData")
-        +input('SIM LockCode:','SIMLockCode')
+        +input('SIM LockCode:','SIMLockCode')(type="password")
         +formItem("")
-          +button("Apply")(type="primary")
+          +button("Apply")(type="primary" @click="UnlockSinLock")
           +button("Cancel")(@click="reset")
 
     slot(v-if="vuex.SimInfo.SIMState=='ready'")
-    div(v-if="vuex.SimInfo.SIMState=='pinReq'&vuex.SimInfo.SIMState=='pukReq'&vuex.SimInfo.SIMState=='simLock'&vuex.SimInfo.SIMState=='ready'")
+
+    div(v-if="vuex.SimInfo.SIMState!='pinReq'&vuex.SimInfo.SIMState!='pukReq'&vuex.SimInfo.SIMState!='simLock'&vuex.SimInfo.SIMState!='ready'")
       h2.center{{vuex.SimInfo.SIMStateStr}}
     
 </template>
@@ -51,7 +52,9 @@ export default {
       this.submit("formData",()=>{
         var vm = this;
         this.sdk.post("UnlockPin", this.formData, (res) => {
-          vm.init()
+          setTimeout(function(){
+            vm.init()
+          },3000)
         })
       })
     },
@@ -59,7 +62,9 @@ export default {
       this.submit("formData",()=>{
         var vm = this;
         this.sdk.post("UnlockPuk", this.formData, (res) => {
-          vm.init()
+          setTimeout(function(){
+            vm.init()
+          },3000)
         })
       })
     },
@@ -67,7 +72,9 @@ export default {
       this.submit("formData",()=>{
         var vm = this;
         this.sdk.post("UnlockSimlock", this.formData, (res) => {
-          vm.init()
+          setTimeout(function(){
+            vm.init()
+          },3000)
         })
       })
     }

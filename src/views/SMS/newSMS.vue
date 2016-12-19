@@ -1,33 +1,38 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
+  #newSms
     +sideMenuPage('Services')
-      div {{$route.name}}
-      +form("formData")
-        
-        +formBtn()
+      +breadcrumb("New Message")
+      sim-state
+        +form("formData")
+          +input("Number:","PhoneNumber")
+          +input("SMSContent:","SMSContent")(type="textarea" rows="10")
+          +formItem("")
+            +button("Apply")(type="primary")
+            +button("Cancel")(@click="reset")
 </template>
 
 <script>
-import Config from '../../config.js'
+import _Config from '../../config.js'
+var Config = _Config.newSms
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
   created () {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
+   
     init (){
+      this.initdata(Config)
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })
+    },
+    send (){
+
+    },
+
+    save(){
+
     },
     update (){
       this.sdk.post("SetConnectionSettings",this.formData,(res)=>{

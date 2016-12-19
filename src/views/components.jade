@@ -3,9 +3,12 @@ mixin form(form)
   el-form(:rules="formRules" ref="#{form}",:model="#{form}" label-width="160px")&attributes(attributes)
     if block
       block
-
+mixin prop(model)
+  - var sd= model.replace(/\./,':');
+  h(prop="#{sd}" ps="#{model}") #{model}
 mixin input(label,model)
-  el-form-item(label="#{label}",prop="#{model}")
+  - var prop= model.replace(/\./,':');
+  el-form-item(label="#{label}",prop="#{prop}")
     el-input-number(v-model="formData.#{model}" v-if="typeof formData.#{model} =='number'")&attributes(attributes)
     el-input(v-model="formData.#{model}" v-else)&attributes(attributes)
 
