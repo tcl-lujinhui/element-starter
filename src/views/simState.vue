@@ -4,7 +4,9 @@
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pinReq'")
       h2.center{{vuex.SimInfo.SIMStateStr}}
       +form("formData")
+
         +input('Pin Code:','Pin')(type="password")
+          span sfas
         +formItem("")
           +button("Apply")(type="primary" @click="UnlockPin")
           +button("Cancel")(@click="reset")

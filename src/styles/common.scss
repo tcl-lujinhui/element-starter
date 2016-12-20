@@ -4,12 +4,14 @@
 }
 
 .el-form {
-  width: 540px;
+  width: 550px;
   margin: 0 auto;
   padding: 20px 0px;
   .el-select,
   .el-input {
     width: 250px;
+    display: inline-block;
+    margin-right: 8px;
   }
 }
 

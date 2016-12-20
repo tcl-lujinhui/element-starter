@@ -16,6 +16,17 @@
             +button("")(icon="edit" size="mini" @click="edit(row.name)")
             +button("")(icon="delete" size="mini" type="danger" @click="del(row.name)")
       +button("open")(@click="add")
+
+      el-table(:data="page.tableData3" border style="width: 100%")
+        el-table-column(prop="date" label="日期" width="120")
+        el-table-column(label="配送信息")
+            el-table-column(prop="name" label="姓名")
+            el-table-column(label="地址")
+              el-table-column(prop="province" label="省份")
+              el-table-column(prop="city" label="市区")
+              el-table-column(prop="address" label="地址")
+              el-table-column(prop="zip" label="邮编")
+
       
       el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible")
         +form("formData")
@@ -41,7 +52,29 @@ export default {
       this.initdata(Config);
       this.page ={
         actionType:0,//0:list;1:edit;2:new
-        dialogFormVisible:false
+        dialogFormVisible:false,
+        tableData3:[{
+          date: '2016-05-03',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-02',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }]
       }
       this.tableData=[{
         date: 'name sadf asdf asdf asf sadf ',

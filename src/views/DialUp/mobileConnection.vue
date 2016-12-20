@@ -6,6 +6,7 @@
       +form("formData")
         +radio("Connection Mode:","ConnectMode")
         +select("PdpType:","PdpType")
+          +button("sdfsd") 
         +formBtn()
   </template>
 

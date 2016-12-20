@@ -370,7 +370,11 @@ config.algSettings = {
       [1, 'Disable']
     ]
   },
-  formData: {},
+  formData: {
+    PptpStatus:0,
+    H323AlgStatus:1,
+    SipAlgStatus:0
+  },
   formRules: {}
 }
 

@@ -6,6 +6,8 @@
       +form("formData")
         +radio("PPTP:","PptpStatus")
         +radio("H.323 ALG Status:","H323AlgStatus")
+        +checkbox("H.323 ALG Status:","H323AlgStatus")
+        //-+switch("H.323 ALG Status:","H323AlgStatus")
         +radio("SIP ALG Status:","SipAlgStatus")
         +input("SIP port","SipAlgPort")
         +formBtn()
@@ -22,7 +24,7 @@ export default {
     init (){
       this.initdata(Config);
       this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
+        //this.formData = res;
       })
     },
     update (){
