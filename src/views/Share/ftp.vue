@@ -15,7 +15,7 @@
 
 <script>
 import _config from '../../config.js'
-var Config = _config.ftp;
+let Config = _config.ftp;
 export default {
   created() {
       this.init()

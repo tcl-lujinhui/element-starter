@@ -6,7 +6,12 @@ var vuex = {
     Vue.sdk.get("GetSimStatus", null, (res) => {
       vuex.SimInfo = res
     })
+  },
+  refreshSystemStatus: () => {
+    Vue.sdk.get("GetSystemStatus", null, (res) => {
+      vuex.SystemStatus = res
+    })
   }
 };
 
-export default vuex
+export default vuex;

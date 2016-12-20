@@ -15,7 +15,7 @@
 
 <script>
 import _config from '../../config.js'
-var Config = _config.samba;
+let Config = _config.samba;
 export default {
   created() {
       this.init()

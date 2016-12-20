@@ -4,40 +4,59 @@
     +sideMenuPage('Settings')
       +breadcrumb("MAC Clone")
       +form("formData")
-        
-        +formBtn()
+        +input("Restore Factory MAC:","exCurrMacAddr")(disabled=true)
+        el-form-item
+          +button("Restore Factory MAC")(@click="changeMACAddress('restore')")
+        +input("Clone MAC Address:","MacAddr")        
+        el-form-item
+          +button("Clone MAC Address")(@click="changeMACAddress('clone')")
 </template>
 
 <script>
-import Config from '../../config.js'
+import _Config from '../../config.js'
+import G from "../../config/G.js";
+let Config = _Config.macClone;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
-  created () {
-    this.init()
-  },
-  methods: {
-    reset() {
+  created() {
       this.init()
-      this.$refs.formData.resetFields();
     },
-    init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
-    },
-    update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+    methods: {
+      init() {
+        this.initdata(Config);
+        this.sdk.get("GetWanCurrentMacAddr", null, (res) => {
+          this.formData = res;
+          this.formData.MacAddr = "";
+        })
+      },
+
+      changeMACAddress(type) {
+        this.$confirm('This action requires the services to be restarted. Are you sure to continue?', 'Confirm', {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          let params = {
+            "Type": 0,
+            "MacAddr": ""
+          }
+          if (type == "clone") {
+            params.Type = G.WAN_MAC_ADDRESS_CLONE;
+            params.MacAddr = this.formData.MacAddr;
+          }
+          if (type == "restore") {
+            params.Type = G.WAN_MAC_ADDRESS_RESTORE;
+          }
+          this.sdk.post("SetWanCurrentMacAddr ", params, (res) => {
+            console.log(res)
+          });
+        }).catch(() => {
+
+        });
+      }
     }
-  }
 }
 </script>
+
 
 <style lang="sass" scoped>
 </style>

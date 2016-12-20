@@ -2,40 +2,37 @@
   include ../components.jade
   #wanStatus
     +sideMenuPage('Settings')
-      +breadcrumb("WAN Sstatus")
-      +form("formData")
-        
-        +formBtn()
+      +breadcrumb("WAN Status")
+      el-form(label-width="200px")
+        +text("Wan Connection Type:","{{formData.exConnectTypeStr}}")
+        +text("Status:","{{formData.exStatusStr}}")
+        +text("IP Address:","{{formData.IpAddress}}")
+        +text("Internet Connection Status:","{{page.getWanIsConnInter.exConnToInterStatusStr}}")
 </template>
 
 <script>
-import Config from '../../config.js'
+//import _Config from '../../config.js'
+//import vuex from '../../vuex.js';
+//let Config = _Config.wanStatus;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
-  created () {
-    this.init()
-  },
-  methods: {
-    reset() {
+  created() {
       this.init()
-      this.$refs.formData.resetFields();
     },
-    init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
-    },
-    update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+    methods: {
+      init() {
+        //this.initdata(Config);
+        //this.vuex = vuex
+        this.page={
+          getWanIsConnInter:{}
+        }
+        this.sdk.get("GetWanSettings", null, (res) => {
+          this.formData = res;
+        });
+        this.sdk.get("GetWanIsConnInter", null, (res) => {
+          this.page.getWanIsConnInter = res;
+        });
+      }
     }
-  }
 }
 </script>
 

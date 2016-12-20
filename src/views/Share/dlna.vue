@@ -13,7 +13,7 @@
 
 <script>
 import _config from '../../config.js'
-var Config = _config.dlna;
+let Config = _config.dlna;
 export default {
   created() {
       this.init()

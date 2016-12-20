@@ -17,15 +17,10 @@ import _config from './config.js'
 export default {
   data () {
     return {
-      nav:_config.nav,
-      common:_config.$G
+      nav:_config.nav
     }
   },
   created() {
-    setInterval(() => {
-        this.common.age++;
-        console.log("App set:"+this.common.age)
-      }, 3000);
   },
   methods: {
     logout(){

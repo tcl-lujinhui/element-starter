@@ -204,4 +204,23 @@ G.statistics_MB = 0;
 G.statistics_GB = 1;
 G.statistics_TB = 2;
 
+/*WAN connect type*/
+G.WAN_CONNECT_TYPE_PPPoE = 0;
+G.WAN_CONNECT_TYPE_STATIC_IP = 2;
+G.WAN_CONNECT_TYPE_DHCP = 1;
+
+/*WAN port connect status*/
+G.WAN_PORT_STATUS_DISCONNECTED = 0;
+G.WAN_PORT_STATUS_CONNECTING = 1;
+G.WAN_PORT_STATUS_CONNECTED = 2;
+G.WAN_PORT_STATUS_DISCONNECTING = 3;
+
+/*WAN port Internet connect status*/
+G.WAN_PORT_INTERNET_DISCONNECTED = 0;
+G.WAN_PORT_INTERNET_CONNECTED = 2;
+
+/*WAN MAC Address change type*/
+G.WAN_MAC_ADDRESS_CLONE = 0;
+G.WAN_MAC_ADDRESS_RESTORE = 1;
+
 export default G;

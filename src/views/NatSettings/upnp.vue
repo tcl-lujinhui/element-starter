@@ -18,12 +18,12 @@ export default {
   methods: {
     init (){
       this.initdata(Config);
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
+      this.sdk.get("GetUpnpSettings",null,(res)=>{
         this.formData = res;
       })
     },
     update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
+      this.sdk.post("SetUpnpSettings",this.formData,(res)=>{
         console.log(res)
       })
     }

@@ -2,11 +2,10 @@
   include ../components.jade
   #mobileConnection
     +sideMenuPage('Settings')
-      +breadcrumb("Mobile Connection{{common.age}}")
+      +breadcrumb("Mobile Connection")
       +form("formData")
         +radio("Connection Mode:","ConnectMode")
         +select("PdpType:","PdpType")
-          +button("sdfsd") 
         +formBtn()
   </template>
 
@@ -17,9 +16,8 @@ export default {
   created() {
     this.init();
     this.Inter=setInterval(() => {
-        this.common.age++;
-        console.log("mobileConnection:"+this.common.age)
-      }, 3000);
+      console.log("mobileConnection: ")
+    }, 3000);
   },
   destroyed (){
     clearInterval(this.Inter)
@@ -28,7 +26,6 @@ export default {
   methods: {
     init (){
       this.initdata(Config);
-      this.common=_config.$G,
       this.sdk.get("GetConnectionSettings",null,(res)=>{
         this.formData = res;
       })
