@@ -2,9 +2,12 @@ import G from "../../config/G.js";
 export default {
   GetSimStatus: {
     Request(req) {
+      return req;
+    },
+    Response(res) {
       let simStateType = "invalid";
       let simStateStr = "ids_sim_invalidSimCard";
-      switch (req.SIMState) {
+      switch (res.SIMState) {
         case G.SIM_STATE_NO_SIM:
           simStateType = "noSim";
           simStateStr = "ids_sim_noSimCard";
@@ -43,11 +46,8 @@ export default {
           break;
       }
 
-      req.SIMState = simStateType;
-      req.SIMStateStr = simStateStr;
-      return req;
-    },
-    Response(res) {
+      res.SIMState = simStateType;
+      res.SIMStateStr = simStateStr;
       return res;
     }
   },

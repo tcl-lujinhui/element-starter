@@ -23,9 +23,12 @@ export default {
       })
     },
     update (){
-      this.sdk.post("SetUpnpSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+      let resutls={
+        e1:{
+          msg:"8989999999999999999999"
+        }
+      }
+      this.sdk.post("SetUpnpSettings",this.formData,resutls)
     }
   }
 }

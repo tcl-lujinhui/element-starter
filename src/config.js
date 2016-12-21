@@ -239,7 +239,54 @@ config.profileManagement = {
       { required: true, message: '请输入Password', trigger: 'blur' },
     ]
   },
-}
+};
+// Monthly Plan
+config.monthlyPlan = {
+  formData: {
+    
+  },
+  formOptions: {
+    AutoDisconnFlag: [
+      [0, 'disable'],
+      [1, 'enable']
+    ],
+    TimeLimitFlag: [
+      [0, 'disable'],
+      [1, 'enable']
+    ]
+  },
+  formRules: {
+    MonthlyPlan: [
+      { required: true, message: '请输入APN', trigger: 'blur' },
+      { min: 3, max: 5, message: '长度在 3 到 5 个字符' }
+    ],
+    TimeLimitTimes: [
+      { required: true, message: '请输入时间', trigger: 'blur' }
+    ]
+  }
+};
+
+// Statistics/internetStatistics 
+config.internetStatistics = {
+  formData: {
+    
+  },
+  formOptions: {},
+  formRules: {}
+};
+
+// Statistics/lanStatistics 
+config.lanStatistics = {
+  formData: {},
+  formOptions: {},
+  formRules: {}
+};
+// Statistics/wlanStatistics 
+config.wlanStatistics = {
+  formData: {},
+  formOptions: {},
+  formRules: {}
+};
 
 config.algSettings = {
   formOptions: {
@@ -336,6 +383,16 @@ config.wps = {
   },
   formRules: {}
 }
+
+//qos
+config.qos = {
+  formOptions: {},
+  formData: {
+    UserName:'',
+    password:''
+  },
+  formRules: {}
+};
 
 //login
 config.login = {

@@ -1,34 +1,35 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
+  #monthlyPlan
     +sideMenuPage('Settings')
       +breadcrumb("Monthly Plan")
       +form("formData")
-        div {{page.name}}
-        +button("change")(@click="edit")
+        +input("Monthly Data Plan:","MonthlyPlan","MB")
+        +checkbox("Auto Disconnected:","AutoDisconnFlag")
+        +text("Reset Data Consumption:","UsedData")
+        +input("Set Time Limit:","TimeLimitTimes","Mins")
+        +checkbox("Enable or Disable Time Limit:","TimeLimitFlag")
+        +text("Time Passed:","UsedTimes")
+        +formBtn()
 </template>
 
 <script>
-import Config from '../../config.js'
+import _config from '../../config.js'
+var Config = _config.monthlyPlan
 export default {
   created () {
     this.init()
   },
   methods: {
-    edit (){
-      this.page.name="5555555555555555wo"
-    },
     init (){
-      this.page={
-        name:"898989898"
-      }
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
+      this.initdata(Config)
+      this.sdk.get("GetUsageSettings",null,(res)=>{
         this.formData = res;
       })
     },
     update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
+      this.sdk.post("SetUsageSettings",this.formData,(res)=>{
+         this.reset()
       })
     }
   }

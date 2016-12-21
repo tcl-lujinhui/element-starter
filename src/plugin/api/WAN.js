@@ -2,11 +2,14 @@ import G from "../../config/G.js";
 export default {
   GetWanSettings: {
     Request(req) {
+      return req;
+    },
+    Response(res) {
       let connType = "pppoe";
       let connTypeStr = "ids_ethWan_pppoe";
       let connState = "disconnected";
       let connStateStr = "ids_disconnected";
-      switch (req.ConnectType) {
+      switch (res.ConnectType) {
         case G.WAN_CONNECT_TYPE_PPPoE:
           connType = "pppoe";
           connTypeStr = "ids_ethWan_pppoe";
@@ -25,7 +28,7 @@ export default {
           break;
       }
 
-      switch (req.Status) {
+      switch (res.Status) {
         case G.WAN_PORT_STATUS_DISCONNECTED:
           connState = "disconnected";
           connStateStr = "ids_disconnected";
@@ -48,14 +51,11 @@ export default {
           break;
       }
 
-      req.IpAddress = req.IpAddress || "0.0.0.0";
-      req.exConnectType = connType;
-      req.exConnectTypeStr = connTypeStr;
-      req.exStatus = connState;
-      req.exStatusStr = connStateStr;
-      return req;
-    },
-    Response(res) {
+      res.IpAddress = res.IpAddress || "0.0.0.0";
+      res.exConnectType = connType;
+      res.exConnectTypeStr = connTypeStr;
+      res.exStatus = connState;
+      res.exStatusStr = connStateStr;
       return res;
     }
   },
@@ -70,10 +70,11 @@ export default {
   },
   GetWanCurrentMacAddr: {
     Request(req) {
-      req.exCurrMacAddr = req.MacAddr;
+
       return req;
     },
     Response(res) {
+      res.exCurrMacAddr = res.MacAddr;
       return res;
     }
   },
@@ -87,9 +88,13 @@ export default {
   },
   GetWanIsConnInter: {
     Request(req) {
+
+      return req;
+    },
+    Response(res) {
       let connState = "disconnected";
       let connStateStr = "ids_disconnected";
-      switch (req.ConnToInterStatus) {
+      switch (res.ConnToInterStatus) {
         case G.WAN_PORT_INTERNET_DISCONNECTED:
           connState = "disconnected";
           connStateStr = "ids_disconnected";
@@ -103,11 +108,8 @@ export default {
           connState = "disconnected";
           break;
       }
-      req.exConnToInterStatus = connState;
-      req.exConnToInterStatusStr = connStateStr;
-      return req;
-    },
-    Response(res) {
+      res.exConnToInterStatus = connState;
+      res.exConnToInterStatusStr = connStateStr;
       return res;
     }
   }

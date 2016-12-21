@@ -4,7 +4,7 @@
     +sideMenuPage('System')
       +breadcrumb("TR069")
       +form("formData")
-        h4 TR-069 client¨CConfiguration
+        h4 TR-069 client-Configuration
         p Select the desired values and click "Apply/Save" to configure the TR-069 client options.
         +radio("Inform:","Inform")
         +input("Inform Interval:","InformInterval")(:disabled="formData.Inform==0",:max.number="2678400",:min.number="1")
