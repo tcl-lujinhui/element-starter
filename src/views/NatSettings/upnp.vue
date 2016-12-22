@@ -23,12 +23,12 @@ export default {
       })
     },
     update (){
-      let resutls={
-        e1:{
-          msg:"8989999999999999999999"
-        }
+      let results={
+        fail:"sffsfsfs3333dfsd"
       }
-      this.sdk.post("SetUpnpSettings",this.formData,resutls)
+      this.sdk.post("SetUpnpSettings",this.formData,{
+        callback:this.init
+      })
     }
   }
 }

@@ -26,8 +26,8 @@ export default {
       })
     },
     update (){
-      this.sdk.post("SetALGSettings",this.formData,(res)=>{
-        console.log(res)
+      this.sdk.post("SetALGSettings",this.formData,{
+        callback:this.init
       })
     }
   }

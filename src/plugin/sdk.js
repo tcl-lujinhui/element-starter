@@ -98,17 +98,38 @@ export default {
             }
             if (!result.error) {
               if (callback.hasOwnProperty("success")) {
-                _.extend(successCallbackOption,callback.success)
+                if(_.isObject(callback.success)&&!_.isFunction(callback.success)){
+                  _.extend(successCallbackOption,callback.success)
+                }else if(_.isString(callback.success)){
+                  successCallbackOption.msg=callback.success
+                }else if(_.isFunction(callback.success)){
+                  successCallbackOption.callback=callback.success
+                }
+                
               }
               showResult(successCallbackOption);
             } else {
               if (callback.hasOwnProperty("fail")) {
-                _.extend(failCallbackOption,callback.fail)
+                if(_.isObject(callback.fail)&&!_.isFunction(callback.fail)){
+                  _.extend(failCallbackOption,callback.fail)
+                }else if(_.isString(callback.fail)){
+                  failCallbackOption.msg=callback.fail
+                }else if(_.isFunction(callback.fail)){
+                  failCallbackOption.callback=callback.fail
+                }
+                
               }
               if(callback.hasOwnProperty(result.errorCode)){
-                _.extend(failCallbackOption,callback[result.errorCode])
+
+                if(_.isObject(callback[result.errorCode])&&!_.isFunction(callback[result.errorCode])){
+                    _.extend(failCallbackOption,callback[result.errorCode])
+                }else if(_.isString(callback[result.errorCode])){
+                  failCallbackOption.msg=callback[result.errorCode]
+                }else if(_.isFunction(callback[result.errorCode])){
+                  failCallbackOption.callback=callback[result.errorCode]
+                }
+                
               }
-              console.log(result.errorCode)
               showResult(failCallbackOption);
             }
             

@@ -24,8 +24,8 @@ export default {
       })
     },
     update (){
-      this.sdk.post("SetDMZSettings",this.formData,(res)=>{
-        console.log(res)
+      this.sdk.post("SetDMZSettings",this.formData,{
+        callback:this.init
       })
     }
   }
