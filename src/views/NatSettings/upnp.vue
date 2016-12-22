@@ -23,9 +23,6 @@ export default {
       })
     },
     update (){
-      let results={
-        fail:"sffsfsfs3333dfsd"
-      }
       this.sdk.post("SetUpnpSettings",this.formData,{
         callback:this.init
       })

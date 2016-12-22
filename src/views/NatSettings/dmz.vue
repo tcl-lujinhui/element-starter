@@ -13,22 +13,25 @@
 import _config from '../../config.js'
 var Config = _config.dmzSettings;
 export default {
-  created () {
-    this.init()
-  },
-  methods: {
-    init (){
-      this.initdata(Config);
-      this.sdk.get("GetDMZSettings",null,(res)=>{
-        this.formData = res;
-      })
+  created() {
+      this.init()
     },
-    update (){
-      this.sdk.post("SetDMZSettings",this.formData,{
-        callback:this.init
-      })
+    methods: {
+      init() {
+        this.initdata(Config);
+        this.sdk.get("GetDMZSettings", null, (res) => {
+          this.formData = res;
+        })
+      },
+      update() {
+        let setForm = () => {
+          this.sdk.post("SetDMZSettings", this.formData, {
+            callback: this.init
+          })
+        }
+        this.submit("formData", setForm)
+      }
     }
-  }
 }
 </script>
 

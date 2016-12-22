@@ -9,18 +9,21 @@
       el-menu-item(:index="val.router" v-for="val in nav") {{val.text}}
     router-view.main
      
-    .footer Copyright 2014-2018 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.
+    .footer Copyright 2014-2018 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.{{vuex.res.hello}}
 </template>
 
 <script>
-import _config from './config.js'
+import _config from './config.js';
+import vuex from './vuex.js';
 export default {
   data () {
     return {
+      vuex:vuex,
       nav:_config.nav
     }
   },
   created() {
+    vuex.initRes()
   },
   methods: {
     logout(){

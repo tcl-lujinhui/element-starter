@@ -24,9 +24,9 @@ export default {
       },
       methods: {
         initdata(Config) {
-          this.formRules = $.extend({},Config.formRules);
           this.formData = $.extend({},Config.formData);
           this.formOptions = $.extend({},Config.formOptions);
+          this.formRules = $.extend({},Config.formRules);
           
           if (Config.validates) {
             $.each(Config.validates, (k, v) => {

@@ -1,8 +1,9 @@
 var path = require('path')
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var webpack = require('webpack')
 
 module.exports = {
-  entry:{
+  entry: {
     "build": './src/app.js',
     "config": "./src/config.js"
   },
@@ -64,6 +65,7 @@ module.exports = {
   devtool: '#eval-source-map'
 }
 
+
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
     // http://vue-loader.vuejs.org/en/workflow/production.html
@@ -73,6 +75,10 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
+    new CopyWebpackPlugin([{
+      from:'src/i18n',
+      to: 'i18n'
+    }]),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false

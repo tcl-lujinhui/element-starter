@@ -1,4 +1,5 @@
 import _ from 'underscore';
+//import vuex from '../vuex.js';
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
@@ -9,11 +10,11 @@ let showResult = (options) => {
   let defaults = {
     duration:1000,
     type: "success",
-    msg: "fail！",
+    msg: "fail!",
     callback() {}
   };
   _.extend(defaults, options);
-  console.log(defaults)
+  defaults.callback=()=>{}
   ElementUI.Message({
     duration:defaults.duration,
     type: defaults.type,
@@ -83,13 +84,15 @@ export default {
           } else if (_.isObject(callback)||callback==null) {
             callback=callback||{}
             var successCallbackOption = {
+              tips:"Message",
               type: "success",
-              msg: "success!",
+              msg: "877887",
               callback() {}
             };
             var failCallbackOption = {
+              tips:"Message",
               type: "error",
-              msg: "fail！",
+              msg: "fail!",
               callback() {}
             };
             if (callback.hasOwnProperty("callback")&&_.isFunction(callback.callback)) {
@@ -107,7 +110,12 @@ export default {
                 }
                 
               }
-              showResult(successCallbackOption);
+              if(successCallbackOption.tips=="Message"){
+                successCallbackOption.callback()
+                showResult(successCallbackOption);
+              }else if(successCallbackOption.tips=="None"){
+                successCallbackOption.callback()
+              }
             } else {
               if (callback.hasOwnProperty("fail")) {
                 if(_.isObject(callback.fail)&&!_.isFunction(callback.fail)){
@@ -130,7 +138,12 @@ export default {
                 }
                 
               }
-              showResult(failCallbackOption);
+              if(failCallbackOption.tips=="Message"){
+                failCallbackOption.callback()
+                showResult(failCallbackOption);
+              }else if(failCallbackOption.tips=="None"){
+                failCallbackOption.callback()
+              }
             }
             
           }
