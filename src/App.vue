@@ -3,8 +3,9 @@
   #app
     div.header
       img(src="./images/logo.png")
-      img.status(src="./images/status.png")
-    +button('Logout')(@click="logout")
+      //-img.status(src="./images/status.png")
+      status-icon
+    //-+button('Logout')(@click="logout")
     el-menu.main-menu.el-menu-demo(mode="horizontal" router=true)
       el-menu-item(:index="val.router" v-for="val in nav") {{val.text}}
     router-view.main
@@ -13,8 +14,7 @@
 </template>
 
 <script>
-import _config from './config.js';
-import vuex from './vuex.js';
+import {_config,vuex} from './common.js';
 export default {
   data () {
     return {

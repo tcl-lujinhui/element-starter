@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import _config from '../../config.js'
+import {_config} from '../../common.js';
 var Config = _config.upnpSettings;
 export default {
   created () {

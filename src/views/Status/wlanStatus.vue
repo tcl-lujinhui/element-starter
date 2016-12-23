@@ -41,11 +41,11 @@ export default {
       });
       this.sdk.get("GetWanCurrentMacAddr",null,(res)=>{
         this.page.currentMacAddr = res;
-        $.extend({},this.formData,this.page.currentMacAddr);
+        $.extend(this.formData,this.page.currentMacAddr);
       });
       this.sdk.get("GetLanSettings",null,(res)=>{
         this.page.LanSettings = res;
-        $.extend(this.formData,this.page.currentMacAddr,this.page.LanSettings);
+        $.extend(this.formData,this.page.LanSettings);
         this.formDataWlan();
       })
       

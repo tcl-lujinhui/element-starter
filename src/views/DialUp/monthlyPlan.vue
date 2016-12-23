@@ -6,10 +6,10 @@
       +form("formData")
         +input("Monthly Data Plan:","MonthlyPlan","MB")
         +checkbox("Auto Disconnected:","AutoDisconnFlag")
-        +text("Reset Data Consumption:","UsedData")
+        +text1("Reset Data Consumption:","UsedData")
         +input("Set Time Limit:","TimeLimitTimes","Mins")
         +checkbox("Enable or Disable Time Limit:","TimeLimitFlag")
-        +text("Time Passed:","UsedTimes")
+        +text("Time Passed:","{{formData.UsedTimes}}")
         +formBtn()
 </template>
 

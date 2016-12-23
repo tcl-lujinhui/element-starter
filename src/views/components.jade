@@ -38,10 +38,19 @@ mixin switch(label,name)
   el-form-item(label="#{label}" prop="#{name}")
     el-switch(v-model.number="formData.#{name}" on-text="" off-text="")&attributes(attributes)
       
-mixin text(label,val)
+mixin text(label,val,label1)
   el-form-item(label="#{label}")
-    div.el-text #{val}
+    div.el-text  #{val}
+    if label1
+      span #{label1}
+    else if block
+      block
 
+mixin text1(label,val)
+  el-form-item(label="#{label}")
+    label(style="padding-right:30px") #{val}
+    +button("Reset")(@click="" style="color: #fff;background-color: #20a0ff;border-color: #20a0ff;")
+    
 mixin button(label)
   el-button&attributes(attributes)(size="small") #{label}
 

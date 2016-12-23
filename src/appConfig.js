@@ -24,19 +24,21 @@ export default {
       },
       methods: {
         initdata(Config) {
+          this.formRules = $.extend({},Config.formRules);
           this.formData = $.extend({},Config.formData);
           this.formOptions = $.extend({},Config.formOptions);
-          this.formRules = $.extend({},Config.formRules);
           
           if (Config.validates) {
             $.each(Config.validates, (k, v) => {
               this.extensionRules[k] = v(this)
             })
           }
+
           if (Config.formRulesExtension) {
             $.each(Config.formRulesExtension, (k, v) => {
               let rule = {};
               rule.trigger = v.trigger
+              rule.message=v.message
               rule.validator = this.extensionRules[v.validator]
               this.formRules[k].push(rule)
             })

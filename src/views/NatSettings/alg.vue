@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import _config from '../../config.js'
+import {_config} from '../../common.js';
 var Config = _config.algSettings;
 export default {
   created() {
@@ -36,8 +36,5 @@ export default {
     }
 }
 </script>
-
-
-
 <style lang="sass" scoped>
 </style>

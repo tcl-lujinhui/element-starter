@@ -8,8 +8,9 @@
           el-row(:gutter="15")(v-for="(item,index) in page.initernetItem")
             el-col.textAlignRight(:span="9") {{item.nameVal}}
             el-col(:span="13") {{item.internetVal}}
-              span.btnMarginLeft(v-if="index == 0")
-                span(v-if="page.simStatusData.SIMState == 2")
+              span.btnMarginLeft(v-if="index == 0 && page.simStatusData.SIMState == 2")
+                +bottonRouterLink("pinManagement","Enter PIN")
+                //-span(v-if="page.simStatusData.SIMState == 2")
                   +bottonRouterLink("pinManagement","Enter PIN")
       
       //-+formBtn()

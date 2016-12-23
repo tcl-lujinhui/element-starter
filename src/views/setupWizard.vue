@@ -9,19 +9,19 @@
         el-step(title="WLAN Security")
         el-step(title="Confirm")
       +form("formData")
-        div(v-if="page.setp_status==0")
+        div(v-show="page.setp_status==0")
           +select("Network mode:","NetselectionMode")
           +select("Connection mode:","NetworkMode")
-        div(v-if="page.setp_status==1")
+        div(v-show="page.setp_status==1")
           +select("CountryCode:","CountryCode")
           +input("Current password:","AP2G.Ssid")
-        div(v-if="page.setp_status==2") 
+        div(v-show="page.setp_status==2") 
           +input("User name:","UserName")(disabled)
           +input("Current password:","CurrPassword")(type="password")
-        div(v-if="page.setp_status==3")
+        div(v-show="page.setp_status==3")
           +input("User name:","UserName")(disabled)
           +input("Current password:","CurrPassword")(type="password")
-        div(v-if="page.setp_status==4")
+        div(v-show="page.setp_status==4")
           h2 cofasdfsd
       div.center
         +button("Back")(@click="prev" type="primary")
@@ -29,8 +29,7 @@
 </template>
 
 <script>
-import _ from 'underscore';
-import _config from '../config.js'
+import {_,_config} from '../common.js'
 let Config = _config.setupWizard;
 console.log(_config.networkSettings)
 _.extend(Config.formData,_config.networkSettings.formData,_config.Wlan.formData);
@@ -48,8 +47,8 @@ export default {
       }
       this.initdata(Config);
       this.sdk.get("GetNetworkSettings", null, (res) => {
-          this.formData=_.extend(this.formData,res);
-        })
+        _.extend(this.formData,res)
+      })
     },
     update (){
       

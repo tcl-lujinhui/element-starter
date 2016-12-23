@@ -11,6 +11,7 @@ import sdk from './plugin/sdk'
 import appConfig from './appConfig'
 import sideMenu from './sideMenu.vue'
 import simState from './views/simState.vue'
+import statusIcon from './views/statusIcon.vue'
 
 import locale from 'element-ui/lib/locale/lang/en'
 
@@ -18,6 +19,7 @@ Vue.use(sdk)
 Vue.use(appConfig)
 Vue.component('sideMenu', sideMenu)
 Vue.component('simState', simState)
+Vue.component('statusIcon', statusIcon)
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { locale })

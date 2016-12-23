@@ -137,13 +137,7 @@ config.changePassword = {
   formOptions: {},
   validates: {
     Confirm: (vm) => {
-      return (rule, value, callback) => {
-        var errMsg = ''
-        if (value !== vm.formData.NewPassword) {
-          errMsg = 'The confirm password is not the same as the new password.';
-        }
-        Unit.validates(callback, errMsg)
-      };
+      return validates.Confirm(vm,"CurrPassword");
     }
   },
   formRules: {
@@ -160,7 +154,7 @@ config.changePassword = {
     ]
   },
   formRulesExtension: {
-    ConfirmPassword: { validator: "Confirm" },
+    ConfirmPassword: { validator: "Confirm",message: 'The confirm password is not the same as the new password.' },
   }
 };
 

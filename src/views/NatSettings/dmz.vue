@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import _config from '../../config.js'
+import {_config} from '../../common.js';
 var Config = _config.dmzSettings;
 export default {
   created() {

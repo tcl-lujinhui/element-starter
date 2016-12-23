@@ -1,5 +1,4 @@
 import _ from 'underscore';
-//import vuex from '../vuex.js';
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
@@ -86,7 +85,7 @@ export default {
             var successCallbackOption = {
               tips:"Message",
               type: "success",
-              msg: "877887",
+              msg: "success!",
               callback() {}
             };
             var failCallbackOption = {

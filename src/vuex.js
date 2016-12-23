@@ -18,6 +18,7 @@ var vuex = {
   },
   refreshSystemStatus: () => {
     Vue.sdk.get("GetSystemStatus", null, (res) => {
+      console.log(res)
       vuex.SystemStatus = res;
     })
   }
