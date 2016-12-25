@@ -2,7 +2,7 @@
   #statusIcon.status
     ul
       li.icon-update
-      li.icon-network-type {{vuex.SystemStatus.NetworkName}}
+      li.icon-network-type {{vuex.SystemStatus.NetworkType | networkType}}
       li.icon-singal
       li.icon-network-status
       li.icon-wifi

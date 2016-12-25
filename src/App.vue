@@ -10,7 +10,8 @@
       el-menu-item(:index="val.router" v-for="val in nav") {{val.text}}
     router-view.main
      
-    .footer Copyright 2014-2018 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.{{vuex.res.hello}}
+    .footer 
+      span.copyright Copyright 2014-2018 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.{{vuex.res.hello}}
 </template>
 
 <script>
@@ -23,7 +24,7 @@ export default {
     }
   },
   created() {
-    vuex.initRes()
+    //vuex.initRes()
   },
   methods: {
     logout(){
@@ -52,5 +53,10 @@ body {
   font-size: 13px;
   text-align: center;
   margin-top: 10px;
+  .copyright{
+    padding-left: 60px;
+    margin:0 auto;
+    background: url(images/under_logo.png) left center no-repeat;
+  }
 }
 </style>

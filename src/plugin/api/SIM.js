@@ -1,4 +1,4 @@
-import G from "../../config/G.js";
+import {vuex,G} from "../../common.js";
 export default {
   GetSimStatus: {
     Request(req) {

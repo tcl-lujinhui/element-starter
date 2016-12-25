@@ -9,31 +9,19 @@
 </template>
 
 <script>
-import Config from '../../config.js'
+import {_config} from '../../common.js';
+let Config = _config.Wlan;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
   created () {
     this.init()
   },
   methods: {
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
-    },
+    
     init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
+      this.initdata(Config);
     },
     update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+      
     }
   }
 }
