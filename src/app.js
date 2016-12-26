@@ -7,7 +7,8 @@ import 'element-ui/lib/theme-default/index.css'
 import App from './app.vue'
 import Routers from './router'
 import sdk from './plugin/sdk'
-import {units} from './common'
+import {units,vuex} from './common'
+
 
 import appConfig from './appConfig'
 import sideMenu from './sideMenu.vue'
@@ -24,9 +25,13 @@ Vue.component('statusIcon', statusIcon)
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { locale })
-
+vuex.initRes()
 Vue.filter('networkType', function (value) {
-  return units.networkType(value)
+  return vuex.res[units.networkType(value)]
+})
+
+Vue.filter('res', function (value) {
+  return vuex.res[value]
 })
 
 const router = new VueRouter({

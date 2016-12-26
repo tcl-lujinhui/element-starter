@@ -31,9 +31,10 @@ export default {
 
       update() {
         var vm = this;
-        this.sdk.post("SetNetworkSettings", this.formData, (res) => {
-          vm.init()
-        })
+        let result={
+          callback:vm.init
+        }
+        this.sdk.post("SetNetworkSettings", this.formData,result)
       }
     }
 }

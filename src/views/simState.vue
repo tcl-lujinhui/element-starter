@@ -2,7 +2,7 @@
   include ./components.jade
   #simState
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pinReq'")
-      h2.center {{vuex.SimInfo.SIMStateStr}}
+      h2.center {{vuex.SimInfo.SIMStateStr|res}}
       +form("formData")
         +input('Pin Code:','Pin')(type="password")
         +formItem("")
@@ -10,7 +10,7 @@
           +button("Cancel")(@click="reset")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pukReq'")
-      h2.center{{vuex.SimInfo.SIMStateStr}}
+      h2.center{{vuex.SimInfo.SIMStateStr|res}}
       +form("formData")
         +input("PUK","Puk")(type="password")
         +input('Pin Code:','Pin')(type="password")
@@ -20,7 +20,7 @@
           +button("Cancel")(@click="reset")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='simLock'")
-      h2.center{{vuex.SimInfo.SIMStateStr}}
+      h2.center{{vuex.SimInfo.SIMStateStr |res}}
       +form("formData")
         +input('SIM LockCode:','SIMLockCode')(type="password")
         +formItem("")
@@ -30,7 +30,7 @@
     slot(v-if="vuex.SimInfo.SIMState=='ready'")
 
     div(v-if="vuex.SimInfo.SIMState!='pinReq'&vuex.SimInfo.SIMState!='pukReq'&vuex.SimInfo.SIMState!='simLock'&vuex.SimInfo.SIMState!='ready'")
-      h2.center{{vuex.SimInfo.SIMStateStr}}
+      h2.center{{vuex.SimInfo.SIMStateStr|res}}
     
 </template>
 
