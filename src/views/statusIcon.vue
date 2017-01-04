@@ -4,8 +4,8 @@
       li.icon-update
       li.icon-network-type {{vuex.SystemStatus.NetworkType | networkType}}
       li.icon-singal
-      li.icon-network-status
-      li.icon-wifi
+      li.icon-network-status(:class="{on:vuex.SystemStatus.connectionStatus==2||vuex.SystemStatus.connectionStatus==3}")
+      li.icon-wifi(:class="{on:vuex.SystemStatus.WlanState==1}")
       li.icon-sms
       li.icon-usb
   
@@ -52,15 +52,30 @@ $iconDirectory:"../images/icon/";
     }
     &.icon-network-status{
       background:url(#{$iconDirectory}global_off.png);
+      &.on{
+        background:url(#{$iconDirectory}global_on.png);
+      }
     }
     &.icon-wifi{
       background:url(#{$iconDirectory}wifi_off.png);
+      &.on{
+        background:url(#{$iconDirectory}wifi_on.png);
+      }
     }
     &.icon-sms{
       background:url(#{$iconDirectory}message_allread.png);
+      &.full-message{
+        background:url(#{$iconDirectory}message_full.png);
+      }
+      &.message{
+        background:url(#{$iconDirectory}message.png);
+      }
     }
     &.icon-usb{
       background:url(#{$iconDirectory}usb_disconnect.png);
+      &.connect{
+        background:url(#{$iconDirectory}usb_connect.png);
+      }
     }
   }
 }

@@ -12,10 +12,6 @@ let Unit = {
   }
 }
 
-let common = {
-
-}
-
 config.mobileConnection = {
   formOptions: {
     ConnectMode: [
@@ -43,6 +39,10 @@ config.networkSettings = {
       [1, '2G Only'],
       [2, '3G Only'],
       [3, '4G Only']
+    ],
+    RoamingConnect:[
+      [1,"Enable"],
+      [0,"Disable"]
     ]
   },
   formData: {

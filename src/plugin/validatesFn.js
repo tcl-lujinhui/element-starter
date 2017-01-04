@@ -522,7 +522,7 @@ var validate = {
     var addrParts1 = Ip1.split(".");
     var addrParts2 = Ip2.split(".");
     var maskParts = mask.split(".");
-    for (i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
       if (((Number(addrParts1[i])) & (Number(maskParts[i]))) != ((Number(addrParts2[i])) & (Number(maskParts[i])))) {
         return false;
       }
