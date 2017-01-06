@@ -13,22 +13,22 @@
                 th Total Volume
               tr
                 th Download
-                th {{page.connectionInfo.DlBytes}}
-                th {{page.UsageRecord.HCurrUseDL+page.UsageRecord.RCurrUseDL}} 
+                th {{page.connectionInfo.DlBytes | covertNum}}
+                th {{page.UsageRecord.HCurrUseDL+page.UsageRecord.RCurrUseDL | covertNum}} 
               tr
                 th Upload
-                th {{page.connectionInfo.UlBytes}}
-                th {{page.UsageRecord.HCurrUseUL+page.UsageRecord.RCurrUseUL}}  
+                th {{page.connectionInfo.UlBytes | covertNum}}
+                th {{page.UsageRecord.HCurrUseUL+page.UsageRecord.RCurrUseUL | covertNum}}  
                 
               tr
                 th Total
-                th {{page.connectionInfo.DlBytes+page.connectionInfo.UlBytes}}
-                th {{page.UsageRecord.HCurrUseDL+page.UsageRecord.RCurrUseDL+page.UsageRecord.HCurrUseUL+page.UsageRecord.RCurrUseUL}} 
+                th {{page.connectionInfo.DlBytes+page.connectionInfo.UlBytes | covertNum}}
+                th {{page.UsageRecord.HCurrUseDL+page.UsageRecord.RCurrUseDL+page.UsageRecord.HCurrUseUL+page.UsageRecord.RCurrUseUL | covertNum}} 
                  
               tr
                 th Duration
-                th {{page.connectionInfo.ConnectionTime}}
-                th {{page.UsageRecord.TConnTimes}}           
+                th {{page.connectionInfo.ConnectionTime | covertNum}}
+                th {{page.UsageRecord.TConnTimes | covertNum}}           
       
 </template>
 <script>
@@ -52,14 +52,6 @@ export default {
         this.sdk.get("GetConnectionState", null, (res) => {
           this.page.connectionInfo = res;
         });
-       
-      },
-      update() {
-        this.submit("formData", () => {
-          this.sdk.post("SetUsageRecordClear", this.formData, (res) => {
-            this.reset()
-          })
-        })
       }
     }
 }

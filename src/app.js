@@ -26,10 +26,16 @@ Vue.component('statusIcon', statusIcon)
 Vue.use(VueRouter)
 Vue.use(ElementUI, { locale })
 vuex.initRes()
-Vue.filter('networkType', function (value) {
-  return vuex.res[units.networkType(value)]
-})
 
+Vue.filter('networkType', function (value) {
+  return units.networkType(value)
+})
+Vue.filter('covertNum', function (value) {
+  return units.covertNum(value)
+})
+Vue.filter('UsedTimes', function (value) {
+  return units.getTimePassed(value)
+})
 Vue.filter('res', function (value) {
   return vuex.res[value]
 })

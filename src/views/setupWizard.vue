@@ -11,7 +11,7 @@
         div(v-show="page.setp_status==1")
           sim-state
             +select("Network mode:","NetworkMode")
-            +select("Connection mode:","ConnectMode")
+            +radio("Connection mode:","ConnectMode")
             +checkbox("","RoamingConnect","Enable even when roaming")
             div.center
               +button("Next")(@click="next" type="primary" v-show="page.setp_status!=3")

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {_config,vuex} from '../../common.js';
+import {_config} from '../../common.js';
 var Config = _config.algSettings;
 export default {
   created() {

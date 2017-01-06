@@ -3,69 +3,154 @@
   #wanConfigure
     +sideMenuPage('Settings')
       +breadcrumb("Qos")
-      div(style="width: 90%;margin:20px auto")
-        label(style="float:left") Qos
-        el-checkbox(v-model="checked" checked style="float:right;display:block")
-      el-table(:data="tableData" border style="width: 90%;margin:20px auto")
-        el-table-column(prop="date" label="Name" width='180')
-        el-table-column(prop="name" label="WAN Port" width='100')
-        el-table-column(prop="address" label="LAN IP Address" width='180')
-        el-table-column(prop="address" label="LAN Port" width='100')
-        el-table-column(prop="address" label="Protocol" width='100')
-        el-table-column(prop="name" label="Status")
-        el-table-column(label="Operation" fixed="right",:context="_self" width='100' inline-template)
+      el-table(:data="page.qosList" border style="width: 90%;margin:20px auto")
+        el-table-column(prop="Id" label="Id" width='100')
+        el-table-column(prop="Priority" label="Priority" width='100')
+        el-table-column(prop="SrcIPAddress" label="IP Address" width='130')
+        el-table-column(prop="Service" label="Service" width='100')
+        el-table-column(prop="Protocol" label="Protocol" width='100')
+        el-table-column(prop="Port" label="Port")
+        el-table-column(label="Operation" fixed="right",:context="_self" width='120' inline-template)(style="margin:0 auto")
           span
-            +button("")(icon="edit" size="mini" @click="")
-            +button("")(icon="delete" size="mini" type="danger" @click="")
-      +button("add")(@click="") 
-
+            +button("")(icon="edit" size="mini" @click="edit(row.Id)")
+            +button("")(icon="delete" size="mini" type="danger" @click="del(row.Id)")
+      +button("add")(@click="add")
       
+      el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible")
+        +form("formData")
+          +input("Id:","Id")
+          +select("Priority:","Priority")
+          +input("IP Address:","SrcIPAddress")
+          +select("Service:","Service")
+          +select("Protocol:","Protocol")
+          +input("Port:","Port")
+          +formBtn()
+
 </template>
 
 <script>
+import $ from 'jquery'
 import _config from '../config.js'
 var Config = _config.qos;
 export default {
-  data () {
-    return {
-      config:Config.GetQosSettings,
-      formData: {},
-      checked: true
-    }
-  },
-  created () {
-    this.init()
-  },
-  methods: {
-    init (){
-      this.tableData=[{
-        date: 'name ',
-        name: '65556',
-        address: '192.168.2.1 sdffa'
-      }];
-      this.sdk.get("GetQosSettings",null,(res)=>{
-        this.formData = res;
-      })
+  created() {
+      this.init()
     },
-    del(name) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', 'Confirm', {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
+    methods: {
+      init() {
+        this.initdata(Config);
+        this.page = {
+          actionType: 0, //0:list;1:edit;2:new
+          dialogFormVisible: false,
+          currentQosId: 1,
+          qosList: []
+        };
+        this.sdk.get("GetQosSettings", null, (res) => {
+          this.page.qosList = res.QosList;
+        })
+      },
+      del(id) {
+        this.$confirm('Are you sure to delete it?', 'Confirm', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
 
-      }).catch(() => {
+        }).catch(() => {
 
-      });
-    },
-    update (){
-      this.sdk.post("SetQosSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+        });
+      },
+      add() {
+        this.formData= $.extend({},Config.initNewData);
+        this.page.actionType = 2;
+        this.page.dialogFormVisible = true;
+      },
+      edit(id) {
+        this.page.actionType = 1;
+        this.page.dialogFormVisible = true;
+
+        let vm = this;
+        //vm.$refs.formData.resetFields()
+        //vm.page.actionType=0;
+        let currentQos = $.grep(vm.page.qosList, function(n, i) {
+          return n.Id === id;
+        })[0];
+        //console.log(currentProfile);
+        vm.formData = $.extend({}, currentQos);
+      },
+      update() {
+        this.sdk.post("SetQosSettings", this.formData, (res) => {
+          console.log(res)
+        })
+      }
     }
-  }
 }
 </script>
 
+
 <style lang="sass" scoped>
+.main-box {
+  min-height: 420px;
+  height: auto!important;
+  height: 420px;
+  overflow: visible;
+}
+
+.border-notop {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+  border-top: 0 none;
+  padding: 15px;
+}
+
+.cbi-section {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.table-bordered {
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+table {
+  max-width: 100%;
+  background-color: transparent;
+  border-spacing: 0;
+}
+
+.table-bordered th, .table-bordered td {
+    border-left: 1px solid #dddddd;
+}
+
+table th {
+    font-weight: normal;
+}
+
+table tr {
+    height: 36px;
+}
+
+.table th, .table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+}
+
+.table-tc th, .table-tc td {
+    vertical-align: middle;
+    text-align: center;
+}
 </style>

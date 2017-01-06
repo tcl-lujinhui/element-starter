@@ -2,22 +2,35 @@
   include ../components.jade
   #wlanStatus
     +sideMenuPage('Home')
-      +breadcrumb("WLAN Status")
+      +breadcrumb("Wi-Fi")
       +form("formData")
         div.internetInfo
-          el-row(:gutter="21")(v-for="(item,index) in page.wlanItem")
-            el-col.textAlignRight(:span="10") {{item.nameVal}}
-            el-col(:span="14") {{item.wlanVal}}
-              span.btnMarginLeft(v-if="index == 1")
+          //-2.4G Mode
+          el-row(:gutter="21")
+            el-col.textAlignRight(:span="10" v-html="page.wlanAP2GMode")
+            el-col(:span="14") {{page.wlanAP2GModeText}}
+          el-row(:gutter="21")(v-for="(item,index) in page.wlan2GItem" v-if="page.ApStatus2GMode")
+            el-col.textAlignRight(:span="10" v-html="item.name2GVal")
+            el-col(:span="14") {{item.wlan2GVal}}
+              span.btnMarginLeft(v-if="index == 0")
+                +bottonRouterLink('lanStatus','Change')
+          div.line
+          //-5G Mode
+          el-row(:gutter="21")
+            el-col.textAlignRight(:span="10" v-html="page.wlanAP5GMode")
+            el-col(:span="14") {{page.wlanAP5GModeText}}
+          el-row(:gutter="21")(v-for="(item,index) in page.wlan5GItem" v-if="page.ApStatus5GMode")
+            el-col.textAlignRight(:span="10" v-html="item.name5GVal")
+            el-col(:span="14") {{item.wlan5GVal}}
+              span.btnMarginLeft(v-if="index == 0")
                 +bottonRouterLink('lanStatus','Change')
       
       //-+formBtn()
 </template>
 
 <script>
-import $ from 'jquery'
-import Config from '../../config.js'
-var _config = Config.homeStatus
+import {$,_,_config} from '../../common.js'
+var Config = _config.homeStatus
 
 export default {
   created () {
@@ -25,88 +38,159 @@ export default {
   },
   methods: {
     init (){
-      this.initdata(_config);
+      this.initdata(Config);
       this.page={
-        displayFormData:{},
-        ssidBroadcastTxt:null,
-        wlanAPModeText:null,
-        wepTypeTxt:null,
-        wlanItem:null,
-        currentMacAddr:{},
-        LanSettings:{}
+        displayForm5GData:{},
+        displayForm2GData:{},
+        ssid2gBroadcastTxt:null,
+        ssid5gBroadcastTxt:null,
+        wlanAP2GMode:null,
+        wlanAP5GMode:null,
+        wep2gTypeTxt:null,
+        wep5gTypeTxt:null,
+        wlan2GItem:null,
+        wlan5GItem:null,
+        ApStatus2GMode:false,
+        ApStatus5GMode:false,
+        wlanAP2GModeText:"",
+        wlanAP5GModeText:"",
+        mode2g:"2G",
+        mode5g:"5G",
+        numFinish:0,
+        countFinish:3
       }
       
       this.sdk.get("GetWlanSettings",null,(res)=>{
         this.formData = res;
-      });
-      this.sdk.get("GetWanCurrentMacAddr",null,(res)=>{
-        this.page.currentMacAddr = res;
-        $.extend(this.formData,this.page.currentMacAddr);
-      });
-      this.sdk.get("GetLanSettings",null,(res)=>{
-        this.page.LanSettings = res;
-        $.extend(this.formData,this.page.LanSettings);
-        this.formDataWlan();
-      })
-      
-
-    },
-    formDataWlan(){
-      var APListArr = this.formData.APList;
-      var newFormData;
-      var WlanAPModeTxt = this.formData.WlanAPMode;
-      var wlanInfoArr;
-      
-      APListArr.forEach(function(v){
-        if(v.WlanAPID == WlanAPModeTxt){
-          newFormData = v;
+        if(++this.page.numFinish == this.page.countFinish){
+          this.wlanSupportMode();
         }
       });
-      this.page.displayFormData = newFormData;
-      switch(this.page.displayFormData.WepType){
+      this.sdk.get("GetWanCurrentMacAddr",null,(res)=>{
+        _.extend(this.formData,res);
+         if(++this.page.numFinish == this.page.countFinish){
+          this.wlanSupportMode();
+         }
+      });
+      this.sdk.get("GetLanSettings",null,(res)=>{
+        _.extend(this.formData,res);
+        if(++this.page.numFinish == this.page.countFinish){
+          this.wlanSupportMode();
+        }
+      });
+
+    },
+    wlanSupportMode(){
+      if(this.formData.AP2G.ApStatus == 1 && this.formData.AP5G.ApStatus == 1){
+        this.page.ApStatus2GMode = true;
+        this.page.ApStatus5GMode = true;
+        var _self = this;
+        $.each([this.page.mode2g,this.page.mode5g],function(i,v){
+          _self.formDataWlan(v);
+        })
+      }else{
+       if(this.formData.AP2G.ApStatus == 1){
+        this.page.ApStatus2GMode = true;
+        this.formDataWlan(this.page.mode2g);
+      }else if(this.formData.AP2G.ApStatus == 0){
+        this.page.wlanAP2GModeText = "Disabled";
+      }
+      if(this.formData.AP5G.ApStatus == 1){
+        this.page.ApStatus5GMode = true;
+        this.formDataWlan(this.page.mode5g);
+      }else if(this.formData.AP5G.ApStatus == 0){
+        this.page.wlanAP5GModeText = "Disabled";
+      }
+    }
+    },
+    formDataWlan(modeVal){
+      var wlanInfo2GArr,wlanInfo5GArr;
+      if(modeVal==this.page.mode2g){
+        this.page.displayForm2GData = this.formData.AP2G;
+        this.page.ssid2gBroadcastTxt = Config.ssidBroadcastArr[this.page.displayForm2GData.SsidHidden][Config.ssidBroadcastDisplayNum]
+        switch(this.page.displayForm2GData.WepType){
         case 0:
-        this.page.wepTypeTxt = "Open";
+        this.page.wep2gTypeTxt = "Open";
         break;
         case 1:
-        this.page.wepTypeTxt = "Share"
+        this.page.wep2gTypeTxt = "Share"
         break;
         default:
         break;
       }
-      this.page.ssidBroadcastTxt = _config.ssidBroadcastArr[this.page.displayFormData.SsidHidden][_config.ssidBroadcastDisplayNum]
-      this.page.wlanAPModeText = _config.wlanAPModeArr[WlanAPModeTxt][_config.wlanAPModeDisplayNum]
-
-      wlanInfoArr = [
+        wlanInfo2GArr = [
         {
-          nameVal:"WLAN Frequency:",
-          wlanVal:this.page.wlanAPModeText
+          name2GVal:"SSID:",
+          wlan2GVal:this.page.displayForm2GData.Ssid
         },
         {
-          nameVal:"SSID:",
-          wlanVal:this.page.displayFormData.Ssid
+          name2GVal:"SSID Broadcast:",
+          wlan2GVal:this.page.ssid2gBroadcastTxt
         },
         {
-          nameVal:"SSID Broadcast:",
-          wlanVal:this.page.ssidBroadcastTxt
+          name2GVal:"Security:",
+          wlan2GVal:this.page.wep2gTypeTxt
         },
         {
-          nameVal:"Security:",
-          wlanVal:this.page.wepTypeTxt
+          name2GVal:"Connected Users:",
+          wlan2GVal:this.page.displayForm2GData.curr_num
         },
         {
-          nameVal:"Connected Users:",
-          wlanVal:this.page.displayFormData.curr_num
+          name2GVal:"Gateway Address:",
+          wlan2GVal:this.formData.IPv4IPAddress
         },
         {
-          nameVal:"Gateway Address:",
-          wlanVal:this.formData.IPv4IPAddress
-        },
-        {
-          nameVal:"MAC Address:",
-          wlanVal:this.formData.MacAddr
+          name2GVal:"MAC Address:",
+          wlan2GVal:this.formData.MacAddr
         }
       ]
-      this.page.wlanItem = wlanInfoArr;
+      this.page.wlan2GItem = wlanInfo2GArr;
+      }else if(modeVal==this.page.mode5g){
+        this.page.displayForm5GData = this.formData.AP5G;
+        this.page.ssid5gBroadcastTxt = Config.ssidBroadcastArr[this.page.displayForm5GData.SsidHidden][Config.ssidBroadcastDisplayNum]
+        switch(this.page.displayForm5GData.WepType){
+        case 0:
+        this.page.wep5gTypeTxt = "Open";
+        break;
+        case 1:
+        this.page.wep5gTypeTxt = "Share"
+        break;
+        default:
+        break;
+      }
+        wlanInfo5GArr = [
+        {
+          name5GVal:"SSID:",
+          wlan5GVal:this.page.displayForm5GData.Ssid
+        },
+        {
+          name5GVal:"SSID Broadcast:",
+          wlan5GVal:this.page.ssid5gBroadcastTxt
+        },
+        {
+          name5GVal:"Security:",
+          wlan5GVal:this.page.wep5gTypeTxt
+        },
+        {
+          name5GVal:"Connected Users:",
+          wlan5GVal:this.page.displayForm5GData.curr_num
+        },
+        {
+          name5GVal:"Gateway Address:",
+          wlan5GVal:this.formData.IPv4IPAddress
+        },
+        {
+          name5GVal:"MAC Address:",
+          wlan5GVal:this.formData.MacAddr
+        }
+      ]
+      this.page.wlan5GItem = wlanInfo5GArr;
+      } 
+      
+      this.page.wlanAP2GMode = Config.wlanAPModeArr[0][Config.wlanAPModeDisplayNum]
+      this.page.wlanAP5GMode = Config.wlanAPModeArr[1][Config.wlanAPModeDisplayNum]
+
+      
     }
   }
 }

@@ -24,7 +24,7 @@ export default {
     }
   },
   created() {
-    //vuex.initRes()
+    vuex.initRes()
   },
   methods: {
     logout(){

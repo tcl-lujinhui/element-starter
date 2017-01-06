@@ -109,20 +109,61 @@ config.pinManagement = {
 };
 
 config.lanSettings = {
+  formData: {},
   formOptions: {
     DHCPServerStatus: [
       [0, 'Enable'],
       [1, 'Disable']
     ],
-    DHCPLeaseTime:[
+    DHCPLeaseTime: [
       [1],
       [6],
       [12],
       [24]
     ]
   },
-  formData: {},
-  formRules: {}
+  validates: {
+    IPv4IPAddress: (vm) => {
+      return validates.IsBroadcastOrNetworkAddress(vm, "IPv4IPAddress", "SubnetMask");
+    },
+    StartIPAddress1: (vm) => {
+      return validates.IsSameSubnetAddrs(vm, "StartIPAddress", "IPv4IPAddress", "SubnetMask");
+    },
+    StartIPAddress2: (vm) => {
+      return validates.IsAvailableIpPool(vm, "IPv4IPAddress", "StartIPAddress", "EndIPAddress");
+    },
+    EndIPAddress1: (vm) => {
+      return validates.IsBroadcastOrNetworkAddress(vm, "EndIPAddress", "SubnetMask");
+    },
+    EndIPAddress2: (vm) => {
+      return validates.IsSameSubnetAddrs(vm, "EndIPAddress", "IPv4IPAddress", "SubnetMask");
+    }
+  },
+  formRules: {
+    IPv4IPAddress: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+      { validator: validates.ip, message: 'Invalid IP!' }
+    ],
+    SubnetMask: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+      { validator: validates.subnetMask, message: 'Invalid Subnet Mask!' }
+    ],
+    StartIPAddress: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+      { validator: validates.ip, message: 'Invalid IP!' }
+    ],
+    EndIPAddress: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+      { validator: validates.ip, message: 'Invalid IP!' }
+    ]
+  },
+  formRulesExtension: {
+    IPv4IPAddress: { validator: "IPv4IPAddress", message: 'IP Address is invalid. Please input again!' },
+    StartIPAddress: { validator: "StartIPAddress1", message: 'Start IP Address and "IP Address" should belong to the same subnet.' },
+    StartIPAddress: { validator: "StartIPAddress2", message: 'Error!Please be noticed, 10 after the Home Address is System pre-reserved IP,and it can not be included in DHCP IP Pool.' },
+    EndIPAddress: { validator: "EndIPAddress1", message: 'End IP Address is invalid. Please input again!' },
+    EndIPAddress: { validator: "EndIPAddress2", message: 'End IP Address and "IP Address" should belong to the same subnet.' }
+  }
 };
 
 
@@ -166,7 +207,8 @@ config.systemSettings = {
     CurrTime: "",
     NtpServer1: "",
     NtpServer2: "",
-    TimeZone: "UTC"
+    //TimeZone: "UTC"
+    ZoneName: "UTC"
   },
   formOptions: {
     AntennaSwitch: [
@@ -176,7 +218,16 @@ config.systemSettings = {
     Language: [],
     TimeZone:[] 
   },
-  formRules: {}
+  formRules: {
+    NtpServer1: [
+      { type: "string", required: true, message: 'Required' },
+      {validator:validates.ip,message: 'Invalid IP!'}
+    ],
+    NtpServer2: [
+      { type: "string", required: true, message: 'Required' },
+      {validator:validates.ip,message: 'Invalid IP!'}
+    ]
+  }
 }
 //backupRestore
 config.backupRestore = {
@@ -187,10 +238,57 @@ config.backupRestore = {
   formRules: {}
 }
 
-//Inbox
+//inbox
 config.inbox = {
+  formData: {
+    "Page": 1,
+    "key": "inbox"
+  },
+  formOptions: {},
+  formRules: {}
+}
+//outbox
+config.outbox = {
+  formData: {
+    "Page": 1,
+    "key": "outbox"
+  },
+  formOptions: {},
+  formRules: {}
+}
+//draft
+config.draft = {
+  formData: {
+    "Page": 1,
+    "key": "draft"
+  },
+  formOptions: {},
+  formRules: {}
+}
+//newSMS
+config.newSMS = {
   formData: {},
   formOptions: {},
+  formRules: {}
+}
+//SMS Settings
+config.smsSettings = {
+  formData: {
+    "StoreFlag":1,
+    "SMSReportFlag":1,
+    "SMSCenter":""
+  },
+  formOptions: {
+    StoreFlag: [
+      [0,'SIM Card'],
+      [1,'Device']
+    ],
+    SMSReportFlag: [
+      [1, 'Enable'],
+      [0, 'Disable']
+      
+    ]
+  },
   formRules: {}
 }
 
@@ -236,8 +334,7 @@ config.profileManagement = {
 };
 // Monthly Plan
 config.monthlyPlan = {
-  formData: {
-    
+  formData: {  
   },
   formOptions: {
     AutoDisconnFlag: [
@@ -247,18 +344,37 @@ config.monthlyPlan = {
     TimeLimitFlag: [
       [0, 'disable'],
       [1, 'enable']
+    ],
+    Unit: [
+      [0, 'MB'],
+      [1, 'GB'],
+      [2, 'KB']
     ]
   },
   formRules: {
     MonthlyPlan: [
-      { required: true, message: '请输入APN', trigger: 'blur' },
-      { min: 3, max: 5, message: '长度在 3 到 5 个字符' }
+      { required: true, message: 'Required', trigger: 'blur' },
+      { min: 1, max: 4, message: '长度在 1 到 4 个字符' },
+      { validator:validates.monthlyPlan, message: 'Please input the data between 1-1024.', trigger: 'blur'}
     ],
     TimeLimitTimes: [
-      { required: true, message: '请输入时间', trigger: 'blur' }
+      { required: true, message: 'Required', trigger: 'blur' },
+      { min: 1, max: 5, message: '长度在 1 到 5 个字符' },
+      { validator:validates.timeLimitTimes, message: 'Please input the data between 1-43200.', trigger: 'blur'}
     ]
   }
 };
+
+//  usage Record
+config.usageRecord = {
+  formData: {
+  },
+  formOptions: {
+  },
+  formRules: {
+  }
+};
+
 
 // Statistics/internetStatistics 
 config.internetStatistics = {
@@ -356,31 +472,90 @@ config.virtualServer = {
     fwding_status: 0
   },
   formRules: {
-    portfwd_name: [],
-    private_ip: [],
-    private_port: [],
-    global_port: []
+    portfwd_name: [
+      { required: true, message: 'Required!', trigger: 'blur' }
+    ],
+    private_ip: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+      {validator:validates.ip,message: 'Invalid IP!'}
+    ],
+    private_port: [
+      { required: true, message: 'Required!', trigger: 'blur' }
+    ],
+    global_port: [
+      { required: true, message: 'Required!', trigger: 'blur' }
+    ]
   }
 
 }
 
 //wps
 config.wps = {
+  formData: {
+    wpsMode: 0,
+    WpsPin: ""
+  },
   formOptions: {
     wpsMode: [
       [0, 'WPS PIN'],
       [1, 'PBC(Push Button Configuration) ']
     ]
   },
-  formData: {
-    wpsMode: 0
-  },
-  formRules: {}
+  formRules: {
+    WpsPin: [
+      { required: true, message: 'Required!', trigger: 'blur' },
+      { validator: validates.wpsPin, message: 'Invalid wps Pin!' }
+    ]
+  }
 }
 
 //qos
 config.qos = {
-  formOptions: {},
+  initNewData: {
+    "Id": "",
+    "Priority": 1,
+    "SrcIPAddress": "",
+    "Service": 0,
+    "Protocol": 0,
+    "Port": ""
+  },
+  formOptions: {
+    State: [
+      [0, 'disable'],
+      [1, 'enable'],
+    ],
+    Protocol: [
+      [0, 'ALL'],
+      [1, 'TCP'],
+      [2, 'UDP'],
+      [3, 'ICMP']
+    ],
+    Priority: [
+      [0, 'Express'],
+      [1, 'High'],
+      [2, 'Normal'],
+      [3, 'Low']
+    ],
+    Service: [
+      [0, 'All'],
+      [1, 'ICQ'],
+      [2, 'BitTorrent'],
+      [3, 'eMule'],
+      [4, 'FastTrack'],
+      [5, 'FTP'],
+      [6, 'Gnutella'],
+      [7, 'HTTP'],
+      [8, 'Ident'],
+      [9, 'IRC'],
+      [10, 'Jabber'],
+      [11, 'MSN'],
+      [12, 'NTP'],
+      [13, 'POP3'],
+      [14, 'SMTP'],
+      [15, 'SSL'],
+      [16, 'VNC']
+    ]
+  },
   formData: {
     UserName:'',
     password:''
@@ -525,6 +700,12 @@ config.homeStatus = {
     [2,"2.4GHz and 5GHz"]
   ]
 };
+//localUpgrade
+config.localUpgrade = {
+  formData:{},
+  formRules:{}
+};
+
 //wan mac Clone
 config.macClone = {
   formData: {
@@ -640,26 +821,8 @@ config.tr069 = {
     ConfirmPassword: { validator: "Confirm" },
   }
 };
-config.systemSettings.formOptions.TimeZone=sys.TimeZone;
+config.systemSettings.formOptions.ZoneName=sys.ZoneName;
 config.systemSettings.formOptions.Language=sys.Language;
-config.newSms = {
-  formData: {
-    PhoneNumber: "",
-    SMSContent: "",
-  },
-  formOptions: {
-
-  },
-  formRules: {
-    PhoneNumber: [
-      { required: true, message: 'Required!', trigger: 'blur' },
-    ],
-    SMSContent: [
-      { required: true, message: 'Required!', trigger: 'blur' },
-
-    ],
-  }
-};
 
 config.Wlan = {
   formData: {

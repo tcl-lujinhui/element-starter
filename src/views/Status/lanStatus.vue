@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import Config from '../../config.js'
-var _config = Config.homeStatus
+import {_config} from '../../common.js'
+var Config = _config.homeStatus
 
 export default {
   created () {
@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     init (){
-      this.initdata(_config);
+      this.initdata(Config);
       this.page = {
         lanOneconnectedStateTxt:"",
         lanTwoconnectedStateTxt:"",
@@ -52,8 +52,8 @@ export default {
        this.lanTwoInfo(formDataList);
       }
      
-    this.page.lanOneconnectedStateTxt = _config.lanConnectedStatusArr[formDataList[0].ConnectionStatus][_config.lanConnectedDisplayNum];
-    this.page.lanTwoconnectedStateTxt = _config.lanConnectedStatusArr[formDataList[1].ConnectionStatus][_config.lanConnectedDisplayNum];
+    this.page.lanOneconnectedStateTxt = Config.lanConnectedStatusArr[formDataList[0].ConnectionStatus][Config.lanConnectedDisplayNum];
+    this.page.lanTwoconnectedStateTxt = Config.lanConnectedStatusArr[formDataList[1].ConnectionStatus][Config.lanConnectedDisplayNum];
 
     lanInfoArr = [
           {

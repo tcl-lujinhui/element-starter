@@ -3,7 +3,7 @@
 */
 let sys = {};
 /*TimeZone*/
-sys.TimeZone = [
+sys.ZoneName = [
   ["UTC", "UTC"],
   ["Atlantic/Faroe", "Atlantic/Faroe"], //"Atlantic/Faroe": "WET0WEST,M3.5.0/1,M10.5.0"
   ["Pacific/Norfolk", "Pacific/Norfolk"], //"Pacific/Norfolk": "NFT-11:30"

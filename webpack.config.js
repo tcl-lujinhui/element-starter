@@ -19,30 +19,28 @@ module.exports = {
   },*/
   module: {
     loaders: [{
-        test: /\.vue$/,
-        loader: 'vue'
-      }, {
-        test: /\.jade$/,
-        loader: 'jade'
-      }, {
-        test: /\.js$/,
-        loader: 'babel',
-        exclude: /node_modules/
-      }, {
-        test: /\.css$/,
-        loader: 'style!css'
-      }, {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
-        loader: 'file'
-      }, {
-        test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
-        loader: 'file',
-        query: {
-          name: '[name].[ext]?[hash]'
-        }
+      test: /\.vue$/,
+      loader: 'vue'
+    }, {
+      test: /\.jade$/,
+      loader: 'jade'
+    }, {
+      test: /\.js$/,
+      loader: 'babel',
+      exclude: /node_modules/
+    }, {
+      test: /\.css$/,
+      loader: 'style!css'
+    }, {
+      test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+      loader: 'file'
+    }, {
+      test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
+      loader: 'file',
+      query: {
+        name: '[name].[ext]?[hash]'
       }
-      /*{ test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]' }*/
-    ]
+    }]
   },
   //添加，否则类似const Bar = { template: '<div>bar</div>' };不可用
   resolve: {
@@ -78,11 +76,8 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new CopyWebpackPlugin([{
-      from: 'src/i18n',
+      from:'src/i18n',
       to: 'i18n'
-    }, {
-      from: 'src/images',
-      to: 'images'
     }]),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

@@ -6,10 +6,11 @@
       +form("formData")
         +select("Antenna Switch:","AntennaSwitch")
         +select("Language Settings:","Language")
-        +input("Current Time:","CurrTime")
         +input("NTP Server1:","NtpServer1")
         +input("NTP Server2:","NtpServer2")
-        +select("Time Zone:","TimeZone")
+        //-+select("Time Zone:","TimeZone")
+        +select("Time Zone:","ZoneName")
+        +input("Current Time:","CurrTime")(disabled)
         +formBtn()
 
 </template>
@@ -37,63 +38,27 @@ export default {
         });
       },
       update() {
-        this.sdk.post("SetSystemSettings", this.formData, (res) => {
-          if (this.requestJsonRpcIsOk(res)) {
-            this.sdk.post("SetCurrentTime", this.formData, (res) => {
-              if (this.requestJsonRpcIsOk(res)) {
-                this.sdk.post("SetLanguage", this.formData, (res) => {
-                  if (this.requestJsonRpcIsOk(res)) {
-                    ElementUI.Message.success("Succeeded!");
-                  } else {
-                    ElementUI.Message.error("Failed!");
-                  }
-                });
-              } else {
-                ElementUI.Message.error("Failed!");
-              }
-            });
-          } else {
-            ElementUI.Message.error("Failed!");
-          }
-        });
-        /*let setSysRes = false;
-        let setTimeRes = false;
-        let setLanguageRes = false;
-        this.sdk.post("SetSystemSettings", this.formData, (res) => {
-          if (this.requestJsonRpcIsOk(res)) {
-            alert(1)
-            setSysRes = true;
-          } else {
-            alert(2);
-            setSysRes = false;
-          }
-        });
-        this.sdk.post("SetCurrentTime", this.formData, (res) => {
-          if (this.requestJsonRpcIsOk(res)) {
-            alert(3);
-            setTimeRes = true;
-          } else {
-            alert(4);
-            setTimeRes = false;
-          }
-        });
-        this.sdk.post("SetLanguage", this.formData, (res) => {
-          if (this.requestJsonRpcIsOk(res)) {
-            alert(5);
-            setLanguageRes = true;
-          } else {
-            alert(6);
-            setLanguageRes = false;
-          }
-        });
-        if (setSysRes&&setTimeRes&&setLanguageRes) {
-          console.log("Succeeded");
-          ElementUI.Message.success("Succeeded!");
-        } else {
-          console.log("Failed!");
-          ElementUI.Message.error("Failed!");
-
-        }*/
+        this.submit("formData", () => {
+          this.sdk.post("SetSystemSettings", this.formData, (res) => {
+            if (this.requestJsonRpcIsOk(res)) {
+              this.sdk.post("SetCurrentTime", this.formData, (res) => {
+                if (this.requestJsonRpcIsOk(res)) {
+                  this.sdk.post("SetLanguage", this.formData, (res) => {
+                    if (this.requestJsonRpcIsOk(res)) {
+                      ElementUI.Message.success("Succeeded!");
+                    } else {
+                      ElementUI.Message.error("Failed!");
+                    }
+                  });
+                } else {
+                  ElementUI.Message.error("Failed!");
+                }
+              });
+            } else {
+              ElementUI.Message.error("Failed!");
+            }
+          });
+        })
       },
       requestJsonRpcIsOk(result) {
         return result.hasOwnProperty("result") && !result.hasOwnProperty("error");
@@ -101,6 +66,7 @@ export default {
     }
 }
 </script>
+
 
 
 

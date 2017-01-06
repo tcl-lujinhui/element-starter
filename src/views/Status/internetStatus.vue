@@ -8,18 +8,17 @@
           el-row(:gutter="15")(v-for="(item,index) in page.initernetItem")
             el-col.textAlignRight(:span="9") {{item.nameVal}}
             el-col(:span="13") {{item.internetVal}}
-              span.btnMarginLeft(v-if="index == 0 && page.simStatusData.SIMState == 2")
+              span.btnMarginLeft(v-if="index == 0 && page.simStatusData.SIMState == 'pinReq'")
                 +bottonRouterLink("pinManagement","Enter PIN")
-                //-span(v-if="page.simStatusData.SIMState == 2")
-                  +bottonRouterLink("pinManagement","Enter PIN")
+              span.btnMarginLeft(v-if="index == 1")
+                el-button(v-html= "page.connectTxt")(type="primary" size="small" @click="update",:disabled="page.disabled")
       
       //-+formBtn()
 </template>
 
 <script>
-import $ from 'jquery'
-import Config from '../../config.js'
-var _config = Config.homeStatus
+import {$,_config} from '../../common.js'
+var Config = _config.homeStatus
 
 export default {
   created () {
@@ -34,7 +33,7 @@ export default {
   },
   methods: {
     init (){
-      this.initdata(_config);
+      this.initdata(Config);
 
       this.page = {
         usbStatusTxt:"",
@@ -46,7 +45,9 @@ export default {
         profileData:{},
         simStatusData:{},
         connectionStatusData:{},
-        initernetItem:null
+        initernetItem:null,
+        connectTxt:"",
+        disabled:false
       }
       this.sdk.get("GetSystemStatus",null,(res)=>{
         this.formData = res;
@@ -77,11 +78,11 @@ export default {
       
     },
     interfaceData() {
-      this.page.connectedStateTxt = _config.connectionStatusArr[this.formData.ConnectionStatus][_config.connectionDisplayNum];
-      this.page.usbStatusTxt = _config.usbStatusArr[this.formData.UsbStatus][_config.usbStatusDisplayNum]
+      this.page.connectedStateTxt = Config.connectionStatusArr[this.formData.ConnectionStatus][Config.connectionDisplayNum];
+      this.page.usbStatusTxt = Config.usbStatusArr[this.formData.UsbStatus][Config.usbStatusDisplayNum]
 
-     this.page.networkTypeTxt = _config.networkTypeArr[this.formData.NetworkType][_config.networkTypeDisplayNum];
-     
+     this.page.networkTypeTxt = Config.networkTypeArr[this.formData.NetworkType][Config.networkTypeDisplayNum];
+
      var profileName;
       this.page.profileData.ProfileList.forEach(function(v){
         if(v.Default == 1){
@@ -90,8 +91,52 @@ export default {
       });
       this.page.profileNameTxt = profileName;
       this.initernetInfoEvent();
-    },
 
+      switch(this.formData.ConnectionStatus){
+        case 0:
+        this.page.connectTxt = "Connect";
+        break;
+        case 1:
+        this.page.connectTxt = "Connecting......";
+        break;
+        case 2:
+        this.page.connectTxt = "Disconnect";
+        break;
+        case 3:
+        this.page.connectTxt = "Disconnecting......";
+        break;
+        default:
+        break;
+      }
+    },
+    update(){
+      if(this.formData.ConnectionStatus == 2){
+        this.page.connectTxt = "Connecting......";
+        this.page.disabled = true;
+        this.sdk.post("DisConnect",this.formData,(res) =>{
+          if(this.requestJsonRpcIsOk(res)){
+            console.log("success");
+            //this.page.disabled = false;
+          }else{
+            console.log("faid");
+          }
+        })
+      }else if(this.formData.ConnectionStatus == 0){
+        this.page.connectTxt = "Disconnecting......";
+        this.page.disabled = true;
+        this.sdk.post("Connect",this.formData,(res) =>{
+          if(this.requestJsonRpcIsOk(res)){
+            console.log("success!");
+            //this.page.disabled = false;
+          }else{
+            console.log("faid!");
+          }
+        })
+      }
+    },
+    requestJsonRpcIsOk(result) {
+        return result.hasOwnProperty("result") && !result.hasOwnProperty("error");
+    },
     initernetInfoEvent(){
       var initernetInfo;
       initernetInfo = [

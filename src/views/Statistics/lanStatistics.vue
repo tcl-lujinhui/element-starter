@@ -21,15 +21,15 @@
                 th Error 
                 th Discarded
               tr(v-for="list in formData.List")
-                th {{list.LanFlag}}
-                th {{list.ReceivedByte}}
-                th {{list.ReceivedPacket}} 
-                th {{list.ReceivedError}} 
-                th {{list.ReceivedDiscarded}} 
-                th {{list.SentByte}} 
-                th {{list.SentPacket}}  
-                th {{list.SentError}} 
-                th {{list.SentDiscarded}}  
+                th {{list.LanFlag | covertNum}}
+                th {{list.ReceivedByte | covertNum}}
+                th {{list.ReceivedPacket | covertNum}} 
+                th {{list.ReceivedError | covertNum}} 
+                th {{list.ReceivedDiscarded | covertNum}} 
+                th {{list.SentByte | covertNum}} 
+                th {{list.SentPacket | covertNum}}  
+                th {{list.SentError | covertNum}} 
+                th {{list.SentDiscarded | covertNum}}  
 </template>
 <script>
 import _config from '../../config.js'

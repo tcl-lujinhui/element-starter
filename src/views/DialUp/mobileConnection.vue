@@ -14,29 +14,31 @@ import _config from '../../config.js'
 var Config = _config.mobileConnection;
 export default {
   created() {
-    this.init();
-    this.Inter=setInterval(() => {
-      console.log("mobileConnection: ")
-    }, 3000);
-  },
-  destroyed (){
-    clearInterval(this.Inter)
-    this.Inter = null
-  },
-  methods: {
-    init (){
-      this.initdata(Config);
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
+      this.init();
+      this.Inter = setInterval(() => {
+        console.log("mobileConnection: ")
+      }, 3000);
     },
-    update (){
-      let vm = this;
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        this.init()
-      })
+    destroyed() {
+      clearInterval(this.Inter)
+      this.Inter = null
+    },
+    methods: {
+      init() {
+        this.initdata(Config);
+        this.sdk.get("GetConnectionSettings", null, (res) => {
+          this.formData = res;
+        })
+      },
+      update() {
+        let setForm = () => {
+          this.sdk.post("SetConnectionSettings", this.formData, {
+            callback: this.init
+          })
+        }
+        this.submit("formData", setForm); 
+      }
     }
-  }
 }
 </script>
 

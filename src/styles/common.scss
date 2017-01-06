@@ -202,14 +202,57 @@
   .el-col {
     border-radius: 4px;
   }
-  .textAlignRight {
-    text-align: right;
-  }
-  .el-button a {
-    text-decoration: none;
-    color: #fff;
+  .el-button a{
+  text-decoration: none;
+  color:#fff;
   }
   .btnMarginLeft {
     margin-left: 5px;
   }
+  .line{
+    margin:8px 0 21px 0;
+    border-top:1px solid #20a0ff;
+  }
+}
+  .textAlignRight{
+    text-align:right;
+  }
+  //upload File css
+  .uploadFile{
+    width:321px;
+    position:relative;
+    height:30px;
+    overflow: hidden;
+    padding-bottom:13px;
+  .fileUpload{
+    position:absolute;
+    z-index:9;
+    width:20%;
+    height:30px;
+    opacity:0;
+    right:0;
+    font-size:26px;
+    cursor:pointer;
+  }
+}
+.backupRestore{
+  .paddingBox{
+    padding:23px 0;
+  }
+.uploadFile,
+.backupTxt{
+  padding-bottom:13px;
+}
+  .restoreArea{
+    padding-top:37px;
+  }
+}
+  
+.add-btn{
+  float: right;
+  margin-bottom: 2px;
+}
+
+.el-table{
+  margin-top: 6px;
 }

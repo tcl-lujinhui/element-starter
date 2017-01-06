@@ -28,13 +28,13 @@ export default {
           this.formData = res;
         })
       },
-
       update() {
-        var vm = this;
-        let result={
-          callback:vm.init
+        let setForm = () => {
+          this.sdk.post("SetNetworkSettings", this.formData, {
+            callback: this.init
+          })
         }
-        this.sdk.post("SetNetworkSettings", this.formData,result)
+        this.submit("formData", setForm); 
       }
     }
 }

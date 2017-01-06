@@ -1,47 +1,50 @@
 <template lang="jade">
   include ../components.jade
-  #newSms
+  #newSMS
     +sideMenuPage('Services')
       +breadcrumb("New Message")
-      sim-state
-        +form("formData")
-          +input("Number:","PhoneNumber")
-          +input("SMSContent:","SMSContent")(type="textarea" rows="10")
-          +formItem("")
-            +button("Apply")(type="primary")
-            +button("Cancel")(@click="reset")
+      +form("formData")
+        el-input(placeholder="please input" v-model="input3")
+          span(slot="prepend") To:
+        //-p{{}}
+        el-input(type="textarea" ,:rows.number=10, v-model="textarea")
 </template>
 
 <script>
-import _Config from '../../config.js'
-var Config = _Config.newSms
+import {_config,_,vuex} from '../../common.js';
+let Config = _config.draft;
 export default {
-  created () {
-    this.init()
-  },
-  methods: {
-   
-    init (){
-      this.initdata(Config)
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
+  created() {
+      this.init()
     },
-    send (){
+    methods: {
+      /*tabs(tabs){
+        this.$router.push(tabs.$el.getAttribute("router"))
+      },*/
+      init() {
+        this.initdata(Config);
+        this.page = {
 
-    },
-
-    save(){
-
-    },
-    update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+        };
+      },
+      update() {
+        this.sdk.post("SetConnectionSettings", this.formData, (res) => {
+          console.log(res)
+        })
+      }
     }
-  }
 }
 </script>
 
+
 <style lang="sass" scoped>
+.el-input{
+  width:540px;
+}
+.el-textarea textarea{
+    height:200px;
+}
+p{
+  float:right;
+}
 </style>

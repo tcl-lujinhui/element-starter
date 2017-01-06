@@ -1,38 +1,34 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
+  #smsSettings
     +sideMenuPage('Services')
-      div {{$route.name}}
+      +breadcrumb("SMS Settings")
       +form("formData")
-        
+        +radio("Storage Path:","StoreFlag")
+        +radio("SMS Report:","SMSReportFlag")
+        +input("SMS Center:","SMSCenter")(disabled)
         +formBtn()
 </template>
 
 <script>
-import Config from '../../config.js'
+import {_config,_ ,vuex} from '../../common.js';
+let Config = _config.smsSettings;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
   created () {
     this.init()
   },
   methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
-    },
     init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
+      this.initdata(Config);
+      this.sdk.get("GetSMSSettings",null,(res)=>{
         this.formData = res;
-      })
+      });
     },
     update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+      let results = {
+        callback:this.init
+      };
+      this.sdk.post("SetSMSSettings",this.formData,results);
     }
   }
 }
