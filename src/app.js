@@ -61,6 +61,9 @@ Vue.filter('ipProtocol', function (value) {
 Vue.filter('byTes', function (value) {
   return units.bytes(value)
 })
+Vue.filter("times", function(second, type) {
+  return units.times(second, type)
+})
 const router = new VueRouter({
   routes: Routers
 });

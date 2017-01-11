@@ -5,209 +5,209 @@ menuConfig.nav = [{
   router: 'internetStatus'
 }, {
   name: "Services",
-  text: "Services",
+  text: "ids_services",
   router: 'inbox'
 }, {
   name: "Settings",
-  text: "Settings",
+  text: "ids_settings",
   router: 'mobileConnection'
 }, {
   name: "System",
-  text: "System",
+  text: "ids_system",
   router: 'deviceInfo'
 }];
 
 menuConfig.sideMenu = {
   "Home": [{
-    text: "Status",
+    text: "ids_status",
     submenu: [{
-      text: "Internet",
+      text: "ids_internet",
       router: "internetStatus"
     }, {
-      text: "LAN",
+      text: "ids_lan_Lan",
       router: "lanStatus"
     }, {
-      text: "WLAN",
+      text: "ids_wifi_WiFiTitle",
       router: "wlanStatus"
     }]
   }, {
     text: "Statistics",
     submenu: [{
-      text: "Internet",
+      text: "ids_internet",
       router: "internetStatistics"
     }, {
-      text: "LAN",
+      text: "ids_lan_Lan",
       router: "lanStatistics"
     }, {
-      text: "WLAN",
+      text: "ids_wifi_WiFiTitle",
       router: "wlanStatistics"
     }]
   }, {
-    text: "Setup Wizard",
+    text: "ids_setupWizard",
     router: "setupWizard"
   }],
   "Services": [{
-    text: "SMS",
+    text: "ids_sms_titleSms",
     submenu: [{
-      text: "Inbox",
+      text: "ids_sms_inbox",
       router: "inbox"
     }, {
-      text: "Outbox",
+      text: "ids_sms_outbox",
       router: "outbox"
     }, {
-      text: "Draft",
+      text: "ids_sms_draft",
       router: "draft"
     }, {
-      text: "New Message",
+      text: "ids_sms_newMessage",
       router: "newSMS"
     }, {
-      text: "SMS Settings",
+      text: "ids_menu_smsSettings",
       router: "smsSettings"
     }]
   }, {
-    text: "Call Logs",
+    text: "ids_call_pageTitle",
     submenu: [{
-      text: "Incoming Call",
+      text: "ids_call_Incoming",
       router: "incomingCall"
     }, {
-      text: "Outgoing Call",
+      text: "ids_call_Outgoing",
       router: "outgoingCall"
     }, {
-      text: "Missed Call",
+      text: "ids_call_Missed",
       router: "missedCall"
     }]
   }, {
-    text: "Shared",
+    text: "ids_wifi_wepShare",
     submenu: [{
-      text: "USB",
-      router: "usb"
-    }, {
-      text: "Storage Share",
+      text: "ids_storageShare",
       router: "storageShare"
     }, {
-      text: "DLNA",
+      text: "ids_usb_Title",
+      router: "usb"
+    }, {
+      text: "ids_samba_menuDlna",
       router: "dlna"
     }, {
-      text: "User Settings",
+      text: "ids_user_deviceAccess",
       router: "userSettings"
     }]
   }],
   "Settings": [{
-    text: "Dial-UP",
+    text: "ids_dialUp",
     submenu: [{
-      text: "Mobile Connection",
+      text: "ids_network_Mobconn",
       router: "mobileConnection"
     }, {
-      text: "Profile Management",
+      text: "ids_profile_pageTitle",
       router: "profileManagement"
     }, {
-      text: "Network Settings",
+      text: "ids_netwrok_Title",
       router: "networkSettings"
     }, {
-      text: "Monthly Plan",
+      text: "ids_monthlyPlan_pageTitle",
       router: "monthlyPlan"
     }]
   }, {
-    text: "WAN",
+    text: "ids_ethWan_wan",
     submenu: [{
-      text: "WAN Status",
+      text: "ids_ethWan_menuWanStatus",
       router: "wanStatus"
     }, {
-      text: "WAN Configure",
+      text: "ids_wan_configureTitle",
       router: "wanConfigure"
     }, {
-      text: "MAC Clone",
+      text: "ids_ethWan_menuMacClone",
       router: "macClone"
     }]
   }, {
-    text: "WLAN",
+    text: "ids_wifi_WiFiTitle",
     submenu: [{
-      text: "Basic",
+      text: "ids_wlan_basic",
       router: "basic"
     }, {
-      text: "Advanced",
+      text: "ids_wlan_advanced",
       router: "advanced"
     }, {
-      text: "WPS",
+      text: "ids_title_wps",
       router: "wps"
     }]
   }, {
-    text: "Security",
+    text: "ids_wlan_security",
     submenu: [{
-      text: "PIN Management",
+      text: "ids_sim_pinManagement",
       router: "pinManagement"
     }, {
-      text: "Routing Rules",
+      text: "ids_router_Title",
       router: "routingRules"
     }, {
-      text: "WAN Ping",
+      text: "ids_security_wanPing",
       router: "wanPing"
     }, {
-      text: "IP Filter",
+      text: "ids_filter_ipFilter",
       router: "ipFilter"
-    },{
-      text: "MAC Filter",
+    }, {
+      text: "ids_filter_macFilter",
       router: "macFilter"
-    },{
-      text: "URL Filter",
+    }, {
+      text: "ids_filter_urlFilter",
       router: "urlFilter"
-    }] 
+    }]
   }, {
-    text: "NAT Settings",
+    text: "ids_NAT_Title",
     submenu: [{
-      text: "DMZ Settings",
+      text: "ids_security_dmzTitle",
       router: "dmz"
     }, {
-      text: "ALG Settings",
+      text: "ids_alg_Title",
       router: "alg"
     }, {
-      text: "UPnP Settings",
+      text: "ids_security_upnp",
       router: "upnp"
     }, {
-      text: "Virtual Server",
+      text: "ids_vtServer_titleVirtualServer",
       router: "virtualServer"
     }]
   }, {
-    text: "QoS",
+    text: "ids_qos_titleQos",
     router: "qos"
   }, {
-    text: "LAN",
+    text: "ids_lan_Lan",
     router: "lanSettings"
   }],
   "System": [{
-    text: "Device Info",
+    text: "ids_system_deviceInfo",
     router: "deviceInfo"
   }, {
-    text: "Reboot & Reset",
+    text: "ids_system_rebootReset",
     submenu: [{
-      text: "Reboot",
+      text: "ids_system_reboot",
       router: "reboot"
     }, {
-      text: "Factory Reset",
+      text: "ids_reset",
       router: "reset"
     }]
   }, {
-    text: "Upgrade",
+    text: "ids_update_upgrade",
     submenu: [{
-      text: "Local Upgrade",
+      text: "ids_update_localUpgrade",
       router: "localUpgrade"
     }, {
-      text: "Online Upgrade",
+      text: "ids_update_onlineUpgrade",
       router: "onlineUpgrade"
     }, {
-      text: "TR069",
+      text: "ids_title_tr069",
       router: "tr069"
     }]
   }, {
-    text: "Device Mgmt",
+    text: "ids_system_deviceMamt",
     submenu: [{
-      text: "Password Change",
+      text: "ids_login_loginPwd",
       router: "changePassword"
     }, {
-      text: "System Settings",
+      text: "ids_system_pageTitle",
       router: "systemSettings"
     }, {
-      text: "Backup&Restore",
+      text: "ids_system_backupRestore",
       router: "restore"
     }]
   }]

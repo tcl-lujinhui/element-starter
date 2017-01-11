@@ -71,37 +71,34 @@ config.networkSettings = {
 //pinManagement
 config.pinManagement = {
   formData: {
-    Operation:0,
-    AutoValidatePinState:0,
-    Pin:"",
-    State:1,
-    Puk:"",
-    NewPin:"",
-    CurrentPin:"",
-    SIMLockCode:"",
-    ConfirmPin:"",
+    Operation: 0,
+    AutoValidatePinState: 0,
+    Pin: "",
+    State: 1,
+    Puk: "",
+    NewPin: "",
+    CurrentPin: "",
+    SIMLockCode: "",
+    ConfirmPin: "",
   },
   formOptions: {
     Operation: [
       [0, 'Disable'],
       [1, 'Change']
     ],
-    AutoValidatePinState: [
-      [1, 'Enable'],
-      [0, 'Disable']
-    ]
+    AutoValidatePinState: common.checkBoxEnable
   },
   formRules: {
-    Pin:[
+    Pin: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ],
-    NewPin:[
+    NewPin: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ],
-    CurrentPin:[
+    CurrentPin: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ],
-    ConfirmPin:[
+    ConfirmPin: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ]
   }
@@ -140,20 +137,20 @@ config.lanSettings = {
   },
   formRules: {
     IPv4IPAddress: [
-      { required: true, message: 'Required!', trigger: 'blur' },
-      { validator: validates.ip, message: 'Invalid IP!' }
+      common.rule.required,
+      common.rule.IP
     ],
     SubnetMask: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
       { validator: validates.subnetMask, message: 'Invalid Subnet Mask!' }
     ],
     StartIPAddress: [
-      { required: true, message: 'Required!', trigger: 'blur' },
-      { validator: validates.ip, message: 'Invalid IP!' }
+      common.rule.required,
+      common.rule.IP
     ],
     EndIPAddress: [
-      { required: true, message: 'Required!', trigger: 'blur' },
-      { validator: validates.ip, message: 'Invalid IP!' }
+      common.rule.required,
+      common.rule.IP
     ]
   },
   formRulesExtension: {
@@ -177,7 +174,7 @@ config.changePassword = {
   formOptions: {},
   validates: {
     Confirm: (vm) => {
-      return validates.Confirm(vm,"NewPassword");
+      return validates.Confirm(vm, "NewPassword");
     }
   },
   formRules: {
@@ -194,44 +191,44 @@ config.changePassword = {
     ]
   },
   formRulesExtension: {
-    ConfirmPassword: { validator: "Confirm",message: 'The confirm password is not the same as the new password.' },
+    ConfirmPassword: { validator: "Confirm", message: 'The confirm password is not the same as the new password.' },
   }
 };
 
 //systemSettings
 config.systemSettings = {
-  formData: {
-    AntennaSwitch: 0,
-    Language: "fr",
-    CurrTime: "",
-    NtpServer1: "",
-    NtpServer2: "",
-    //TimeZone: "UTC"
-    ZoneName: "UTC"
-  },
-  formOptions: {
-    AntennaSwitch: [
-      [0, 'Internal'],
-      [1, 'External']
-    ],
-    Language: [],
-    TimeZone:[] 
-  },
-  formRules: {
-    NtpServer1: [
-      { type: "string", required: true, message: 'Required' },
-      {validator:validates.ip,message: 'Invalid IP!'}
-    ],
-    NtpServer2: [
-      { type: "string", required: true, message: 'Required' },
-      {validator:validates.ip,message: 'Invalid IP!'}
-    ]
+    formData: {
+      AntennaSwitch: 0,
+      Language: "fr",
+      CurrTime: "",
+      NtpServer1: "",
+      NtpServer2: "",
+      //TimeZone: "UTC"
+      ZoneName: "UTC"
+    },
+    formOptions: {
+      AntennaSwitch: [
+        [0, 'Internal'],
+        [1, 'External']
+      ],
+      Language: [],
+      TimeZone: []
+    },
+    formRules: {
+      NtpServer1: [
+        { type: "string", required: true, message: 'Required' },
+        common.rule.IP
+      ],
+      NtpServer2: [
+        { type: "string", required: true, message: 'Required' },
+        common.rule.IP
+      ]
+    }
   }
-}
-//backupRestore
+  //backupRestore
 config.backupRestore = {
   formData: {
-    iptRestore:"45646"
+    iptRestore: "45646"
   },
   formOptions: {},
   formRules: {}
@@ -239,66 +236,66 @@ config.backupRestore = {
 
 //inbox
 config.inbox = {
-  formData: {
-    "Page": 0,
-    "key": "inbox"
-  },
-  formOptions: {},
-  formRules: {}
-}
-//outbox
+    formData: {
+      "Page": 0,
+      "key": "inbox"
+    },
+    formOptions: {},
+    formRules: {}
+  }
+  //outbox
 config.outbox = {
-  formData: {
-    "Page": 0,
-    "key": "outbox"
-  },
-  formOptions: {},
-  formRules: {}
-}
-//draft
+    formData: {
+      "Page": 0,
+      "key": "outbox"
+    },
+    formOptions: {},
+    formRules: {}
+  }
+  //draft
 config.draft = {
-  formData: {
-    "Page": 0,
-    "key": "draft"
-  },
-  formOptions: {},
-  formRules: {}
-}
-//newSMS
+    formData: {
+      "Page": 0,
+      "key": "draft"
+    },
+    formOptions: {},
+    formRules: {}
+  }
+  //newSMS
 config.newSMS = {
-  formData: {
-    PhoneNumber:"",
-    SMSContent:""
-  },
-  formOptions: {
-    PhoneNumber: [
-      { type: "string", required: true, message: 'Required' }
-      /*{ type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'Invalid password!The length of login password is 4-16, including 0-9, a-z, A-Z,"-+!@$#^&*",please input again.' }*/
-    ],
-    SMSContent: [
-      { type: "string", required: true, message: 'Required' }
-      /*{ type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'Invalid password!The length of login password is 4-16, including 0-9, a-z, A-Z,"-+!@$#^&*",please input again.' }*/
-    ],
+    formData: {
+      PhoneNumber: "",
+      SMSContent: ""
+    },
+    formOptions: {
+      PhoneNumber: [
+        { type: "string", required: true, message: 'Required' }
+        /*{ type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'Invalid password!The length of login password is 4-16, including 0-9, a-z, A-Z,"-+!@$#^&*",please input again.' }*/
+      ],
+      SMSContent: [
+        { type: "string", required: true, message: 'Required' }
+        /*{ type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'Invalid password!The length of login password is 4-16, including 0-9, a-z, A-Z,"-+!@$#^&*",please input again.' }*/
+      ],
 
-  },
-  formRules: {}
-}
-//SMS Settings
+    },
+    formRules: {}
+  }
+  //SMS Settings
 config.smsSettings = {
   formData: {
-    "StoreFlag":1,
-    "SMSReportFlag":1,
-    "SMSCenter":""
+    "StoreFlag": 1,
+    "SMSReportFlag": 1,
+    "SMSCenter": ""
   },
   formOptions: {
     StoreFlag: [
-      [0,'SIM Card'],
-      [1,'Device']
+      [0, 'SIM Card'],
+      [1, 'Device']
     ],
     SMSReportFlag: [
       [1, 'Enable'],
       [0, 'Disable']
-      
+
     ]
   },
   formRules: {}
@@ -307,8 +304,8 @@ config.smsSettings = {
 //CallLog
 config.callLogs = {
   formData: {
-    pageNum:0,
-    type:0
+    pageNum: 0,
+    type: 0
   },
   formOptions: {},
   formRules: {}
@@ -346,8 +343,7 @@ config.profileManagement = {
 };
 // Monthly Plan
 config.monthlyPlan = {
-  formData: {  
-  },
+  formData: {},
   formOptions: {
     AutoDisconnFlag: [
       [0, 'disable'],
@@ -367,31 +363,28 @@ config.monthlyPlan = {
     MonthlyPlan: [
       { required: true, message: 'Required', trigger: 'blur' },
       { min: 1, max: 4, message: '长度在 1 到 4 个字符' },
-      { validator:validates.monthlyPlan, message: 'Please input the data between 1-1024.', trigger: 'blur'}
+      { validator: validates.monthlyPlan, message: 'Please input the data between 1-1024.', trigger: 'blur' }
     ],
     TimeLimitTimes: [
       { required: true, message: 'Required', trigger: 'blur' },
       { min: 1, max: 5, message: '长度在 1 到 5 个字符' },
-      { validator:validates.timeLimitTimes, message: 'Please input the data between 1-43200.', trigger: 'blur'}
+      { validator: validates.timeLimitTimes, message: 'Please input the data between 1-43200.', trigger: 'blur' }
     ]
   }
 };
 
 //  usage Record
 config.usageRecord = {
-  formData: {
-  },
-  formOptions: {
-  },
-  formRules: {
-  }
+  formData: {},
+  formOptions: {},
+  formRules: {}
 };
 
 
 // Statistics/internetStatistics 
 config.internetStatistics = {
   formData: {
-    
+
   },
   formOptions: {},
   formRules: {}
@@ -442,9 +435,9 @@ config.dmzSettings = {
     dmz_ip: ''
   },
   formRules: {
-    dmz_ip:[
-      {required: true, message: 'Required!', trigger: 'blur'},
-      {validator:validates.ip,message: 'Invalid IP!'}
+    dmz_ip: [
+      common.rule.required,
+      common.rule.IP
     ]
   }
 }
@@ -509,13 +502,13 @@ config.wps = {
   },
   formOptions: {
     wpsMode: [
-      [0, 'WPS PIN'],
-      [1, 'PBC(Push Button Configuration) ']
+      [0, 'ids_wlan_wpsPin'],
+      [1, 'ids_wifi_pbc']
     ]
   },
   formRules: {
     WpsPin: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
       { validator: validates.wpsPin, message: 'Invalid wps Pin!' }
     ]
   }
@@ -569,8 +562,8 @@ config.qos = {
     ]
   },
   formData: {
-    UserName:'',
-    password:''
+    UserName: '',
+    password: ''
   },
   formRules: {
     Port: [
@@ -587,13 +580,10 @@ config.login = {
   formData: {
     UserName: 'admin',
     Password: '',
-    "save_flag":0
+    "save_flag": 0
   },
   formOptions: {
-    save_flag: [
-      [1, 'Enable'],
-      [0, 'Disable']
-    ]
+    save_flag: common.checkBoxEnable
   },
   formRules: {}
 };
@@ -621,9 +611,10 @@ config.samba = {
   formData: {},
   formOptions: {
     AuthType: [
-      [0, 'Read Only'],
-      [1, 'Read and Write']
-    ]
+      [0, 'ids_samba_readOnly'],
+      [1, 'ids_samba_readWrite']
+    ],
+    Anonymous: common.checkBoxEnable
   },
   formRules: {}
 };
@@ -633,9 +624,10 @@ config.ftp = {
   formData: {},
   formOptions: {
     AuthType: [
-      [0, 'Read Only'],
-      [1, 'Read and Write']
-    ]
+      [0, 'ids_samba_readOnly'],
+      [1, 'ids_samba_readWrite']
+    ],
+    Anonymous: common.checkBoxEnable
   },
   formRules: {}
 };
@@ -648,7 +640,7 @@ config.userSettings = {
   formOptions: {},
   formRules: {
     DeviceName: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
       { min: 1, max: 32, message: 'The maximum length of 32 characters.' }
     ]
   }
@@ -693,54 +685,54 @@ config.simState = {
 };
 //home status 
 config.homeStatus = {
-  formData:{},
-  networkTypeDisplayNum:1,//val:0,1,2;control networkTypeArr display val
-  networkTypeArr:[
-    [0,"NA","NO SERVER"],
-    [1,"2G","GPRS"],
-    [2,"2G","EDGE"],
-    [3,"3G","HSPA"],
-    [4,"3G","HSUPA"],
-    [5,"3G","UMTS"],
-    [6,"3G+","HSPA_PLUS"],
-    [7,"3G+","DC-HSPA_PLUS"],
-    [8,"4G","LTE"],
-    [9,"4G+","LTE_PLUS"]
+  formData: {},
+  networkTypeDisplayNum: 1, //val:0,1,2;control networkTypeArr display val
+  networkTypeArr: [
+    [0, "NA", "NO SERVER"],
+    [1, "2G", "GPRS"],
+    [2, "2G", "EDGE"],
+    [3, "3G", "HSPA"],
+    [4, "3G", "HSUPA"],
+    [5, "3G", "UMTS"],
+    [6, "3G+", "HSPA_PLUS"],
+    [7, "3G+", "DC-HSPA_PLUS"],
+    [8, "4G", "LTE"],
+    [9, "4G+", "LTE_PLUS"]
   ],
-  connectionDisplayNum:1,//val:0, 1
-  connectionStatusArr:[
-    [0,"Disconnected"],
-    [1,"Connecting......"],
-    [2,"Connected"],
-    [3,"Disconnecting......"]
+  connectionDisplayNum: 1, //val:0, 1
+  connectionStatusArr: [
+    [0, "Disconnected"],
+    [1, "Connecting......"],
+    [2, "Connected"],
+    [3, "Disconnecting......"]
   ],
-  lanConnectedDisplayNum:1,//val: 0,1
-  lanConnectedStatusArr:[
-    [0,"Disconnected"],
-    [1,"Connected"]
+  lanConnectedDisplayNum: 1, //val: 0,1
+  lanConnectedStatusArr: [
+    [0, "Disconnected"],
+    [1, "Connected"]
   ],
-  usbStatusDisplayNum:1,//val:0,1
-  usbStatusArr:[
-    [0,"Not Insert"],
-    [1,"USB storage"],
-    [2,"USB print"]
+  usbStatusDisplayNum: 1, //val:0,1
+  usbStatusArr: [
+    [0, "Not Insert"],
+    [1, "USB storage"],
+    [2, "USB print"]
   ],
-  ssidBroadcastDisplayNum:1,//val:0,1
-  ssidBroadcastArr:[
-    [0,"Disable"],
-    [1,"Enable"]
+  ssidBroadcastDisplayNum: 1, //val:0,1
+  ssidBroadcastArr: [
+    [0, "Disable"],
+    [1, "Enable"]
   ],
-  wlanAPModeDisplayNum:1,//val:0,1
-  wlanAPModeArr:[
-    [0,"2.4GHz"],
-    [1,"5GHz"],
-    [2,"2.4GHz and 5GHz"]
+  wlanAPModeDisplayNum: 1, //val:0,1
+  wlanAPModeArr: [
+    [0, "2.4GHz"],
+    [1, "5GHz"],
+    [2, "2.4GHz and 5GHz"]
   ]
 };
 //localUpgrade
 config.localUpgrade = {
-  formData:{},
-  formRules:{}
+  formData: {},
+  formRules: {}
 };
 
 //wan mac Clone
@@ -751,7 +743,7 @@ config.macClone = {
   formOptions: {},
   formRules: {
     MacAddr: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
     ]
   }
 };
@@ -761,41 +753,41 @@ config.wanConfigure = {
   formData: {},
   formOptions: {
     ConnectType: [
-      [0, 'PPPoE'],
-      [1, 'DHCP'],
-      [2, 'Static IP']
+      [0, 'ids_ethWan_pppoe'],
+      [1, 'ids_ethWan_dhcp'],
+      [2, 'ids_ethWan_staticIp']
     ]
   },
   formRules: {
     "SubNetMask": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ],
     "Gateway": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ],
     "IpAddress": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ],
     "Mtu": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ],
     "PrimaryDNS": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ],
     "SecondaryDNS": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ],
     "Account": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ],
     "Password": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ],
     "StaticIpAddress": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ],
     "pppoeMtu": [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required
     ]
   }
 };
@@ -813,24 +805,18 @@ config.wanPing = {
 //tr069
 config.tr069 = {
   formData: {
-    AcsUrl:"",
-    AcsUserName:"",
-    AcsUserPassword:"",
-    ConReqAuthent:1,
-    ConReqUserName:"",
-    ConReqUserPassword:"",
-    Inform:1,
-    InformInterval:60
+    AcsUrl: "",
+    AcsUserName: "",
+    AcsUserPassword: "",
+    ConReqAuthent: 1,
+    ConReqUserName: "",
+    ConReqUserPassword: "",
+    Inform: 1,
+    InformInterval: 60
   },
   formOptions: {
-    Inform: [
-      [1, 'Enable'],
-      [0, 'Disable']
-    ],
-    ConReqAuthent: [
-      [1, 'Enable'],
-      [0, 'Disable']
-    ]
+    Inform: common.checkBoxEnable,
+    ConReqAuthent: common.checkBoxEnable
   },
   validates: {
     Confirm: (vm) => {
@@ -845,11 +831,11 @@ config.tr069 = {
   },
   formRules: {
     InformInterval: [
-     /* { required: true, pattern: /^[0-9]+$/, message: 'required' },
-      /*{ min: 3, max: 5, message: '长度在 3 到 5 个字符' }*/
+      /* { required: true, pattern: /^[0-9]+$/, message: 'required' },
+       /*{ min: 3, max: 5, message: '长度在 3 到 5 个字符' }*/
     ],
     AcsUrl: [
-      { required: true, pattern: /((^http)|(^https)):\/\/(\\w)+\.(\\w)+/ ,message: '请输入活动名称请' },
+      { required: true, pattern: /((^http)|(^https)):\/\/(\\w)+\.(\\w)+/, message: '请输入活动名称请' },
     ],
     ConfirmPassword: [
       { required: true, message: '请输入活动名称请' },
@@ -862,12 +848,12 @@ config.tr069 = {
 //ipFilter
 config.ipFilter = {
   formData: {
-    filter_policy:0,
-    ip_protocol:17,
-    lan_ip:"",
-    lan_port:"",
-    wan_ip:"",
-    wan_port:""
+    filter_policy: 0,
+    ip_protocol: 17,
+    lan_ip: "",
+    lan_port: "",
+    wan_ip: "",
+    wan_port: ""
   },
   formOptions: {
     filter_policy: [
@@ -882,16 +868,16 @@ config.ipFilter = {
     ]
   },
   formRules: {
-    lan_ip:[
+    lan_ip: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ],
-    lan_port:[
+    lan_port: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ],
-    wan_ip:[
+    wan_ip: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ],
-    wan_port:[
+    wan_port: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ]
   }
@@ -899,8 +885,8 @@ config.ipFilter = {
 //macFilter
 config.macFilter = {
   formData: {
-    filter_policy:0,
-    Address:""
+    filter_policy: 0,
+    Address: ""
   },
   formOptions: {
     filter_policy: [
@@ -910,7 +896,7 @@ config.macFilter = {
     ]
   },
   formRules: {
-    Address:[
+    Address: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ]
   }
@@ -918,8 +904,8 @@ config.macFilter = {
 //urlFilter
 config.urlFilter = {
   formData: {
-    filter_policy:0,
-    url:""
+    filter_policy: 0,
+    url: ""
   },
   formOptions: {
     filter_policy: [
@@ -929,7 +915,7 @@ config.urlFilter = {
     ]
   },
   formRules: {
-    url:[
+    url: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ]
   }
@@ -937,25 +923,22 @@ config.urlFilter = {
 //staticRules
 config.staticRules = {
   formData: {
-    State:0,
-    DestNetAddr:"",
-    DestNetmask:"",
-    GateWay:""
+    State: 0,
+    DestNetAddr: "",
+    DestNetmask: "",
+    GateWay: ""
   },
   formOptions: {
-    State: [
-      [1, 'Enable'],
-      [0, 'Disable']
-    ]
+    State: common.checkBoxEnable
   },
   formRules: {
-    DestNetAddr:[
+    DestNetAddr: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ],
-    DestNetmask:[
+    DestNetmask: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ],
-    GateWay:[
+    GateWay: [
       { required: true, message: 'Required!', trigger: 'blur' },
     ]
   }
@@ -963,31 +946,27 @@ config.staticRules = {
 //dynamicRules
 config.dynamicRules = {
   formData: {
-    Operation:0,
-    RipState:0,
-    RipVerion:0
+    Operation: 0,
+    RipState: 0,
+    RipVerion: 0
   },
   formOptions: {
     Operation: [
       [1, 'active'],
       [0, 'disactive']
     ],
-    RipState: [
-      [1, 'Enable'],
-      [0, 'Disable']
-    ],
+    RipState: common.checkBoxEnable,
     RipVerion: [
       [0, 'Rip V1&Rip V2'],
       [1, 'Rip V1'],
       [2, 'Rip V2']
     ]
   },
-  formRules: {
-  }
+  formRules: {}
 };
 
-config.systemSettings.formOptions.ZoneName=sys.ZoneName;
-config.systemSettings.formOptions.Language=sys.Language;
+config.systemSettings.formOptions.ZoneName = sys.ZoneName;
+config.systemSettings.formOptions.Language = sys.Language;
 
 config.Wlan = {
   formData: {
@@ -1034,29 +1013,20 @@ config.Wlan = {
     }
   },
   formOptions: {
-    show2GPassword: [
-      [1, 'enable'],
-      [0, 'disable']
-    ],
-    show5GPassword: [
-      [1, 'enable'],
-      [0, 'disable']
-    ],
+    show2GPassword: common.checkBoxEnable,
+    show5GPassword: common.checkBoxEnable,
     CountryCode: [
       ["IT", 'IT'],
       ["CN", 'CN']
     ],
     AP2G: {
-      ApStatus: [
-        [1, 'Enable'],
-        [0, 'Disable']
-      ],
+      ApStatus: common.checkBoxEnable,
       CountryCode: [
         ["IT", 'ITs'],
         ["CN", 'CNs']
       ],
       SecurityMode: [
-        [0, 'disable'],
+        [0, 'ids_disable'],
         [1, 'WEP'],
         [2, 'WPA'],
         [3, 'WPA2'],
@@ -1069,22 +1039,19 @@ config.Wlan = {
       WpaType: [
         [0, 'TKIP'],
         [1, 'AES'],
-        [2, 'AUTO']
+        [2, 'ids_auto']
       ],
       ApIsolation: [
         [0, 'Off'],
         [1, 'On'],
       ],
       WMode: [
-        [0, 'Auto'],
+        [0, 'ids_auto'],
         [1, '802.11b'],
         [2, '802.11b/g'],
         [3, '802.11b/g/n']
       ],
-      SsidHidden: [
-        [0, 'disable'],
-        [1, 'enable'],
-      ],
+      SsidHidden: common.checkBoxEnable,
       Bandwidth:[
         [0, '20MHz/40MHz'],
         [1, '20MHz'],
@@ -1092,16 +1059,13 @@ config.Wlan = {
       ]
     },
     AP5G: {
-      ApStatus: [
-        [1, 'Enable'],
-        [0, 'Disable']
-      ],
+      ApStatus: common.checkBoxEnable,
       CountryCode: [
         ["IT", 'IT'],
         ["CN", 'CN']
       ],
       SecurityMode: [
-        [0, 'disable'],
+        [0, 'ids_disable'],
         [1, 'WEP'],
         [2, 'WPA'],
         [3, 'WPA2'],
@@ -1114,22 +1078,19 @@ config.Wlan = {
       WpaType: [
         [0, 'TKIP'],
         [1, 'AES'],
-        [2, 'AUTO']
+        [2, 'ids_auto']
       ],
       ApIsolation: [
-        [0, 'Off'],
-        [1, 'On']
+        [0, 'ids_wifi_off'],
+        [1, 'ids_wifi_on']
       ],
       WMode: [
-        [0, 'Auto'],
+        [0, 'ids_auto'],
         [4, '802.11a'],
         [5, '802.11a/n'],
         [6, '802.11a/c']
       ],
-      SsidHidden: [
-        [0, 'disable'],
-        [1, 'enable'],
-      ],
+      SsidHidden: common.checkBoxEnable,
       Bandwidth:[
         [0, '20MHz/40MHz'],
         [1, '20MHz'],

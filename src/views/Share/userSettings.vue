@@ -2,46 +2,45 @@
   include ../components.jade
   #userSettings
     +sideMenuPage('Services')    
-      +breadcrumb("User Settings")
-      h4 Default for New
+      +breadcrumb("ids_user_deviceAccess")
+      h4 {{vuex.res.ids_user_defaultForNew}}
       +form("page.defaultRight")
-        +formItem("Access Internet:")
+        +formItem("ids_user_accessInternet:")
           el-switch(v-model="page.accessInternetRight" @change="setDefaultRight()" on-text="" off-text="")
-        +formItem("Access Storage:")
+        +formItem("ids_user_accessStorage:")
           el-switch(v-model="page.accessStorageRight" @change="setDefaultRight()" on-text="" off-text="")
-      h4 Connected Devices
+      h4 {{vuex.res.ids_menu_connectDevice}} ({{page.connectedListData.length}})
       el-table(:data="page.connectedListData")
-        el-table-column(label="Device" width='150' inline-template)
+        el-table-column(:label="vuex.res.ids_device" width='150' inline-template)
           span
-            | {{row.DeviceName}} 
+            | {{row.DeviceName}}
             +button("")(icon="edit" size="mini" @click="editDeviceNameDialog(row)")
-        el-table-column(prop="IPAddress" label="IP" width='120')
-        el-table-column(prop="MacAddress" label="Mac Address" width='120')
-        el-table-column(prop="AssociationTime" label="Duration" width='100')
-        el-table-column(prop="InternetRight" label="Access Internet" width='80' inline-template)
+        el-table-column(prop="IPAddress",:label="vuex.res.ids_user_IP" width='120')
+        el-table-column(prop="MacAddress",:label="vuex.res.ids_lan_macAdress" width='120')
+        el-table-column(prop="AssociationTime",:label="vuex.res.ids_duration" width='100' inline-template)
+          span
+            | {{row.AssociationTime | times('2')}}
+        el-table-column(prop="InternetRight",:label="vuex.res.ids_user_accessInternet" width='80' inline-template)
           el-switch(v-model="row.exAccessInternetRight" @change="SetConnectedDeviceRight(row)" on-text="" off-text="")
-        el-table-column(prop="StorageRight" label="Access Storage" width='80' inline-template)
+        el-table-column(prop="StorageRight",:label="vuex.res.ids_user_accessStorage" width='80' inline-template)
           el-switch(v-model="row.exAccessStorageRight" @change="SetConnectedDeviceRight(row)" on-text="" off-text="")
-        el-table-column(label="Operation" fixed="right",:context="_self" width='100' inline-template)
+        el-table-column(:label="vuex.res.ids_netwrok_operation" fixed="right",:context="_self" width='100' inline-template)
           span
-            +button("block")(:disabled="!row.exAllowBlock" size="mini" @click="blockEvent(row)")
-      h4 Blocked Devices
+            +button("ids_btn_block")(:disabled="!row.exAllowBlock" size="mini" type="danger" @click="blockEvent(row)")
+      h4 {{vuex.res.ids_title_blockDevice}} ({{page.blockedListData.length}})
       el-table(:data="page.blockedListData")
-        el-table-column(prop="DeviceName" label="Device" width='325')
-        el-table-column(prop="MacAddress" label="Mac Address" width='325')
-        el-table-column(label="Operation" fixed="right",:context="_self" width='100' inline-template)
+        el-table-column(prop="DeviceName",:label="vuex.res.ids_device" width='325')
+        el-table-column(prop="MacAddress",:label="vuex.res.ids_lan_macAdress" width='325')
+        el-table-column(:label="vuex.res.ids_netwrok_operation" fixed="right",:context="_self" width='100' inline-template)
           span
-            +button("unblock")(size="mini" @click="unblockEvent(row)")
+            +button("ids_btn_unblock")(size="mini" type="info" @click="unblockEvent(row)")
       el-dialog(:title="Edit" v-model="page.dialogFormVisible")
         +form("formData")
-          +input("Device Name:","DeviceName")(:maxlength="32")
+          +input("ids_system_deviceName:","DeviceName")(:maxlength="32")
           +formBtn()
 </template>
 <script>
-import $ from 'jquery';
-import _ from 'underscore';
-import G from "../../config/G.js";
-import _config from '../../config.js';
+import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.userSettings;
 export default {
   created() {
@@ -49,6 +48,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex = vuex;
         this.initdata(Config);
         this.page = {
           accessInternetRight: false,

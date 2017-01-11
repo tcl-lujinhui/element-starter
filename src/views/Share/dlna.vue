@@ -2,17 +2,14 @@
   include ../components.jade
   #dlna
     +sideMenuPage('Services')
-      +breadcrumb("DLNA")
+      +breadcrumb("ids_samba_menuDlna")
       +form("formData")
-        +formItem("DLNA:")
+        +formItem("ids_samba_menuDlna:")
           el-switch(v-model="page.dlnaStatus" @change="update()" on-text="" off-text="")
-        div(v-if="formData.DlnaStatus==1")
-          +formItem("Storage:")
-            | USB Hard Disk        
 </template>
 
 <script>
-import _config from '../../config.js'
+import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.dlna;
 export default {
   created() {
@@ -20,6 +17,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex = vuex;
         this.initdata(Config);
         this.page = {
           dlnaStatus: false

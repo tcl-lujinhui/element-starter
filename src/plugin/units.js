@@ -126,4 +126,25 @@ units.bytes = (bytes) => {
     var i = Math.floor(Math.log(bytes) / Math.log(k));
     return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
 }
+units.times = (second, type) => {  
+  var formatStr;
+  var hours = parseInt(second / 60 / 60);
+  var min = parseInt(second / 60 % 60);
+  var sec = second % 60;
+
+  switch (type) {
+    case "1": //format:HH:mm:ss or mm:ss 
+      if (hours > 0) {
+        formatStr = [hours, min, sec].join(":").replace(/\b(\d)\b/g, "0$1");
+      } else {
+        formatStr = [min, sec].join(":").replace(/\b(\d)\b/g, "0$1");
+      }
+      break;
+    case "2": //format:HH:mm:ss 
+      formatStr = [hours, min, sec].join(":").replace(/\b(\d)\b/g, "0$1");
+      break;
+  }
+  return formatStr;
+}
+
 export default units;

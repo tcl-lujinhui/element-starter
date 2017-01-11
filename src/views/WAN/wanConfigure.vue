@@ -2,35 +2,37 @@
   include ../components.jade
   #wanConfigure
     +sideMenuPage('Settings')
-      +breadcrumb("WAN Configure")
+      +breadcrumb("ids_wan_configureTitle")
       +form("formData")
-        +select("Wan Connection Type:","ConnectType")
+        +select("ids_netwrok_connectionMode:","ConnectType")
         div(v-if="formData.ConnectType == 2")
-          +input("IP Address:","StaticIpAddress")
-          +input("Subnet Mask:","SubNetMask")
-          +input("Default Gateway:","Gateway")
-          +input("MTU size(in bytes):","Mtu") (The default is 1500,do not change unless necessary.)
-          +input("Primary DNS:","PrimaryDNS")
-          +input("Secondary DNS:","SecondaryDNS") (Optional.)
+          +input("ids_ipAddress:","StaticIpAddress")
+          +input("ids_subnetMark:","SubNetMask")
+          +input("ids_ethWan_defaultGateway:","Gateway")
+          +input("ids_ethWan_Mtu:","Mtu") (The default is 1500,do not change unless necessary.)
+          +input("ids_ethWan_primaryDNS:","PrimaryDNS")
+          +input("ids_ethWan_secondaryDNS:","SecondaryDNS") (Optional.)
         div(v-if="formData.ConnectType == 0")
-          +input("Account:","Account")
-          +input("Password:","Password")
-          +input("MTU size(in bytes):","pppoeMtu")
+          +input("ids_profile_userName:","Account")
+          +input("ids_profile_password:","Password")
+          +input("ids_ethWan_Mtu:","pppoeMtu")
+          +text("","{{vuex.res.ids_ethWan_MtuNote}}")
+          
+          
         +formBtn()      
 
 </template>
 
 <script>
-import _ from 'underscore';
-import $ from 'jquery';
-import _Config from '../../config.js'
-let Config = _Config.wanConfigure;
+import {_,_config,$,vuex,G} from '../../common.js';
+let Config = _config.wanConfigure;
 export default {
   created() {
       this.init()
     },
     methods: {
       init() {
+        this.vuex = vuex
         this.initdata(Config);
         this.sdk.get("GetWanSettings", null, (res) => {
           this.formData = res;
@@ -38,9 +40,9 @@ export default {
       },
 
       update() {
-        this.$confirm('This action requires the services to be restarted. Are you sure to continue?', 'Confirm', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+        this.$confirm(vuex.res['ids_lan_restartWarn'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['ids_ok'],
+          cancelButtonText: vuex.res['ids_cancel'],
           type: 'warning'
         }).then(() => {
           let params = _.pick(this.formData, function(value, key, object) {

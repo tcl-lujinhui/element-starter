@@ -2,22 +2,22 @@
   include ../components.jade
   #usb
     +sideMenuPage('Services')
-      +breadcrumb("USB")
+      +breadcrumb("ids_usb_Title")
       +form("formData")
         p(v-if="formData.UsbStatus==0")
-          {{vuex.res.ids_Wan_usbNotInsert}}
+          | {{vuex.res.ids_Wan_usbNotInsert}}
         +radioNoLabel("UsbStatus")(disabled v-if="formData.UsbStatus!=0") 
         p.tips(v-if="formData.UsbStatus==1") 
-          {{vuex.res.ids_note}}:<br/>        
-          {{vuex.res.ids_usb_sambaEnableStep1}}<br/>        
-          {{vuex.res.ids_usb_sambaEnableStep2}}{{vuex.res.ids_usb_storageStep2}}
+          | {{vuex.res.ids_note}}:<br/>        
+          | {{vuex.res.ids_usb_sambaEnableStep1}}<br/>        
+          | {{vuex.res.ids_usb_sambaEnableStep2}}{{vuex.res.ids_usb_storageStep2}}
         p.tips(v-if="formData.UsbStatus==2") 
-          {{vuex.res.ids_note}}:<br/>        
-          {{vuex.res.ids_usb_sambaEnableStep1}}<br/>        
-          {{vuex.res.ids_usb_sambaEnableStep2}}{{vuex.res.ids_usb_printerStep2}}<br/>
-          {{vuex.res.ids_usb_printerStep2Note}}<br/>
-          {{vuex.res.ids_usb_printerStep3}}<br/>
-          {{vuex.res.ids_usb_printerStep4}}
+          | {{vuex.res.ids_note}}:<br/>        
+          | {{vuex.res.ids_usb_sambaEnableStep1}}<br/>        
+          | {{vuex.res.ids_usb_sambaEnableStep2}}{{vuex.res.ids_usb_printerStep2}}<br/>
+          | {{vuex.res.ids_usb_printerStep2Note}}<br/>
+          | {{vuex.res.ids_usb_printerStep3}}<br/>
+          | {{vuex.res.ids_usb_printerStep4}}
 </template>
 
 <script>

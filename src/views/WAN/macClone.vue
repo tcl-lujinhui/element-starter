@@ -2,26 +2,26 @@
   include ../components.jade
   #macClone
     +sideMenuPage('Settings')
-      +breadcrumb("MAC Clone")
+      +breadcrumb("ids_ethWan_menuMacClone")
       +form("formData")
-        +input("Restore Factory MAC:","exCurrMacAddr")(disabled=true)
+        +input("ids_ethWan_currentMACAddress:","exCurrMacAddr")(disabled=true)
         el-form-item
-          +button("Restore Factory MAC")(@click="changeMACAddress('restore')")
-        +input("Clone MAC Address:","MacAddr")        
+          +button("ids_reset")(@click="changeMACAddress('restore')")
+        +input("ids_ethWan_hostMACAddress:","MacAddr")        
         el-form-item
-          +button("Clone MAC Address")(@click="changeMACAddress('clone')")
+          +button("ids_ethWan_clone")(@click="changeMACAddress('clone')")
 </template>
 
 <script>
-import _Config from '../../config.js'
-import G from "../../config/G.js";
-let Config = _Config.macClone;
+import {_,_config,$,vuex,G} from '../../common.js';
+let Config = _config.macClone;
 export default {
   created() {
       this.init()
     },
     methods: {
       init() {
+        this.vuex = vuex
         this.initdata(Config);
         this.sdk.get("GetWanCurrentMacAddr", null, (res) => {
           this.formData = res;
@@ -30,9 +30,9 @@ export default {
       },
 
       changeMACAddress(type) {
-        this.$confirm('This action requires the services to be restarted. Are you sure to continue?', 'Confirm', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+        this.$confirm(vuex.res['ids_lan_restartWarn'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['OK'],
+          cancelButtonText: vuex.res['ids_cancel'],
           type: 'warning'
         }).then(() => {
           let params = {

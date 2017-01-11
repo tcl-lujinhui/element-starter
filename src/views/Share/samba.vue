@@ -2,19 +2,18 @@
   include ../components.jade
   #samba
     +form("formData")
-      +formItem("Samba:")
+      +formItem("ids_samba_menuSamba:")
         el-switch(v-model="page.sambaStatus" @change="update()" on-text="" off-text="")
       div(v-if="formData.SambaStatus==1")
-        +formItem("Storage:")
-          | USB Hard Disk
-        +formItem("Anonymous:")
-          el-checkbox(v-model="formData.Anonymous",:true-label.number="1",:false-label.number="0") Enable
-        +radio("Rights:","AuthType")
+        +formItem("ids_share_storage:")
+          | {{vuex.res.ids_samba_storageUsb}}  
+        +radio("ids_samba_anonymous:","Anonymous")
+        +radio("ids_samba_rights:","AuthType")
         +formBtn()
 </template>
 
 <script>
-import _config from '../../config.js'
+import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.samba;
 export default {
   created() {
@@ -22,6 +21,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex = vuex;
         this.initdata(Config);
         this.page = {
           sambaStatus: false

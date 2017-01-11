@@ -2,19 +2,18 @@
   include ../components.jade
   #ftp
     +form("formData")
-      +formItem("Ftp:")
+      +formItem("ids_samba_menuFtp:")
         el-switch(v-model="page.ftpStatus" @change="update()" on-text="" off-text="")
       div(v-if="formData.FtpStatus==1")
-        +formItem("Storage:")
-          | USB Hard Disk
-        +formItem("Anonymous:")
-          el-checkbox(v-model="formData.Anonymous",:true-label.number="1",:false-label.number="0") Enable
-        +radio("Rights:","AuthType")
+        +formItem("ids_share_storage:")
+          | {{vuex.res.ids_samba_storageUsb}} 
+        +radio("ids_samba_anonymous:","Anonymous")
+        +radio("ids_samba_rights:","AuthType")
         +formBtn()
 </template>
 
 <script>
-import _config from '../../config.js'
+import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.ftp;
 export default {
   created() {
@@ -22,6 +21,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex = vuex;
         this.initdata(Config);
         this.page = {
           ftpStatus: false
