@@ -31,7 +31,7 @@ menuConfig.sideMenu = {
       router: "wlanStatus"
     }]
   }, {
-    text: "Statistics",
+    text: "ids_statistics",
     submenu: [{
       text: "ids_internet",
       router: "internetStatistics"

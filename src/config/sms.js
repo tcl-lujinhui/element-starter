@@ -104,12 +104,14 @@ let sms = {
     singleStrNumA = isUcs2 ? 70 : 160;
     singleStrNumB = isUcs2 ? 67 : 153;
     if (strLen <= singleStrNumA) {
-      return "(1)";
+      //return "(1)";
+      return 1;
     } else if (strLen > singleStrNumA) {
       counts = Math.ceil(strLen / singleStrNumB);
       this.G_SmsCounts = counts;
       totalNum = counts > 10 ? 3 : Math.floor(30 / counts);
-      return "(" + counts + ")";
+      //return "(" + counts + ")";
+      return counts;
     }
   },
   getSystemTime() {
@@ -158,19 +160,19 @@ let sms = {
       $("#inboxList").removeClass("hidden");
       $("#inboxDetail").addClass("hidden");
     }
-  },
-  saveEvent(saveData) {
+  }
+  /*saveEvent(saveData) {
     let results = {
       callback: this.init
     };
-    this.sdk.post("SendSMS", saveData, results);
+    this.sdk.post("SaveSMS", saveData, results);
   },
   sendEvent(sendData) {
     let results = {
       callback: this.init
     };
-    this.sdk.post("SaveSMS", sendData, results);
-  }
+    this.sdk.post("SendSMS", sendData, results);
+  }*/
 }
 
 //var currListType = "inbox";;

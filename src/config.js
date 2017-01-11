@@ -236,51 +236,36 @@ config.backupRestore = {
 
 //inbox
 config.inbox = {
-    formData: {
-      "Page": 0,
-      "key": "inbox"
-    },
-    formOptions: {},
-    formRules: {}
-  }
-  //outbox
+  formData: {},
+  formOptions: {},
+  formRules: {}
+}
+//outbox
 config.outbox = {
-    formData: {
-      "Page": 0,
-      "key": "outbox"
-    },
-    formOptions: {},
-    formRules: {}
-  }
-  //draft
+  formData: {},
+  formOptions: {},
+  formRules: {}
+}
+//draft
 config.draft = {
-    formData: {
-      "Page": 0,
-      "key": "draft"
-    },
-    formOptions: {},
-    formRules: {}
-  }
-  //newSMS
+  formData: {},
+  formOptions: {},
+  formRules: {}
+}
+//newSMS
 config.newSMS = {
-    formData: {
-      PhoneNumber: "",
-      SMSContent: ""
-    },
-    formOptions: {
-      PhoneNumber: [
-        { type: "string", required: true, message: 'Required' }
-        /*{ type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'Invalid password!The length of login password is 4-16, including 0-9, a-z, A-Z,"-+!@$#^&*",please input again.' }*/
-      ],
-      SMSContent: [
-        { type: "string", required: true, message: 'Required' }
-        /*{ type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'Invalid password!The length of login password is 4-16, including 0-9, a-z, A-Z,"-+!@$#^&*",please input again.' }*/
-      ],
-
-    },
-    formRules: {}
-  }
-  //SMS Settings
+  formData: {
+    PhoneNumber:"",
+    SMSContent:""
+  },
+  formOptions: {
+    PhoneNumber: [
+      { type: "string", required: true, message: 'Required' }
+    ],
+  },
+  formRules: {}
+}
+//SMS Settings
 config.smsSettings = {
   formData: {
     "StoreFlag": 1,

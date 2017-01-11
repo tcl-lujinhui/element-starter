@@ -7,7 +7,7 @@
       #draftList
         p SMS Storage Status(Extant SMS/Total):{{page.usedSMSCount}}/{{page.maxSMSCount}}
         +button("Delete")(@click="deleteSMS",:disabled="page.select.length==0")
-        el-table(:data="page.SMSList" stripe style="width: 100%" border @selection-change="handleSelectionChange")
+        el-table(:data="page.displayDraftListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
           el-table-column(prop="PhoneNumber" label="Number" style="width: 30%" inline-template)
             span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
           el-table-column(prop="SMSContent" label="Content" style="width: 30%" show-overflow-tooltip=true inline-template)
@@ -15,7 +15,7 @@
           el-table-column(prop="SMSTime" label="Time" style="width: 20%" inline-template)
             span(@click="smsDetails(row)" v-html="row.SMSTime")
           el-table-column(prop="SMSId" type="selection" style="width: 10%")
-        el-pagination(@click="init",layout="prev,pager,next,jumper",@current-change="handleCurrentChange",:total="page.totalPageCount")
+        el-pagination(layout="prev, pager, next",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
 </template>
 <script>
 import {_config,_,vuex,$} from '../../common.js';
@@ -28,23 +28,31 @@ export default {
     methods: {
       init() {
         this.initdata(Config);
+        this.vuex=vuex;
         this.page = {
           pageName: " ",
           SMSList: [],
+          displayDraftListArtr: [],
           maxSMSCount: 0,
           usedSMSCount: 0,
           totalPageCount: 0,
           currentPage: 0,
-          select: []
+          select: [],
+          PageSize: 10
         };
         this.sdk.get("GetSMSStorageState", null, (res) => {
           this.page.maxSMSCount = res.MaxCount;
           this.page.usedSMSCount = res.TUseCount;
-        })
-        this.sdk.get("GetSMSListByContactNum", this.formData, (res) => {
+        });
+        let sendData = {
+          "Page": 0,
+          "key": "draft"
+        };
+        this.sdk.get("GetSMSListByContactNum", sendData, (res) => {
           this.page.SMSList = res.SMSList;
           this.page.totalPageCount = res.TotalPageCount;
-        })
+          this.initTableList();
+        });
       },
       deleteSMS() {
         let selectId = [];
@@ -76,12 +84,26 @@ export default {
         };
         sms.doEdit(this.$router, smsInfo);
       },
+      initTableList() {
+        for (let n = 0; n < this.page.PageSize; n++) {
+          if (this.page.SMSList[n] != undefined) {
+            this.page.displayDraftListArtr[n] = this.page.SMSList[n];
+            //-console.log(this.page.displayDraftListArtr.length)
+          }
+        }
+      },
       handleCurrentChange(val) {
-        this.page.currentPage = val;
+        this.page.displayDraftListArtr.splice(0, this.page.PageSize)
+        for (let n = (val - 1) * this.page.PageSize; n < this.page.PageSize * val; n++) {
+          if (this.page.SMSList[n] != undefined) {
+            this.page.displayDraftListArtr.push(this.page.SMSList[n]);
+          }
+        }
       }
     }
 }
 </script>
+
 <style lang="sass" scoped>
 .el-button {
   float: right;
