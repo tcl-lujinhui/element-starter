@@ -1,0 +1,46 @@
+<template lang="jade">
+  include ../components.jade
+  #wanPing
+    +sideMenuPage('Settings')
+      +breadcrumb("WAN Ping")
+      +form("formData")
+        +formItem("WAN Port Ping:")
+          el-switch(v-model="page.DisableWanAcess" @change="update()" on-text="" off-text="")
+        p.tips Note:<br/>If Off, the device will not respond a ping to the WAN port. This offers a heightened level of security.
+</template>
+
+<script>
+import {_,_config,$} from '../../common.js';
+var Config = _config.wanPing;
+export default {
+  created() {
+      this.init()
+    },
+    methods: {
+      init() {
+        this.initdata(Config);
+        this.page={
+          DisableWanAcess:false
+        }
+        this.sdk.get("GetWanAccess", null, (res) => {
+          this.formData = res;
+          this.page.DisableWanAcess = this.formData.disableWanAcess == 0 ? true : false;
+        })
+      },
+      update() {
+        this.formData.disableWanAcess = this.page.DisableWanAcess == true ? 0 : 1;
+        this.sdk.post("SetWanAccess", this.formData, (res) => {
+        })
+      }
+    }
+}
+</script>
+
+
+<style lang="sass" scoped>
+  .tips{
+    font-size: 14px;
+    margin-top: 60px;
+    color: #5e6d82;
+  }
+</style>

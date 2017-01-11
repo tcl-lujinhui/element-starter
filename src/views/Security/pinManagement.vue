@@ -4,41 +4,36 @@
     +sideMenuPage('Settings')
       +breadcrumb("PIN Management")
       sim-state
-        +form("formData")
-          div(v-if="vuex.SimInfo.PinState==2")
-            div(v-if="formData.Operation==0")
-              +select("PIN operation:","Operation")
-              +input("PIN  Code","Pin")(type="password")
-              +text("Remaining Attempt(s):","{{vuex.SimInfo.PinRemainingTimes}}")
-              +formItem("")
-                +button("Apply")(type="primary" @click="ChangePinState")
-                +button("Cancel")(@click="reset")
-            div(v-show="formData.Operation==1")
-              +select("PIN Code Operation:","Operation")
-              +input("Old PIN Code :","CurrentPin")(type="password")
-              +input("New PIN Code :","NewPin")(type="password")
-              +input("Confirm PIN Code :","ConfirmPin")(type="password")
-              +formItem("")
-                +button("Apply")(type="primary" @click="ChangePinCode")
-                +button("Cancel")(@click="reset")
-          div(v-if="vuex.SimInfo.PinState==3")
-            +formItem("PIN operation:")
-              div Enable PIN
+        div(v-if="vuex.SimInfo.PinState==2")
+          +form("formData")(v-show="formData.Operation==0")
+            +radio("PIN operation:","Operation")
             +input("PIN  Code","Pin")(type="password")
-            +text("Remaining Attempt(s):","{{vuex.SimInfo.PinRemainingTimes}}")
-            el-form-item
-              el-checkbox(v-model="page.AutoValidatePinStatesstr",:true-label.number="1",:false-label.number="0")
-              label Auto Validation
+            +text("Remaining Attempts:","{{vuex.SimInfo.PinRemainingTimes}}")
             +formItem("")
               +button("Apply")(type="primary" @click="ChangePinState")
               +button("Cancel")(@click="reset")
+          +form("formData")(v-show="formData.Operation==1" ref="formData2")
+            +radio("PIN Code Operation:","Operation")
+            +input("Old PIN Code :","CurrentPin")(type="password")
+            +input("New PIN Code :","NewPin")(type="password")
+            +input("Confirm PIN Code :","ConfirmPin")(type="password")
+            +text("Remaining Attempts:","{{vuex.SimInfo.PinRemainingTimes}}")
+            +formItem("")
+              +button("Apply")(type="primary" @click="ChangePinCode('formData2')")
+              +button("Cancel")(@click="reset")
+        +form("formData")(v-show="vuex.SimInfo.PinState==3")
+          +formItem("PIN operation:")
+            div Enable
+          +input("PIN  Code","Pin")(type="password")
+          +checkbox("","AutoValidatePinState","Auto Validation")
+          +text("Remaining Attempts:","{{vuex.SimInfo.PinRemainingTimes}}")
+          +formItem("")
+            +button("Apply")(type="primary" @click="ChangePinState")
+            +button("Cancel")(@click="reset")
 </template>
-
 <script>
-import _Config from '../../config.js'
-import vuex from '../../vuex.js';
-import ElementUI from 'element-ui'
-var Config = _Config.pinManagement
+import {$,vuex,_,_config} from '../../common.js';
+let Config = _config.pinManagement
 export default {
   created() {
       this.init()
@@ -53,8 +48,7 @@ export default {
           AutoValidatePinStatesstr: false,
         }
         this.sdk.get("GetAutoValidatePinState", null, (res) => {
-          this.page.AutoValidatePinStates = res;
-          this.page.AutoValidatePinStatesstr = this.page.AutoValidatePinStates.State == 1 ? true : false;
+          this.formData.AutoValidatePinState = res.State;
         })
       },
       requestJsonRpcIsOk(result) {
@@ -62,20 +56,16 @@ export default {
       },
       ChangePinState() {
         if (vuex.SimInfo.PinState == 2) {
-          let postData = {
-            Pin: this.formData.Pin,
-            State: this.formData.Operation,
-          }
-          let vm = this;
-          this.sdk.post("ChangePinState", postData, (res) => {
-            if (this.requestJsonRpcIsOk(res)) {
-              ElementUI.Message.success("succeed");
-              vm.init()
-            } else {
-              ElementUI.Message.error("failed");
-              vm.init()
+          let setForm = () => {
+            let postData = {
+              Pin: this.formData.Pin,
+              State: this.formData.Operation,
             }
-          })
+            this.sdk.post("ChangePinState", postData, {
+              callback: this.init
+            })
+          }
+          this.submit("formData", setForm)
         } else if (vuex.SimInfo.PinState == 3) {
           let postData = {
             Pin: this.formData.Pin,
@@ -83,44 +73,43 @@ export default {
           }
           let postData1 = {
             Pin: this.formData.Pin,
-            State: this.page.AutoValidatePinStatesstr == true ? 1 : 0,
+            State: this.formData.AutoValidatePinState
           }
           let vm = this;
-          this.sdk.post("ChangePinState", postData, (res) => {
-            if (this.requestJsonRpcIsOk(res)) {
-              this.sdk.post("SetAutoValidatePinState", postData1, (res) => {
-                if (this.requestJsonRpcIsOk(res)) {
-                  ElementUI.Message.success("succeed");
-                  vm.init()
-                } else {
-                  ElementUI.Message.error("failed");
-                  vm.init()
+          let setForm = () => {
+            this.sdk.post("ChangePinState", postData, {
+              success: {
+                tips: "None",
+                callback() {
+                  vm.sdk.post("SetAutoValidatePinState", postData1, {
+                      callback: this.init
+                    })
                 }
-              })
-            } else {
-              ElementUI.Message.error("failed");
-              vm.init()
-            }
-          })
+              },
+              callback: this.init
+            })
+          }
+          vm.submit("formData", setForm)
         }
       },
-      ChangePinCode() {
-        let postData = {
-          State: this.formData.Operation,
-          NewPin: this.formData.NewPin,
-          CurrentPin: this.formData.CurrentPin,
-        }
-        let vm = this;
-        this.sdk.post("ChangePinCode", postData, (res) => {
-          if (this.requestJsonRpcIsOk(res)) {
-            ElementUI.Message.success("succeed");
-            vm.init()
+      ChangePinCode(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let postData = {
+              State: this.formData.Operation,
+              NewPin: this.formData.NewPin,
+              CurrentPin: this.formData.CurrentPin
+            }
+            this.sdk.post("ChangePinCode", postData, {
+                callback: this.init
+              })
           } else {
-            ElementUI.Message.error("failed");
-            vm.init()
+            return false;
           }
-        })
+        });
+
       }
+
     }
 }
 </script>

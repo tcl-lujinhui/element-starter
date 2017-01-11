@@ -4,7 +4,7 @@
     +sideMenuPage('System')
       +breadcrumb("Backup & Restore")
       +form("formData")
-        div.backupRestore
+        div.backupRestore(v-loading.fullscreen.lock="page.fullscreenLoading")
           el-row(:gutter="15")
             el-col.textAlignRight(:span="5") Backup:
             el-col(:span="15") 
@@ -19,7 +19,7 @@
                 +button("Browse")(size="small" type="primary")
               +button("Restore")(size="small" type="primary" @click="restoreDevice", :disabled="page.restoreDisabled")
           el-dialog(v-model="page.deviceRestored" size="tiny" top="50%" show-close = "false")
-              span Device restored.Now restarting¡­
+              span Device restored.Now restarting…
 
 </template>
 <script>
@@ -35,7 +35,8 @@ export default {
       this.page = {
         fileUrlName:"",
         deviceRestored:false,
-        restoreDisabled:false
+        restoreDisabled:false,
+        fullscreenLoading:false
       }
     },
     showUpgradeFileUrl(){
@@ -52,15 +53,18 @@ export default {
       }
     },
     backupFile(){
-        this.sdk.post("SetDeviceBackup",this.formData,(res)=>{
-          if(this.requestJsonRpcIsOk(res)){
-            ElementUI.Message.success("succeed");
-            this.getBackupSettings()
-          }else{
-            ElementUI.Message.error("failed");
-          }
-          
-        })
+        var _self = this;
+        let setResult = {
+            success:{
+                tips:"Message",
+                msg:"Success!",
+                callback(){
+                    _self.getBackupSettings();
+                }
+            },
+            fail:"Failed!"
+        }
+        this.sdk.post("SetDeviceBackup",this.formData,setResult);
 
     },
     restoreDevice(){
@@ -68,7 +72,6 @@ export default {
         this.$confirm('Restore your device to factory settings now?', 'Restore', {
           confirmButtonText: 'Restore',
           cancelButtonText: 'Cancel'
-          //type: 'info'
         }).then(() => {
           this.ajaxFileUploadEvent();
         }).catch(() => {
@@ -79,11 +82,9 @@ export default {
     getBackupSettings(){
       $("body").append("<iframe src='/cfgbak/configure.bin' style='display: none'></iframe>");
     },
-    requestJsonRpcIsOk(result) {
-        return result.hasOwnProperty("result") && !result.hasOwnProperty("error");
-    },
     ajaxFileUploadEvent(){
       var _self = this;
+      this.page.fullscreenLoading = true;
       $.ajaxFileUpload({
             url: "/goform/uploadBackupSettings",
             secureuri: false,
@@ -91,13 +92,14 @@ export default {
             dataType: "json",
             complete: function() {
                 //page.stopLoading();
+                _self.page.fullscreenLoading = false
                 console.log("complete"); 
                 _self.page.deviceRestored = false;
             },
             success: function(data, status) {
                 if (data.error == 0) {
                     //sys.alert("ids_success");
-                    console.log("Device restored.Now restarting¡­");
+                    console.log("Device restored.Now restarting…");
                     _self.page.deviceRestored = true;
                 } else {
                   console.log("fail");

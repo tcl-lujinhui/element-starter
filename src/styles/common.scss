@@ -217,6 +217,12 @@
   .textAlignRight{
     text-align:right;
   }
+  .textBlue{
+    color:#20a0ff;
+  }
+  .textGray{
+    color:#999;
+  }
   //upload File css
   .uploadFile{
     width:321px;
@@ -247,7 +253,34 @@
     padding-top:37px;
   }
 }
-  
+#login{
+  .title{
+    padding:0 0 46px 0;
+  }
+  .imgTextAlign{
+    text-align:center;
+    padding:21px 75px 0 0;
+  }
+  .cutLine{
+    border-left:1px solid #20a0ff;
+    min-height:379px;
+  }
+  .loginArea{
+    padding-left:75px;
+  }
+  .paddingVal{
+    padding:5px 0;
+  }
+  .btnLogin button{
+    width:68%;
+  }
+  .tips-error{
+    padding:5px 0 0 0;
+    font-size:12px;
+    color:red;
+  }
+}
+
 .add-btn{
   float: right;
   margin-bottom: 2px;

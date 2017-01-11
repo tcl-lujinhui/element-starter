@@ -7,8 +7,8 @@
         div.internetInfo
           //-2.4G Mode
           el-row(:gutter="21")
-            el-col.textAlignRight(:span="10" v-html="page.wlanAP2GMode")
-            el-col(:span="14") {{page.wlanAP2GModeText}}
+            el-col.textAlignRight.textBlue(:span="10" v-html="page.wlanAP2GMode")
+            el-col.textGray(:span="14") {{page.wlanAP2GModeText}}
           el-row(:gutter="21")(v-for="(item,index) in page.wlan2GItem" v-if="page.ApStatus2GMode")
             el-col.textAlignRight(:span="10" v-html="item.name2GVal")
             el-col(:span="14") {{item.wlan2GVal}}
@@ -17,8 +17,8 @@
           div.line
           //-5G Mode
           el-row(:gutter="21")
-            el-col.textAlignRight(:span="10" v-html="page.wlanAP5GMode")
-            el-col(:span="14") {{page.wlanAP5GModeText}}
+            el-col.textAlignRight.textBlue(:span="10" v-html="page.wlanAP5GMode")
+            el-col.textGray(:span="14") {{page.wlanAP5GModeText}}
           el-row(:gutter="21")(v-for="(item,index) in page.wlan5GItem" v-if="page.ApStatus5GMode")
             el-col.textAlignRight(:span="10" v-html="item.name5GVal")
             el-col(:span="14") {{item.wlan5GVal}}

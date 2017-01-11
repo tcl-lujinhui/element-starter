@@ -2,14 +2,14 @@
   include ../components.jade
   #upnpSettings
     +sideMenuPage('Settings')
-      +breadcrumb("UPnP Settings")
+      +breadcrumb("ids_security_upnp")
       +form("formData")
-        +radio("UPnP Status","upnp_switch")
+        +radio("ids_security_upnp:","upnp_switch")
         +formBtn()
 </template>
 
 <script>
-import {_config} from '../../common.js';
+import {_config,vuex} from '../../common.js';
 var Config = _config.upnpSettings;
 export default {
   created () {
@@ -18,6 +18,7 @@ export default {
   methods: {
     init (){
       this.initdata(Config);
+      this.vuex=vuex;
       this.sdk.get("GetUpnpSettings",null,(res)=>{
         this.formData = res;
       })

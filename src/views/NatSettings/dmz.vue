@@ -2,15 +2,15 @@
   include ../components.jade
   #dmzSettings
     +sideMenuPage('Settings')
-      +breadcrumb("DMZ Settings")
+      +breadcrumb("ids_security_dmzTitle")
       +form("formData")
-        +radio("dmz status:","dmz_status")
-        +input("dmz ip","dmz_ip")
+        +radio("ids_security_dmzTitle:","dmz_status")
+        +input("ids_security_dmzHostIP:","dmz_ip")
         +formBtn()
 </template>
 
 <script>
-import {_config} from '../../common.js';
+import {_config,vuex} from '../../common.js';
 var Config = _config.dmzSettings;
 export default {
   created() {
@@ -19,6 +19,7 @@ export default {
     methods: {
       init() {
         this.initdata(Config);
+        this.vuex=vuex;
         this.sdk.get("GetDMZSettings", null, (res) => {
           this.formData = res;
         })

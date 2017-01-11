@@ -27,7 +27,13 @@ export default {
         this.submit("formData", () => {
           let results = {
             callback: this.init,
-            success: "Succeeded!",
+            success: {
+                tips:"Message",
+                msg:"Succeeded!",
+                callback(){
+                    vm.setPassChangeFlag();
+                }
+            },
             fail: "Failed!",
             e2: {
               tips: "None",
@@ -43,6 +49,12 @@ export default {
           };
           this.sdk.post("ChangePassword", this.formData, results);
         })
+      },
+      setPassChangeFlag(){
+        let paramt = {
+            "change_flag":1
+        }
+        this.sdk.post("SetPasswordChangeFlag",paramt,(res) =>{})
       }
     }
 }

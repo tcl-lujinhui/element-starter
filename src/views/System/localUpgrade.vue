@@ -12,7 +12,7 @@
               el-input(size="small" class="inline-input" placeholder="Please Choice File" v-model="page.fileUrlName", :change="changeUpload()")
               +button("Browse")(size="small" type="primary")
             +button("Upgrade")(size="small" type="primary" @click="update", :disabled="page.upgradeDisabled")
-        el-dialog(title="Local Upgrade" v-model="page.alertUpdating")
+        el-dialog(title="Local Upgrade" v-model="page.alertUpdating" close-on-press-escape=false close-on-click-modal=false show-close=false)
           el-progress(:text-inside="true", :stroke-width="18", :percentage="page.percentage")
           div.loadingTxt loading......
         div.noteTips Note:<br />During the upgrade, esp. when all indicators except Power on the device blink, DO NOT power off the device, otherwise, it may be severely damaged

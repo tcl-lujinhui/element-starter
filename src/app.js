@@ -36,16 +36,39 @@ Vue.filter('covertNum', function (value) {
 Vue.filter('UsedTimes', function (value) {
   return units.getTimePassed(value)
 })
-Vue.filter('res', function (value) {
-  return vuex.res[value]
+Vue.filter('qosService', function (value) {
+  return units.qosService(value)
 })
 
+Vue.filter('qosPriority', function (value) {
+  return units.qosPriority(value)
+})
+
+Vue.filter('qosProtocol', function (value) {
+  return units.qosProtocol(value)
+})
+
+Vue.filter('res', function (value) {
+  if(vuex.res[value]){
+    return vuex.res[value];
+  }else{
+    return value;
+  }
+})
+Vue.filter('ipProtocol', function (value) {
+  return units.IPprotocol(value)
+})
+Vue.filter('byTes', function (value) {
+  return units.bytes(value)
+})
 const router = new VueRouter({
   routes: Routers
 });
 /*
 router.beforeEach((to, from, next) => {
-  console.log(to.name)
+  console.log(to.name);
+  vuex.loginName = to.name;
+
   if (to.name != 'login') {
     Vue.sdk.get('GetLoginState', null, (res) => {
       console.log(res)

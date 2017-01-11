@@ -3,41 +3,21 @@
   #routingRules
     +sideMenuPage('Settings')
       +breadcrumb("Routing Rules")
-      +form("formData")
-        
-        +formBtn()
+      staticRules
+      dynamicRules
 </template>
 
 <script>
-import Config from '../../config.js'
+import staticRules from './staticRules.vue'
+import dynamicRules from './dynamicRules.vue'
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
+    components: {
+      staticRules,
+      dynamicRules
     }
-  },
-  created () {
-    this.init()
-  },
-  methods: {
-    reset() {
-      this.init()
-      this.$refs.formData.resetFields();
-    },
-    init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
-    },
-    update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
-    }
-  }
 }
 </script>
 
 <style lang="sass" scoped>
+
 </style>

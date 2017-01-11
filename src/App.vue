@@ -3,11 +3,9 @@
   #app
     div.header
       img(src="./images/logo.png")
-      //-img.status(src="./images/status.png")
-      status-icon
-    //-+button('Logout')(@click="logout")
-    el-menu.main-menu.el-menu-demo(mode="horizontal" router=true)
-      el-menu-item(:index="val.router" v-for="val in nav") {{val.text}}
+      img.status(src="./images/status.png")
+    el-menu.main-menu.el-menu-demo(mode="horizontal" router=true v-if="vuex.loginName != 'login'")
+      el-menu-item(:index="val.router" v-for="val in nav") {{val.text |res}}
     router-view.main
      
     .footer 

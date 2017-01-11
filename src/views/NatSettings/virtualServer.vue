@@ -2,34 +2,35 @@
   include ../components.jade
   #virtualServer
     +sideMenuPage('Settings')
-      +breadcrumb("Virtual Server")
+      +breadcrumb("ids_vtServer_titleVirtualServer")
       +button("").add-btn(@click="add" type="primary" icon="plus" size="mini")
       el-table(:data="page.portfwd_list" style="width: 100%;margin:20px auto")
-        el-table-column(prop="portfwd_name" label="Name" width='120')
-        el-table-column(prop="private_port" label="WAN Port" width='120')
-        el-table-column(prop="private_ip" label="LAN IP" width='120')
-        el-table-column(prop="global_port" label="LAN Port" width='100')
-        el-table-column(prop="fwding_protocol" label="Protocol" width='100')
-        el-table-column(prop="fwding_status" label="Status")
-        el-table-column(label="Operation" width='130' inline-template,:context="_self")
+        el-table-column(prop="portfwd_name",:label="vuex.res.ids_name" width='120')
+        el-table-column(prop="private_port",:label="vuex.res.ids_vtServer_wanPort" width='120')
+        el-table-column(prop="private_ip",:label="vuex.res.ids_vtServer_lanIp" width='120')
+        el-table-column(prop="global_port",:label="vuex.res.ids_vtServer_lanPort" width='100')
+        el-table-column(prop="fwding_protocol",:label="vuex.res.ids_protocol" width='100')
+        el-table-column(prop="fwding_status",:label="vuex.res.ids_status")
+        el-table-column(:label="vuex.res.ids_netwrok_operation" width='130' inline-template,:context="_self")
           span
             +button("")(icon="edit" size="mini" @click="edit(row)")
             +button("")(icon="delete" size="mini" type="danger" @click="del(row)")
       el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible")
         +form("formData")
-          +input("Name:","portfwd_name")
-          +input("LAN IP Address:","private_ip")
-          +input("WAN Port:","private_port")
-          +input("LAN Port:","global_port")
-          +select("Protocol:","fwding_protocol")
-          +select("Status:","fwding_status")
+          +input("ids_name:","portfwd_name")
+          +input("ids_vtServer_lanIp:","private_ip")
+          +input("ids_vtServer_wanPort:","private_port")
+          +input("ids_vtServer_lanPort:","global_port")
+          +select("ids_protocol:","fwding_protocol")
+          +select("ids_status:","fwding_status")
           +formBtn()
 </template>
 
 <script>
 import {
   _,
-  _config
+  _config,
+  vuex
 } from '../../common.js';
 var Config = _config.virtualServer;
 export default {
@@ -39,6 +40,7 @@ export default {
     methods: {
       init() {
         this.initdata(Config);
+        this.vuex=vuex;
         this.page = {
           actionType: 0, //0:list;1:edit;2:new
           dialogFormVisible: false,
@@ -51,9 +53,9 @@ export default {
       },
 
       del(item) {
-        this.$confirm('Are you sure you want to delete it?', 'Confirm', {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+        this.$confirm(this.vuex.res.ids_profile_delete, this.vuex.res.ids_confirm, {
+          confirmButtonText: this.vuex.res.ids_confirm,
+          cancelButtonText: this.vuex.res.ids_cancel,
           type: 'warning'
         }).then(() => {
           this.page.portfwd_list = _.reject(this.page.portfwd_list, (v) => {

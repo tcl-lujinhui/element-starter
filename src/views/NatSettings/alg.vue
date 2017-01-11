@@ -2,7 +2,7 @@
   include ../components.jade
   #algSettings
     +sideMenuPage('Settings')
-      +breadcrumb("ALG Settings")
+      +breadcrumb("ids_alg_title")
       +form("formData")
         +radio("PPTP:","PptpStatus")
         +radio("H.323 ALG Status:","H323AlgStatus")
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {_config} from '../../common.js';
+import {_config,vuex} from '../../common.js';
 var Config = _config.algSettings;
 export default {
   created() {
@@ -21,6 +21,7 @@ export default {
     methods: {
       init() {
         this.initdata(Config);
+        this.vuex=vuex;
         this.sdk.get("GetALGSettings", null, (res) => {
           this.formData = res;
         })

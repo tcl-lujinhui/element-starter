@@ -1,7 +1,7 @@
 let menuConfig = {};
 menuConfig.nav = [{
   name: "Home",
-  text: "Home",
+  text: "ids_home",
   router: 'internetStatus'
 }, {
   name: "Services",
@@ -140,12 +140,18 @@ menuConfig.sideMenu = {
       text: "Routing Rules",
       router: "routingRules"
     }, {
-      text: "Firewall",
-      router: "firewall"
+      text: "WAN Ping",
+      router: "wanPing"
     }, {
-      text: "Filter",
-      router: "filter"
-    }]
+      text: "IP Filter",
+      router: "ipFilter"
+    },{
+      text: "MAC Filter",
+      router: "macFilter"
+    },{
+      text: "URL Filter",
+      router: "urlFilter"
+    }] 
   }, {
     text: "NAT Settings",
     submenu: [{

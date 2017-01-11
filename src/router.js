@@ -18,10 +18,12 @@ import advanced from './views/WLAN/advanced.vue';
 import wps from './views/WLAN/wps.vue';
 
 //Security
-import filter from './views/Security/filter.vue';
-import firewall from './views/Security/firewall.vue';
+import macFilter from './views/Security/macFilter.vue';
+import wanPing from './views/Security/wanPing.vue';
 import pinManagement from './views/Security/pinManagement.vue';
 import routingRules from './views/Security/routingRules.vue';
+import ipFilter from './views/Security/ipFilter.vue';
+import urlFilter from './views/Security/urlFilter.vue';
 //LAN
 import lanSettings from './views/LAN/lanSettings.vue';
 
@@ -110,10 +112,12 @@ let routers = [
 
 
   //Security
-  { name: 'filter', path: '/filter', component: filter },
-  { name: 'firewall', path: '/firewall', component: firewall },
+  { name: 'macFilter', path: '/macFilter', component: macFilter },
+  { name: 'wanPing', path: '/wanPing', component: wanPing },
   { name: 'pinManagement', path: '/pinManagement', component: pinManagement },
   { name: 'routingRules', path: '/routingRules', component: routingRules },
+  { name: 'ipFilter', path: '/ipFilter', component: ipFilter },
+  { name: 'urlFilter', path: '/urlFilter', component: urlFilter },
 
   //lan
   { name: 'lanSettings', path: '/lanSettings', component: lanSettings },

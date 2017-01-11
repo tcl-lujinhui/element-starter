@@ -14,14 +14,21 @@ let validates = {
   monthlyPlan(rule, value, callback) {
     var errMsg = ''
     if (!validatesFn.monthlyPlan(value)) {
-      errMsg = 'Invalid IP'
+      errMsg = 'Invalid monthlyPlan'
     }
     showErr(callback, errMsg)
   },
   timeLimitTimes(rule, value, callback) {
     var errMsg = ''
     if (!validatesFn.timeLimitTimes(value)) {
-      errMsg = 'Invalid IP'
+      errMsg = 'Invalid Time'
+    }
+    showErr(callback, errMsg)
+  },
+  checkPortInvalid(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.checkPortInvalid(value)) {
+      errMsg = 'Invalid Port'
     }
     showErr(callback, errMsg)
   },

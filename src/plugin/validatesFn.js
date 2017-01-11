@@ -306,7 +306,7 @@ var validate = {
   },
 
   ip: function(ip) {
-    if(ip==""){
+    if (ip == "") {
       return true;
     }
     var addrParts = ip.split('.');
@@ -542,6 +542,51 @@ var validate = {
   },
   ussdCode: function(code) {
     return /^[0-9\#\*]+$/.test(code);
+  },
+
+  checkPortInvalid: function(portStr) {
+    var portList = portStr.split(",");
+    if (portStr == "" || portList.length == 0) {
+      return true;
+    }
+    var re = /^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]{1}|6553[0-5])$/;
+    for (var i in portList) {
+      if (!re.test(portList[i])) {
+        return false;
+      }
+    }
+    return true;
+  },
+  checkIpAddressInvalid: function(address) {
+    if (address == "" || address == null) {
+      return true;
+    }
+    var addrParts = address.split('.');
+    if (addrParts.length != 4) {
+      return false;
+    }
+
+    for (var i = 0; i < 4; i++) {
+      if (isNaN(addrParts[i]) == true) {
+        return false;
+      }
+
+      if (addrParts[i] == '') {
+        return false;
+      }
+
+      if (addrParts[i].indexOf(' ') != -1) {
+        return false;
+      }
+
+      if ((addrParts[i].indexOf('0') == 0) && (addrParts[i].length != 1)) {
+        return false;
+      }
+    }
+    if (addrParts[0] <= 0 || addrParts[0] == 127 || addrParts[0] > 223 || addrParts[1] < 0 || addrParts[1] > 255 || addrParts[2] < 0 || addrParts[2] > 255 || addrParts[3] <= 0 || addrParts[3] >= 255) {
+      return false;
+    }
+    return true;
   }
 }
 

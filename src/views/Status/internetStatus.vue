@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {$,_config} from '../../common.js'
+import {$,vuex,_config} from '../../common.js'
 var Config = _config.homeStatus
 
 export default {
@@ -34,6 +34,8 @@ export default {
   methods: {
     init (){
       this.initdata(Config);
+      this.vuex = vuex
+      vuex.initSimInfo()
 
       this.page = {
         usbStatusTxt:"",
@@ -142,7 +144,7 @@ export default {
       initernetInfo = [
         {
           nameVal:"SIM Card Status:",
-          internetVal:this.page.simStatusData.SIMState 
+          internetVal:vuex.SimInfo.SIMState//this.page.simStatusData.SIMState 
         },
         {
           nameVal:"Connection Status:",

@@ -29,7 +29,6 @@ export default {
     methods: {
       init() {
         this.initdata(Config);
-        this.vuex = vuex;
         vuex.initSimInfo();
         this.page = {
           pageName: " ",
@@ -81,7 +80,6 @@ export default {
         let results = {
           callback: this.init
         };
-        //if (selectId.length > 0) {
         this.$confirm('Delete the selected call log(s) now?', 'Delete', {
           confirmButtonText: 'Delete',
           cancelButtonText: 'Cancel',
@@ -91,15 +89,6 @@ export default {
         }).catch(() => {
           this.clearSelection;
         });
-        /*} else {
-          let vm = this;
-          vm.$alert('Please select you want to delete the content.', 'Error', {
-            confirmButtonText: 'OK',
-            callback: action => {
-              this.init;
-            }
-          });
-        }*/
       },
       handleSelectionChange(val) {
         this.page.select = val;

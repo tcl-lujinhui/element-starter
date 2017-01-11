@@ -7,34 +7,31 @@
       #inboxList
         p SMS Storage Status(Extant SMS/Total):{{page.usedSMSCount}}/{{page.maxSMSCount}}
         +button("Delete")(@click="deleteSMS",:disabled="page.select.length==0")
-        el-table(:data="page.SMSList" stripe style="width: 100%" border @selection-change="handleSelectionChange" )
-          el-table-column(prop="SMSType" label="State" style="width: 10%")
-          el-table-column(prop="PhoneNumber" label="Number" style="width: 30%")
+        el-table(:data="page.SMSList" stripe style="width: 100%" border @selection-change="handleSelectionChange")
+          el-table-column(prop="SMSType" label="State" style="width: 10%" inline-template)
+            span(@click="smsDetails(row)" v-html="row.SMSType")
+          el-table-column(prop="PhoneNumber" label="Number" style="width: 30%" inline-template)
+            span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
           el-table-column(prop="SMSContent" label="Content" style="width: 30%" show-overflow-tooltip=true inline-template)
             span(@click="smsDetails(row)" v-html="row.SMSContent")
-          el-table-column(prop="SMSTime" label="Time" style="width: 20%")
+          el-table-column(prop="SMSTime" label="Time" style="width: 20%" inline-template)
+            span(@click="smsDetails(row)" v-html="row.SMSTime")
           el-table-column(prop="SMSId" type="selection" style="width: 10%")
-        el-pagination(@click="init",layout="prev,pager,next,jumper",@current-change="handleCurrentChange",:total="page.totalPageCount")
+        el-pagination(layout="prev, pager, next, jumper",@current-change="handleCurrentChange",:page-size="10",:current-page="page.currentPage",:page-count="page.totalPageCount")
       #inboxDetail.hidden
         el-input(v-model="page.selectSMSNumber")
           span(slot="prepend") From:
         el-input(type="textarea",:rows.number=10 ,v-model="page.selectSMSContent")
-        +button("Back")(@click="back")
-        +button("Reply")(@click="replySMS(page.selectSMS)")
-        +button("Forward")(@click="forwardSMS(page.selectSMS)")
-        +button("Delete")(@click="deleteSingleSMS(page.selectSMSId)") 
-      #writeSMS.hidden
-        el-input(v-model="page.selectSMSNumber")
-          span(slot="prepend") From:
-        el-input(type="textarea",:rows.number=10 ,v-model="page.selectSMSContent")
-        +button("Send")(@click="sendSMS")
-        +button("Save")(@click="saveSMS")
-        +button("Cancel")(@click="back")
+        #btnList
+          +button("Back")(@click="back")
+          +button("Reply")(@click="replySMS(page.selectSMS)")
+          +button("Forward")(@click="forwardSMS(page.selectSMS)")
+          +button("Delete")(@click="deleteSingleSMS(page.selectSMSId)")
 </template>
-
 <script>
 import {_config,_,vuex,$} from '../../common.js';
-let Config = _config.inbox
+import sms from '../../config/sms.js';
+let Config = _config.inbox;
 export default {
   created() {
       this.init()
@@ -55,9 +52,6 @@ export default {
           selectSMSNumber: "",
           selectSMSContent: ""
         };
-
-        //$("#inboxDetail").addClass("hidden");
-        //$("#writeSMS").addClass("hidden");
         this.sdk.get("GetSMSStorageState", null, (res) => {
           this.page.maxSMSCount = res.MaxCount;
           this.page.usedSMSCount = res.TUseCount;
@@ -75,7 +69,6 @@ export default {
         _.each(this.page.select, (k, v) => {
           selectId[v] = k.Id;
         });
-        //if (selectId.length > 0) {
         this.$confirm('Delete the selected message(s) now?', 'Delete', {
           confirmButtonText: 'Delete',
           cancelButtonText: 'Cancel',
@@ -85,117 +78,76 @@ export default {
         }).catch(() => {
           this.init();
         });
-        /*} else {
-          let vm = this;
-          vm.$alert('Please select you want to delete the content.', 'Error', {
-            confirmButtonText: 'OK',
-            callback: action => {
-              this.init;
-            }
-          });
-        }*/
       },
       handleSelectionChange(val) {
         this.page.select = val;
       },
       smsDetails(sms) {
-        //console.log(sms);
         this.page.selectSMS = sms;
         this.page.selectSMSId = sms.SMSId;
         this.page.selectSMSNumber = sms.PhoneNumber[0];
         this.page.selectSMSContent = sms.SMSContent;
         $("#inboxList").addClass("hidden");
         $("#inboxDetail").removeClass("hidden");
-        $("#writeSMS").addClass("hidden");
       },
       back() {
-        $("#inboxList").removeClass("hidden");
-        $("#inboxDetail").addClass("hidden");
-        $("#writeSMS").addClass("hidden");
+        sms.smsGoBack("inbox");
       },
       replySMS() {
-        //$("#inboxList").addClass("hidden");
-        //$("#inboxDetail").removeClass("hidden");
-        this.page.selectSMSContent = "";
-        $("#inboxList").addClass("hidden");
-        $("#inboxDetail").addClass("hidden");
-        $("#writeSMS").removeClass("hidden");
+        let replyData={
+          PhoneNumber:this.page.selectSMSNumber,
+          SMSContent:"",
+        };
+
+        sms.doReply(this.$router,replyData);
       },
       forwardSMS() {
-        this.page.selectSMSNumber = "";
-        $("#inboxList").addClass("hidden");
-        $("#inboxDetail").addClass("hidden");
-        $("#writeSMS").removeClass("hidden");
+        let forwardData={
+          PhoneNumber:"",
+          SMSContent:this.page.selectSMSContent,
+        };
+
+        sms.doForward(this.$router,forwardData);
       },
       deleteSingleSMS(selectSMSId) {
-        //console.log(selectSMSId);
         let selectId = [];
         selectId[0] = selectSMSId;
         let results = {
           callback: this.init
         };
-        //console.log(selectId);
         this.$confirm('Delete the selected message(s) now?', 'Delete', {
           confirmButtonText: 'Delete',
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          alert(2222);
           this.sdk.post("DeleteSMS", selectId, results);
           $("#inboxList").removeClass("hidden");
           $("#inboxDetail").addClass("hidden");
-          $("#writeSMS").addClass("hidden");
         }).catch(() => {
-          //this.init();
           $("#inboxList").addClass("hidden");
           $("#inboxDetail").removeClass("hidden");
-          $("#writeSMS").addClass("hidden");
         });
       },
       saveSMS() {
-        let smsId = -1;
-        let smsTime = this.getSystemTime();
-        let smsContent = this.page.selectSMSContent;
-        let number = this.page.selectSMSNumber;
-        let results = {
-          callback: this.init
+        let saveData={
+          smsId : -1,
+          smsTime : sms.getSystemTime(),
+          smsContent : this.page.selectSMSContent,
+          number : this.page.selectSMSNumber
         };
-        //console.log(smsId);
-        //console.log(smsTime);
-        //console.log(smsContent);
-        //console.log(number);
-        this.sdk.post("SendSMS", {smsId, smsContent, number, smsTime}, results);
+        sms.saveEvent(saveData);
+        this.$router.push('draft');
       },
       sendSMS() {
-        let smsId = -1;
-        let smsTime = this.getSystemTime();
-        let smsContent = this.page.selectSMSContent;
-        let number = this.page.selectSMSNumber;
-        let results = {
-          callback: this.init
+        let sendData={
+          smsId : -1,
+          smsTime : sms.getSystemTime(),
+          smsContent : this.page.selectSMSContent,
+          number : this.page.selectSMSNumber
         };
-        //console.log(smsId);
-        //console.log(smsTime);
-        //console.log(smsContent);
-        //console.log(number);
-        this.sdk.post("SaveSMS", {smsId, smsContent, number, smsTime}, results);
-      },
-      getSystemTime() {
-        let currentDate = new Date();
-        let currentYear = currentDate.getFullYear();
-        let currentMonth = currentDate.getMonth() + 1;
-        let currentDay = currentDate.getDate();
-        let currentHours = currentDate.getHours();
-        let currentMinutes = currentDate.getMinutes();
-        let currentSecs = currentDate.getSeconds();
-        let currentTime = "";
-        currentTime += currentYear + "-";
-        currentTime += ((currentMonth < 10) ? "0" : "") + currentMonth + "-";
-        currentTime += ((currentDay < 10) ? "0" : "") + currentDay + " ";
-        currentTime += ((currentHours < 10) ? "0" : "") + currentHours + ":";
-        currentTime += ((currentMinutes < 10) ? "0" : "") + currentMinutes + ":";
-        currentTime += ((currentSecs < 10) ? "0" : "") + currentSecs;
-        return currentTime
+        sms.sendEvent(sendData);
+        $("#inboxList").removeClass("hidden");
+        $("#inboxDetail").addClass("hidden");
       },
       handleCurrentChange(val) {
         this.page.currentPage = val;
@@ -203,9 +155,6 @@ export default {
     }
 }
 </script>
-
-
-
 <style lang="sass" scoped>
 .el-button {
   float: right;
@@ -213,24 +162,29 @@ export default {
   padding: 7px 9px;
   font-size: 12px;
 }
-
 .el-pagination {
   float: right;
   margin: 10px 0 0 0;
 }
-
 p {
   float: left;
   font-size: 12px;
 }
-
 .el-table th {
   text-align: center;
 }
 .hidden {
     display: none;
 }
-#inboxDetail input{
+
+#inboxList,#inboxDetail{
+  margin:20px 10px;
+}
+#inboxDetail .el-textarea{
+  margin-top:50px;
+}
+#btnList{
+  float:left;
   margin-top:20px;
 }
 </style>

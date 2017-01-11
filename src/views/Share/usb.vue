@@ -1,42 +1,52 @@
 <template lang="jade">
   include ../components.jade
-  #wanConfigure
+  #usb
     +sideMenuPage('Services')
       +breadcrumb("USB")
       +form("formData")
-        
-        +formBtn()
+        p(v-if="formData.UsbStatus==0")
+          {{vuex.res.ids_Wan_usbNotInsert}}
+        +radioNoLabel("UsbStatus")(disabled v-if="formData.UsbStatus!=0") 
+        p.tips(v-if="formData.UsbStatus==1") 
+          {{vuex.res.ids_note}}:<br/>        
+          {{vuex.res.ids_usb_sambaEnableStep1}}<br/>        
+          {{vuex.res.ids_usb_sambaEnableStep2}}{{vuex.res.ids_usb_storageStep2}}
+        p.tips(v-if="formData.UsbStatus==2") 
+          {{vuex.res.ids_note}}:<br/>        
+          {{vuex.res.ids_usb_sambaEnableStep1}}<br/>        
+          {{vuex.res.ids_usb_sambaEnableStep2}}{{vuex.res.ids_usb_printerStep2}}<br/>
+          {{vuex.res.ids_usb_printerStep2Note}}<br/>
+          {{vuex.res.ids_usb_printerStep3}}<br/>
+          {{vuex.res.ids_usb_printerStep4}}
 </template>
 
 <script>
-import Config from '../../config.js'
+import {_,_config,$,vuex,G} from '../../common.js';
+var Config = _config.usb;
 export default {
-  data () {
-    return {
-      config:Config.mobileConnection,
-      formData: {}
-    }
-  },
-  created () {
-    this.init()
-  },
-  methods: {
-    tabs(tabs){
-      this.$router.push(tabs.$el.getAttribute("router"))
+  created() {
+      this.init()
     },
-    init (){
-      this.sdk.get("GetConnectionSettings",null,(res)=>{
-        this.formData = res;
-      })
-    },
-    update (){
-      this.sdk.post("SetConnectionSettings",this.formData,(res)=>{
-        console.log(res)
-      })
+    methods: {
+      init() {        
+        this.vuex = vuex;
+        this.initdata(Config);
+        this.sdk.get("GetSystemStatus", null, (res) => {
+          this.formData = res;
+          console.info(this.formData.UsbStatus);
+        })
+      },
+      update() {
+      }
     }
-  }
 }
 </script>
 
+
 <style lang="sass" scoped>
+  .tips{
+    font-size: 14px;
+    margin-top: 60px;
+    color: #5e6d82;
+  }
 </style>

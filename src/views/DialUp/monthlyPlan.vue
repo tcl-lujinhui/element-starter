@@ -16,6 +16,7 @@
 
 <script>
 import _config from '../../config.js'
+import vuex from '../../vuex.js';
 var Config = _config.monthlyPlan
 export default {
   created() {
@@ -36,11 +37,21 @@ export default {
       },
       update() {
         let setForm = () => {
-          this.sdk.post("SetUsageSettings", this.formData, {
+          let params = {
+            "BillingDay": Number(this.formData.BillingDay),
+            "MonthlyPlan": Number(this.formData.MonthlyPlan),
+            "UsedData": Number(this.formData.UsedData),
+            "TimeLimitFlag": Number(this.formData.TimeLimitFlag),
+            "TimeLimitTimes": Number(this.formData.TimeLimitTimes),
+            "UsedTimes": Number(this.formData.UsedTimes),
+            "AutoDisconnFlag": Number(this.formData.AutoDisconnFlag),
+            "Unit": Number(this.formData.Unit)
+          }
+          this.sdk.post("SetUsageSettings", params, {
             callback: this.init
           })
         }
-        this.submit("formData", setForm); //formData为表单名
+        this.submit("formData", setForm);
       },
       reset() {
         let setForm = () => {
