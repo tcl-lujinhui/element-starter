@@ -367,7 +367,7 @@ var validate = {
       return false;
     }
 
-    addrParts = address.split(':');
+    let addrParts = address.split(':');
     if (addrParts.length != 6) {
       return false;
     }
@@ -584,6 +584,20 @@ var validate = {
       }
     }
     if (addrParts[0] <= 0 || addrParts[0] == 127 || addrParts[0] > 223 || addrParts[1] < 0 || addrParts[1] > 255 || addrParts[2] < 0 || addrParts[2] > 255 || addrParts[3] <= 0 || addrParts[3] >= 255) {
+      return false;
+    }
+    return true;
+  },
+  isValidUrlAddress: function(address) {
+    var regUrl = /([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+    var regHttp = new RegExp(regUrl);
+    if (regHttp.test(address)) {
+      return true;
+    }
+    return false;
+  },
+  portVal: function(portVal) {
+    if (portVal == "" || portVal < 0 || portVal > 65535 || !isNumber(portVal)) {
       return false;
     }
     return true;

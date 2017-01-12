@@ -25,7 +25,7 @@ Vue.component('statusIcon', statusIcon)
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { locale })
-vuex.initRes()
+
 
 Vue.filter('networkType', function (value) {
   return units.networkType(value)
@@ -54,6 +54,7 @@ Vue.filter('res', function (value) {
   }else{
     return value;
   }
+  
 })
 Vue.filter('ipProtocol', function (value) {
   return units.IPprotocol(value)
@@ -86,8 +87,10 @@ router.beforeEach((to, from, next) => {
   }
 })
 */
+vuex.initRes(()=>{
+  const app = new Vue({
+    router,
+    render: h => h(App)
+  }).$mount('#app');
+})
 
-const app = new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app');

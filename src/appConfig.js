@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import $ from 'jquery'
+import {vuex} from './common.js'
 Vue.use(VueResource)
 if($("#ie9").length>0){
   $('html').attr("id",'ie-9')
@@ -14,7 +15,7 @@ export default {
     Vue.mixin({
       data() {
         return {
-          vuex:{},
+          vuex:vuex,
           page:{},
           formData: {},
           formOptions: {},
@@ -27,6 +28,7 @@ export default {
           this.formRules = $.extend({},Config.formRules);
           this.formData = $.extend({},Config.formData);
           this.formOptions = $.extend({},Config.formOptions);
+
           
           if (Config.validates) {
             $.each(Config.validates, (k, v) => {
@@ -43,6 +45,14 @@ export default {
               this.formRules[k].push(rule)
             })
           }
+          $.each(this.formRules,(k,v)=>{
+            $.each(v,(i,h)=>{
+              if(this.vuex.res[this.formRules[k][i].message]){
+                this.formRules[k][i].message=this.vuex.res[this.formRules[k][i].message]
+              }
+            })
+            
+          })
         },
         init() {
         },

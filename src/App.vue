@@ -22,7 +22,7 @@ export default {
     }
   },
   created() {
-    vuex.initRes()
+    
   },
   methods: {
     logout(){

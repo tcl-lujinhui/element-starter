@@ -82,7 +82,44 @@ let validates = {
       }
       showErr(callback, errMsg)
     };
-  }
+  },
+  isValidUrlAddress(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.isValidUrlAddress(value)) {
+      errMsg = 'Invalid UrlAddress'
+    }
+    showErr(callback, errMsg)
+  },
+  macAddr(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.macAddr(value)) {
+      errMsg = 'MAC Address is invalid.'
+    }
+    showErr(callback, errMsg)
+  },
+  isValidIpAddress(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.isValidIpAddress(value)) {
+      errMsg = 'IP Address is invalid. Please input again!'
+    }
+    showErr(callback, errMsg)
+  },
+  portVal(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.portVal(value)) {
+      errMsg = 'The value range of Port is 0-65535.'
+    }
+    showErr(callback, errMsg)
+  },
+  isSameSubnetAvailableIp(vm, Ip1, Ip2) {
+    return (rule, value, callback) => {
+      var errMsg = '';
+      if (!validatesFn.isSameSubnetAvailableIp(vm.formData[Ip1],vm.formData[Ip2])) {
+        errMsg = 'false'
+      }
+      showErr(callback, errMsg)
+    };
+  },
 };
 
 export default validates;

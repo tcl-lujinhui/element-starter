@@ -22,9 +22,11 @@ let common = {
     [1, 'ids_auto']
   ],
 
+  
+
   rule:{
-    required:{ required: true, message: 'Required!', trigger: 'blur' },
-    IP:{ validator: validates.ip, message: 'Invalid IP!', trigger: 'blur' }
+    required:{ required: true, message: 'ids_required', trigger: 'change' },
+    IP:{ validator: validates.ip, message: 'ids_qos_ipInvalid', trigger: 'change' }
   }
 }
 
@@ -454,10 +456,10 @@ config.virtualServer = {
     ]
   },
   formData: {
-    portfwd_name: 'name24',
-    private_ip: '192.168.1.5',
-    private_port: '3242',
-    global_port: '324',
+    portfwd_name: '',
+    private_ip: '',
+    private_port: '',
+    global_port: '',
     fwding_protocol: 17,
     fwding_status: 0
   },
@@ -833,12 +835,14 @@ config.tr069 = {
 //ipFilter
 config.ipFilter = {
   formData: {
-    filter_policy: 0,
-    ip_protocol: 17,
-    lan_ip: "",
-    lan_port: "",
-    wan_ip: "",
-    wan_port: ""
+    filter_policy:0,
+    ip_protocol:17,
+    lan_ip:"",
+    lan_port:"",
+    wan_ip:"",
+    wan_port:"",
+    IPv4IPAddress:"",
+    SubnetMask:""
   },
   formOptions: {
     filter_policy: [
@@ -852,26 +856,41 @@ config.ipFilter = {
       [253, 'TCP/UDP']
     ]
   },
+  validates: {
+    lanAddrVal: (vm) => {
+      return validates.IsSameSubnetAddrs(vm, "lan_ip", "IPv4IPAddress", "SubnetMask");
+    },
+    lanAddrValIp: (vm) => {
+      return validates.isSameSubnetAvailableIp(vm, "lan_ip", "IPv4IPAddress");
+    }
+  },
   formRules: {
-    lan_ip: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+    lan_ip:[
+      common.rule.required,
+      common.rule.IP
     ],
-    lan_port: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+    lan_port:[
+      common.rule.required,
+      { validator:validates.portVal, message: 'The value range of Port is 0-65535.', trigger: 'blur'}
     ],
-    wan_ip: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+    wan_ip:[
+      common.rule.required,
+      common.rule.IP
     ],
-    wan_port: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+    wan_port:[
+      common.rule.required,
+      { validator:validates.portVal, message: 'The value range of Port is 0-65535.', trigger: 'blur'}
     ]
+  },
+  formRulesExtension: {
+    lan_ip: { validator: "lanAddrValIp", message: 'Error!Please be noticed, 10 after the Home Address is System pre-reserved IP,and it can not be included in DHCP IP Pool.' , trigger: 'blur'},
   }
 };
 //macFilter
 config.macFilter = {
   formData: {
-    filter_policy: 0,
-    Address: ""
+    filter_policy:0,
+    Address:""
   },
   formOptions: {
     filter_policy: [
@@ -881,16 +900,17 @@ config.macFilter = {
     ]
   },
   formRules: {
-    Address: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+    Address:[
+      common.rule.required,
+      { validator: validates.macAddr, message: 'MAC Address is invalid.' , trigger: 'blur'}
     ]
   }
 };
 //urlFilter
 config.urlFilter = {
   formData: {
-    filter_policy: 0,
-    url: ""
+    filter_policy:0,
+    url:""
   },
   formOptions: {
     filter_policy: [
@@ -900,8 +920,9 @@ config.urlFilter = {
     ]
   },
   formRules: {
-    url: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+    url:[
+      common.rule.required,
+      { validator: validates.isValidUrlAddress, message: 'Invalid URL!' , trigger: 'blur'}
     ]
   }
 };
@@ -917,14 +938,14 @@ config.staticRules = {
     State: common.checkBoxEnable
   },
   formRules: {
-    DestNetAddr: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+    DestNetAddr:[
+      common.rule.required,
     ],
-    DestNetmask: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+    DestNetmask:[
+      common.rule.required,
     ],
-    GateWay: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+    GateWay:[
+      common.rule.required,
     ]
   }
 };

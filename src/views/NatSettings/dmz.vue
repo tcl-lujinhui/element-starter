@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {_config,vuex} from '../../common.js';
+import {_config} from '../../common.js';
 var Config = _config.dmzSettings;
 export default {
   created() {
@@ -19,7 +19,7 @@ export default {
     methods: {
       init() {
         this.initdata(Config);
-        this.vuex=vuex;
+        //this.vuex=vuex;
         this.sdk.get("GetDMZSettings", null, (res) => {
           this.formData = res;
         })

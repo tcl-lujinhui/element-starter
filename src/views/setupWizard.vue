@@ -5,7 +5,7 @@
       +breadcrumb("Setup Wizard")
       el-steps.margin-auto(:space="250",:active.number="page.setp_status")
         el-step(:title="vuex.res.ids_sim_Title")
-        el-step(:title="vuex.res.ids_security_PowerSavingWiFi")
+        el-step(:title="vuex.res.ids_wifi_WiFiTitle")
         el-step(:title="vuex.res.ids_quicksetup_wlanSecurity")
       +form("formData")(ref="form1" v-show="page.setp_status==1")
         sim-state
