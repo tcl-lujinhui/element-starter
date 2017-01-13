@@ -129,10 +129,15 @@
 .el-menu--horizontal>.el-submenu:hover .el-submenu__title {
   border-bottom:none;
   background: #0094d2;
+
 }
 
 .el-menu-item, .el-submenu__title{
   transition:none;
+}
+
+#sideMenu .el-submenu .el-submenu__title{
+  padding-left:5px;
 }
 
 .center {
@@ -288,4 +293,88 @@
 
 .el-table{
   margin-top: 6px;
+}
+
+.tips{
+  font-size: 14px;
+  margin-top: 60px;
+  color: #5e6d82;
+}
+
+@mixin svgIcon{
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 36px;
+  width: 42px;
+  float:left;
+  margin-top: 11px;
+}
+.svg-icon-natsetting{
+  background-image: url(images/svg/natsetting.svg);
+  @include svgIcon;
+}
+
+.svg-icon-calllogs{
+  background-image: url(images/svg/calllogs.svg);
+  @include svgIcon;
+}
+.svg-icon-dailup{
+  background-image: url(images/svg/dailup.svg);
+  @include svgIcon;
+}
+.svg-icon-deviceinfo{
+  background-image: url(images/svg/deviceinfo.svg);
+  @include svgIcon;
+}
+.svg-icon-devicemgmt{
+  background-image: url(images/svg/devicemgmt.svg);
+  @include svgIcon;
+}
+.svg-icon-lan{
+  background-image: url(images/svg/lan.svg);
+  @include svgIcon;
+}
+.svg-icon-qos{
+  background-image: url(images/svg/qos.svg);
+  @include svgIcon;
+}
+.svg-icon-reset{
+  background-image: url(images/svg/reset.svg);
+  @include svgIcon;
+}
+.svg-icon-security{
+  background-image: url(images/svg/security.svg);
+  @include svgIcon;
+}
+.svg-icon-setup-wizard{
+  background-image: url(images/svg/setup-wizard.svg);
+  @include svgIcon;
+}
+.svg-icon-share{
+  background-image: url(images/svg/share.svg);
+  @include svgIcon;
+}
+.svg-icon-SMS{
+  background-image: url(images/svg/SMS.svg);
+  @include svgIcon;
+}
+.svg-icon-statistics{
+  background-image: url(images/svg/statistics.svg);
+  @include svgIcon;
+}
+.svg-icon-status{
+  background-image: url(images/svg/status.svg);
+  @include svgIcon;
+}
+.svg-icon-upgrade{
+  background-image: url(images/svg/upgrade.svg);
+  @include svgIcon;
+}
+.svg-icon-wan{
+  background-image: url(images/svg/wan.svg);
+  @include svgIcon;
+}
+.svg-icon-wlan{
+  background-image: url(images/svg/wlan.svg);
+  @include svgIcon;
 }

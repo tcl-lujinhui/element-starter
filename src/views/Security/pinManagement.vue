@@ -2,34 +2,34 @@
   include ../components.jade
   #pinManagement
     +sideMenuPage('Settings')
-      +breadcrumb("PIN Management")
+      +breadcrumb("ids_sim_pinManagement")
       sim-state
         div(v-if="vuex.SimInfo.PinState==2")
           +form("formData")(v-show="formData.Operation==0")
-            +radio("PIN operation:","Operation")
-            +input("PIN  Code","Pin")(type="password")
-            +text("Remaining Attempts:","{{vuex.SimInfo.PinRemainingTimes}}")
+            +radio("ids_sim_pinOperation:","Operation")
+            +input("ids_sim_pinCode:","Pin")(type="password")
+            +text("ids_sim_remaining:","{{vuex.SimInfo.PinRemainingTimes}}")
             +formItem("")
-              +button("Apply")(type="primary" @click="ChangePinState")
-              +button("Cancel")(@click="reset")
+              +button("ids_apply")(type="primary" @click="ChangePinState")
+              +button("ids_cancel")(@click="reset")
           +form("formData")(v-show="formData.Operation==1" ref="formData2")
-            +radio("PIN Code Operation:","Operation")
-            +input("Old PIN Code :","CurrentPin")(type="password")
-            +input("New PIN Code :","NewPin")(type="password")
-            +input("Confirm PIN Code :","ConfirmPin")(type="password")
-            +text("Remaining Attempts:","{{vuex.SimInfo.PinRemainingTimes}}")
+            +radio("ids_sim_pinOperation:","Operation")
+            +input("ids_sim_oldPinCode:","CurrentPin")(type="password")
+            +input("ids_sim_newPinCode :","NewPin")(type="password")
+            +input("ids_sim_confirmPINCode :","ConfirmPin")(type="password")
+            +text("ids_sim_remaining:","{{vuex.SimInfo.PinRemainingTimes}}")
             +formItem("")
-              +button("Apply")(type="primary" @click="ChangePinCode('formData2')")
-              +button("Cancel")(@click="reset")
+              +button("ids_apply")(type="primary" @click="ChangePinCode('formData2')")
+              +button("ids_cancel")(@click="reset")
         +form("formData")(v-show="vuex.SimInfo.PinState==3")
-          +formItem("PIN operation:")
-            div Enable
-          +input("PIN  Code","Pin")(type="password")
-          +checkbox("","AutoValidatePinState","Auto Validation")
-          +text("Remaining Attempts:","{{vuex.SimInfo.PinRemainingTimes}}")
+          +formItem("ids_sim_pinOperation:")
+            div {{vuex.res.ids_enable}}
+          +input("ids_sim_pinCode:","Pin")(type="password")
+          +checkbox("","AutoValidatePinState","ids_sim_autoValidation")
+          +text("ids_sim_remaining:","{{vuex.SimInfo.PinRemainingTimes}}")
           +formItem("")
-            +button("Apply")(type="primary" @click="ChangePinState")
-            +button("Cancel")(@click="reset")
+            +button("ids_apply")(type="primary" @click="ChangePinState")
+            +button("ids_cancel")(@click="reset")
 </template>
 <script>
 import {$,vuex,_,_config} from '../../common.js';
@@ -50,9 +50,6 @@ export default {
         this.sdk.get("GetAutoValidatePinState", null, (res) => {
           this.formData.AutoValidatePinState = res.State;
         })
-      },
-      requestJsonRpcIsOk(result) {
-        return result.hasOwnProperty("result") && !result.hasOwnProperty("error");
       },
       ChangePinState() {
         if (vuex.SimInfo.PinState == 2) {

@@ -35,14 +35,26 @@ export default {
               this.extensionRules[k] = v(this)
             })
           }
+          let makeRule=(item)=>{
+            let rule = {}
+            rule.trigger = item.trigger
+            rule.message=item.message
+            rule.validator = this.extensionRules[item.validator]
+            return rule;
+          }
 
           if (Config.formRulesExtension) {
+            let vm = this;
             $.each(Config.formRulesExtension, (k, v) => {
-              let rule = {};
-              rule.trigger = v.trigger
-              rule.message=v.message
-              rule.validator = this.extensionRules[v.validator]
-              this.formRules[k].push(rule)
+              console.log(v)
+              if($.isArray(v)){
+                $.each(v,function(o,i){
+                  vm.formRules[k].push(makeRule(i))
+                })
+
+              }else{
+                vm.formRules[k].push(makeRule(v))
+              }
             })
           }
           $.each(this.formRules,(k,v)=>{
@@ -57,8 +69,8 @@ export default {
         init() {
         },
         reset() {
-          this.init()
           this.$refs.formData.resetFields();
+          this.init()
         },
         submit(form, callback) {
           this.$refs[form].validate((valid) => {

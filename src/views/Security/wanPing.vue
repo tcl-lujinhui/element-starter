@@ -2,15 +2,15 @@
   include ../components.jade
   #wanPing
     +sideMenuPage('Settings')
-      +breadcrumb("WAN Ping")
+      +breadcrumb("ids_security_wanPing")
       +form("formData")
-        +formItem("WAN Port Ping:")
+        +formItem("ids_filter_wanPortPing:")
           el-switch(v-model="page.DisableWanAcess" @change="update()" on-text="" off-text="")
-        p.tips Note:<br/>If Off, the device will not respond a ping to the WAN port. This offers a heightened level of security.
+        p.tips {{vuex.res.ids_security_wanPingNote}}
 </template>
 
 <script>
-import {_,_config,$} from '../../common.js';
+import {$,vuex,_,_config} from '../../common.js';
 var Config = _config.wanPing;
 export default {
   created() {

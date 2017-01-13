@@ -120,6 +120,13 @@ let validates = {
       showErr(callback, errMsg)
     };
   },
+  pin(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.pin(value)) {
+      errMsg = 'PIN code should be 4-8 digits.'
+    }
+    showErr(callback, errMsg)
+  },
 };
 
 export default validates;

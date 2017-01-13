@@ -15,6 +15,7 @@
           span
             +button("")(icon="edit" size="mini" @click="edit(row)")
             +button("")(icon="delete" size="mini" type="danger" @click="del(row)")
+      p.tips {{vuex.res.ids_note}}:<br/>{{vuex.res.ids_virtualServer_Note}}
       el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible")
         +form("formData")
           +input("ids_name:","portfwd_name")
@@ -24,6 +25,7 @@
           +select("ids_protocol:","fwding_protocol")
           +select("ids_status:","fwding_status")
           +formBtn()
+
 </template>
 
 <script>
@@ -53,7 +55,7 @@ export default {
       },
 
       del(item) {
-        this.$confirm(this.vuex.res.ids_profile_delete, this.vuex.res.ids_confirm, {
+        this.$confirm(this.vuex.res.ids_delete_confirm, this.vuex.res.ids_confirm, {
           confirmButtonText: this.vuex.res.ids_confirm,
           cancelButtonText: this.vuex.res.ids_cancel,
           type: 'warning'

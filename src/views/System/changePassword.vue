@@ -2,17 +2,17 @@
   include ../components.jade
   #changePassword
     +sideMenuPage('System')
-      +breadcrumb("Password Change")
+      +breadcrumb("ids_login_loginPwd")
       +form("formData")
-        +input("User Name:","UserName")(disabled)
-        +input("Current Password:","CurrPassword")(type="password")
-        +input("New Password:","NewPassword")(type="password")
-        +input("Confirm Password:","ConfirmPassword")(type="password")
+        +input("ids_profile_userName:","UserName")(disabled)
+        +input("ids_admin_currPwd:","CurrPassword")(type="password")
+        +input("ids_admin_newPwd:","NewPassword")(type="password")
+        +input("ids_admin_confPwd:","ConfirmPassword")(type="password")
         +formBtn()
 
 </template>
 <script>
-import _config from '../../config.js';
+import {_config,vuex} from '../../common.js';
 let Config = _config.changePassword;
 export default {
   created() {
@@ -21,6 +21,7 @@ export default {
     methods: {
       init() {
         this.initdata(Config);
+        //this.vuex = vuex;
       },
       update() {
         let vm = this
@@ -29,17 +30,17 @@ export default {
             callback: this.init,
             success: {
                 tips:"Message",
-                msg:"Succeeded!",
+                msg:this.vuex.res.ids_success,
                 callback(){
                     vm.setPassChangeFlag();
                 }
             },
-            fail: "Failed!",
+            fail: this.vuex.res.ids_fail,
             e2: {
               tips: "None",
               callback() {
-                vm.$alert('Current Password is wrong.', 'Error', {
-                  confirmButtonText: 'OK',
+                vm.$alert(vuex.res['ids_login_inputCurrPwd'], vuex.res['ids_error'], {
+                  confirmButtonText: vuex.res['ids_ok'],
                   callback: action => {
                     this.init;
                   }

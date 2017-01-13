@@ -2,29 +2,29 @@
   include ../components.jade
   #outbox
     +sideMenuPage('Services')
-      +breadcrumb("Outbox")
+      +breadcrumb("ids_sms_outbox")
       sim-state
       #outboxList
-        p SMS Storage Status(Extant SMS/Total):{{page.usedSMSCount}}/{{page.maxSMSCount}}
+        p {{vuex.res.ids_sms_storageStatus}}:{{page.usedSMSCount}}/{{page.maxSMSCount}}
         +button("Delete")(@click="deleteSMS",:disabled="page.select.length==0")
         el-table(:data="page.displayOutboxListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
-          el-table-column(prop="PhoneNumber" label="Number" style="width: 30%" inline-template)
+          el-table-column(prop="PhoneNumber" ,:label="vuex.res.ids_sms_phoneNumber" style="width: 30%" inline-template)
             span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
-          el-table-column(prop="SMSContent" label="Content" style="width: 30%" show-overflow-tooltip=true inline-template)
+          el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" style="width: 30%" show-overflow-tooltip=true inline-template)
             span(@click="smsDetails(row)" v-html="row.SMSContent")
-          el-table-column(prop="SMSTime" label="Time" style="width: 20%" inline-template)
+          el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" style="width: 20%" inline-template)
             span(@click="smsDetails(row)" v-html="row.SMSTime")
           el-table-column(prop="SMSId" type="selection" style="width: 10%")
-        el-pagination(layout="prev, pager, next",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
+        el-pagination(layout="prev, pager, next,jumper",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
       #outboxDetail.hidden
         el-input(v-model="page.selectSMSNumber" readonly="readonly")
-          span(slot="prepend") From:
+          span(slot="prepend") {{vuex.res.ids_sms_from}}:
         el-input(type="textarea",:rows.number=10 ,v-model="page.selectSMSContent" readonly="readonly")
-      #btnList
-        +button("Back")(@click="back")
-        +button("Reply")(@click="replySMS(page.selectSMS)")
-        +button("Forward")(@click="forwardSMS(page.selectSMS)")
-        +button("Delete")(@click="deleteSingleSMS(page.selectSMSId)")
+        #btnList
+          +button("ids_backup")(@click="back")
+          +button("ids_sms_buttonReply")(@click="replySMS(page.selectSMS)")
+          +button("ids_sms_buttonForward")(@click="forwardSMS(page.selectSMS)")
+          +button("ids_delete")(@click="deleteSingleSMS(page.selectSMSId)")
 </template>
 <script>
 import {_config,_,vuex,$} from '../../common.js';
@@ -37,7 +37,6 @@ export default {
     methods: {
       init() {
         this.initdata(Config);
-        this.vuex=vuex;
         this.page = {
           pageName: " ",
           SMSList: [],
@@ -75,9 +74,9 @@ export default {
         _.each(this.page.select, (k, v) => {
           selectId[v] = k.Id;
         });
-        this.$confirm('Delete the selected message(s) now?', 'Delete', {
-          confirmButtonText: 'Delete',
-          cancelButtonText: 'Cancel',
+        this.$confirm(vuex.res['ids_sms_deleteSmsPrompt'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['ids_delete'],
+          cancelButtonText: vuex.res['ids_cancel'],
           type: 'warning'
         }).then(() => {
           this.sdk.post("DeleteSMS", selectId, results);
@@ -121,9 +120,9 @@ export default {
         let results = {
           callback: this.init
         };
-        this.$confirm('Delete the selected message(s) now?', 'Delete', {
-          confirmButtonText: 'Delete',
-          cancelButtonText: 'Cancel',
+        this.$confirm(vuex.res['ids_sms_deleteSmsPrompt'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['ids_delete'],
+          cancelButtonText: vuex.res['ids_cancel'],
           type: 'warning'
         }).then(() => {
           this.sdk.post("DeleteSMS", selectId, results);

@@ -2,38 +2,38 @@
   include ../components.jade
   #internetStatistics
     +sideMenuPage('Home')
-      +breadcrumb("Internet Statistics")
+      +breadcrumb("ids_internet")
       div.main-box.border-notop
         fieldset.cbi-section
           table.table.table-bordered.table-tc
             tbody
               tr
-                th Type
-                th Current Volume
-                th Total Volume
+                th {{vuex.res.ids_type}}
+                th {{vuex.res.ids_netwrok_currentVolume}}
+                th {{vuex.res.ids_netwrok_totalVolumeMonthly}}
               tr
-                th Download
+                th {{vuex.res.ids_download}}
                 th {{page.connectionInfo.DlBytes | covertNum}}
                 th {{page.UsageRecord.HCurrUseDL+page.UsageRecord.RCurrUseDL | covertNum}} 
               tr
-                th Upload
+                th {{vuex.res.ids_upload}}
                 th {{page.connectionInfo.UlBytes | covertNum}}
                 th {{page.UsageRecord.HCurrUseUL+page.UsageRecord.RCurrUseUL | covertNum}}  
                 
               tr
-                th Total
+                th {{vuex.res.ids_total}}
                 th {{page.connectionInfo.DlBytes+page.connectionInfo.UlBytes | covertNum}}
                 th {{page.UsageRecord.HCurrUseDL+page.UsageRecord.RCurrUseDL+page.UsageRecord.HCurrUseUL+page.UsageRecord.RCurrUseUL | covertNum}} 
                  
               tr
-                th Duration
+                th {{vuex.res.ids_duration}}
                 th {{page.connectionInfo.ConnectionTime | covertNum}}
-                th {{page.UsageRecord.TConnTimes | covertNum}}           
-      
+                th {{page.UsageRecord.TConnTimes | covertNum}}  
+
+        div.noteTips Note:<br /> {{vuex.res.ids_netwrok_statisticsDescription}}
 </template>
 <script>
-import $ from 'jquery'
-import _config from '../../config.js'
+import {_,_config,$,vuex,G} from '../../common.js';
 var Config = _config.internetStatistics;
 export default {
   created() {
@@ -41,6 +41,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex= vuex
         this.initdata(Config);
         this.page = {
           UsageRecord: {},

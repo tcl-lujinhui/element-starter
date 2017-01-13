@@ -2,34 +2,34 @@
   include ../components.jade
   #macFilter
     +sideMenuPage('Settings')
-      +breadcrumb("MAC Filter")
+      +breadcrumb("ids_filter_macFilter")
       +form("formData")
-        +select("MAC Filter:","filter_policy")
+        +select("ids_filter_macFilter:","filter_policy")
         span(v-show="(formData.filter_policy==1&&(formData.MacAllowList).length<10)||(formData.filter_policy==2&&(formData.MacDenyList).length<10)")
           +button("")(icon="plus" size="mini" @click="add" type="primary")
         table.urlFilterTableTh(v-show="formData.filter_policy!=0")
           thead
             tr
-              th.firstTh MAC Address
-              th.sencondTh Operation
+              th.firstTh {{vuex.res.ids_lan_macAdress}}
+              th.sencondTh {{vuex.res.ids_netwrok_operation}}
           tbody(v-for="(MacAddress,index) in formData.filter_policy==1?formData.MacAllowList:formData.MacDenyList")
             tr 
               td(v-html="MacAddress")
               td 
-                +button("")(icon="edit" size="mini" @click="editUrlFilterDialog(MacAddress,index)")
-                +button("")(icon="delete" size="mini" type="danger" @click="deleteUrlFilter(index)")
+                +button("")(icon="edit" size="mini" @click="editMacFilterDialog(MacAddress,index)")
+                +button("")(icon="delete" size="mini" type="danger" @click="deleteMacFilter(index)")
 
         div(v-show="formData.filter_policy==0||(formData.filter_policy==1&&(formData.MacAllowList).length>0)||(formData.filter_policy==2&&(formData.MacDenyList).length>0)")
           +formBtn()
-      el-dialog(:title="page.action=='edit'?'Edit':'Add'" v-model="page.dialog")
+      el-dialog(:title="page.action=='edit'?vuex.res.ids_edit:vuex.res.ids_add" v-model="page.dialog")
         +form("formData")
-          +input("URL:","Address")
+          +input("ids_lan_macAdress:","Address")
           +formItem("")
-            +button("Apply")(type="primary" @click="ediApply")
-            +button("Cancel")(@click="reset")
+            +button("ids_apply")(type="primary" @click="ediApply")
+            +button("ids_cancel")(@click="reset")
 </template>
 <script>
-import {_,_config,$} from '../../common.js';
+import {_,_config,$,vuex} from '../../common.js';
 var Config = _config.macFilter;
 export default {
   created() {
@@ -37,6 +37,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex = vuex;
         this.initdata(Config);
         this.page = {
           dialog: false,
@@ -49,7 +50,7 @@ export default {
           this.page.filter_policy=res.filter_policy;
         })
       },
-      editUrlFilterDialog(item, index) {
+      editMacFilterDialog(item, index) {
         this.$refs.formData.resetFields();
         this.page.action='edit';
         this.formData.Address=item
@@ -58,11 +59,68 @@ export default {
         
       },
       ediApply() {
+        let vm = this;
         let setForm=()=>{
-          if(this.formData.filter_policy == 1){
-            this.formData.MacAllowList[this.page.indexs]=this.formData.Address
-          }else{
-            this.formData.MacDenyList[this.page.indexs]=this.formData.Address
+          if (this.formData.filter_policy == 1) {
+            if (this.page.action == 'add') {
+              if ($.inArray(this.formData.Address, this.formData.MacAllowList) != -1) {
+                this.$alert(vuex.res['ids_security_macAddrNameWarn'],  vuex.res['ids_confirm'], {
+                  confirmButtonText: vuex.res['ids_ok'],
+                  callback: action => {
+                    vm.reset();
+                  }
+                });
+                return false;
+              } else {
+                this.formData.MacAllowList[this.page.indexs] = this.formData.Address
+              }
+            } else {
+              if (this.formData.MacAllowList[this.page.indexs] == this.formData.Address) {
+                this.formData.MacAllowList[this.page.indexs] = this.formData.Address
+              } else {
+                if ($.inArray(this.formData.Address, this.formData.MacAllowList) != -1) {
+                  this.$alert(vuex.res['ids_security_macAddrNameWarn'],  vuex.res['ids_confirm'], {
+                    confirmButtonText:  vuex.res['ids_ok'],
+                    callback: action => {
+                      vm.reset();
+                    }
+                  });
+                  return false;
+                } else {
+                  this.formData.MacAllowList[this.page.indexs] = this.formData.Address
+                }
+              }
+            }
+          } else {
+            if (this.page.action == 'add') {
+              if ($.inArray(this.formData.Address, this.formData.MacDenyList) != -1) {
+                this.$alert(vuex.res['ids_security_macAddrNameWarn'],  vuex.res['ids_confirm'],{
+                  confirmButtonText:vuex.res['ids_ok'],
+                  callback: action => {
+                    vm.reset();
+                  }
+                });
+                return false;
+              } else {
+                this.formData.MacDenyList[this.page.indexs] = this.formData.Address
+              }
+            } else {
+              if (this.formData.MacDenyList[this.page.indexs] == this.formData.Address) {
+                this.formData.MacDenyList[this.page.indexs] = this.formData.Address
+              } else {
+                if ($.inArray(this.formData.Address, this.formData.MacDenyList) != -1) {
+                  this.$alert(vuex.res['ids_security_macAddrNameWarn'],  vuex.res['ids_confirm'], {
+                    confirmButtonText:vuex.res['ids_ok'],
+                    callback: action => {
+                      vm.reset();
+                    }
+                  });
+                  return false;
+                } else {
+                  this.formData.MacDenyList[this.page.indexs] = this.formData.url
+                }
+              }
+            }
           }
           let params ={
             filter_policy:this.formData.filter_policy,
@@ -89,18 +147,18 @@ export default {
         }
 
       },
-      deleteUrlFilter(index) {
+      deleteMacFilter(index) {
         if (this.formData.filter_policy == 1) {
           this.formData.MacAllowList.splice(index, 1);
         } else {
           this.formData.MacDenyList.splice(index, 1);
         }
-        this.formData={
+        let params = {
           filter_policy: this.page.filter_policy,
           MacAllowList: this.formData.MacAllowList,
           MacDenyList: this.formData.MacDenyList
         }
-        this.sdk.post("SetMacFilterSettings", this.formData, {
+        this.sdk.post("SetMacFilterSettings",params, {
           callback: this.init
         })
       },

@@ -19,6 +19,7 @@ menuConfig.nav = [{
 
 menuConfig.sideMenu = {
   "Home": [{
+    icon: "status",
     text: "ids_status",
     submenu: [{
       text: "ids_internet",
@@ -31,6 +32,7 @@ menuConfig.sideMenu = {
       router: "wlanStatus"
     }]
   }, {
+    icon: "statistics",
     text: "ids_statistics",
     submenu: [{
       text: "ids_internet",
@@ -43,10 +45,12 @@ menuConfig.sideMenu = {
       router: "wlanStatistics"
     }]
   }, {
+    icon: "setup-wizard",
     text: "ids_setupWizard",
     router: "setupWizard"
   }],
   "Services": [{
+    icon: "SMS",
     text: "ids_sms_titleSms",
     submenu: [{
       text: "ids_sms_inbox",
@@ -65,6 +69,7 @@ menuConfig.sideMenu = {
       router: "smsSettings"
     }]
   }, {
+    icon: "calllogs",
     text: "ids_call_pageTitle",
     submenu: [{
       text: "ids_call_Incoming",
@@ -77,6 +82,7 @@ menuConfig.sideMenu = {
       router: "missedCall"
     }]
   }, {
+    icon: "share",
     text: "ids_wifi_wepShare",
     submenu: [{
       text: "ids_storageShare",
@@ -93,6 +99,7 @@ menuConfig.sideMenu = {
     }]
   }],
   "Settings": [{
+    icon: "dailup",
     text: "ids_dialUp",
     submenu: [{
       text: "ids_network_Mobconn",
@@ -108,6 +115,7 @@ menuConfig.sideMenu = {
       router: "monthlyPlan"
     }]
   }, {
+    icon: "wan",
     text: "ids_ethWan_wan",
     submenu: [{
       text: "ids_ethWan_menuWanStatus",
@@ -120,6 +128,7 @@ menuConfig.sideMenu = {
       router: "macClone"
     }]
   }, {
+    icon: "wlan",
     text: "ids_wifi_WiFiTitle",
     submenu: [{
       text: "ids_wlan_basic",
@@ -132,6 +141,7 @@ menuConfig.sideMenu = {
       router: "wps"
     }]
   }, {
+    icon: "security",
     text: "ids_wlan_security",
     submenu: [{
       text: "ids_sim_pinManagement",
@@ -153,6 +163,7 @@ menuConfig.sideMenu = {
       router: "urlFilter"
     }]
   }, {
+    icon: "natsetting",
     text: "ids_NAT_Title",
     submenu: [{
       text: "ids_security_dmzTitle",
@@ -168,25 +179,31 @@ menuConfig.sideMenu = {
       router: "virtualServer"
     }]
   }, {
+    icon: "qos",
     text: "ids_qos_titleQos",
     router: "qos"
   }, {
+    icon: "lan",
     text: "ids_lan_Lan",
     router: "lanSettings"
   }],
   "System": [{
+    icon: "deviceinfo",
     text: "ids_system_deviceInfo",
     router: "deviceInfo"
   }, {
+    icon: "calllogs",
     text: "ids_system_rebootReset",
     submenu: [{
       text: "ids_system_reboot",
       router: "reboot"
     }, {
+      icon: "calllogs",
       text: "ids_reset",
       router: "reset"
     }]
   }, {
+    icon: "upgrade",
     text: "ids_update_upgrade",
     submenu: [{
       text: "ids_update_localUpgrade",
@@ -199,6 +216,7 @@ menuConfig.sideMenu = {
       router: "tr069"
     }]
   }, {
+    icon: "devicemgmt",
     text: "ids_system_deviceMamt",
     submenu: [{
       text: "ids_login_loginPwd",

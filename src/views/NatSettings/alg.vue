@@ -9,6 +9,7 @@
         +radio("SIP ALG Status:","SipAlgStatus")
         +input("SIP port","SipAlgPort")
         +formBtn()
+        p.tips {{vuex.res.ids_note}}:<br/>{{vuex.res.ids_alg_Note}}
 </template>
 
 <script>

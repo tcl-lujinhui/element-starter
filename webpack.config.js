@@ -32,7 +32,7 @@ module.exports = {
       test: /\.css$/,
       loader: 'style!css'
     }, {
-      test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+      test: /\.(eot|ttf|woff|woff2)(\?\S*)?$/,
       loader: 'file'
     }, {
       test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,

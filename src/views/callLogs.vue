@@ -4,13 +4,13 @@
     +sideMenuPage('Services')
       +breadcrumb("{{page.pageName}}")
       sim-state
-        +button("Delete")(@click="deleteCallLogs",:disabled="page.select.length==0")
-        el-table(:data="page.CallLogList" stripe style="width: 100%" border @selection-change="handleSelectionChange")
-          el-table-column(prop="TelNumber" label="Number" style="width: 30%" align="center")
-          el-table-column(prop="Time" label="Time" style="width: 30%" align="center")
-          el-table-column(prop="DurationTime" label="Duration" style="width: 25%" align="center")
+        +button("ids_delete")(@click="deleteCallLogs",:disabled="page.select.length==0")
+        el-table(:data="page.displayCallLogListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
+          el-table-column(prop="TelNumber" ,:label="vuex.res.ids_number" style="width: 30%" align="center")
+          el-table-column(prop="Time" ,:label="vuex.res.ids_time" style="width: 30%" align="center")
+          el-table-column(prop="DurationTime" ,:label="vuex.res.ids_duration" style="width: 25%" align="center")
           el-table-column(prop="Id" type="selection" style="width: 15%" align="center")
-        el-pagination(@click="init",layout="prev,pager,next,jumper",@current-change="handleCurrentChange",:total="page.totalCount")
+        el-pagination(layout="prev, pager, next,jumper",:page-size="10",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
         
 </template>
 
@@ -33,44 +33,52 @@ export default {
         this.page = {
           pageName: " ",
           CallLogList: [],
-          totalCount: 0,
+          displayCallLogListArtr: [],
+          totalPageCount: 0,
           currentPage: 0,
           select: []
         };
-
         if (this.$route.name == "incomingCall") {
-          this.page.pageName = "Incoming Call";
+          this.page.pageName = "Incoming call";//this.vuex.res.ids_call_Incoming;
           this.formData.pageNum = this.page.currentPage;
           this.formData.type = 1;
           this.sdk.get("GetCallLogList", this.formData, (res) => {
             this.page.CallLogList = res.CallLogList;
-            this.page.totalCount = res.TotalPageCount * 10;
+            this.page.totalPageCount = res.TotalPageCount;
+            this.initTableList();
+            console.log(res);
+            console.log(this.page.CallLogList);
+            console.log(this.page.totalPageCount );
           })
         } else if (this.$route.name == "outgoingCall") {
-          this.page.pageName = "Outgoing Call";
+          this.page.pageName = "Outgoing call";//this.vuex.res.ids_call_Outgoing;
           this.formData.pageNum = this.page.currentPage;
           this.formData.type = 2;
           this.sdk.get("GetCallLogList", this.formData, (res) => {
             this.page.CallLogList = res.CallLogList;
-            this.page.totalCount = res.TotalPageCount * 10;
+            this.page.totalPageCount = res.TotalPageCount;
+            this.initTableList();
           })
         } else if (this.$route.name == "missedCall") {
-          this.page.pageName = "Missed Call";
+          this.page.pageName = "Missed call";//this.vuex.res.ids_call_Missed;
           this.formData.pageNum = this.page.currentPage;
           this.formData.type = 3;
           this.sdk.get("GetCallLogList", this.formData, (res) => {
             this.page.CallLogList = res.CallLogList;
-            this.page.totalCount = res.TotalPageCount * 10;
+            this.page.totalPageCount = res.TotalPageCount;
+            this.initTableList();
           })
         } else {
-          this.page.pageName = "Incoming Call";
+          this.page.pageName = "Incoming call";//this.vuex.res.ids_call_Incoming;
           this.formData.pageNum = this.page.currentPage;
           this.formData.type = 0;
           this.sdk.get("GetCallLogList", this.formData, (res) => {
             this.page.CallLogList = res.CallLogList;
-            this.page.totalCount = res.TotalPageCount * 10;
+            this.page.totalPageCount = res.TotalPageCount;
+            this.initTableList();
           })
         }
+        
       },
       deleteCallLogs() {
         let selectId = [];
@@ -80,21 +88,33 @@ export default {
         let results = {
           callback: this.init
         };
-        this.$confirm('Delete the selected call log(s) now?', 'Delete', {
-          confirmButtonText: 'Delete',
-          cancelButtonText: 'Cancel',
+        this.$confirm(vuex.res['ids_call_deleteCallRecord'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['ids_delete'],
+          cancelButtonText: vuex.res['ids_cancel'],
           type: 'warning'
         }).then(() => {
           this.sdk.post("DeleteCallLog", selectId, results);
         }).catch(() => {
-          this.clearSelection;
+          this.init();
         });
       },
       handleSelectionChange(val) {
         this.page.select = val;
       },
+      initTableList() {
+        for (let n = 0; n < 10; n++) {
+          if (this.page.CallLogList[n] != undefined) {
+            this.page.displayCallLogListArtr[n] = this.page.CallLogList[n];
+          }
+        }
+      },
       handleCurrentChange(val) {
-        this.page.currentPage = val;
+        this.page.displayCallLogListArtr.splice(0, 10)
+        for (let n = (val - 1) * 10; n < 10 * val; n++) {
+          if (this.page.CallLogList[n] != undefined) {
+            this.page.displayCallLogListArtr.push(this.page.CallLogList[n]);
+          }
+        }
       }
     }
 }

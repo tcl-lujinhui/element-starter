@@ -85,34 +85,44 @@ config.pinManagement = {
   },
   formOptions: {
     Operation: [
-      [0, 'Disable'],
-      [1, 'Change']
+      [0, 'ids_disable'],
+      [1, 'ids_wlan_change']
     ],
     AutoValidatePinState: common.checkBoxEnable
   },
+   validates: {
+    Confirm: (vm) => {
+      return validates.Confirm(vm, "NewPin");
+    }
+  },
   formRules: {
     Pin: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
+      { validator:validates.pin, message: 'ids_sim_pinRule', trigger: 'blur'}
     ],
     NewPin: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
+      { validator:validates.pin, message: 'ids_sim_newPinRule', trigger: 'blur'}
     ],
     CurrentPin: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
+      { validator:validates.pin, message: 'ids_sim_pinRule', trigger: 'blur'}
     ],
     ConfirmPin: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
+      { validator:validates.pin, message: 'ids_sim_pinRule', trigger: 'blur'}
     ]
+  },
+  formRulesExtension: {
+    ConfirmPin: { validator: "Confirm", message: 'ids_sim_pinConfirmed',trigger: 'blur' },
   }
 };
 
+//lanSettings
 config.lanSettings = {
   formData: {},
   formOptions: {
-    DHCPServerStatus: [
-      [0, 'Enable'],
-      [1, 'Disable']
-    ],
+    DHCPServerStatus: common.checkBoxEnable,
     DHCPLeaseTime: [
       [1],
       [6],
@@ -144,7 +154,7 @@ config.lanSettings = {
     ],
     SubnetMask: [
       common.rule.required,
-      { validator: validates.subnetMask, message: 'Invalid Subnet Mask!' }
+      { validator: validates.subnetMask, message: 'ids_router_subnetInvalid' }
     ],
     StartIPAddress: [
       common.rule.required,
@@ -156,11 +166,11 @@ config.lanSettings = {
     ]
   },
   formRulesExtension: {
-    IPv4IPAddress: { validator: "IPv4IPAddress", message: 'IP Address is invalid. Please input again!' },
-    StartIPAddress: { validator: "StartIPAddress1", message: 'Start IP Address and "IP Address" should belong to the same subnet.' },
-    StartIPAddress: { validator: "StartIPAddress2", message: 'Error!Please be noticed, 10 after the Home Address is System pre-reserved IP,and it can not be included in DHCP IP Pool.' },
-    EndIPAddress: { validator: "EndIPAddress1", message: 'End IP Address is invalid. Please input again!' },
-    EndIPAddress: { validator: "EndIPAddress2", message: 'End IP Address and "IP Address" should belong to the same subnet.' }
+    IPv4IPAddress: { validator: "IPv4IPAddress", message: 'ids_qos_ipInvalid' },
+    StartIPAddress: { validator: "StartIPAddress1", message: 'ids_lan_startToEnd' },
+    StartIPAddress: { validator: "StartIPAddress2", message: 'ids_lan_DHCPIpRule' },
+    EndIPAddress: { validator: "EndIPAddress1", message: 'ids_lan_endIpRule' },
+    EndIPAddress: { validator: "EndIPAddress2", message: 'ids_lan_endToStart' }
   }
 };
 
@@ -181,19 +191,19 @@ config.changePassword = {
   },
   formRules: {
     CurrPassword: [
-      { type: "string", required: true, message: 'Required' },
-      { type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'Invalid password!The length of login password is 4-16, including 0-9, a-z, A-Z,"-+!@$#^&*",please input again.' }
+      common.rule.required,
+      { type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'ids_admin_passwordRulePrompt' }
     ],
     NewPassword: [
-      { type: "string", required: true, message: 'Required' },
-      { type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'Invalid password!The length of login password is 4-16, including 0-9, a-z, A-Z,"-+!@$#^&*",please input again.' }
+      common.rule.required,
+      { type: "string", required: true, pattern: /^[A-Za-z0-9\-\+\!\^\$\@\#\&\*]{4,16}$/, message: 'ids_admin_passwordRulePrompt' }
     ],
     ConfirmPassword: [
-      { type: "string", required: true, message: 'Required' }
+      common.rule.required
     ]
   },
   formRulesExtension: {
-    ConfirmPassword: { validator: "Confirm", message: 'The confirm password is not the same as the new password.' },
+    ConfirmPassword: { validator: "Confirm", message: 'ids_admin_confirmPdwNotSame' },
   }
 };
 
@@ -218,11 +228,11 @@ config.systemSettings = {
     },
     formRules: {
       NtpServer1: [
-        { type: "string", required: true, message: 'Required' },
+        common.rule.required,
         common.rule.IP
       ],
       NtpServer2: [
-        { type: "string", required: true, message: 'Required' },
+        common.rule.required,
         common.rule.IP
       ]
     }
@@ -262,7 +272,7 @@ config.newSMS = {
   },
   formOptions: {
     PhoneNumber: [
-      { type: "string", required: true, message: 'Required' }
+      common.rule.required
     ],
   },
   formRules: {}
@@ -496,7 +506,7 @@ config.wps = {
   formRules: {
     WpsPin: [
       common.rule.required,
-      { validator: validates.wpsPin, message: 'Invalid wps Pin!' }
+      { validator: validates.wpsPin, message: 'ids_wlan_InvalidWpsPinTips' }
     ]
   }
 }
@@ -747,22 +757,26 @@ config.wanConfigure = {
   },
   formRules: {
     "SubNetMask": [
-      common.rule.required
+      common.rule.required,
+      { validator: validates.subnetMask, message: 'ids_router_subnetInvalid' }
     ],
     "Gateway": [
       common.rule.required
     ],
     "IpAddress": [
-      common.rule.required
+      common.rule.required,
+      common.rule.IP
     ],
     "Mtu": [
       common.rule.required
     ],
     "PrimaryDNS": [
-      common.rule.required
+      common.rule.required,
+      common.rule.IP
     ],
     "SecondaryDNS": [
-      common.rule.required
+      common.rule.required,
+      common.rule.IP
     ],
     "Account": [
       common.rule.required
@@ -771,7 +785,8 @@ config.wanConfigure = {
       common.rule.required
     ],
     "StaticIpAddress": [
-      common.rule.required
+      common.rule.required,
+      common.rule.IP
     ],
     "pppoeMtu": [
       common.rule.required
@@ -783,8 +798,8 @@ config.wanPing = {
   formData: {},
   formOptions: {
     disableWanAcess: [
-      [0, 'Enable'],
-      [1, 'Disable']
+      [0, 'ids_disable'],
+      [1, 'ids_enable']
     ]
   },
   formRules: {}
@@ -846,9 +861,9 @@ config.ipFilter = {
   },
   formOptions: {
     filter_policy: [
-      [0, 'Disable'],
-      [2, 'Blacklist'],
-      [1, 'Whitelist']
+      [0, 'ids_disable'],
+      [2, 'ids_blacklist'],
+      [1, 'ids_whitelist']
     ],
     ip_protocol: [
       [6, 'TCP'],
@@ -871,7 +886,7 @@ config.ipFilter = {
     ],
     lan_port:[
       common.rule.required,
-      { validator:validates.portVal, message: 'The value range of Port is 0-65535.', trigger: 'blur'}
+      { validator:validates.portVal, message: 'ids_security_lanport', trigger: 'blur'}
     ],
     wan_ip:[
       common.rule.required,
@@ -879,11 +894,11 @@ config.ipFilter = {
     ],
     wan_port:[
       common.rule.required,
-      { validator:validates.portVal, message: 'The value range of Port is 0-65535.', trigger: 'blur'}
+      { validator:validates.portVal, message: 'ids_security_lanport', trigger: 'blur'}
     ]
   },
   formRulesExtension: {
-    lan_ip: { validator: "lanAddrValIp", message: 'Error!Please be noticed, 10 after the Home Address is System pre-reserved IP,and it can not be included in DHCP IP Pool.' , trigger: 'blur'},
+    lan_ip: { validator: "lanAddrValIp", message: 'ids_lan_DHCPIpRule' , trigger: 'blur'},
   }
 };
 //macFilter
@@ -894,15 +909,15 @@ config.macFilter = {
   },
   formOptions: {
     filter_policy: [
-      [0, 'Disable'],
-      [2, 'Blacklist'],
-      [1, 'Whitelist']
+      [0, 'ids_disable'],
+      [2, 'ids_blacklist'],
+      [1, 'ids_whitelist']
     ]
   },
   formRules: {
     Address:[
       common.rule.required,
-      { validator: validates.macAddr, message: 'MAC Address is invalid.' , trigger: 'blur'}
+      { validator: validates.macAddr, message: 'ids_ethWan_macInvalid' , trigger: 'blur'}
     ]
   }
 };
@@ -914,15 +929,15 @@ config.urlFilter = {
   },
   formOptions: {
     filter_policy: [
-      [0, 'Disable'],
-      [2, 'Blacklist'],
-      [1, 'Whitelist']
+      [0, 'ids_disable'],
+      [2, 'ids_blacklist'],
+      [1, 'ids_whitelist']
     ]
   },
   formRules: {
     url:[
       common.rule.required,
-      { validator: validates.isValidUrlAddress, message: 'Invalid URL!' , trigger: 'blur'}
+      { validator: validates.isValidUrlAddress, message: 'ids_filter_urlRuleMsg' , trigger: 'blur'}
     ]
   }
 };
@@ -958,14 +973,14 @@ config.dynamicRules = {
   },
   formOptions: {
     Operation: [
-      [1, 'active'],
-      [0, 'disactive']
+      [1, 'ids_active'],
+      [0, 'ids_disactive']
     ],
     RipState: common.checkBoxEnable,
     RipVerion: [
-      [0, 'Rip V1&Rip V2'],
-      [1, 'Rip V1'],
-      [2, 'Rip V2']
+      [0, 'ids_router_ripV1V2'],
+      [1, 'ids_router_ripV1'],
+      [2, 'ids_router_ripV2']
     ]
   },
   formRules: {}

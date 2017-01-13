@@ -36,7 +36,7 @@ export default {
             requestBody = api[apiName].Request(requestBody)
           }
         }
-        Vue.http.post(apiURI, requestBody).then((response) => {
+        Vue.http.post(apiURI+"?api=" + apiName, requestBody).then((response) => {
           var res = response.body.result
           if (api.hasOwnProperty(apiName)) {
             if (api[apiName].hasOwnProperty("Response")) {
@@ -60,7 +60,7 @@ export default {
             requestBody = api[apiName].Request(requestBody)
           }
         }
-        Vue.http.post(apiURI, requestBody).then((response) => {
+        Vue.http.post(apiURI+"?api=" + apiName, requestBody).then((response) => {
           let result = {};
           let res = response.body;
           if (res.hasOwnProperty("result")) {

@@ -65,6 +65,9 @@ Vue.filter('byTes', function (value) {
 Vue.filter("times", function(second, type) {
   return units.times(second, type)
 })
+Vue.filter("replace", function(strings,key,replaceKey){
+  return strings.replace(key,replaceKey)  
+})
 const router = new VueRouter({
   routes: Routers
 });

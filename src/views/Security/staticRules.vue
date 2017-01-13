@@ -2,31 +2,31 @@
   include ../components.jade
   #staticRules
     +form("formData")
-      +formItem("Static Routing:")
+      +formItem("ids_router_titleStaticRouting:")
         el-switch(v-model="page.state" @change="update()" on-text="" off-text="")
       span.add
         +button("")(icon="plus" size="mini" @click="add" type="primary")
       el-table(:data="page.StaticRoutingList" border)
-        el-table-column(type="index" label="Index" width="100")
-        el-table-column(prop="DestNetAddr" label="destination IP" width='200')
-        el-table-column(prop="DestNetmask" label="Subnet Mask" width='200')
-        el-table-column(prop="GateWay" label="Router IP" width='200')
-        el-table-column(label="Operation",:context="_self" width='120' inline-template fixed="right")
+        el-table-column(type="index" ,:label="vuex.res.ids_index" width="100")
+        el-table-column(prop="DestNetAddr" ,:label="vuex.res.ids_router_desIp" width='200')
+        el-table-column(prop="DestNetmask" ,:label="vuex.res.ids_subnetMark" width='200')
+        el-table-column(prop="GateWay" ,:label="vuex.res.ids_router_rounterIp" width='200')
+        el-table-column(:label="vuex.res.ids_netwrok_operation",:context="_self" width='120' inline-template fixed="right")
           span
             +button("")(icon="edit" size="mini" @click="editipFilterDialog($index,row)")
             +button("")(icon="delete" size="mini" type="danger" @click="deleteIpFilter($index,row)")
-    el-dialog(:title="page.action=='edit'?'Edit':'Add'" v-model="page.dialog")
+    el-dialog(:title="page.action=='edit'?vuex.res.ids_edit:vuex.res.ids_add" v-model="page.dialog")
       +form("formData")
-        +input("destination IP:","DestNetAddr")
-        +input("Subnet Mask:","DestNetmask")
-        +input("Router IP:","GateWay")
+        +input("ids_router_desIp:","DestNetAddr")
+        +input("ids_subnetMark:","DestNetmask")
+        +input("ids_router_rounterIp:","GateWay")
         +formItem("")
-          +button("Apply")(type="primary" @click="ediApply")
-          +button("Cancel")(@click="reset")
+          +button("ids_apply")(type="primary" @click="ediApply")
+          +button("ids_cancel")(@click="reset")
 </template>
 
 <script>
-import{$,_,_config} from '../../common.js';
+import{$,_,_config,vuex} from '../../common.js';
 let Config = _config.staticRules;
 
 export default {
@@ -35,6 +35,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex = vuex;
         this.initdata(Config);
         this.page={
           state:"",

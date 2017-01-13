@@ -6,14 +6,14 @@
       //-+form("formData")(label-width="0px")
       #newSMSContent
         el-input(v-model="formData.PhoneNumber")
-          span(slot="prepend") To:
-        #smsNumberInputWarn.hidden Please input a mobile number.
+          span(slot="prepend") {{vuex.res.ids_sms_to}}:
+        #smsNumberInputWarn.hidden {{vuex.res.ids_sms_inputNumber}}
         p(v-bind="listenCharCount()"){{page.length}}
         el-input(v-model="formData.SMSContent")(type="textarea",:rows.number=10)
-        #smsMaxNumWarn.hidden The input is too large. Please delete some text; otherwise the message will not be sent.
+        #smsMaxNumWarn.hidden {{vuex.res.ids_sms_contentRule}}
         #btnSMS
-          +button("Send")(@click="sendSMS")
-          +button("Save")(@click="saveSMS")
+          +button("ids_send")(@click="sendSMS")
+          +button("ids_save")(@click="saveSMS")
           //-+button("Cancel")(@click="cancel")
       
 </template>
@@ -62,8 +62,8 @@ export default {
         let realCount = this.page.usedSMSCount + this.page.smsCounts;
         if (this.formData.PhoneNumber != "") {
           if (realCount > this.page.maxSMSCount) {
-            this.$alert('SMS box is full, please delete some SMS to be able to send/save new SMS.', 'Message', {
-              confirmButtonText: 'OK',
+            this.$alert(vuex.res['ids_sms_boxFullPrompt'], vuex.res['ids_message'], {
+              confirmButtonText: vuex.res['ids_ok'],
               callback: action => {
                 this.init();
               }
@@ -90,8 +90,8 @@ export default {
         let realCount = this.page.usedSMSCount + this.page.smsCounts;
         if (this.formData.PhoneNumber != "") {
           if (realCount > this.page.maxSMSCount) {
-            this.$alert('SMS box is full, please delete some SMS to be able to send/save new SMS.', 'Message', {
-              confirmButtonText: 'OK',
+            this.$alert(vuex.res['ids_sms_boxFullPrompt'], vuex.res['ids_message'], {
+              confirmButtonText: vuex.res['ids_ok'],
               callback: action => {
                 this.init();
               }

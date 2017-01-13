@@ -56,12 +56,16 @@ export default {
       res.exConnectTypeStr = connTypeStr;
       res.exStatus = connState;
       res.exStatusStr = connStateStr;
+      res.Mtu = String(res.Mtu);
+      res.pppoeMtu = String(res.pppoeMtu);
       return res;
     }
   },
 
   SetWanSettings: {
-    Request(req) {
+    Request(req) {      
+      req.Mtu = Number(req.Mtu);
+      req.pppoeMtu = Number(req.pppoeMtu);
       return req;
     },
     Response(res) {

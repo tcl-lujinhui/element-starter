@@ -36,7 +36,7 @@ mixin input(label,model,label1)
 mixin select(label,name,label1)
   +formItem(label)
     el-select(v-model.mumber="formData.#{name}")&attributes(attributes)
-      el-option(v-for="val in formOptions.#{name}",:label="val[1] | res",:value.number="val[0]")
+      el-option(v-for="val in formOptions.#{name}",:label="(String(val[1]).indexOf('ids_')==0?vuex.res[val[1]]:val[1])",:value.number="val[0]")
     if label1
       +span(label1)
     else if block

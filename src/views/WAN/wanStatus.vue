@@ -4,7 +4,7 @@
     +sideMenuPage('Settings')
       +breadcrumb("ids_ethWan_menuWanStatus")
       el-form(label-width="200px")
-        +text("ids_duration:","{{}}")
+        +text("ids_duration:","{{formData.DurationTime | times('2')}}")
         +text("ids_lan_conStatus:","{{page.getWanIsConnInter.exConnToInterStatusStr | res}}")   
         +text("ids_lan_macAdress:","{{formData.MacAddr}}")
         +text("ids_netwrok_connectionMode:","{{formData.exConnectTypeStr | res}}")
@@ -28,20 +28,17 @@ export default {
         this.vuex = vuex
         this.page={
           getWanIsConnInter:{},
-          lanSettingsInfo:{}
-        }
+          WanCurrentMacAddr:""
+        }        
+        this.sdk.get("GetWanCurrentMacAddr", null, (res) => {
+          _.extend(this.formData,res);
+        })
         this.sdk.get("GetWanSettings", null, (res) => {
-          this.formData = res;
+          _.extend(this.formData,res);
         });
         this.sdk.get("GetWanIsConnInter", null, (res) => {
           this.page.getWanIsConnInter = res;
         });
-        this.sdk.get("GetLanSettings", null, (res) => {
-          this.page.lanSettingsInfo = res;
-        });
-        this.sdk.get("GetWanCurrentMacAddr", null, (res) => {
-          _.extend(this.formData,res);
-        })
       }
     }
 }

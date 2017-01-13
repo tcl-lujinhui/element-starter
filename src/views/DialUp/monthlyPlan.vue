@@ -2,21 +2,19 @@
   include ../components.jade
   #monthlyPlan
     +sideMenuPage('Settings')
-      +breadcrumb("Monthly Plan")
+      +breadcrumb("ids_monthlyPlan_pageTitle")
       +form("formData")
-        +input("Monthly Data Plan:","MonthlyPlan", "MB")
-        +checkbox("Auto Disconnected:","AutoDisconnFlag")
+        +input("ids_monthlyPlan_dataPlan:","MonthlyPlan", "MB")
+        +checkbox("ids_monthlyPlan_autoDisconnet:","AutoDisconnFlag")
         +text("Data Consumption:","{{formData.UsedData | covertNum}}")
-          +button('Reset')(aclick = "reset" style="margin-left:-170px;color: #fff;background-color: #20a0ff;border-color: #20a0ff")
-        +input("Set Time Limit:","TimeLimitTimes","Mins")(:disabled="formData.TimeLimitFlag==1")
+        +input("ids_monthlyPlan_setTimeLimit:","TimeLimitTimes","Mins")(:disabled="formData.TimeLimitFlag==1")
         +checkbox("Enable or Disable Time Limit:","TimeLimitFlag")
-        +text("Time Passed:","{{formData.UsedTimes*60 | UsedTimes}}")
+        +text("ids_monthlyPlan_timePass:","{{formData.UsedTimes*60 | UsedTimes}}")
         +formBtn()
 </template>
 
 <script>
-import _config from '../../config.js'
-import vuex from '../../vuex.js';
+import {_,_config,$,vuex,G} from '../../common.js';
 var Config = _config.monthlyPlan
 export default {
   created() {
@@ -24,6 +22,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex=vuex
         this.initdata(Config)
         this.sdk.get("GetUsageSettings", null, (res) => {
           this.formData = res;

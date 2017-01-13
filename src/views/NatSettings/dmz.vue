@@ -7,6 +7,7 @@
         +radio("ids_security_dmzTitle:","dmz_status")
         +input("ids_security_dmzHostIP:","dmz_ip")
         +formBtn()
+        p.tips {{vuex.res.ids_note}}:<br/>{{vuex.res.ids_security_dmzNote}}
 </template>
 
 <script>
@@ -14,12 +15,11 @@ import {_config} from '../../common.js';
 var Config = _config.dmzSettings;
 export default {
   created() {
+      this.initdata(Config);
       this.init()
     },
     methods: {
       init() {
-        this.initdata(Config);
-        //this.vuex=vuex;
         this.sdk.get("GetDMZSettings", null, (res) => {
           this.formData = res;
         })

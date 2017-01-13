@@ -6,6 +6,7 @@
       +form("formData")
         +radio("ids_security_upnp:","upnp_switch")
         +formBtn()
+        p.tips {{vuex.res.ids_note}}:<br/>{{vuex.res.ids_upnp_Note}}
 </template>
 
 <script>

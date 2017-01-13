@@ -25,11 +25,11 @@ import {$,_config,vuex} from '../../common.js';
 let Config = _config.Wlan;
 export default {
   created () {
+    this.initdata(Config);
     this.init()
   },
   methods: {
     init (){
-      this.initdata(Config);
       this.vuex=vuex;
       this.sdk.get("GetWlanSettings",null,(res)=>{
         $.extend(this.formData,res)

@@ -2,19 +2,18 @@
   include ../components.jade
   #networkSettings
     +sideMenuPage('Settings')
-      +breadcrumb("Network Settings")
+      +breadcrumb("ids_netwrok_Title")
       sim-state
         +form("formData")
-          +radio("NetselectionMode:","NetselectionMode")
-          +select("NetworkMode:","NetworkMode")
+          +radio("ids_networkSearchMode:","NetselectionMode")
+          +select("ids_netwrok_netMode:","NetworkMode")
           +formBtn()
         
 </template>
 
 <script>
-import _Config from '../../config.js'
-import vuex from '../../vuex.js';
-var Config = _Config.networkSettings
+import {_,_config,$,vuex,G} from '../../common.js';
+var Config = _config.networkSettings
 export default {
   created() {
       this.init()
@@ -22,7 +21,7 @@ export default {
     methods: {
       init() {
         this.initdata(Config)
-        this.vuex = vuex
+        this.vuex= vuex
         vuex.initSimInfo()
         this.sdk.get("GetNetworkSettings", null, (res) => {
           this.formData = res;

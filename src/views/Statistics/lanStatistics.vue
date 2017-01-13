@@ -8,20 +8,20 @@
           table.table.table-bordered.table-tc
             tbody
               tr
-                th(rowspan="2") Interface
-                th(colspan="4") Received
-                th(colspan="4") Sent
+                th(rowspan="2") {{vuex.res.ids_lan_interface}}
+                th(colspan="4") {{vuex.res.ids_wlan_received}}
+                th(colspan="4") {{vuex.res.ids_send}}
               tr
-                th Byte
-                th Packet 
-                th Error 
-                th Discarded 
-                th Byte 
-                th Packet  
-                th Error 
-                th Discarded
+                th {{vuex.res.ids_byte}}
+                th {{vuex.res.ids_packet}} 
+                th {{vuex.res.ids_error}} 
+                th {{vuex.res.ids_discarded}} 
+                th {{vuex.res.ids_byte}} 
+                th {{vuex.res.ids_packet}}  
+                th {{vuex.res.ids_error}} 
+                th {{vuex.res.ids_discarded}}
               tr(v-for="list in formData.List")
-                th {{list.LanFlag | covertNum}}
+                th {{list.LanFlag}}
                 th {{list.ReceivedByte | covertNum}}
                 th {{list.ReceivedPacket | covertNum}} 
                 th {{list.ReceivedError | covertNum}} 
@@ -32,7 +32,7 @@
                 th {{list.SentDiscarded | covertNum}}  
 </template>
 <script>
-import _config from '../../config.js'
+import {_,_config,$,vuex,G} from '../../common.js';
 var Config = _config.lanStatistics;
 export default {
   created() {
@@ -40,6 +40,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex=vuex
         this.initdata(Config);
         this.sdk.get("GetLanStatistics", null, (res) => {
           this.formData = res;

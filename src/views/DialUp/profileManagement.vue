@@ -2,29 +2,28 @@
   include ../components.jade
   #profileManagement
     +sideMenuPage('Settings')
-      +breadcrumb("Profile Management")
+      +breadcrumb("ids_profile_pageTitle")
       +form("formData")
-        +formItem("Profile Management:")
+        +formItem("ids_profile_pageTitle:")
           el-select(v-model.mumber="page.currentProfileId" @change="changeProfile()")
             el-option(v-for="val in profileList",:label="val.Default==1?val.ProfileName+'(D)':val.ProfileName",:value.number="val.ProfileID")
-        +input("Profile Name:","ProfileName")(:disabled="page.actionType==0")
-        +input("Dial Number:","DailNumber")(:disabled="page.actionType==0")
-        +input("APN:","APN")(:disabled="page.actionType==0")
-        +input("User Name:","UserName")(:disabled="page.actionType==0")
-        +input("Password:","Password")(type="password",:disabled="page.actionType==0")
-        +select("Protocol:","AuthType")(:disabled="page.actionType==0")
+        +input("ids_profile_name:","ProfileName")(:disabled="page.actionType==0")
+        +input("ids_profile_dialNumber:","DailNumber")(:disabled="page.actionType==0")
+        +input("ids_profile_apn:","APN")(:disabled="page.actionType==0")
+        +input("ids_profile_userName:","UserName")(:disabled="page.actionType==0")
+        +input("ids_profile_password:","Password")(type="password",:disabled="page.actionType==0")
+        +select("ids_protocol:","AuthType")(:disabled="page.actionType==0")
         div.center
-          +button("New")(@click="newProfile",:disabled="page.actionType==2||page.actionType==1")
+          +button("ids_new")(@click="newProfile",:disabled="page.actionType==2||page.actionType==1")
           +button("edit")(@click="editProfile",:disabled="page.actionType==2||page.actionType==1")
-          +button("Save")(@click="saveProfile",:disabled="page.actionType==0")
-          +button("Delete")(@click="delProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0")
-          +button("Set Default")(@click="setDefaultProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0")
+          +button("ids_save")(@click="saveProfile",:disabled="page.actionType==0")
+          +button("ids_delete")(@click="delProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0")
+          +button("ids_profile_setDefault")(@click="setDefaultProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0")
 
 </template>
 
 <script>
-import $ from 'jquery'
-import _config from '../../config.js'
+import {_,_config,$,vuex,G} from '../../common.js';
 var Config = _config.profileManagement;
 export default {
   created () {
@@ -32,6 +31,7 @@ export default {
   },
   methods: {
     init (){
+      this.vuex = vuex 
       this.initdata(Config)
       this.page={
         currentProfileId:1,

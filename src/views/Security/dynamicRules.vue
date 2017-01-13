@@ -2,15 +2,15 @@
   include ../components.jade
   #dynamicRules
     +form("formData")
-      +formItem("Dynamic Routing:")
+      +formItem("ids_router_titleDynamicRouting:")
         el-switch(v-model="page.operation" @change="swich()" on-text="" off-text="")
-      +radio("Rip:","RipState")
-      +select("Verion:","RipVerion")
+      +radio("ids_router_rip:","RipState")
+      +select("ids_verion:","RipVerion")
       +formBtn()
 </template>
 
 <script>
-import {$, _,_config} from '../../common.js';
+import {$, _,_config,vuex} from '../../common.js';
 let Config = _config.dynamicRules;
 export default {
   created() {
@@ -18,6 +18,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex = vuex;
         this.initdata(Config);
         this.page = {
           operation: "",

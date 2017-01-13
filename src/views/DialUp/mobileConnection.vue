@@ -2,15 +2,15 @@
   include ../components.jade
   #mobileConnection
     +sideMenuPage('Settings')
-      +breadcrumb("Mobile Connection")
+      +breadcrumb("ids_network_Mobconn")
       +form("formData")
-        +radio("Connection Mode:","ConnectMode")
+        +radio("ids_netwrok_connectionMode:","ConnectMode")
         +select("PdpType:","PdpType")
         +formBtn()
   </template>
 
 <script>
-import _config from '../../config.js'
+import {_,_config,$,vuex,G} from '../../common.js';
 var Config = _config.mobileConnection;
 export default {
   created() {
@@ -25,6 +25,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex= vuex
         this.initdata(Config);
         this.sdk.get("GetConnectionSettings", null, (res) => {
           this.formData = res;
