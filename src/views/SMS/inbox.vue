@@ -4,37 +4,41 @@
     +sideMenuPage('Services')
       +breadcrumb("ids_sms_inbox")
       sim-state
-      #inboxList
-        p {{vuex.res.ids_sms_storageStatus}}:{{page.usedSMSCount}}/{{page.maxSMSCount}}
-        +button("ids_delete")(@click="deleteSMS",:disabled="page.select.length==0")
-        el-table(:data="page.displayInboxListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
-          el-table-column(prop="SMSType" ,:label="vuex.res.ids_state" style="width: 10%" inline-template)
-            span(@click="smsDetails(row)" v-html="row.SMSType")
-          el-table-column(prop="PhoneNumber" ,:label="vuex.res.ids_sms_phoneNumber" style="width: 30%" inline-template)
-            span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
-          el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" style="width: 30%" show-overflow-tooltip=true inline-template)
-            span(@click="smsDetails(row)" v-html="row.SMSContent")
-          el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" style="width: 20%" inline-template)
-            span(@click="smsDetails(row)" v-html="row.SMSTime")
-          el-table-column(prop="SMSId" type="selection" style="width: 10%")
-        el-pagination(layout="prev, pager, next,jumper",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
-      #inboxDetail.hidden
-        el-input(v-model="page.selectSMSNumber" readonly="readonly")
-          span(slot="prepend") {{vuex.res.ids_sms_from}}:
-        el-input(type="textarea",:rows.number=10 ,v-model="page.selectSMSContent" readonly="readonly")
-        #btnList
-          +button("ids_backup")(@click="back")
-          +button("ids_sms_buttonReply")(@click="replySMS(page.selectSMS)")
-          +button("ids_sms_buttonForward")(@click="forwardSMS(page.selectSMS)")
-          +button("ids_delete")(@click="deleteSingleSMS(page.selectSMSId)")
+        #inboxList(:class="{hidden:page.inboxListDisplay}")
+          p {{vuex.res.ids_sms_storageStatus}}:{{page.usedSMSCount}}/{{page.maxSMSCount}}
+          #btnDelete
+            +button("ids_delete")(@click="deleteSMS",:disabled="page.select.length==0")
+          el-table(:data="page.displayInboxListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
+            el-table-column(prop="SMSType" ,:label="vuex.res.ids_state" style="width: 10%" inline-template)
+              span(@click="smsDetails(row)" v-html="row.SMSType")
+            el-table-column(prop="PhoneNumber" ,:label="vuex.res.ids_sms_phoneNumber" style="width: 30%" inline-template)
+              span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
+            el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" style="width: 30%" show-overflow-tooltip=true inline-template)
+              span(@click="smsDetails(row)" v-html="row.SMSContent")
+            el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" style="width: 20%" inline-template)
+              span(@click="smsDetails(row)" v-html="row.SMSTime")
+            el-table-column(prop="SMSId" type="selection" style="width: 10%")
+          el-pagination(layout="prev, pager, next,jumper",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
+        #inboxDetail(:class="{hidden:page.inboxDetailDisplay}")
+          el-input(v-model="page.selectSMSNumber" readonly="readonly")
+            span(slot="prepend") {{vuex.res.ids_sms_from}}:
+          el-input(type="textarea",:rows.number=10 ,v-model="page.selectSMSContent" readonly="readonly")
+          #btnList
+            #btnLeft
+              +button("ids_backup")(@click="back")
+            #btnRight
+              +button("ids_sms_buttonReply")(@click="replySMS(page.selectSMS)")
+              +button("ids_sms_buttonForward")(@click="forwardSMS(page.selectSMS)")
+              +button("ids_delete")(@click="deleteSingleSMS(page.selectSMSId)")
 </template>
+
 <script>
 import {_config,_,vuex,$} from '../../common.js';
 import sms from '../../config/sms.js';
 let Config = _config.inbox;
 export default {
   created() {
-      this.init()
+      this.init();
     },
     methods: {
       init() {
@@ -52,7 +56,10 @@ export default {
           selectSMSId: 0,
           selectSMSNumber: "",
           selectSMSContent: "",
-          PageSize: 10
+          PageSize: 10,
+          inboxListDisplay: false,
+          inboxDetailDisplay: true
+
         };
         this.sdk.get("GetSMSStorageState", null, (res) => {
           this.page.maxSMSCount = res.MaxCount;
@@ -64,7 +71,13 @@ export default {
         };
         this.sdk.get("GetSMSListByContactNum", sendData, (res) => {
           this.page.SMSList = res.SMSList;
-          this.page.totalPageCount = res.TotalPageCount;
+          //this.page.totalPageCount = res.TotalPageCount;
+          for (let i = 0; i < res.SMSList.length; i++) {
+            if (res.SMSList[i].SMSType == 4) {
+              this.page.SMSList.splice(i, 1);
+
+            }
+          }
           this.initTableList();
         });
       },
@@ -94,18 +107,19 @@ export default {
         this.page.selectSMSId = sms.SMSId;
         this.page.selectSMSNumber = sms.PhoneNumber[0];
         this.page.selectSMSContent = sms.SMSContent;
-        $("#inboxList").addClass("hidden");
-        $("#inboxDetail").removeClass("hidden");
+        this.page.inboxListDisplay = true;
+        this.page.inboxDetailDisplay = false;
       },
       back() {
-        sms.smsGoBack("inbox");
+        //sms.smsGoBack("inbox");
+        this.page.inboxListDisplay = false;
+        this.page.inboxDetailDisplay = true;
       },
       replySMS() {
         let replyData = {
           PhoneNumber: this.page.selectSMSNumber,
           SMSContent: "",
         };
-
         sms.doReply(this.$router, replyData);
       },
       forwardSMS() {
@@ -128,14 +142,15 @@ export default {
           type: 'warning'
         }).then(() => {
           this.sdk.post("DeleteSMS", selectId, results);
-          $("#inboxList").removeClass("hidden");
-          $("#inboxDetail").addClass("hidden");
+          this.page.inboxListDisplay = false;
+          this.page.inboxDetailDisplay = true;
         }).catch(() => {
-          $("#inboxList").addClass("hidden");
-          $("#inboxDetail").removeClass("hidden");
+          this.page.inboxListDisplay = true;
+          this.page.inboxDetailDisplay = false;
         });
       },
       initTableList() {
+        this.page.totalPageCount = Math.ceil(this.page.SMSList.length / 10);
         for (let n = 0; n < this.page.PageSize; n++) {
           if (this.page.SMSList[n] != undefined) {
             this.page.displayInboxListArtr[n] = this.page.SMSList[n];
@@ -155,7 +170,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.el-button {
+#btnDelete{
   float: right;
   margin: 10px 0 10px 0;
   padding: 7px 9px;
@@ -183,7 +198,12 @@ p {
   margin-top:50px;
 }
 #btnList{
-  float:left;
   margin-top:20px;
+}
+#btnList #btnLeft{
+  float:left;
+}
+#btnList #btnRight{
+  float:right;
 }
 </style>

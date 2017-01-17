@@ -192,7 +192,7 @@ menuConfig.sideMenu = {
     text: "ids_system_deviceInfo",
     router: "deviceInfo"
   }, {
-    icon: "calllogs",
+    icon: "reset",
     text: "ids_system_rebootReset",
     submenu: [{
       text: "ids_system_reboot",

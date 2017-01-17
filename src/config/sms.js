@@ -131,8 +131,28 @@ let sms = {
     currentTime += ((currentSecs < 10) ? "0" : "") + currentSecs;
     return currentTime
   },
+  /*doAction(router,data) {
+    switch (router.name) {
+        case "replySMS":
+            sms.doReply(router,data);
+            break;
+        case "forwordSMS":
+            sms.doForward(router,data);
+            break;
+        case "editSMS":
+            sms.doEdit(router,data);
+            break;
+        default:
+            sms.doWrite(router,data);
+    }
+},*/
+  doWrite(){
+    //router.push('newSMS');
+    _config.newSMS.formData.PhoneNumber = "";
+    _config.newSMS.formData.SMSContent = "";
+  },
   doReply(router, replyData) {
-    router.push('newSMS');
+    router.push('replySMS');
     _config.newSMS.formData.PhoneNumber = replyData.PhoneNumber;
     _config.newSMS.formData.SMSContent = replyData.SMSContent;
     /*if (currentCount == totalCount && totalCount != 0) {
@@ -140,7 +160,7 @@ let sms = {
     }*/
   },
   doForward(router, forwardData) {
-    router.push('newSMS');
+    router.push('forwordSMS');
     _config.newSMS.formData.PhoneNumber = forwardData.PhoneNumber;
     _config.newSMS.formData.SMSContent = forwardData.SMSContent;
     /*if (currentCount == totalCount && totalCount != 0) {
@@ -148,20 +168,21 @@ let sms = {
     }*/
   },
   doEdit(router, smsInfo) {
-    router.push('newSMS');
+    router.push('editSMS');
     _config.newSMS.formData.PhoneNumber = smsInfo.PhoneNumber;
     _config.newSMS.formData.SMSContent = smsInfo.SMSContent;
   },
-  smsGoBack(listName) {
+
+  /*smsGoBack(listName) {
     if (listName == "outbox") {
-      $("#outboxList").removeClass("hidden");
-      $("#outboxDetail").addClass("hidden");
+      this.page.outboxListDisplay=false;
+      this.page.outboxDetailDisplay=true;
     } else{
-      $("#inboxList").removeClass("hidden");
-      $("#inboxDetail").addClass("hidden");
+      this.page.inboxListDisplay=false;
+      this.page.inboxDetailDisplay=true;
     }
   }
-  /*saveEvent(saveData) {
+  saveEvent(saveData) {
     let results = {
       callback: this.init
     };

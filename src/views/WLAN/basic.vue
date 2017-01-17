@@ -55,10 +55,18 @@ export default {
       })
     },
     update (){
-      let setForm = () => {
-        this.sdk.post("SetWlanSettings", this.formData, {
-          callback: this.init
-        })
+      let setForm = () => {        
+        this.$confirm(vuex.res['ids_lan_restartWarn'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['ids_ok'],
+          cancelButtonText: vuex.res['ids_cancel'],
+          type: 'warning'
+        }).then(() => {
+          this.sdk.post("SetWlanSettings", this.formData, {
+            callback: this.init
+          });
+        }).catch(() => {
+
+        }); 
       }
       this.submit("formData", setForm)    
     }

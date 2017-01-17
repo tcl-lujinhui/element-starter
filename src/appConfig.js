@@ -76,7 +76,7 @@ export default {
           this.$refs[form].validate((valid) => {
             if (valid) {
               callback();
-              this.reset()
+              //this.reset()
             } else {
               return false;
             }

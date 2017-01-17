@@ -2,20 +2,20 @@
   include ../components.jade
   #localUpgrade
     +sideMenuPage('System')
-      +breadcrumb("Local")
+      +breadcrumb("ids_pb_local")
       +form("formData")
         el-row(:gutter="11")
-          el-col.textAlignRight(:span="8") Local upgrade:
+          el-col.textAlignRight(:span="8") {{vuex.res.ids_update_localUpgrade}}
           el-col(:span="16")
             div.uploadFile
               input.fileUpload(type="file" id="fileUpload" name="fileUpload")(v-on:change = "showUpgradeFileUrl()")
               el-input(size="small" class="inline-input" placeholder="Please Choice File" v-model="page.fileUrlName", :change="changeUpload()")
-              +button("Browse")(size="small" type="primary")
-            +button("Upgrade")(size="small" type="primary" @click="update", :disabled="page.upgradeDisabled")
-        el-dialog(title="Local Upgrade" v-model="page.alertUpdating" close-on-press-escape=false close-on-click-modal=false show-close=false)
+              +button("ids_update_Browse")(size="small" type="primary")
+            +button("ids_update_upgrade")(size="small" type="primary" @click="update", :disabled="page.upgradeDisabled")
+        el-dialog(:title="vuex.res.ids_update_localUpgrade" v-model="page.alertUpdating" close-on-press-escape=false close-on-click-modal=false show-close=false)
           el-progress(:text-inside="true", :stroke-width="18", :percentage="page.percentage")
-          div.loadingTxt loading......
-        div.noteTips Note:<br />During the upgrade, esp. when all indicators except Power on the device blink, DO NOT power off the device, otherwise, it may be severely damaged
+          div.loadingTxt {{vuex.res.ids_update_Updating}}
+        div.noteTips {{vuex.res.ids_note}}:<br />{{vuex.res.ids_update_upgradingWarning}}
 
 
       //-div {{$route.name}}
@@ -23,18 +23,19 @@
 </template>
 
 <script>
-import {$} from '../../common.js'
-import {G,_config} from '../../common.js'
+import {$,vuex,G,_config} from '../../common.js'
 import ElementUI from 'element-ui'
+import ajaxFileUpload from '../../plugin/ajaxfileupload.js'
 var Config = _config.localUpgrade
 
 export default {
   created () {
-    this.init()
+    this.init();
+    this.initdata(Config);
   },
   methods: {
     init (){
-      this.initdata(Config);
+      this.vuex = vuex
       this.page = {
         fileUrlName:"",
         percentage:50,
@@ -58,6 +59,27 @@ export default {
     update (){
       if(this.page.fileUrlName!= ""){
         this.page.alertUpdating = true;
+        $.ajaxFileUpload({
+            url: "/goform/uploadLocalUpdateSettings",
+            secureuri: false,
+            fileElementId: "fileUpload",
+            dataType: "json",
+            complete: function() {
+                //page.stopLoading();
+                console.log("complete"); 
+            },
+            success: function(data, status) {
+                if (data.error == 0) {
+                    //sys.alert("ids_success");
+                    console.log("Device restored.Now restarting");
+                } else {
+                  console.log("fail");
+                }
+            },
+            error: function(data, status, e) {
+              console.log("error");
+            }
+        });
         this.page.percentage = 70;
       }
       /*this.sdk.post("SetDeviceStartUpdate",this.formData,(res)=>{

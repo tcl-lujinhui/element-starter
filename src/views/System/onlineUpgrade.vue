@@ -2,42 +2,42 @@
   include ../components.jade
   #onlineUpgrade
     +sideMenuPage('System')
-      +breadcrumb("Online")
+      +breadcrumb("ids_update_Online")
       sim-state
         +form("formData")
           div(v-show="page.actionTypeCheck==1")
-            p.tips Online upgrade: 
-              span {{page.Version}} up to date
+            p.tips {{vuex.res.ids_update_onlineUpgrade}} 
+              span {{page.Version}} {{vuex.res.ids_update_upToDate}}
             +formItem("")
-              +button("Check for upgrade")(type="primary" @click="startCheckUpdate")
+              +button("ids_update_checkBtn")(type="primary" @click="startCheckUpdate")
           div(v-show="page.actionTypeChecking==1")
             p.tips
               span(v-loading.body="page.loading") 
-              span Checking...
+              span {{vuex.res.ids_update_checking}}
             +formItem("")
-              +button("Check for upgrade")(disabled type="primary" @click="")
-          el-dialog(title="Online upgrade" v-model="page.newVersionType",size="tiny")
-            p.tips Find a new version:
-              span{{page.Version}} available. Size:{{page.total_size | byTes}}.
+              +button("ids_update_checkBtn")(disabled type="primary" @click="")
+          el-dialog(:title="vuex.res.ids_update_onlineUpgrade" v-model="page.newVersionType",size="tiny")
+            p.tips {{vuex.res.ids_update_onlineUpgrade}}
+              span {{vuex.res.ids_update_newVersionAvailable | replace('1.2.3',page.Version)}}{{vuex.res.ids_update_Size}}{{page.total_size | byTes}}.
             +formItem("")
-              +button("Upgrade")(type="primary" @click="setFOTAStartDownload")
-              +button("Cancel")(type="primary" @click="reset")
+              +button("ids_update_upgrade")(type="primary" @click="setFOTAStartDownload")
+              +button("ids_cancel")(type="primary" @click="reset")
           el-dialog(v-model="page.actionTypeDownloading",size="tiny")
             el-progress(:text-inside="true",:stroke-width="24",:percentage="page.fotaProcess")
-            p.tips Downloading…
+            p.tips {{vuex.res.ids_update_download}}
             +formItem("")
-              +button("Cancel")(type="primary" @click="stopDownloadFOTA")
+              +button("ids_cancel")(type="primary" @click="stopDownloadFOTA")
           el-dialog(v-model="page.actionTypeDownloaded",size="tiny")
-            p.tips The file has been downloaded,are you sure you want to update?
+            p.tips {{vuex.res.ids_update_updateConfirm}}
             +formItem("")
-              +button("OK")(type="primary" @click="startUpdateFOTA")
-          el-dialog(title="Upgrading..." v-model="page.actionTypeUpgrading",size="tiny")
-            p.tips Please don't power off during upgrading.The device will be restarted after an upgrade.
+              +button("ids_update_upgrade")(type="primary" @click="startUpdateFOTA")
+          el-dialog(:title="vuex.res.ids_update_Updating" v-model="page.actionTypeUpgrading",size="tiny")
+            p.tips {{vuex.res.ids_update_upgradingWarning}}
           el-dialog(v-model="page.newVersionTypeNo",size="tiny")
-            p.tips Software Version:It's already the latest version.
+            p.tips {{vuex.res.ids_update_noNewSoft}}
             +formItem("")
-              +button("Finish")(type="primary" @click="reset")
-          p.tips Note:<br/>During the upgrade, esp. when all indicators except Power on the device blink, DO NOT power off the device, otherwise, it may be severely damaged.        
+              +button("ids_finish")(type="primary" @click="reset")
+          p.tips {{vuex.res.ids_update_upgradingWarning}}        
 </template>
 <script>
 import {$,vuex,G,_,_config} from '../../common.js';
@@ -118,8 +118,8 @@ export default {
               vm.page.actionTypeDownloaded = false;
               vm.page.newVersionTypeNo = false;
               vm.page.newVersionType = false;
-              this.$alert('Unable to connect to the internet, please try again later.', {
-                confirmButtonText: 'OK',
+              this.$alert(vuex.res['ids_update_InternetDisabledMsg'],  vuex.res['ids_confirm'], {
+                confirmButtonText: vuex.res['ids_ok'],
                 callback: action => {
                   vm.reset();
                 }
@@ -133,8 +133,8 @@ export default {
               vm.page.actionTypeDownloaded = false;
               vm.page.newVersionTypeNo = false;
               vm.page.newVersionType = false;
-              this.$alert('Service is not available, please try again later.', {
-                confirmButtonText: 'OK',
+              this.$alert(vuex.res['ids_noservice'],  vuex.res['ids_confirm'], {
+                confirmButtonText: vuex.res['ids_ok'],
                 callback: action => {
                   this.reset();
                 }
@@ -148,8 +148,8 @@ export default {
               vm.page.actionTypeDownloaded = false;
               vm.page.newVersionTypeNo = false;
               vm.page.newVersionType = false;
-              this.$alert('Error!', {
-                confirmButtonText: 'OK',
+              this.$alert(vuex.res['ids_update_checkFail'],  vuex.res['ids_confirm'], {
+                confirmButtonText:vuex.res['ids_ok'],
                 callback: action => {
                   this.reset();
                 }
@@ -198,8 +198,8 @@ export default {
                 fail: {
                   tips: "None",
                   callback() {
-                    vm.$alert('Error!', {
-                      confirmButtonText: 'OK',
+                    vm.$alert(vuex.res['ids_update_checkFail'],  vuex.res['ids_confirm'], {
+                      confirmButtonText: vuex.res['ids_ok'],
                       callback: action => {
                         vm.reset();
                       }
@@ -208,8 +208,8 @@ export default {
                 }
               })
             } else {
-              this.$alert('Unable to connect to the internet, please try again later.', {
-                confirmButtonText: 'OK',
+              this.$alert(vuex.res['ids_update_InternetDisabledMsg'],  vuex.res['ids_confirm'], {
+                confirmButtonText:vuex.res['ids_ok'],
                 callback: action => {
                   this.reset();
                 }
@@ -236,8 +236,8 @@ export default {
           fail: {
             tips: "None",
             callback() {
-              vm.$alert('Error!', {
-                confirmButtonText: 'OK',
+              vm.$alert(vuex.res['ids_update_downloadFail'],  vuex.res['ids_confirm'], {
+                confirmButtonText: vuex.res['ids_ok'],
                 callback: action => {
                   vm.reset();
                 }
@@ -267,8 +267,8 @@ export default {
           fail: {
             tips: "None",
             callback() {
-              vm.$alert('Error!', {
-                confirmButtonText: 'OK',
+              vm.$alert(vuex.res['ids_update_updateFail'],  vuex.res['ids_confirm'],{
+                confirmButtonText:  vuex.res['ids_ok'],
                 callback: action => {
                   vm.reset();
                 }
@@ -289,8 +289,8 @@ export default {
           fail: {
             tips: "None",
             callback() {
-              vm.$alert('Error!', {
-                confirmButtonText: 'OK',
+              vm.$alert(vuex.res['ids_error'],  vuex.res['ids_confirm'], {
+                confirmButtonText: vuex.res['ids_ok'],
                 callback: action => {
                   vm.reset();
                 }

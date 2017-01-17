@@ -4,7 +4,7 @@
     +form("formData")
       el-row(:gutter="0")
         el-col(:span="12")
-          div.title LINKHUB Manager APP
+          div.title {{vuex.res.ids_managerAPP}}
           el-row(:gutter="0")
             el-col(:span="11") 
               img(src="../images/android.png" width="130" height="130")
@@ -16,16 +16,16 @@
                 img(src="../images/appleApp.png" width="30" height="30")
         el-col.cutLine(:span="12")
           div.loginArea
-            div.title Login
+            div.title {{vuex.res.ids_login_loginPwd}}
             //-+input("username:","UserName")(type="password")
-            +inputNone("","Password")(type="password")(v-on:change = "changeInput()" placeholder="Enter Administrator Password" name="passVal")
+            +inputNone("","Password")(type="password")(v-on:change = "changeInput()", :placeholder="vuex.res.ids_login_placeHolder" name="passVal")
             div.tips-error(v-show="page.isTipsError")
             +formCheckbox("save_flag","Remember password")(class="paddingVal")
             +formBtnNone()
 </template>
 
 <script>
-import {$,_config} from '../common.js'
+import {$,_config,vuex} from '../common.js'
 import _cookie from '../plugin/jquery.cookie.js'
 var Config = _config.login;
 export default {
@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     init (){
+      this.vuex = vuex;
       this.initdata(Config);
       this.initDataEvent();
       this.page = {
@@ -55,7 +56,7 @@ export default {
             tips:"None",
             msg:"",
             callback(){
-                let text = "Please input the password.";
+                let text = _self.vuex.res.ids_required;
                 _self.displayTipsText(text);
                 console.log("oooooooo")
             }
@@ -64,7 +65,7 @@ export default {
             tips:"None",
             msg:"",
             callback(){
-                let text = "Wrong password!";
+                let text = _self.vuex.res.ids_login_wrongPwd;
                 _self.displayTipsText(text);
             }
           },
@@ -72,7 +73,7 @@ export default {
             tips:"None",
             msg:"",
             callback(){
-                let text = "The administrator had already logged in, Please try later.";
+                let text = _self.vuex.res.ids_login_otherLogin;
                 _self.displayTipsText(text);
             }
         },
@@ -80,7 +81,7 @@ export default {
             tips:"None",
             msg:"",
             callback(){
-                let text = "The login times used out.Please reboot and try again.";
+                let text = _self.vuex.res.ids_login_timeuseout;
                 _self.displayTipsText(text);
             }
         }
@@ -88,7 +89,7 @@ export default {
     if($("input[name = 'passVal']").val() != ""){
         this.sdk.post("Login",this.formData,setLogin);
     }else{
-        let text = "Please input the password.";
+        let text = this.vuex.res.ids_required;
          _self.displayTipsText(text);
     }
       //this.sdk.post("Login",this.formData,(res)=>{
@@ -98,9 +99,9 @@ export default {
     firstLoginEvent(){
       this.sdk.post("GetPasswordChangeFlag",this.formData,(res) =>{
         if(res.result.change_flag == 0){
-          this.$confirm('For better security, it’s recommended you change the default administrator password for login.','Login settings',{
-            confirmButtonText:'Change now',
-            cancelButtonText:'Cancel'
+          this.$confirm(vuex.res['ids_login_changePasswordTips'],vuex.res['ids_login_loginPwd'],{
+            confirmButtonText:vuex.res['ids_login_changeNow'],
+            cancelButtonText:vuex.res['ids_cancel']
           }).then(() =>{
             this.$router.push('changePassword')
           }).catch(() =>{

@@ -4,7 +4,8 @@
     +sideMenuPage('Settings')
       +breadcrumb("ids_monthlyPlan_pageTitle")
       +form("formData")
-        +input("ids_monthlyPlan_dataPlan:","MonthlyPlan", "MB")
+        +input("ids_monthlyPlan_dataPlan:","MonthlyPlan")
+        +select("","Unit")
         +checkbox("ids_monthlyPlan_autoDisconnet:","AutoDisconnFlag")
         +text("Data Consumption:","{{formData.UsedData | covertNum}}")
         +input("ids_monthlyPlan_setTimeLimit:","TimeLimitTimes","Mins")(:disabled="formData.TimeLimitFlag==1")
@@ -18,12 +19,12 @@ import {_,_config,$,vuex,G} from '../../common.js';
 var Config = _config.monthlyPlan
 export default {
   created() {
-      this.init()
+      this.init();
+      this.initdata(Config);
     },
     methods: {
       init() {
         this.vuex=vuex
-        this.initdata(Config)
         this.sdk.get("GetUsageSettings", null, (res) => {
           this.formData = res;
         })
@@ -36,29 +37,13 @@ export default {
       },
       update() {
         let setForm = () => {
-          let params = {
-            "BillingDay": Number(this.formData.BillingDay),
-            "MonthlyPlan": Number(this.formData.MonthlyPlan),
-            "UsedData": Number(this.formData.UsedData),
-            "TimeLimitFlag": Number(this.formData.TimeLimitFlag),
-            "TimeLimitTimes": Number(this.formData.TimeLimitTimes),
-            "UsedTimes": Number(this.formData.UsedTimes),
-            "AutoDisconnFlag": Number(this.formData.AutoDisconnFlag),
-            "Unit": Number(this.formData.Unit)
-          }
-          this.sdk.post("SetUsageSettings", params, {
+          this.sdk.post("SetUsageSettings", this.formData, {
             callback: this.init
           })
         }
         this.submit("formData", setForm);
       },
       reset() {
-        let setForm = () => {
-          this.sdk.post("SetUsageRecordClear", this.formData, {
-            callback: this.init_Record
-          })
-        }
-        this.submit("formData", setForm); 
       }
     }
 }
@@ -66,5 +51,5 @@ export default {
 
 
 
-<style lang="sass" scoped>
+<style lang="sass" scoped> 
 </style>

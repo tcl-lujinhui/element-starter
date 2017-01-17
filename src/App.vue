@@ -4,13 +4,14 @@
     div.header
       img(src="./images/logo.png")
       status-icon
+      sms-report
       //-img.status(src="./images/status.png")
     el-menu.main-menu.el-menu-demo(mode="horizontal" router=true v-if="vuex.loginName != 'login'")
       el-menu-item(:index="val.router" v-for="val in nav") {{val.text |res}}
     router-view.main
      
     .footer 
-      span.copyright Copyright 2014-2018 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.{{vuex.res.hello}}
+      span.copyright Copyright 2014-2018 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.
 </template>
 
 <script>

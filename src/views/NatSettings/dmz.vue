@@ -20,13 +20,13 @@ export default {
     },
     methods: {
       init() {
-        this.sdk.get("GetDMZSettings", null, (res) => {
+        this.sdk.get("getDMZInfo", null, (res) => {
           this.formData = res;
         })
       },
       update() {
         let setForm = () => {
-          this.sdk.post("SetDMZSettings", this.formData, {
+          this.sdk.post("setDMZInfo", this.formData, {
             callback: this.init
           })
         }

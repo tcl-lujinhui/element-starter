@@ -15,6 +15,8 @@ import sideMenu from './sideMenu.vue'
 import simState from './views/simState.vue'
 import statusIcon from './views/statusIcon.vue'
 
+import smsReport from './views/SMS/smsReport.vue'
+
 import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(sdk)
@@ -22,6 +24,7 @@ Vue.use(appConfig)
 Vue.component('sideMenu', sideMenu)
 Vue.component('simState', simState)
 Vue.component('statusIcon', statusIcon)
+Vue.component('smsReport',smsReport)
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { locale })
@@ -90,6 +93,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 */
+
 vuex.initRes(()=>{
   const app = new Vue({
     router,

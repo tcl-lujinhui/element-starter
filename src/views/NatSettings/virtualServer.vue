@@ -106,6 +106,9 @@ export default {
           if (this.page.actionType == 1) {
             this.page.portfwd_list[this.page.listIndex] = this.formData
           } else if (this.page.actionType == 2) {
+            if(!this.page.portfwd_list){
+              this.page.portfwd_list=[]
+            }
             this.page.portfwd_list.push(this.formData)
           }
           this.save()

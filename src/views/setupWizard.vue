@@ -17,6 +17,9 @@
               el-option(v-for="val in page.profileList",:label="val.Default==1?val.ProfileName+'(D)':val.ProfileName",:value.number="val.ProfileID")
           div.center
             +button("ids_next")(@click="next" type="primary" v-show="page.setp_status!=3")
+        div.center(v-if="vuex.SimInfo.SIMState=='noSim'||vuex.SimInfo.SIMState=='invalid'")
+          +button("ids_next")(@click="next" type="primary" v-show="page.setp_status!=3")
+
       +form("formData")(ref="form2" v-show="page.setp_status==2")
         div {{vuex.res.ids_wlan_2ghz}}
         +radio("ids_quicksetup_wlan2g:","AP2G.ApStatus")

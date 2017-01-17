@@ -12,28 +12,31 @@
 </template>
 
 <script>
-import {_,_config,$,vuex,G} from '../../common.js';
+import {
+  _,
+  _config,
+  $,
+  vuex,
+  G
+} from '../../common.js';
 var Config = _config.networkSettings
 export default {
   created() {
-      this.init()
+      this.init();
+      this.initdata(Config);
     },
     methods: {
       init() {
-        this.initdata(Config)
-        this.vuex= vuex
+        this.vuex = vuex
         vuex.initSimInfo()
         this.sdk.get("GetNetworkSettings", null, (res) => {
           this.formData = res;
         })
       },
       update() {
-        let setForm = () => {
-          this.sdk.post("SetNetworkSettings", this.formData, {
-            callback: this.init
-          })
-        }
-        this.submit("formData", setForm); 
+        this.sdk.post("SetNetworkSettings", this.formData, {
+          callback: this.init
+        })
       }
     }
 }

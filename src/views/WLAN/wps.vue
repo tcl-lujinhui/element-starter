@@ -24,32 +24,60 @@ import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.wps
 export default {
   created() {
-      this.init()
+      this.init();      
+      this.initdata(Config);
     },
     methods: {
       init() {
-        this.vuex = vuex;
-        this.initdata(Config);
       },
       update() {
+        let vm = this;
+        let results = {
+          callback: this.init,
+          success: {
+            tips: "Message",
+            msg: this.vuex.res.ids_success,
+            callback() {
+              this.init;
+            }
+          },
+          fail: this.vuex.res.ids_fail,
+          e2: {
+            tips: "None",
+            callback() {
+              vm.$alert(vuex.res['ids_wifi_notSuppotWepWpa'], vuex.res['ids_error'], {
+                confirmButtonText: vuex.res['ids_ok'],
+                callback: action => {
+                  this.init;
+                }
+              });
+            }
+          },
+          e3: {
+            tips: "None",
+            callback() {
+              vm.$alert(vuex.res['ids_wifi_wpsActive'], vuex.res['ids_error'], {
+                confirmButtonText: vuex.res['ids_ok'],
+                callback: action => {
+                  this.init;
+                }
+              });
+            }
+          }
+        };
         if (this.formData.wpsMode == 0) {
           let params = {
             "WpsPin": this.formData.WpsPin
-          }          
-          this.sdk.post("SetWPSPin", params, (res) => {
-            console.log(res)
-          });
+          }
+          this.sdk.post("SetWPSPin", params, results);
         }
         if (this.formData.wpsMode == 1) {
-          this.sdk.post("SetWPSPbc", null, (res) => {
-            console.log(res)
-          });
+          this.sdk.post("SetWPSPbc", null, results);
         }
       }
     }
 }
 </script>
-
 
 
 <style lang="sass" scoped>

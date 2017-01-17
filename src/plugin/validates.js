@@ -127,6 +127,27 @@ let validates = {
     }
     showErr(callback, errMsg)
   },
+  puk(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.puk(value)) {
+      errMsg = 'PUK code should be 8 digits.'
+    }
+    showErr(callback, errMsg)
+  },
+  informInterval(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.informInterval(value)) {
+      errMsg = 'Inform interval should be 0-2678400,including "0123456789".'
+    }
+    showErr(callback, errMsg)
+  },
+  acsUrl(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.acsUrl(value)) {
+      errMsg = 'Acs url format:eg:http://ip address:port/xxx'
+    }
+    showErr(callback, errMsg)
+  },
 };
 
 export default validates;

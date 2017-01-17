@@ -27,12 +27,12 @@ import {_,_config,$,vuex,G} from '../../common.js';
 var Config = _config.profileManagement;
 export default {
   created () {
-    this.init()
+    this.init();
+    this.initdata(Config)
   },
   methods: {
     init (){
       this.vuex = vuex 
-      this.initdata(Config)
       this.page={
         currentProfileId:1,
         actionType:0//0:list;1:edit;2:new

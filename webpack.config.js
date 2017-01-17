@@ -54,7 +54,8 @@ module.exports = {
     proxy: {
       '/jrd/webapi': {
         target: 'http://127.0.0.1:9096',
-        secure: false
+        //target: 'http://192.168.1.1',
+        secure: true
       },
       '/setSimState/*': {
         target: 'http://127.0.0.1:9096',
@@ -78,6 +79,9 @@ if (process.env.NODE_ENV === 'production') {
     new CopyWebpackPlugin([{
       from:'src/i18n',
       to: 'i18n'
+    },{
+      from:'src/cfgbak',
+      to: '../cfgbak'
     }]),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

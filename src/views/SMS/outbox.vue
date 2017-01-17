@@ -4,28 +4,32 @@
     +sideMenuPage('Services')
       +breadcrumb("ids_sms_outbox")
       sim-state
-      #outboxList
-        p {{vuex.res.ids_sms_storageStatus}}:{{page.usedSMSCount}}/{{page.maxSMSCount}}
-        +button("Delete")(@click="deleteSMS",:disabled="page.select.length==0")
-        el-table(:data="page.displayOutboxListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
-          el-table-column(prop="PhoneNumber" ,:label="vuex.res.ids_sms_phoneNumber" style="width: 30%" inline-template)
-            span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
-          el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" style="width: 30%" show-overflow-tooltip=true inline-template)
-            span(@click="smsDetails(row)" v-html="row.SMSContent")
-          el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" style="width: 20%" inline-template)
-            span(@click="smsDetails(row)" v-html="row.SMSTime")
-          el-table-column(prop="SMSId" type="selection" style="width: 10%")
-        el-pagination(layout="prev, pager, next,jumper",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
-      #outboxDetail.hidden
-        el-input(v-model="page.selectSMSNumber" readonly="readonly")
-          span(slot="prepend") {{vuex.res.ids_sms_from}}:
-        el-input(type="textarea",:rows.number=10 ,v-model="page.selectSMSContent" readonly="readonly")
-        #btnList
-          +button("ids_backup")(@click="back")
-          +button("ids_sms_buttonReply")(@click="replySMS(page.selectSMS)")
-          +button("ids_sms_buttonForward")(@click="forwardSMS(page.selectSMS)")
-          +button("ids_delete")(@click="deleteSingleSMS(page.selectSMSId)")
+        #outboxList(:class="{hidden:page.outboxListDisplay}")
+          p {{vuex.res.ids_sms_storageStatus}}:{{page.usedSMSCount}}/{{page.maxSMSCount}}
+          #btnDelete
+            +button("Delete")(@click="deleteSMS",:disabled="page.select.length==0")
+          el-table(:data="page.displayOutboxListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
+            el-table-column(prop="PhoneNumber" ,:label="vuex.res.ids_sms_phoneNumber" style="width: 30%" inline-template)
+              span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
+            el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" style="width: 30%" show-overflow-tooltip=true inline-template)
+              span(@click="smsDetails(row)" v-html="row.SMSContent")
+            el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" style="width: 20%" inline-template)
+              span(@click="smsDetails(row)" v-html="row.SMSTime")
+            el-table-column(prop="SMSId" type="selection" style="width: 10%")
+          el-pagination(layout="prev, pager, next,jumper",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
+        #outboxDetail(:class="{hidden:page.outboxDetailDisplay}")
+          el-input(v-model="page.selectSMSNumber" readonly="readonly")
+            span(slot="prepend") {{vuex.res.ids_sms_from}}:
+          el-input(type="textarea",:rows.number=10 ,v-model="page.selectSMSContent" readonly="readonly")
+          #btnList
+            #btnLeft
+              +button("ids_backup")(@click="back")
+            #btnRight
+              +button("ids_sms_buttonReply")(@click="replySMS(page.selectSMS)")
+              +button("ids_sms_buttonForward")(@click="forwardSMS(page.selectSMS)")
+              +button("ids_delete")(@click="deleteSingleSMS(page.selectSMSId)")
 </template>
+
 <script>
 import {_config,_,vuex,$} from '../../common.js';
 import sms from '../../config/sms.js';
@@ -50,7 +54,9 @@ export default {
           selectSMSId: 0,
           selectSMSNumber: "",
           selectSMSContent: "",
-          PageSize: 10
+          PageSize: 10,
+          outboxListDisplay: false,
+          outboxDetailDisplay: true
         };
         this.sdk.get("GetSMSStorageState", null, (res) => {
           this.page.maxSMSCount = res.MaxCount;
@@ -92,11 +98,13 @@ export default {
         this.page.selectSMSId = sms.SMSId;
         this.page.selectSMSNumber = sms.PhoneNumber[0];
         this.page.selectSMSContent = sms.SMSContent;
-        $("#outboxList").addClass("hidden");
-        $("#outboxDetail").removeClass("hidden");
+        this.page.outboxListDisplay = true;
+        this.page.outboxDetailDisplay = false;
       },
       back() {
-        sms.smsGoBack("outbox");
+        //sms.smsGoBack("outbox");
+        this.page.outboxListDisplay = false;
+        this.page.outboxDetailDisplay = true;
       },
       replySMS() {
         let replyData = {
@@ -126,18 +134,17 @@ export default {
           type: 'warning'
         }).then(() => {
           this.sdk.post("DeleteSMS", selectId, results);
-          $("#outboxList").removeClass("hidden");
-          $("#outboxDetail").addClass("hidden");
+          this.page.outboxListDisplay = false;
+          this.page.outboxDetailDisplay = true;
         }).catch(() => {
-          $("#outboxList").addClass("hidden");
-          $("#outboxDetail").removeClass("hidden");
+          this.page.outboxListDisplay = true;
+          this.page.outboxDetailDisplay = false;
         });
       },
       initTableList() {
         for (let n = 0; n < this.page.PageSize; n++) {
           if (this.page.SMSList[n] != undefined) {
             this.page.displayOutboxListArtr[n] = this.page.SMSList[n];
-            //-console.log(this.page.displayOutboxListArtr.length)
           }
         }
       },
@@ -154,7 +161,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.el-button {
+#btnDelete {
   float: right;
   margin: 10px 0 10px 0;
   padding: 7px 9px;
@@ -181,7 +188,12 @@ p {
   margin-top:50px;
 }
 #btnList{
-  float:left;
   margin-top:20px;
+}
+#btnList #btnLeft{
+  float:left;
+}
+#btnList #btnRight{
+  float:right;
 }
 </style>

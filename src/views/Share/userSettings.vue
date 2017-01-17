@@ -46,6 +46,11 @@ export default {
   created() {
       this.init()
     },
+    watch: {
+      'vuex.SystemStatus.TotalConnNum' (newValue, oldValue) {
+        this.init()
+      }
+    },
     methods: {
       init() {
         this.vuex = vuex;

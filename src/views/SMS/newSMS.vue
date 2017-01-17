@@ -3,46 +3,48 @@
   #newSMS
     +sideMenuPage('Services')
       +breadcrumb("New Message")
-      //-+form("formData")(label-width="0px")
-      #newSMSContent
-        el-input(v-model="formData.PhoneNumber")
-          span(slot="prepend") {{vuex.res.ids_sms_to}}:
-        #smsNumberInputWarn.hidden {{vuex.res.ids_sms_inputNumber}}
-        p(v-bind="listenCharCount()"){{page.length}}
-        el-input(v-model="formData.SMSContent")(type="textarea",:rows.number=10)
-        #smsMaxNumWarn.hidden {{vuex.res.ids_sms_contentRule}}
-        #btnSMS
-          +button("ids_send")(@click="sendSMS")
-          +button("ids_save")(@click="saveSMS")
+      sim-state
+        //-+form("formData")(label-width="0px")
+        #newSMSContent
+          el-input(v-model="formData.PhoneNumber")
+            span(slot="prepend") {{vuex.res.ids_sms_to}}:
+          #smsNumberInputWarn(:class="{hidden:page.inputNumberWarn}") {{vuex.res.ids_sms_inputNumber}}
+          p(v-bind="listenCharCount()"){{page.length}}
+          el-input(v-model="formData.SMSContent")(type="textarea",:rows.number=10)
+          #smsMaxNumWarn(:class="{hidden:page.maxContentWarnDisplay}") {{vuex.res.ids_sms_contentRule}}
+          #btnSMS
+            +button("ids_send")(@click="sendSMS")
+            +button("ids_save")(@click="saveSMS")
           //-+button("Cancel")(@click="cancel")
       
 </template>
 
 <script>
-import {
-  _config,
-  _,
-  vuex,
-  $
-} from '../../common.js';
+import {_config,_,vuex,$} from '../../common.js';
 import sms from '../../config/sms.js'
 let Config = _config.newSMS;
 export default {
   created() {
-      this.init()
+      this.init();
     },
     methods: {
       init() {
         this.initdata(Config);
-        this.vuex=vuex;
+        this.vuex = vuex;
         this.listenCharCount();
         this.page = {
           length: 0,
           currentSmsCount: 0,
           maxSMSCount: 0,
           usedSMSCount: 0,
-          smsCounts: 0
+          smsCounts: 0,
+          inputNumberWarn: true,
+          maxContentWarnDisplay: true
         };
+        if (this.$router.name = "newSMS") {
+
+          sms.doWrite();
+        }
         this.sdk.get("GetSMSStorageState", null, (res) => {
           this.page.maxSMSCount = res.MaxCount;
           this.page.usedSMSCount = res.TUseCount;
@@ -73,7 +75,8 @@ export default {
             this.$router.push('draft')
           }
         } else {
-          $("#smsNumberInputWarn").removeClass("hidden");
+          this.page.inputNumberWarn = false;
+          //$("#smsNumberInputWarn").removeClass("hidden");
         }
 
       },
@@ -101,7 +104,8 @@ export default {
             this.$router.push('inbox');
           }
         } else {
-          $("#smsNumberInputWarn").removeClass("hidden");
+          this.page.inputNumberWarn = false;
+          //$("#smsNumberInputWarn").removeClass("hidden");
         }
       },
       listenCharCount() {
@@ -120,9 +124,11 @@ export default {
 
         }
         if (contentNum > MaxLength) {
-          $("#smsMaxNumWarn").removeClass("hidden");
+          //$("#smsMaxNumWarn").removeClass("hidden");
+          this.page.maxContentWarnDisplay = false;
         } else {
-          $("#smsMaxNumWarn").addClass("hidden");
+          //$("#smsMaxNumWarn").addClass("hidden");
+          this.page.maxContentWarnDisplay = true;
         }
         this.page.length = contentNum + "/" + MaxLength + "(" + this.page.smsCounts + ")";
       }
@@ -130,7 +136,6 @@ export default {
     }
 }
 </script>
-
 
 <style lang="sass" scoped>
 .el-input,.el-textarea textarea{

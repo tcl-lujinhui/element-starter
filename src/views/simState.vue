@@ -1,13 +1,16 @@
 <template lang="jade">
   include ./components.jade
   #simState
+    div(v-loading.fullscreen.lock="page.fullscreenLoading")
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pinReq'")
       h2.center {{vuex.SimInfo.SIMStateStr|res}}
       +form("formData")
         +input('Pin Code:','Pin')(type="password")
         +formItem("")
+          div.el-text  {{vuex.res.ids_sim_remainTime}}: {{vuex.SimInfo.PinRemainingTimes}}
+        +formItem("")
           +button("Apply")(type="primary" @click="UnlockPin")
-          +button("Cancel")(@click="reset")
+          +button("Cancel")(@click="$refs.formData.resetFields()")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pukReq'")
       h2.center{{vuex.SimInfo.SIMStateStr|res}}
@@ -16,8 +19,10 @@
         +input('Pin Code:','Pin')(type="password")
         +input('Confirm Pin:','ConfirmPin')(type="password")
         +formItem("")
+          div.el-text  {{vuex.res.ids_sim_remainTime}}: {{vuex.SimInfo.PukRemainingTimes}}
+        +formItem("")
           +button("Apply")(type="primary" @click="UnlockPuk")
-          +button("Cancel")(@click="reset")
+          +button("Cancel")(@click="$refs.formData.resetFields()")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='simLock'")
       h2.center{{vuex.SimInfo.SIMStateStr |res}}
@@ -25,12 +30,13 @@
         +input('SIM LockCode:','SIMLockCode')(type="password")
         +formItem("")
           +button("Apply")(type="primary" @click="UnlockSinLock")
-          +button("Cancel")(@click="reset")
+          +button("Cancel")(@click="$refs.formData.resetFields()")
 
     slot(v-if="vuex.SimInfo.SIMState=='ready'")
 
     div(v-if="vuex.SimInfo.SIMState!='pinReq'&vuex.SimInfo.SIMState!='pukReq'&vuex.SimInfo.SIMState!='simLock'&vuex.SimInfo.SIMState!='ready'")
       h2.center{{vuex.SimInfo.SIMStateStr|res}}
+
     
 </template>
 
@@ -40,42 +46,63 @@ import vuex from '../vuex.js';
 let Config = _config.simState;
 export default {
   created () {
+    this.initdata(Config);
     this.init()
   },
   methods: {
     init (){
-      this.vuex = vuex
+      this.vuex = vuex;
+      this.page={
+        fullscreenLoading:false
+      }
       vuex.initSimInfo();
-      this.initdata(Config);
     },
     UnlockPin (){
       this.submit("formData",()=>{
         var vm = this;
-        this.sdk.post("UnlockPin", this.formData, (res) => {
-          setTimeout(function(){
-            vm.init()
-          },3000)
-        })
+        let result={
+          callback(){
+            vm.page.fullscreenLoading=true;
+            vm.$refs.formData.resetFields()
+            setTimeout(function(){
+              vm.page.fullscreenLoading=false;
+              vm.init()
+            },3000)
+          }
+        }
+        this.sdk.post("UnlockPin", vm.formData, result)
       })
     },
     UnlockPuk (){
       this.submit("formData",()=>{
         var vm = this;
-        this.sdk.post("UnlockPuk", this.formData, (res) => {
-          setTimeout(function(){
-            vm.init()
-          },3000)
-        })
+        let result={
+          callback(){
+            vm.page.fullscreenLoading=true;
+            vm.$refs.formData.resetFields()
+            setTimeout(function(){
+              vm.page.fullscreenLoading=false;
+              vm.init()
+            },3000)
+          }
+        }
+        this.sdk.post("UnlockPuk", vm.formData, result)
       })
     },
     UnlockSinLock (){
       this.submit("formData",()=>{
         var vm = this;
-        this.sdk.post("UnlockSimlock", this.formData, (res) => {
-          setTimeout(function(){
-            vm.init()
-          },3000)
-        })
+        let result={
+          callback(){
+            vm.page.fullscreenLoading=true;
+            vm.$refs.formData.resetFields()
+            setTimeout(function(){
+              vm.page.fullscreenLoading=false;
+              vm.init()
+            },3000)
+          }
+        }
+        this.sdk.post("UnlockSimlock", vm.formData, result)
       })
     }
   }
@@ -84,6 +111,6 @@ export default {
 
 <style lang="sass" scoped>
 .sim-state{
-  padding:50px;
+  //padding:50px;
 }
 </style>

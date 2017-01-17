@@ -271,12 +271,12 @@ var validate = {
   },
 
   acsUrl: function(str) {
-    if (str == "") {
-      return false;
+  var regHttp = new RegExp("((^http)|(^https)):\/\/(\\w)+\.(\\w)+");
+    if (!regHttp.test(str)) {
+        return false;
     }
     return true;
   },
-
   acsUserName: function(str) {
     if (str == "") {
       return false;

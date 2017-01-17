@@ -2,60 +2,88 @@
   include ../components.jade
   #TR069
     +sideMenuPage('System')
-      +breadcrumb("TR069")
+      +breadcrumb("ids_title_tr069")
       +form("formData")
-        h4 TR-069 client-Configuration
-        p Select the desired values and click "Apply/Save" to configure the TR-069 client options.
-        +radio("Inform:","Inform")
-        +input("Inform Interval:","InformInterval")(:disabled="formData.Inform==0",:max.number="2678400",:min.number="1")
-        +input("ACS URL:","AcsUrl")(:disabled="formData.Inform==0",:maxlength.Number=125)
-        +input("ACS User Name:","AcsUserName")(:disabled="formData.Inform==0",:maxlength.Number=20)
-        +input("ACS Password:","AcsUserPassword")(:disabled="formData.Inform==0")(type="password",:maxlength.Number=20)
-        el-form-item
-          el-checkbox(v-model="formData.ConReqAuthent",:true-label.Number="1",:false-label.Number="0")(:disabled="formData.Inform==0")
-          label Connection Request Authentication
+        +radio("ids_tr069_inform:","Inform")
+        +input("ids_tr069_informInterval:","InformInterval")(:disabled="formData.Inform==0")
+        +input("ids_tr069_acsUrl:","AcsUrl")(:disabled="formData.Inform==0")
+        +input("ids_tr069_acsUsername:","AcsUserName")(:disabled="formData.Inform==0")
+        +input("ids_tr069_acsPw:","AcsUserPassword")(:disabled="formData.Inform==0")(type="password")
+        +checkbox("","ConReqAuthent","ids_tr069_connRqAuth")(:disabled="formData.Inform==0")
         div(v-if="formData.ConReqAuthent==1")
-          +input("Connection Request User Name:","ConReqUserName")(:disabled="formData.Inform==0",:maxlength.Number=20)
-          +input("Connection Request Password:","ConReqUserPassword")(:disabled="formData.Inform==0",:maxlength.Number=20)
+          +input("ids_tr069_connRqUsername:","ConReqUserName")(:disabled="formData.Inform==0")
+          +input("ids_tr069_connRqPw:","ConReqUserPassword")(:disabled="formData.Inform==0")
         +formBtn()
 </template>
 
-<script>
-import _Config from '../../config.js'
-import ElementUI from 'element-ui'
-var Config = _Config.tr069
+<script> 
+import {_,_config,$,vuex} from '../../common.js';
+var Config = _config.tr069
 export default {
   created() {
       this.init()
     },
     methods: {
-
       init() {
+        this.vuex = vuex
         this.initdata(Config)
+        this.page = {
+          clientConfiguration: [],
+          InformInterval: ""
+        }
         this.sdk.get("GetClientConfiguration", null, (res) => {
-          this.formData = res;
+          _.extend(this.formData, res);
+          this.page.clientConfiguration=res;
         })
-      },
-      requestJsonRpcIsOk(result) {
-        return result.hasOwnProperty("result") && !result.hasOwnProperty("error");
       },
       update() {
-        let vm = this;
-        this.sdk.post("SetClientConfiguration", this.formData, (res) => {
-          if (this.requestJsonRpcIsOk(res)) {
-            ElementUI.Message.success("succeed");
-            vm.init()
-          } else {
-            ElementUI.Message.error("failed");
-            vm.init()
+        let params = {}
+        let setForm = () => {
+          if (this.formData.Inform == 1) {
+            let params1 = {
+              AcsUrl: this.formData.AcsUrl,
+              AcsUserName: this.formData.AcsUserName,
+              AcsUserPassword: this.formData.AcsUserPassword,
+              ConReqAuthent: this.formData.ConReqAuthent,
+              Inform: this.formData.Inform,
+              InformInterval: this.formData.InformInterval
+            }
+            _.extend(params, params1);
+            if (this.formData.ConReqAuthent == 1) {
+              let params2 = {
+                ConReqUserName: this.formData.ConReqUserName,
+                ConReqUserPassword: this.formData.ConReqUserPassword
+              }
+              _.extend(params, params2);
+            } else {
+              let params2 = {
+                ConReqUserName: this.page.clientConfiguration.ConReqUserName,
+                ConReqUserPassword: this.page.clientConfiguration.ConReqUserPassword
+              }
+              _.extend(params, params2);
+            }
+
+          }else{
+            let paramsOther = {
+              AcsUrl: this.page.clientConfiguration.AcsUrl,
+              AcsUserName: this.page.clientConfiguration.AcsUserName,
+              AcsUserPassword: this.page.clientConfiguration.AcsUserPassword,
+              ConReqAuthent: this.page.clientConfiguration.ConReqAuthent,
+              Inform: this.formData.Inform,
+              InformInterval: this.page.clientConfiguration.InformInterval,
+              ConReqUserName: this.page.clientConfiguration.ConReqUserName,
+              ConReqUserPassword: this.page.clientConfiguration.ConReqUserPassword
+            }
+            _.extend(params, paramsOther);
           }
-        })
+          this.sdk.post("SetClientConfiguration", params, {
+            callback: this.init
+          })
+        }
+        this.submit("formData", setForm)
       }
     }
 }
 </script>
-
-
-
 <style lang="sass" scoped>
 </style>

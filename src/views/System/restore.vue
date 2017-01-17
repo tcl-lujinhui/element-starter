@@ -2,28 +2,28 @@
   include ../components.jade
   #restore
     +sideMenuPage('System')
-      +breadcrumb("Backup & Restore")
+      +breadcrumb("ids_system_backupRestore")
       +form("formData")
         div.backupRestore(v-loading.fullscreen.lock="page.fullscreenLoading")
           el-row(:gutter="15")
-            el-col.textAlignRight(:span="5") Backup:
+            el-col.textAlignRight(:span="5") {{vuex.res.ids_backup}}
             el-col(:span="15") 
-              div.backupTxt Backup current settings of the device.
-              +button("Backup")(size="small" type="primary" @click="backupFile")
+              div.backupTxt {{vuex.res.ids_system_backupDescription}}
+              +button("ids_backup")(size="small" type="primary" @click="backupFile")
           el-row.restoreArea(:gutter="15")
-            el-col.textAlignRight(:span="5") Restore:
+            el-col.textAlignRight(:span="5") {{vuex.res.ids_restore}}
             el-col(:span="15")
               div.uploadFile
                 input.fileUpload(type="file" id="fileUpload" name="fileUpload")(v-on:change = "showUpgradeFileUrl()")
                 el-input(size="small" class="inline-input" placeholder="Tap to select file" v-model="page.fileUrlName", :change="changeInput()")
-                +button("Browse")(size="small" type="primary")
-              +button("Restore")(size="small" type="primary" @click="restoreDevice", :disabled="page.restoreDisabled")
+                +button("ids_update_Browse")(size="small" type="primary")
+              +button("ids_restore")(size="small" type="primary" @click="restoreDevice", :disabled="page.restoreDisabled")
           el-dialog(v-model="page.deviceRestored" size="tiny" top="50%" show-close = "false")
-              span Device restored.Now restarting…
+              span {{vuex.res.ids_restore_evice_restored}}
 
 </template>
 <script>
-import {$} from '../../common.js'
+import {$,vuex} from '../../common.js'
 import ajaxFileUpload from '../../plugin/ajaxfileupload.js'
 import ElementUI from 'element-ui'
 export default {
@@ -32,6 +32,7 @@ export default {
   },
   methods: {
     init(){
+      this.vuex = vuex
       this.page = {
         fileUrlName:"",
         deviceRestored:false,
@@ -57,7 +58,7 @@ export default {
         let setResult = {
             success:{
                 tips:"Message",
-                msg:"Success!",
+                msg:vuex.res["ids_success"],
                 callback(){
                     _self.getBackupSettings();
                 }
@@ -69,9 +70,9 @@ export default {
     },
     restoreDevice(){
       if(this.page.fileUrlName!= ""){
-        this.$confirm('Restore your device to factory settings now?', 'Restore', {
-          confirmButtonText: 'Restore',
-          cancelButtonText: 'Cancel'
+        this.$confirm(vuex.res['ids_restore_factory_settings'], vuex.res['ids_restore'], {
+          confirmButtonText: vuex.res['ids_restore'],
+          cancelButtonText: vuex.res['ids_cancel']
         }).then(() => {
           this.ajaxFileUploadEvent();
         }).catch(() => {
@@ -103,14 +104,14 @@ export default {
                     _self.page.deviceRestored = true;
                 } else {
                   console.log("fail");
-                  _self.$alert('Device restoration not complete. Restart device and try again.', 'Restore', {
+                  _self.$alert(vuex.res['ids_restore_device_restoration'], vuex.res['ids_restore'], {
                     confirmButtonText: 'OK'
                   });
                 }
             },
             error: function(data, status, e) {
               console.log("error");
-              _self.$alert('Device restoration not complete. Restart device and try again.', 'Restore', {
+              _self.$alert(vuex.res['ids_restore_device_restoration'], vuex.res['ids_restore'], {
                 confirmButtonText: 'OK'
               });
             }

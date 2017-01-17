@@ -2,7 +2,7 @@
   include ../components.jade
   #wlanStatus
     +sideMenuPage('Home')
-      +breadcrumb("Wi-Fi")
+      +breadcrumb("ids_wifi_WiFiTitle")
       +form("formData")
         div.internetInfo
           //-2.4G Mode
@@ -29,16 +29,17 @@
 </template>
 
 <script>
-import {$,_,_config} from '../../common.js'
+import {$,_,_config,vuex} from '../../common.js'
 var Config = _config.homeStatus
 
 export default {
   created () {
-    this.init()
+    this.init();
+    this.initdata(Config);
   },
   methods: {
     init (){
-      this.initdata(Config);
+      this.vuex = vuex
       this.page={
         displayForm5GData:{},
         displayForm2GData:{},
@@ -93,13 +94,13 @@ export default {
         this.page.ApStatus2GMode = true;
         this.formDataWlan(this.page.mode2g);
       }else if(this.formData.AP2G.ApStatus == 0){
-        this.page.wlanAP2GModeText = "Disabled";
+        this.page.wlanAP2GModeText = this.vuex.res.ids_disabled;
       }
       if(this.formData.AP5G.ApStatus == 1){
         this.page.ApStatus5GMode = true;
         this.formDataWlan(this.page.mode5g);
       }else if(this.formData.AP5G.ApStatus == 0){
-        this.page.wlanAP5GModeText = "Disabled";
+        this.page.wlanAP5GModeText = this.vuex.res.ids_disabled;
       }
     }
     },
@@ -110,37 +111,37 @@ export default {
         this.page.ssid2gBroadcastTxt = Config.ssidBroadcastArr[this.page.displayForm2GData.SsidHidden][Config.ssidBroadcastDisplayNum]
         switch(this.page.displayForm2GData.WepType){
         case 0:
-        this.page.wep2gTypeTxt = "Open";
+        this.page.wep2gTypeTxt = this.vuex.res.ids_wifi_wepOpen;
         break;
         case 1:
-        this.page.wep2gTypeTxt = "Share"
+        this.page.wep2gTypeTxt = this.vuex.res.ids_wifi_wepShare
         break;
         default:
         break;
       }
         wlanInfo2GArr = [
         {
-          name2GVal:"SSID:",
+          name2GVal:this.vuex.res.ids_wifi_ssid+":",
           wlan2GVal:this.page.displayForm2GData.Ssid
         },
         {
-          name2GVal:"SSID Broadcast:",
+          name2GVal:this.vuex.res.ids_wlan_ssidBroadcast+":",
           wlan2GVal:this.page.ssid2gBroadcastTxt
         },
         {
-          name2GVal:"Security:",
+          name2GVal:this.vuex.res.ids_wlan_security+":",
           wlan2GVal:this.page.wep2gTypeTxt
         },
         {
-          name2GVal:"Connected Users:",
+          name2GVal:this.vuex.res.ids_wlan_connectedUsers+":",
           wlan2GVal:this.page.displayForm2GData.curr_num
         },
         {
-          name2GVal:"Gateway Address:",
+          name2GVal:this.vuex.res.ids_wlan_gatewayAddress+":",
           wlan2GVal:this.formData.IPv4IPAddress
         },
         {
-          name2GVal:"MAC Address:",
+          name2GVal:this.vuex.res.ids_lan_macAdress+":",
           wlan2GVal:this.formData.MacAddr
         }
       ]
@@ -150,37 +151,37 @@ export default {
         this.page.ssid5gBroadcastTxt = Config.ssidBroadcastArr[this.page.displayForm5GData.SsidHidden][Config.ssidBroadcastDisplayNum]
         switch(this.page.displayForm5GData.WepType){
         case 0:
-        this.page.wep5gTypeTxt = "Open";
+        this.page.wep5gTypeTxt = this.vuex.res.ids_wifi_wepOpen;
         break;
         case 1:
-        this.page.wep5gTypeTxt = "Share"
+        this.page.wep5gTypeTxt = this.vuex.res.ids_wifi_wepShare
         break;
         default:
         break;
       }
         wlanInfo5GArr = [
         {
-          name5GVal:"SSID:",
+          name5GVal:this.vuex.res.ids_wifi_ssid+":",
           wlan5GVal:this.page.displayForm5GData.Ssid
         },
         {
-          name5GVal:"SSID Broadcast:",
+          name5GVal:this.vuex.res.ids_wlan_ssidBroadcast+":",
           wlan5GVal:this.page.ssid5gBroadcastTxt
         },
         {
-          name5GVal:"Security:",
+          name5GVal:this.vuex.res.ids_wlan_security+":",
           wlan5GVal:this.page.wep5gTypeTxt
         },
         {
-          name5GVal:"Connected Users:",
+          name5GVal:this.vuex.res.ids_wlan_connectedUsers+":",
           wlan5GVal:this.page.displayForm5GData.curr_num
         },
         {
-          name5GVal:"Gateway Address:",
+          name5GVal:this.vuex.res.ids_wlan_gatewayAddress+":",
           wlan5GVal:this.formData.IPv4IPAddress
         },
         {
-          name5GVal:"MAC Address:",
+          name5GVal:this.vuex.res.ids_lan_macAdress+":",
           wlan5GVal:this.formData.MacAddr
         }
       ]

@@ -15,29 +15,22 @@ var Config = _config.mobileConnection;
 export default {
   created() {
       this.init();
-      this.Inter = setInterval(() => {
-        console.log("mobileConnection: ")
-      }, 3000);
-    },
-    destroyed() {
-      clearInterval(this.Inter)
-      this.Inter = null
+      this.initdata(Config);
     },
     methods: {
       init() {
         this.vuex= vuex
-        this.initdata(Config);
         this.sdk.get("GetConnectionSettings", null, (res) => {
           this.formData = res;
         })
       },
       update() {
-        let setForm = () => {
-          this.sdk.post("SetConnectionSettings", this.formData, {
+        // no form validate ,no need to setform submitted.
+        this.sdk.post("SetConnectionSettings", this.formData, {
             callback: this.init
           })
-        }
-        this.submit("formData", setForm); 
+      },
+      reset() {
       }
     }
 }

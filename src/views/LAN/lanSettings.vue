@@ -19,28 +19,31 @@ import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.lanSettings;
 export default {
   created() {
-      this.init()
+      this.init();
+      this.initdata(Config, this);
     },
     methods: {
       init() {            
         this.vuex = vuex;
-        this.initdata(Config, this);
         this.sdk.get("GetLanSettings", null, (res) => {
           this.formData = res;
         })
       },
-      update() {
-        this.$confirm(vuex.res['ids_lan_restartWarn'], vuex.res['ids_confirm'], {
-          confirmButtonText: vuex.res['ids_ok'],
-          cancelButtonText: vuex.res['ids_cancel'],
-          type: 'warning'
-        }).then(() => {
-          this.sdk.post("SetLanSettings", this.formData, (res) => {
-            console.log(res)
-          });
-        }).catch(() => {
+      update (){
+        let setForm = () => {
+          this.$confirm(vuex.res['ids_lan_restartWarn'], vuex.res['ids_confirm'], {
+            confirmButtonText: vuex.res['ids_ok'],
+            cancelButtonText: vuex.res['ids_cancel'],
+            type: 'warning'
+          }).then(() => {
+            this.sdk.post("SetLanSettings", this.formData, (res) => {
+              console.log(res)
+            });
+          }).catch(() => {
 
-        });
+          }); 
+        }
+        this.submit("formData", setForm)    
       }
     }
 }

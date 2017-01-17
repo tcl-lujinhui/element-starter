@@ -2,7 +2,7 @@
   include ../components.jade
   #internetStatus
     +sideMenuPage('Home')
-      +breadcrumb("Internet Status")
+      +breadcrumb("ids_internet")
       +form("formData")
         div.internetInfo
           el-row(:gutter="15")(v-for="(item,index) in page.initernetItem")
@@ -23,6 +23,7 @@ var Config = _config.homeStatus
 export default {
   created () {
     this.init();
+    this.initdata(Config);
     this.Inter=setInterval(() => {
         //this.init();
       }, 3000);
@@ -33,7 +34,6 @@ export default {
   },
   methods: {
     init (){
-      this.initdata(Config);
       this.vuex = vuex
       vuex.initSimInfo()
 
@@ -86,7 +86,7 @@ export default {
      this.page.networkTypeTxt = Config.networkTypeArr[this.formData.NetworkType][Config.networkTypeDisplayNum];
 
      var profileName;
-      this.page.profileData.ProfileList.forEach(function(v){
+      $.each(this.page.profileData.ProfileList,function(v,i){
         if(v.Default == 1){
           profileName = v.ProfileName;
         }
@@ -96,16 +96,16 @@ export default {
 
       switch(this.formData.ConnectionStatus){
         case 0:
-        this.page.connectTxt = "Connect";
+        this.page.connectTxt = this.vuex.res.ids_connect;
         break;
         case 1:
-        this.page.connectTxt = "Connecting......";
+        this.page.connectTxt = this.vuex.res.ids_connecting;
         break;
         case 2:
-        this.page.connectTxt = "Disconnect";
+        this.page.connectTxt = this.vuex.res.ids_disconnect;
         break;
         case 3:
-        this.page.connectTxt = "Disconnecting......";
+        this.page.connectTxt = this.vuex.res.ids_disconnecting;
         break;
         default:
         break;
@@ -113,7 +113,7 @@ export default {
     },
     update(){
       if(this.formData.ConnectionStatus == 2){
-        this.page.connectTxt = "Connecting......";
+        this.page.connectTxt = this.vuex.res.ids_connecting;
         this.page.disabled = true;
         this.sdk.post("DisConnect",this.formData,(res) =>{
           if(this.requestJsonRpcIsOk(res)){
@@ -124,7 +124,7 @@ export default {
           }
         })
       }else if(this.formData.ConnectionStatus == 0){
-        this.page.connectTxt = "Disconnecting......";
+        this.page.connectTxt = this.vuex.res.ids_disconnecting;
         this.page.disabled = true;
         this.sdk.post("Connect",this.formData,(res) =>{
           if(this.requestJsonRpcIsOk(res)){
@@ -143,35 +143,35 @@ export default {
       var initernetInfo;
       initernetInfo = [
         {
-          nameVal:"SIM Card Status:",
+          nameVal:this.vuex.res.ids_sim_simCardStatus+":",
           internetVal:vuex.SimInfo.SIMState//this.page.simStatusData.SIMState 
         },
         {
-          nameVal:"Connection Status:",
+          nameVal:this.vuex.res.ids_lan_conStatus+":",
           internetVal:this.page.connectedStateTxt
         },
         {
-          nameVal:"Network Name:",
+          nameVal:this.vuex.res.ids_netwrok_networkName+":",
           internetVal:this.formData.NetworkName
         },
         {
-          nameVal:"Network Type:",
+          nameVal:this.vuex.res.ids_netwrok_networkType+":",
           internetVal:this.page.networkTypeTxt
         },
         {
-          nameVal:"Profile Name:",
+          nameVal:this.vuex.res.ids_profile_name+":",
           internetVal:this.page.profileNameTxt
         },
         {
-          nameVal:"IPv4 Address:",
+          nameVal:this.vuex.res.ids_netwrok_ipv4Address+":",
           internetVal:this.page.IPv4AdrressTxt
         },
         {
-          nameVal:"IPv6 Address:",
+          nameVal:this.vuex.res.ids_netwrok_ipv6Address+":",
           internetVal:this.page.IPv6AdrressTxt
         },
         {
-          nameVal:"USB Status:",
+          nameVal:this.vuex.res.ids_usbStatus+":",
           internetVal:this.page.usbStatusTxt
         }
       ]

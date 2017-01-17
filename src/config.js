@@ -22,11 +22,13 @@ let common = {
     [1, 'ids_auto']
   ],
 
-  
 
-  rule:{
-    required:{ required: true, message: 'ids_required', trigger: 'change' },
-    IP:{ validator: validates.ip, message: 'ids_qos_ipInvalid', trigger: 'change' }
+
+  rule: {
+    required: { required: true, message: 'ids_required', trigger: 'change' },
+    IP: { validator: validates.ip, message: 'ids_qos_ipInvalid', trigger: 'change' },
+    pin: { validator: validates.pin, message: 'ids_sim_pinRule', trigger: 'change' },
+    puk: { validator: validates.puk, message: 'ids_sim_pukRule', trigger: 'change' }
   }
 }
 
@@ -90,7 +92,7 @@ config.pinManagement = {
     ],
     AutoValidatePinState: common.checkBoxEnable
   },
-   validates: {
+  validates: {
     Confirm: (vm) => {
       return validates.Confirm(vm, "NewPin");
     }
@@ -98,23 +100,23 @@ config.pinManagement = {
   formRules: {
     Pin: [
       common.rule.required,
-      { validator:validates.pin, message: 'ids_sim_pinRule', trigger: 'blur'}
+      { validator: validates.pin, message: 'ids_sim_pinRule', trigger: 'blur' }
     ],
     NewPin: [
       common.rule.required,
-      { validator:validates.pin, message: 'ids_sim_newPinRule', trigger: 'blur'}
+      { validator: validates.pin, message: 'ids_sim_newPinRule', trigger: 'blur' }
     ],
     CurrentPin: [
       common.rule.required,
-      { validator:validates.pin, message: 'ids_sim_pinRule', trigger: 'blur'}
+      { validator: validates.pin, message: 'ids_sim_pinRule', trigger: 'blur' }
     ],
     ConfirmPin: [
       common.rule.required,
-      { validator:validates.pin, message: 'ids_sim_pinRule', trigger: 'blur'}
+      { validator: validates.pin, message: 'ids_sim_pinRule', trigger: 'blur' }
     ]
   },
   formRulesExtension: {
-    ConfirmPin: { validator: "Confirm", message: 'ids_sim_pinConfirmed',trigger: 'blur' },
+    ConfirmPin: { validator: "Confirm", message: 'ids_sim_confirmedPin', trigger: 'blur' },
   }
 };
 
@@ -167,10 +169,14 @@ config.lanSettings = {
   },
   formRulesExtension: {
     IPv4IPAddress: { validator: "IPv4IPAddress", message: 'ids_qos_ipInvalid' },
-    StartIPAddress: { validator: "StartIPAddress1", message: 'ids_lan_startToEnd' },
-    StartIPAddress: { validator: "StartIPAddress2", message: 'ids_lan_DHCPIpRule' },
-    EndIPAddress: { validator: "EndIPAddress1", message: 'ids_lan_endIpRule' },
-    EndIPAddress: { validator: "EndIPAddress2", message: 'ids_lan_endToStart' }
+    StartIPAddress: [
+      { validator: "StartIPAddress1", message: 'ids_lan_startToEnd' },
+      { validator: "StartIPAddress2", message: 'ids_lan_DHCPIpRule' }
+    ],
+    EndIPAddress: [
+      { validator: "EndIPAddress1", message: 'ids_lan_endIpRule' },
+      { validator: "EndIPAddress2", message: 'ids_lan_endToStart' }
+    ]
   }
 };
 
@@ -248,36 +254,36 @@ config.backupRestore = {
 
 //inbox
 config.inbox = {
-  formData: {},
-  formOptions: {},
-  formRules: {}
-}
-//outbox
+    formData: {},
+    formOptions: {},
+    formRules: {}
+  }
+  //outbox
 config.outbox = {
-  formData: {},
-  formOptions: {},
-  formRules: {}
-}
-//draft
+    formData: {},
+    formOptions: {},
+    formRules: {}
+  }
+  //draft
 config.draft = {
-  formData: {},
-  formOptions: {},
-  formRules: {}
-}
-//newSMS
+    formData: {},
+    formOptions: {},
+    formRules: {}
+  }
+  //newSMS
 config.newSMS = {
-  formData: {
-    PhoneNumber:"",
-    SMSContent:""
-  },
-  formOptions: {
-    PhoneNumber: [
-      common.rule.required
-    ],
-  },
-  formRules: {}
-}
-//SMS Settings
+    formData: {
+      PhoneNumber: "",
+      SMSContent: ""
+    },
+    formOptions: {
+      PhoneNumber: [
+        common.rule.required
+      ],
+    },
+    formRules: {}
+  }
+  //SMS Settings
 config.smsSettings = {
   formData: {
     "StoreFlag": 1,
@@ -295,6 +301,13 @@ config.smsSettings = {
 
     ]
   },
+  formRules: {}
+}
+
+//smsReport.vue
+config.smsReport = {
+  formData: {},
+  formOptions: {},
   formRules: {}
 }
 
@@ -664,20 +677,30 @@ config.simState = {
   formOptions: {
 
   },
+  validates: {
+    ConfirmPin: (vm) => {
+      return validates.Confirm(vm, "Pin");
+    }
+  },
   formRules: {
     Pin: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
+      common.rule.pin,
     ],
     Puk: [
-      { required: true, message: 'Required!', trigger: 'blur' },
-
+      common.rule.required,
+      common.rule.puk,
     ],
     ConfirmPin: [
-      { required: true, message: 'Required!', trigger: 'blur' },
+      common.rule.required,
+      common.rule.pin,
     ],
     SIMLockCode: [
-      { required: true, message: 'Required!', trigger: 'blur' }
+      common.rule.required,
     ]
+  },
+  formRulesExtension: {
+    ConfirmPin: { validator: "ConfirmPin", message: 'ids_sim_confirmedPin', trigger: 'change' },
   }
 };
 //home status 
@@ -798,8 +821,8 @@ config.wanPing = {
   formData: {},
   formOptions: {
     disableWanAcess: [
-      [0, 'ids_disable'],
-      [1, 'ids_enable']
+      [0, 'ids_enable'],
+      [1, 'ids_disable']
     ]
   },
   formRules: {}
@@ -820,44 +843,40 @@ config.tr069 = {
     Inform: common.checkBoxEnable,
     ConReqAuthent: common.checkBoxEnable
   },
-  validates: {
-    Confirm: (vm) => {
-      return (rule, value, callback) => {
-        var errMsg = ''
-        if (value !== vm.formData.NewPassword) {
-          errMsg = 'Confirm!'
-        }
-        Unit.validates(callback, errMsg)
-      };
-    }
-  },
   formRules: {
-    InformInterval: [
-      /* { required: true, pattern: /^[0-9]+$/, message: 'required' },
-       /*{ min: 3, max: 5, message: '长度在 3 到 5 个字符' }*/
-    ],
     AcsUrl: [
-      { required: true, pattern: /((^http)|(^https)):\/\/(\\w)+\.(\\w)+/, message: '请输入活动名称请' },
+      common.rule.required,
+      { validator: validates.acsUrl, message: 'ids_tr069_acsUrlRule', trigger: 'blur' }
     ],
-    ConfirmPassword: [
-      { required: true, message: '请输入活动名称请' },
+    AcsUserName: [
+      common.rule.required,
+    ],
+    AcsUserPassword: [
+      common.rule.required,
+    ],
+    ConReqUserName: [
+      common.rule.required,
+    ],
+    ConReqUserPassword: [
+      common.rule.required,
+    ],
+    InformInterval: [
+      common.rule.required,
+      { validator: validates.informInterval, message: 'ids_tr069_informIntervalRule', trigger: 'blur' }
     ]
   },
-  formRulesExtension: {
-    ConfirmPassword: { validator: "Confirm" },
-  }
 };
 //ipFilter
 config.ipFilter = {
   formData: {
-    filter_policy:0,
-    ip_protocol:17,
-    lan_ip:"",
-    lan_port:"",
-    wan_ip:"",
-    wan_port:"",
-    IPv4IPAddress:"",
-    SubnetMask:""
+    filter_policy: 0,
+    ip_protocol: 17,
+    lan_ip: "",
+    lan_port: "",
+    wan_ip: "",
+    wan_port: "",
+    IPv4IPAddress: "",
+    SubnetMask: ""
   },
   formOptions: {
     filter_policy: [
@@ -880,32 +899,32 @@ config.ipFilter = {
     }
   },
   formRules: {
-    lan_ip:[
+    lan_ip: [
       common.rule.required,
       common.rule.IP
     ],
-    lan_port:[
+    lan_port: [
       common.rule.required,
-      { validator:validates.portVal, message: 'ids_security_lanport', trigger: 'blur'}
+      { validator: validates.portVal, message: 'ids_security_lanport', trigger: 'blur' }
     ],
-    wan_ip:[
+    wan_ip: [
       common.rule.required,
       common.rule.IP
     ],
-    wan_port:[
+    wan_port: [
       common.rule.required,
-      { validator:validates.portVal, message: 'ids_security_lanport', trigger: 'blur'}
+      { validator: validates.portVal, message: 'ids_security_lanport', trigger: 'blur' }
     ]
   },
   formRulesExtension: {
-    lan_ip: { validator: "lanAddrValIp", message: 'ids_lan_DHCPIpRule' , trigger: 'blur'},
+    lan_ip: { validator: "lanAddrValIp", message: 'ids_lan_DHCPIpRule', trigger: 'blur' },
   }
 };
 //macFilter
 config.macFilter = {
   formData: {
-    filter_policy:0,
-    Address:""
+    filter_policy: 0,
+    Address: ""
   },
   formOptions: {
     filter_policy: [
@@ -915,17 +934,17 @@ config.macFilter = {
     ]
   },
   formRules: {
-    Address:[
+    Address: [
       common.rule.required,
-      { validator: validates.macAddr, message: 'ids_ethWan_macInvalid' , trigger: 'blur'}
+      { validator: validates.macAddr, message: 'ids_ethWan_macInvalid', trigger: 'blur' }
     ]
   }
 };
 //urlFilter
 config.urlFilter = {
   formData: {
-    filter_policy:0,
-    url:""
+    filter_policy: 0,
+    url: ""
   },
   formOptions: {
     filter_policy: [
@@ -935,9 +954,9 @@ config.urlFilter = {
     ]
   },
   formRules: {
-    url:[
+    url: [
       common.rule.required,
-      { validator: validates.isValidUrlAddress, message: 'ids_filter_urlRuleMsg' , trigger: 'blur'}
+      { validator: validates.isValidUrlAddress, message: 'ids_filter_urlRuleMsg', trigger: 'blur' }
     ]
   }
 };
@@ -953,13 +972,13 @@ config.staticRules = {
     State: common.checkBoxEnable
   },
   formRules: {
-    DestNetAddr:[
+    DestNetAddr: [
       common.rule.required,
     ],
-    DestNetmask:[
+    DestNetmask: [
       common.rule.required,
     ],
-    GateWay:[
+    GateWay: [
       common.rule.required,
     ]
   }
@@ -972,10 +991,7 @@ config.dynamicRules = {
     RipVerion: 0
   },
   formOptions: {
-    Operation: [
-      [1, 'ids_active'],
-      [0, 'ids_disactive']
-    ],
+    Operation: common.checkBoxEnable,
     RipState: common.checkBoxEnable,
     RipVerion: [
       [0, 'ids_router_ripV1V2'],
@@ -1073,7 +1089,7 @@ config.Wlan = {
         [3, '802.11b/g/n']
       ],
       SsidHidden: common.checkBoxEnable,
-      Bandwidth:[
+      Bandwidth: [
         [0, '20MHz/40MHz'],
         [1, '20MHz'],
         [2, '40MHz']
@@ -1112,7 +1128,7 @@ config.Wlan = {
         [6, '802.11a/c']
       ],
       SsidHidden: common.checkBoxEnable,
-      Bandwidth:[
+      Bandwidth: [
         [0, '20MHz/40MHz'],
         [1, '20MHz'],
         [2, '40MHz']

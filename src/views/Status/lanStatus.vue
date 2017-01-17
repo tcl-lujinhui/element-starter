@@ -2,7 +2,7 @@
   include ../components.jade
   #lanStatus
     +sideMenuPage('Home')
-      +breadcrumb("LAN Status")
+      +breadcrumb("ids_lan_Lan")
       +form("formData")
         div.internetInfo
           el-row(:gutter="15")(v-for="item in page.lanItem")
@@ -14,16 +14,17 @@
 </template>
 
 <script>
-import {_config} from '../../common.js'
+import {_config,vuex} from '../../common.js'
 var Config = _config.homeStatus
 
 export default {
   created () {
     this.init();
+    this.initdata(Config);
   },
   methods: {
     init (){
-      this.initdata(Config);
+      this.vuex = vuex
       this.page = {
         lanOneconnectedStateTxt:"",
         lanTwoconnectedStateTxt:"",
@@ -62,22 +63,22 @@ export default {
             lanTwoVal:this.page.LanFlagTwoTxt
           },
           {
-            nameVal:"Connection Status:",
+            nameVal:this.vuex.res.ids_lan_conStatus+":",
             lanOneVal:this.page.lanOneconnectedStateTxt,
             lanTwoVal:this.page.lanTwoconnectedStateTxt
           },
           {
-            nameVal:"IP Address:",
+            nameVal:this.vuex.res.ids_ipAddress+":",
             lanOneVal:this.page.ipAddressTxt,
             lanTwoVal:this.page.ipAddressTwoTxt
           },
           {
-            nameVal:"MAC Address:",
+            nameVal:this.vuex.res.ids_lan_macAdress+":",
             lanOneVal:this.page.macAddressTxt,
             lanTwoVal:this.page.macAddressTwoTxt
           },
           {
-            nameVal:"DHCP Server:",
+            nameVal:this.vuex.res.ids_lan_dhcpServer+":",
             lanOneVal:this.page.dhcpServerTxt,
             lanTwoVal:this.page.dhcpServerTwoTxt
           }

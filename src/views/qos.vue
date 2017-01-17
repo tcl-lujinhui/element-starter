@@ -2,31 +2,31 @@
   include ./components.jade
   #wanConfigure
     +sideMenuPage('Settings')
-      +breadcrumb("Qos")
-      el-table(:data="page.qosList" border style="width: 90%;margin:20px auto")
-        el-table-column(prop="Id" label="Id" width='100')
-        el-table-column(prop="Priority" label="Priority" width='100' inline-template,:context="_self")
+      +breadcrumb("ids_qos_titleQos")
+      +button("").add-btn(@click="add" type="primary" icon="plus" size="mini")
+      el-table(:data="page.qosList" border style="width: 100%;margin:20px auto")
+        el-table-column(prop="Id",:label="vuex.res.ids_id" width='120')
+        el-table-column(prop="Priority",:label="vuex.res.ids_qos_priority" width='120' inline-template,:context="_self")
           span {{row.Priority | qosPriority}}
-        el-table-column(prop="SrcIPAddress" label="IP Address" width='130')
-        el-table-column(prop="Service" label="Service" width='100' inline-template,:context="_self")
+        el-table-column(prop="SrcIPAddress",:label="vuex.res.ids_ipAddress" width='120')
+        el-table-column(prop="Service",:label="vuex.res.ids_service" width='100' inline-template,:context="_self")
           span {{row.Service | qosService}}
-        el-table-column(prop="Protocol" label="Protocol" width='100' inline-template,:context="_self")
+        el-table-column(prop="Protocol",:label="vuex.res.ids_protocol" width='100' inline-template,:context="_self")
           span {{row.Protocol | qosProtocol}}
-        el-table-column(prop="Port" label="Port" width='100')
-        el-table-column(label="Operation" fixed="right",:context="_self" width='120' inline-template)(style="margin:0 auto")
+        el-table-column(prop="Port",:label="vuex.res.ids_port" width='100')
+        el-table-column(:label="vuex.res.ids_netwrok_operation" fixed="right",:context="_self" width='130' inline-template)(style="margin:0 auto")
           span
             +button("")(icon="edit" size="mini" @click="edit($index,row.Id)")
             +button("")(icon="delete" size="mini" type="danger" @click="del($index,row)")
-      +button("")(icon="plus" size="mini" @click="add" type="primary")
-      
+    
       el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible")
         +form("formData")
-          +input("Id:","Id")
-          +select("Priority:","Priority")
-          +input("IP Address:","SrcIPAddress")
-          +select("Service:","Service")
-          +select("Protocol:","Protocol")
-          +input("Port:","Port")
+          +input("ids_id:","Id")
+          +select("ids_qos_priority:","Priority")
+          +input("ids_ipAddress:","SrcIPAddress")
+          +select("ids_service:","Service")
+          +select("ids_protocol:","Protocol")
+          +input("ids_port:","Port")
           +formBtn()
 
 </template>
@@ -47,6 +47,7 @@ export default {
     },
     methods: {
       init() {
+        this.vuex = vuex
         this.initdata(Config);
         this.page = {
           actionType: 0, //0:list;1:edit;2:new
@@ -65,9 +66,9 @@ export default {
 
       del(index) {
         let vm = this;
-        this.$confirm('Are you sure to delete?', 'Confirm', {
-          confirmButtonText: 'Sure',
-          cancelButtonText: 'Cancel',
+        this.$confirm(this.vuex.res.ids_qos_deleteTips, 'Confirm', {
+          confirmButtonText: this.vuex.res.ids_confirm,
+          cancelButtonText: this.vuex.res.ids_cancel,
           type: 'warning'
         }).then(() => {
           this.page.qosList.splice(index, 1);
@@ -131,7 +132,7 @@ export default {
           QosList: this.page.qosList
         }*/
         let setForm = () => {
-          
+
           this.page.qosList[this.page.indexs] = {};
           this.page.qosList[this.page.indexs].Id = this.formData.Id;
           this.page.qosList[this.page.indexs].Priority = this.formData.Priority;
@@ -154,10 +155,6 @@ export default {
     }
 }
 </script>
-
-
-
-
 <style lang="sass" scoped>
 .main-box {
   min-height: 420px;

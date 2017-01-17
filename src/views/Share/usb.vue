@@ -27,14 +27,16 @@ export default {
   created() {
       this.init()
     },
+    watch: {
+      'vuex.SystemStatus.UsbStatus' (newValue, oldValue) {
+        this.init()
+      }
+    },
     methods: {
       init() {        
         this.vuex = vuex;
         this.initdata(Config);
-        this.sdk.get("GetSystemStatus", null, (res) => {
-          this.formData = res;
-          console.info(this.formData.UsbStatus);
-        })
+        this.formData = vuex.SystemStatus;
       },
       update() {
       }

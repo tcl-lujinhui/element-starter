@@ -4,19 +4,20 @@
     +sideMenuPage('Services')
       +breadcrumb("ids_sms_draft")
       sim-state
-      #draftList
-        p {{vuex.res.ids_sms_storageStatus}}:{{page.usedSMSCount}}/{{page.maxSMSCount}}
-        +button("Delete")(@click="deleteSMS",:disabled="page.select.length==0")
-        el-table(:data="page.displayDraftListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
-          el-table-column(prop="PhoneNumber" ,:label="vuex.res.ids_sms_phoneNumber" style="width: 30%" inline-template)
-            span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
-          el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" style="width: 30%" show-overflow-tooltip=true inline-template)
-            span(@click="smsDetails(row)" v-html="row.SMSContent")
-          el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" style="width: 20%" inline-template)
-            span(@click="smsDetails(row)" v-html="row.SMSTime")
-          el-table-column(prop="SMSId" type="selection" style="width: 10%")
-        el-pagination(layout="prev, pager, next,jumper",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
+        #draftList
+          p {{vuex.res.ids_sms_storageStatus}}:{{page.usedSMSCount}}/{{page.maxSMSCount}}
+          +button("Delete")(@click="deleteSMS",:disabled="page.select.length==0")
+          el-table(:data="page.displayDraftListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
+            el-table-column(prop="PhoneNumber" ,:label="vuex.res.ids_sms_phoneNumber" style="width: 30%" inline-template)
+              span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
+            el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" style="width: 30%" show-overflow-tooltip=true inline-template)
+              span(@click="smsDetails(row)" v-html="row.SMSContent")
+            el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" style="width: 20%" inline-template)
+              span(@click="smsDetails(row)" v-html="row.SMSTime")
+            el-table-column(prop="SMSId" type="selection" style="width: 10%")
+          el-pagination(layout="prev, pager, next,jumper",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
 </template>
+
 <script>
 import {_config,_,vuex,$} from '../../common.js';
 import sms from '../../config/sms.js'
@@ -28,7 +29,7 @@ export default {
     methods: {
       init() {
         this.initdata(Config);
-        this.vuex=vuex;
+        this.vuex = vuex;
         this.page = {
           pageName: " ",
           SMSList: [],
@@ -88,7 +89,6 @@ export default {
         for (let n = 0; n < this.page.PageSize; n++) {
           if (this.page.SMSList[n] != undefined) {
             this.page.displayDraftListArtr[n] = this.page.SMSList[n];
-            //-console.log(this.page.displayDraftListArtr.length)
           }
         }
       },

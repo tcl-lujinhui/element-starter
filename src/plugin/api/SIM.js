@@ -6,7 +6,7 @@ export default {
     },
     Response(res) {
       let simStateType = "invalid";
-      let simStateStr = "ids_sim_invalidSimCard";
+      let simStateStr = "ids_sim_invalidSim";
       switch (res.SIMState) {
         case G.SIM_STATE_NO_SIM:
           simStateType = "noSim";
@@ -30,11 +30,11 @@ export default {
           break;
         case G.SIM_STATE_PUK_TIMES_USED_OUT:
           simStateType = "invalid";
-          simStateStr = "ids_sim_invalidSimCard";
+          simStateStr = "ids_sim_invalidSim";
           break;
         case G.SIM_STATE_INVALID:
           simStateType = "invalid";
-          simStateStr = "ids_sim_invalidSimCard";
+          simStateStr = "ids_sim_invalidSim";
           break;
         case G.SIM_STATE_READY:
           simStateType = "ready";

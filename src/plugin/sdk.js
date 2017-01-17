@@ -26,14 +26,14 @@ export default {
     Vue.sdk = {
       get: function(apiName, params, callback) {
         var requestBody = {
-          "id": 12,
+          "id": "12",
           "jsonrpc": "2.0",
           "method": apiName,
           "params": params || {}
         };
         if (api.hasOwnProperty(apiName)) {
           if (api[apiName].hasOwnProperty("Request")) {
-            requestBody = api[apiName].Request(requestBody)
+            requestBody.params = api[apiName].Request(requestBody.params)
           }
         }
         Vue.http.post(apiURI+"?api=" + apiName, requestBody).then((response) => {
@@ -50,14 +50,14 @@ export default {
       },
       post: function(apiName, params, callback) {
         var requestBody = {
-          "id": 12,
+          "id": "12",
           "jsonrpc": "2.0",
           "method": apiName,
           "params": params || {}
         };
         if (api.hasOwnProperty(apiName)) {
           if (api[apiName].hasOwnProperty("Request")) {
-            requestBody = api[apiName].Request(requestBody)
+            requestBody.params = api[apiName].Request(requestBody.params)
           }
         }
         Vue.http.post(apiURI+"?api=" + apiName, requestBody).then((response) => {
