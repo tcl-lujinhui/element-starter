@@ -37,10 +37,10 @@ let Config = _config.pinManagement
 export default {
   created() {
       this.init()
+      this.initdata(Config)
     },
     methods: {
       init() {
-        this.initdata(Config)
         this.vuex = vuex
         vuex.initSimInfo()
         this.page = {
@@ -52,6 +52,7 @@ export default {
         })
       },
       ChangePinState() {
+        let vm = this;
         if (vuex.SimInfo.PinState == 2) {
           let setForm = () => {
             let postData = {
@@ -59,7 +60,11 @@ export default {
               State: this.formData.Operation,
             }
             this.sdk.post("ChangePinState", postData, {
-              callback: this.init
+              callback(){
+                  vm.init();
+                  vm.initdata(Config);
+                  vm.$refs["formData"].resetFields()
+                }
             })
           }
           this.submit("formData", setForm)
@@ -72,33 +77,42 @@ export default {
             Pin: this.formData.Pin,
             State: this.formData.AutoValidatePinState
           }
-          let vm = this;
           let setForm = () => {
-            this.sdk.post("ChangePinState", postData, {
+            vm.sdk.post("ChangePinState", postData, {
               success: {
                 tips: "None",
                 callback() {
                   vm.sdk.post("SetAutoValidatePinState", postData1, {
-                      callback: this.init
+                      //callback: vm.init
+                      callback(){
+                        vm.init();
+                        vm.initdata(Config);
+                        vm.$refs["formData"].resetFields()
+                      }
                     })
                 }
               },
-              callback: this.init
+              callback: vm.init
             })
           }
           vm.submit("formData", setForm)
         }
       },
       ChangePinCode(formName) {
-        this.$refs[formName].validate((valid) => {
+        let vm=this;
+        vm.$refs[formName].validate((valid) => {
           if (valid) {
             let postData = {
-              State: this.formData.Operation,
-              NewPin: this.formData.NewPin,
-              CurrentPin: this.formData.CurrentPin
+              State: vm.formData.Operation,
+              NewPin: vm.formData.NewPin,
+              CurrentPin: vm.formData.CurrentPin
             }
-            this.sdk.post("ChangePinCode", postData, {
-                callback: this.init
+            vm.sdk.post("ChangePinCode", postData, {
+                callback(){
+                  vm.init();
+                  vm.initdata(Config)
+                  vm.$refs[formName].resetFields()
+                }
               })
           } else {
             return false;

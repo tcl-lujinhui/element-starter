@@ -7,15 +7,15 @@
         #outboxList(:class="{hidden:page.outboxListDisplay}")
           p {{vuex.res.ids_sms_storageStatus}}:{{page.usedSMSCount}}/{{page.maxSMSCount}}
           #btnDelete
-            +button("Delete")(@click="deleteSMS",:disabled="page.select.length==0")
+            +button("ids_delete")(@click="deleteSMS",:disabled="page.select.length==0")
           el-table(:data="page.displayOutboxListArtr" stripe style="width: 100%" border @selection-change="handleSelectionChange")
-            el-table-column(prop="PhoneNumber" ,:label="vuex.res.ids_sms_phoneNumber" style="width: 30%" inline-template)
+            el-table-column(prop="PhoneNumber" ,:label="vuex.res.ids_sms_phoneNumber" width="180px" inline-template)
               span(@click="smsDetails(row)" v-html="row.PhoneNumber[0]")
-            el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" style="width: 30%" show-overflow-tooltip=true inline-template)
+            el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" width="348px" show-overflow-tooltip=true inline-template)
               span(@click="smsDetails(row)" v-html="row.SMSContent")
-            el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" style="width: 20%" inline-template)
+            el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" width="180px" inline-template)
               span(@click="smsDetails(row)" v-html="row.SMSTime")
-            el-table-column(prop="SMSId" type="selection" style="width: 10%")
+            el-table-column(prop="SMSId" type="selection" width="50px")
           el-pagination(layout="prev, pager, next,jumper",:page-size="page.PageSize",:page-count="page.totalPageCount",@current-change="handleCurrentChange")
         #outboxDetail(:class="{hidden:page.outboxDetailDisplay}")
           el-input(v-model="page.selectSMSNumber" readonly="readonly")
@@ -43,13 +43,13 @@ export default {
         this.initdata(Config);
         this.page = {
           pageName: " ",
-          SMSList: [],
+          outboxSMSList: [],
           displayOutboxListArtr: [],
           maxSMSCount: 0,
           usedSMSCount: 0,
           totalPageCount: 0,
           currentPage: 0,
-          select: [],
+          select: {},
           selectSMS: {},
           selectSMSId: 0,
           selectSMSNumber: "",
@@ -60,16 +60,19 @@ export default {
         };
         this.sdk.get("GetSMSStorageState", null, (res) => {
           this.page.maxSMSCount = res.MaxCount;
-          this.page.usedSMSCount = res.TUseCount;
+          //this.page.usedSMSCount = res.TUseCount;
+          this.page.usedSMSCount = res.MaxCount-res.LeftCount;
         });
         let sendData = {
           "Page": 0,
-          "key": "outbox"
+          "key": "send"
         };
         this.sdk.get("GetSMSListByContactNum", sendData, (res) => {
-          this.page.SMSList = res.SMSList;
-          this.page.totalPageCount = res.TotalPageCount;
+          if(res!=undefined&&res.SMSList.length>0){
+          $.extend(this.page.outboxSMSList, res.SMSList);
+          //this.page.outboxSMSList = res.SMSList;
           this.initTableList();
+        } 
         });
       },
       deleteSMS() {
@@ -78,14 +81,19 @@ export default {
           callback: this.init
         };
         _.each(this.page.select, (k, v) => {
-          selectId[v] = k.Id;
+          selectId[v] = k.SMSId;
         });
         this.$confirm(vuex.res['ids_sms_deleteSmsPrompt'], vuex.res['ids_confirm'], {
           confirmButtonText: vuex.res['ids_delete'],
           cancelButtonText: vuex.res['ids_cancel'],
           type: 'warning'
         }).then(() => {
-          this.sdk.post("DeleteSMS", selectId, results);
+          let deleteInfo = {
+            "DelFlag": 2,
+            //"ContactId": "",
+            "SMSId": selectId
+          };
+          this.sdk.post("DeleteSMS", deleteInfo, results);
         }).catch(() => {
           this.init();
         });
@@ -100,6 +108,13 @@ export default {
         this.page.selectSMSContent = sms.SMSContent;
         this.page.outboxListDisplay = true;
         this.page.outboxDetailDisplay = false;
+        if (sms.SMSType == 1) {
+          this.sdk.get("GetSingleSMS", {
+            SMSId: sms.SMSId
+          }, (res) => {
+            //console.log("read"+sms.SMSId);
+          });
+        }
       },
       back() {
         //sms.smsGoBack("outbox");
@@ -125,6 +140,11 @@ export default {
       deleteSingleSMS(selectSMSId) {
         let selectId = [];
         selectId[0] = selectSMSId;
+        let deleteInfo = {
+            "DelFlag": 2,
+            //"ContactId": "",
+            "SMSId": selectId
+          };
         let results = {
           callback: this.init
         };
@@ -133,7 +153,7 @@ export default {
           cancelButtonText: vuex.res['ids_cancel'],
           type: 'warning'
         }).then(() => {
-          this.sdk.post("DeleteSMS", selectId, results);
+          this.sdk.post("DeleteSMS", deleteInfo, results);
           this.page.outboxListDisplay = false;
           this.page.outboxDetailDisplay = true;
         }).catch(() => {
@@ -142,17 +162,18 @@ export default {
         });
       },
       initTableList() {
+        this.page.totalPageCount = Math.ceil(this.page.outboxSMSList.length / 10);
         for (let n = 0; n < this.page.PageSize; n++) {
-          if (this.page.SMSList[n] != undefined) {
-            this.page.displayOutboxListArtr[n] = this.page.SMSList[n];
+          if (this.page.outboxSMSList[n] != undefined) {
+            this.page.displayOutboxListArtr[n] = this.page.outboxSMSList[n];
           }
         }
       },
       handleCurrentChange(val) {
         this.page.displayOutboxListArtr.splice(0, this.page.PageSize)
         for (let n = (val - 1) * this.page.PageSize; n < this.page.PageSize * val; n++) {
-          if (this.page.SMSList[n] != undefined) {
-            this.page.displayOutboxListArtr.push(this.page.SMSList[n]);
+          if (this.page.outboxSMSList[n] != undefined) {
+            this.page.displayOutboxListArtr.push(this.page.outboxSMSList[n]);
           }
         }
       }
@@ -167,10 +188,12 @@ export default {
   padding: 7px 9px;
   font-size: 12px;
 }
+
 .el-pagination {
   float: right;
   margin: 10px 0 0 0;
 }
+
 p {
   float: left;
   font-size: 12px;
@@ -178,8 +201,9 @@ p {
 .el-table th {
   text-align: center;
 }
+
 .hidden {
-    display: none;
+  display: none;
 }
  #outboxList,#outboxDetail{
   margin:20px 10px;
@@ -187,13 +211,16 @@ p {
 #outboxDetail .el-textarea{
   margin-top:50px;
 }
-#btnList{
-  margin-top:20px;
+
+#btnList {
+  margin-top: 20px;
 }
-#btnList #btnLeft{
-  float:left;
+
+#btnList #btnLeft {
+  float: left;
 }
-#btnList #btnRight{
-  float:right;
+
+#btnList #btnRight {
+  float: right;
 }
 </style>

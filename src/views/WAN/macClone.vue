@@ -4,10 +4,10 @@
     +sideMenuPage('Settings')
       +breadcrumb("ids_ethWan_menuMacClone")
       +form("formData")
-        +input("ids_ethWan_currentMACAddress:","exCurrMacAddr")(disabled=true)
+        +input("ids_ethWan_currentMACAddress:","MacAddr")(disabled=true)
         el-form-item
           +button("ids_reset")(@click="changeMACAddress('restore')")
-        +input("ids_ethWan_hostMACAddress:","MacAddr")        
+        +input("ids_ethWan_hostMACAddress:","HostMacAddr")        
         el-form-item
           +button("ids_ethWan_clone")(@click="changeMACAddress('clone')")
 </template>
@@ -17,15 +17,13 @@ import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.macClone;
 export default {
   created() {
-      this.init()
+      this.init();
+      this.initdata(Config);
     },
     methods: {
       init() {
-        this.vuex = vuex
-        this.initdata(Config);
         this.sdk.get("GetWanCurrentMacAddr", null, (res) => {
           this.formData = res;
-          this.formData.MacAddr = "";
         })
       },
 
@@ -41,13 +39,13 @@ export default {
           }
           if (type == "clone") {
             params.Type = G.WAN_MAC_ADDRESS_CLONE;
-            params.MacAddr = this.formData.MacAddr;
+            params.MacAddr = this.formData.HostMacAddr;
           }
           if (type == "restore") {
             params.Type = G.WAN_MAC_ADDRESS_RESTORE;
           }
-          this.sdk.post("SetWanCurrentMacAddr ", params, (res) => {
-            console.log(res)
+          this.sdk.post("SetWanCurrentMacAddr", params, (res) => {
+            this.init();
           });
         }).catch(() => {
 

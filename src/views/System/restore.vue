@@ -18,7 +18,7 @@
                 el-input(size="small" class="inline-input" placeholder="Tap to select file" v-model="page.fileUrlName", :change="changeInput()")
                 +button("ids_update_Browse")(size="small" type="primary")
               +button("ids_restore")(size="small" type="primary" @click="restoreDevice", :disabled="page.restoreDisabled")
-          el-dialog(v-model="page.deviceRestored" size="tiny" top="50%" show-close = "false")
+          el-dialog(v-model="page.deviceRestored" size="tiny" top="50%" show-close = false)
               span {{vuex.res.ids_restore_evice_restored}}
 
 </template>
@@ -63,7 +63,7 @@ export default {
                     _self.getBackupSettings();
                 }
             },
-            fail:"Failed!"
+            fail:vuex.res["ids_fail"]
         }
         this.sdk.post("SetDeviceBackup",this.formData,setResult);
 
@@ -105,14 +105,14 @@ export default {
                 } else {
                   console.log("fail");
                   _self.$alert(vuex.res['ids_restore_device_restoration'], vuex.res['ids_restore'], {
-                    confirmButtonText: 'OK'
+                    confirmButtonText: vuex.res['ids_ok']
                   });
                 }
             },
             error: function(data, status, e) {
               console.log("error");
               _self.$alert(vuex.res['ids_restore_device_restoration'], vuex.res['ids_restore'], {
-                confirmButtonText: 'OK'
+                confirmButtonText: vuex.res['ids_ok']
               });
             }
         });

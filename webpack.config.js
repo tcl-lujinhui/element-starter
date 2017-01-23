@@ -53,9 +53,9 @@ module.exports = {
     noInfo: true,
     proxy: {
       '/jrd/webapi': {
-        target: 'http://127.0.0.1:9096',
-        //target: 'http://192.168.1.1',
-        secure: true
+        //target: 'http://127.0.0.1:9096',
+        target: 'http://192.168.1.1',
+        secure: false
       },
       '/setSimState/*': {
         target: 'http://127.0.0.1:9096',

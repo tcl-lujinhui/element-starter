@@ -4,7 +4,7 @@
     +sideMenuPage('System')
       +breadcrumb("Reboot")
       div(style="width: 90%;margin:45px auto;text-align: center;font-size: 14px;color: #5e6d82;line-height: 1")
-        p(style="padding-bottom: 10px") {{vuex.res.ids_system_restartDevice}}:
+        p(style="padding-bottom: 10px") {{vuex.res.ids_system_restartDevice}}.
         +button("Reboot")(@click="reboot" style="color: #fff;background-color: #20a0ff;border-color: #20a0ff;" v-loading.fullscreen.lock="fullscreenLoading"  element-loading-text="Reboot...")
 </template>
 <script>

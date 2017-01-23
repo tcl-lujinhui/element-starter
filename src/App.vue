@@ -3,15 +3,21 @@
   #app
     div.header
       img(src="./images/logo.png")
-      status-icon
+      div.float-right
+        div.top-menu
+          a.float-right(v-if="vuex.loginName!='login'" @click='logout()') {{vuex.res.ids_logout}}
+          a.float-right(hidden) {{vuex.res.ids_help}}
+          a.float-right(hidden) language
+        status-icon
       sms-report
       //-img.status(src="./images/status.png")
     el-menu.main-menu.el-menu-demo(mode="horizontal" router=true v-if="vuex.loginName != 'login'")
-      el-menu-item(:index="val.router" v-for="val in nav") {{val.text |res}}
+      el-menu-item(:index="val.router" v-for="val in nav") 
+        span {{val.text |res}}
     router-view.main
      
     .footer 
-      span.copyright Copyright 2014-2018 TCT MOBILE INTERNATIONAL LIMTED.ALL RIGHTS RESERVED.
+      span.copyright {{vuex.res.ids_system_copyright}}
 </template>
 
 <script>
@@ -29,6 +35,7 @@ export default {
   methods: {
     logout(){
       this.sdk.post("Logout",this.formData,(res)=>{
+        vuex.heartBeat(false);
         this.$router.push('login')
       })
     }
@@ -58,5 +65,20 @@ body {
     margin:0 auto;
     background: url(images/under_logo.png) left center no-repeat;
   }
+}
+.top-menu {
+  margin-right: 20px;
+  height: 30px;
+  clear: both;
+  display: block;
+  a,a:hover,a:visited,a:active,a:focus {
+    padding: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
+.float-right{
+  float: right;
 }
 </style>

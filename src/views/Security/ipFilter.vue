@@ -5,7 +5,7 @@
       +breadcrumb("ids_filter_ipFilter")
       +form("formData")
         +select("ids_filter_ipFilter:","filter_policy")
-        span.add(v-show="formData.filter_policy==1&&page.total_num<16")
+        span.add(v-show="(formData.filter_policy==2&&page.total_num<16)||(formData.filter_policy==1&&page.total_num<16)")
           +button("")(icon="plus" size="mini" @click="add" type="primary")
         el-table(:data="page.ipFilter_list" border)
           el-table-column(prop="lan_ip" ,:label="vuex.res.ids_ipAddress" width='200')
@@ -26,14 +26,13 @@
           +input("ids_filter_wanIpAddress:","wan_ip")
           +input("ids_vtServer_wanPort:","wan_port")
           +select("ids_protocol:","ip_protocol")
-          //-+input("Protocol:","IpProtocol")
           +formItem("")
             +button("ids_apply")(type="primary" @click="ediApply")
             +button("ids_cancel")(@click="reset")
 </template>
 
 <script>
-import { _config,_,$,vuex} from '../../common.js';
+import {_config,_,$,vuex} from '../../common.js';
 let Config = _config.ipFilter;
 export default {
   created() {
@@ -49,10 +48,11 @@ export default {
           action: "edit",
           indexs: -1,
           filter_policy: "",
-          total_num: 0
+          total_num: 0,
+          ip_status: ""
 
         }
-        this.sdk.get("GetIPFilterList", null, (res) => {
+        this.sdk.get("getIPFilterList", null, (res) => {
           this.formData.filter_policy = res.filter_policy;
           this.page.ipFilter_list = res.ipFilter_list;
           this.page.filter_policy = res.filter_policy;
@@ -64,11 +64,9 @@ export default {
       },
       editipFilterDialog(index, item) {
         this.$refs.formData.resetFields();
-        this.formData.lan_ip = item.lan_ip;
-        this.formData.lan_port = item.lan_port;
-        this.formData.wan_ip = item.wan_ip;
-        this.formData.wan_port = item.wan_port;
-        this.formData.ip_protocol = item.ip_protocol;
+        _.extend(this.formData, item);
+        //this.page.list_id = item.list_id;
+        this.page.ip_status = item.ip_status;
         this.page.action = 'edit';
         this.page.indexs = index;
         this.page.dialog = true;
@@ -85,7 +83,7 @@ export default {
               }
             })
             if (!sameIpFilter) {
-              this.$alert(vuex.res['ids_security_ipFilterWarn'],  vuex.res['ids_confirm'], {
+              this.$alert(vuex.res['ids_security_ipFilterWarn'], vuex.res['ids_confirm'], {
                 confirmButtonText: vuex.res['ids_ok'],
                 callback: action => {
                   vm.reset();
@@ -99,6 +97,8 @@ export default {
               vm.page.ipFilter_list[vm.page.indexs].wan_ip = vm.formData.wan_ip;
               vm.page.ipFilter_list[vm.page.indexs].wan_port = vm.formData.wan_port;
               vm.page.ipFilter_list[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
+              /*vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.indexs;*/
+              vm.page.ipFilter_list[vm.page.indexs].ip_status = 1;
             }
           } else {
             if (vm.page.ipFilter_list[vm.page.indexs].lan_ip == vm.formData.lan_ip && vm.page.ipFilter_list[vm.page.indexs].lan_port == vm.formData.lan_port && vm.page.ipFilter_list[vm.page.indexs].wan_ip == vm.formData.wan_ip && vm.page.ipFilter_list[vm.page.indexs].wan_port == vm.formData.wan_port && vm.page.ipFilter_list[vm.page.indexs].ip_protocol == vm.formData.ip_protocol) {
@@ -108,6 +108,8 @@ export default {
               vm.page.ipFilter_list[vm.page.indexs].wan_ip = vm.formData.wan_ip;
               vm.page.ipFilter_list[vm.page.indexs].wan_port = vm.formData.wan_port;
               vm.page.ipFilter_list[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
+              //vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.list_id;
+              vm.page.ipFilter_list[vm.page.indexs].ip_status = vm.page.ip_status;
             } else {
               _.each(vm.page.ipFilter_list, (i, v) => {
                 if (vm.formData.lan_ip == i.lan_ip && vm.formData.lan_port == i.lan_port && vm.formData.wan_ip == i.wan_ip && vm.formData.wan_port == i.wan_port && (vm.formData.ip_protocol == i.ip_protocol || 3 * vm.formData.ip_protocol < i.ip_protocol)) {
@@ -116,7 +118,7 @@ export default {
                 }
               })
               if (!sameIpFilter) {
-                this.$alert(vuex.res['ids_security_ipFilterWarn'],  vuex.res['ids_confirm'],{
+                this.$alert(vuex.res['ids_security_ipFilterWarn'], vuex.res['ids_confirm'], {
                   confirmButtonText: vuex.res['ids_ok'],
                   callback: action => {
                     vm.reset();
@@ -130,6 +132,8 @@ export default {
                 vm.page.ipFilter_list[vm.page.indexs].wan_ip = vm.formData.wan_ip;
                 vm.page.ipFilter_list[vm.page.indexs].wan_port = vm.formData.wan_port;
                 vm.page.ipFilter_list[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
+                //vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.list_id;
+                vm.page.ipFilter_list[vm.page.indexs].ip_status = vm.page.ip_status;
               }
             }
           }
@@ -157,15 +161,24 @@ export default {
         this.page.indexs = this.page.ipFilter_list.length;
       },
       deleteIpFilter(index) {
-        this.page.ipFilter_list.splice(index, 1);
-        let params = {
+        this.$confirm(vuex.res['ids_delete_confirm'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['ids_delete'],
+          cancelButtonText: vuex.res['ids_cancel'],
+          type: 'warning'
+        }).then(() => {
+          this.page.ipFilter_list.splice(index, 1);
+          let params = {
           filter_policy: this.page.filter_policy,
           ipFilter_list: this.page.ipFilter_list,
           total_num: this.page.ipFilter_list.length
         }
-        this.sdk.post("SetIPFilter", params, {
-          callback: this.init
-        })
+          this.sdk.post("SetIPFilter", params, {
+            callback: this.init
+          })
+        }).catch(() => {
+          /*this.init();*/
+        });
+
       },
       update() {
         let params = {
@@ -180,7 +193,6 @@ export default {
     }
 }
 </script>
-
 <style lang="sass" scoped>
 .el-form{
   width: 721px;

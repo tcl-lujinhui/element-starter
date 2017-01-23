@@ -601,6 +601,97 @@ var validate = {
       return false;
     }
     return true;
+  },
+  checkInvalidateDestNet: function(deIp, deMask) {
+    if (deMask == '0.0.0.0') {
+      return true;
+    }
+
+    if (deIp == '0.0.0.0') {
+      return true;
+    }
+    var maskParts = deMask.split('.');
+    var ipParts = deIp.split('.');
+    if (ipParts[3] != 0 && maskParts[3] == 255) {
+      return true;
+    }
+    //C class
+    if (ipParts[3] == 0 && ipParts[2] != 0 && maskParts[2] != 0) {
+      var ipPartsNum = parseInt(ipParts[2]);
+      var maskPartsNum = parseInt(maskParts[2]);
+      if ((maskPartsNum | ipPartsNum) == maskPartsNum) {
+        return true;
+      }
+    }
+    //B class
+    if (ipParts[3] == 0 && ipParts[2] == 0 && ipParts[1] != 0 && maskParts[1] != 0) {
+      var ipPartsNum = parseInt(ipParts[1]);
+      var maskPartsNum = parseInt(maskParts[1]);
+      if ((maskPartsNum | ipPartsNum) == maskPartsNum) {
+        return true;
+      }
+    }
+    //A class
+    if (ipParts[3] == 0 && ipParts[2] == 0 && ipParts[1] == 0 && ipParts[0] != 0 && maskParts[0] != 0) {
+      var ipPartsNum = parseInt(ipParts[0]);
+      var maskPartsNum = parseInt(maskParts[0]);
+      if ((maskPartsNum | ipPartsNum) == maskPartsNum) {
+        return true;
+      }
+    }
+
+    return false;
+  },
+  isValidSubnetMask: function(mask) {
+    var subnetEle = [0, 128, 192, 224, 240, 248, 252, 254, 255];
+    var i = 0;
+    var num = 0;
+    if (mask == '0.0.0.0') {
+      return true;
+    }
+
+    if (mask == '255.255.255.255') {
+      return true;
+    }
+
+    var maskParts = mask.split('.');
+    if (maskParts.length != 4) {
+      return false;
+    }
+
+    for (i = 0; i < 4; i++) {
+      if (isNaN(maskParts[i]) == true) {
+        return false;
+      }
+      if (maskParts[i] == '') {
+        return false;
+      }
+      if (maskParts[i].indexOf(' ') != -1) {
+        return false;
+      }
+
+      if ((maskParts[i].indexOf('0') == 0) && (maskParts[i].length != 1)) {
+        return false;
+      }
+
+      num = parseInt(maskParts[i]);
+      if (num < 0 || num > 255) {
+        return false;
+      }
+      if ($.inArray(num, subnetEle) == -1) {
+        return false;
+      }
+    }
+    if (maskParts[0] != 255 && (maskParts[1] != 0 || maskParts[2] != 0 || maskParts[3] != 0)) {
+      return false;
+    }
+    if (maskParts[1] != 255 && (maskParts[2] != 0 || maskParts[3] != 0)) {
+      return false;
+    }
+    if (maskParts[2] != 255 && maskParts[3] != 0) {
+      return false;
+    }
+    return true;
   }
 }
 

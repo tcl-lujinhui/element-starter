@@ -71,9 +71,6 @@ import userSettings from './views/Share/userSettings.vue';
 import draft from './views/SMS/draft.vue';
 import inbox from './views/SMS/inbox.vue';
 import newSMS from './views/SMS/newSMS.vue';
-import replySMS from './views/SMS/newSMS.vue';
-import forwordSMS from './views/SMS/newSMS.vue';
-import editSMS from './views/SMS/newSMS.vue';
 import outbox from './views/SMS/outbox.vue';
 import smsSettings from './views/SMS/smsSettings.vue';
 
@@ -83,6 +80,7 @@ import callLogs from './views/callLogs.vue';
 
 let routers = [
   //other
+  { name: 'home', path: '/', component: internetStatus },
 
   //Statistics
   { name: 'internetStatistics', path: '/internetStatistics', component: internetStatistics },
@@ -155,9 +153,6 @@ let routers = [
   { name: 'draft', path: '/draft', component: draft },
   { name: 'inbox', path: '/inbox', component: inbox },
   { name: 'newSMS', path: '/newSMS', component: newSMS },
-  { name: 'replySMS', path: '/replySMS', component: replySMS },
-  { name: 'forwordSMS', path: '/forwordSMS', component: forwordSMS },
-  { name: 'editSMS', path: '/editSMS', component: editSMS },
   { name: 'outbox', path: '/outbox', component: outbox },
   { name: 'smsSettings', path: '/smsSettings', component: smsSettings },
 

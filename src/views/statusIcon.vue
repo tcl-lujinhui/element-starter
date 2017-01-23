@@ -3,8 +3,8 @@
     ul
       li.icon-update
       li.icon-network-type {{vuex.SystemStatus.NetworkType | networkType}}
-      li.icon-singal
-      li.icon-network-status(:class="{on:vuex.SystemStatus.connectionStatus==2||vuex.SystemStatus.connectionStatus==3}")
+      li.icon-signal(:class="{0:'icon-signal',1:'signal_1',2:'signal_2',3:'signal_3',4:'signal_4',5:'signal_4'}[vuex.SystemStatus.SignalStrength]")
+      li.icon-network-status(:class="{on:vuex.SystemStatus.ConnectionStatus==2||vuex.SystemStatus.ConnectionStatus==3}")
       li.icon-wifi(:class="{on:(vuex.SystemStatus.WlanState==1||vuex.SystemStatus.WlanState==2)}")
       li.icon-sms(:class="{fullMessage:vuex.SystemStatus.SmsState==1,newNessage:vuex.SystemStatus.SmsState==3}")
       li.icon-usb(:class="{connect:(vuex.SystemStatus.UsbStatus==1||vuex.SystemStatus.UsbStatus==2)}")
@@ -30,7 +30,6 @@ export default {
 <style lang="sass" scoped>
 $iconDirectory:"../images/icon/";
 .status {
-  margin-top: 22px;
   li {
     float: left;
     list-style-type: none;
@@ -50,21 +49,24 @@ $iconDirectory:"../images/icon/";
       font-weight:600;
       font-size: 16px;
     }
-    &.icon-singal{
+    &.icon-signal{
       margin: 1px 3px;
-      background:url(#{$iconDirectory}singnal.png);
+      background:url(#{$iconDirectory}signal.png);
       background-position:0 0px;
-      &.singal_1{
+      &.signal_0{
         background-position:0 0;
       }
-      &.singal_2{
+      &.signal_1{
         background-position:0 -32px;
       }
-      &.singal_3{
+      &.signal_2{
         background-position:0 -64px;
       }
-      &.singal_4{
+      &.signal_3{
         background-position:0 -96px;
+      }
+      &.signal_4{
+        background-position:0 -128px;
       }
       
     }

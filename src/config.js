@@ -83,7 +83,7 @@ config.pinManagement = {
     NewPin: "",
     CurrentPin: "",
     SIMLockCode: "",
-    ConfirmPin: "",
+    ConfirmPin: ""
   },
   formOptions: {
     Operation: [
@@ -278,8 +278,9 @@ config.newSMS = {
     },
     formOptions: {
       PhoneNumber: [
-        common.rule.required
-      ],
+        common.rule.required,
+        { type: "string", required: true, pattern: /^[0-9]{1,20}$/, message: 'ids_sms_numberRule' }
+      ]
     },
     formRules: {}
   }
@@ -704,8 +705,32 @@ config.simState = {
   }
 };
 //home status 
-config.homeStatus = {
+config.homeLanStatus = {
   formData: {},
+  lanConnectedDisplayNum: 1, //val: 0,1
+  lanConnectedStatusArr: [
+    [0, "ids_disconnected"],
+    [1, "ids_connected"]
+  ],
+};
+//internetStatus
+config.homeInternetStatus = {
+    formData:{
+        "IPv4Adrress":""
+    },
+  usbStatusDisplayNum: 1, //val:0,1
+  usbStatusArr: [
+    [0, "ids_Wan_usbNotInsert"],
+    [1, "ids_usb_storage"],
+    [2, "ids_usb_print"]
+  ],
+  connectionDisplayNum: 1, //val:0, 1
+  connectionStatusArr: [
+    [0, "ids_disconnected"],
+    [1, "ids_connecting"],
+    [2, "ids_connected"],
+    [3, "ids_disconnecting"]
+  ],
   networkTypeDisplayNum: 1, //val:0,1,2;control networkTypeArr display val
   networkTypeArr: [
     [0, "NA", "NO SERVER"],
@@ -719,35 +744,16 @@ config.homeStatus = {
     [8, "4G", "LTE"],
     [9, "4G+", "LTE_PLUS"]
   ],
-  connectionDisplayNum: 1, //val:0, 1
-  connectionStatusArr: [
-    [0, "Disconnected"],
-    [1, "Connecting......"],
-    [2, "Connected"],
-    [3, "Disconnecting......"]
-  ],
-  lanConnectedDisplayNum: 1, //val: 0,1
-  lanConnectedStatusArr: [
-    [0, "Disconnected"],
-    [1, "Connected"]
-  ],
-  usbStatusDisplayNum: 1, //val:0,1
-  usbStatusArr: [
-    [0, "Not Insert"],
-    [1, "USB storage"],
-    [2, "USB print"]
-  ],
+    formRules:{}
+};
+config.homeWlanStatus = {
+  formData: {},
   ssidBroadcastDisplayNum: 1, //val:0,1
   ssidBroadcastArr: [
-    [0, "Disable"],
-    [1, "Enable"]
+    [0, "ids_disable"],
+    [1, "ids_enable"]
   ],
-  wlanAPModeDisplayNum: 1, //val:0,1
-  wlanAPModeArr: [
-    [0, "2.4GHz"],
-    [1, "5GHz"],
-    [2, "2.4GHz and 5GHz"]
-  ]
+  formRules: {}
 };
 //localUpgrade
 config.localUpgrade = {
@@ -881,8 +887,8 @@ config.ipFilter = {
   formOptions: {
     filter_policy: [
       [0, 'ids_disable'],
-      [2, 'ids_blacklist'],
-      [1, 'ids_whitelist']
+      [1, 'ids_blacklist'],
+      [2, 'ids_whitelist']
     ],
     ip_protocol: [
       [6, 'TCP'],
@@ -971,16 +977,28 @@ config.staticRules = {
   formOptions: {
     State: common.checkBoxEnable
   },
+  validates: {
+    DestNetmaskVal: (vm) => {
+      return validates.checkInvalidateDestNet(vm, "DestNetAddr", "DestNetmask");
+    }
+  },
   formRules: {
-    DestNetAddr: [
+    DestNetAddr:[
       common.rule.required,
+      common.rule.IP
     ],
-    DestNetmask: [
+    DestNetmask:[
       common.rule.required,
+      { validator: validates.isValidSubnetMask, message: 'ids_router_subnetInvalid' }
     ],
-    GateWay: [
+    GateWay:[
       common.rule.required,
+      common.rule.IP
     ]
+  },
+  formRulesExtension: {
+    DestNetmask: { validator: "DestNetmaskVal", message: 'ids_router_subnetInvalid' , trigger: 'blur'},
+    //DestNetAddr: { validator: "DestNetmaskVal", message: 'ids_router_subnetInvalid' , trigger: 'blur'},
   }
 };
 //dynamicRules

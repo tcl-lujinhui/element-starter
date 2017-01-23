@@ -2,12 +2,13 @@
   include ../components.jade
   #smsSettings
     +sideMenuPage('Services')
-      +breadcrumb("SMS Settings")
-      +form("formData")
-        +radio("Storage Path:","StoreFlag")
-        +radio("SMS Report:","SMSReportFlag")
-        +input("SMS Center:","SMSCenter")(disabled)
-        +formBtn()
+      +breadcrumb("ids_menu_smsSettings")
+      sim-state
+        +form("formData")
+          +radio("Storage Path:","StoreFlag")
+          +radio("SMS Report:","SMSReportFlag")
+          +input("SMS Center:","SMSCenter")(disabled)
+          +formBtn()
 </template>
 
 <script>

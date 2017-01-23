@@ -38,7 +38,7 @@ export default {
           break;
         case G.SIM_STATE_READY:
           simStateType = "ready";
-          simStateStr = "ids_sim_ready";
+          simStateStr = "ids_sim_simReady";
           break;
         case G.SIM_STATE_INITING:
           simStateType = "initializing";

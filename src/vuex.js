@@ -6,10 +6,15 @@ var vuex = {
   SystemStatus: {},
   WanSettings: {},
   WanConnStatus: {},
+  smsCount: {},
+  heartBeatInterval: null,
   initRes: (cb) => {
     Vue.sdk.get("GetCurrentLanguage", null, (res) => {
       $.get("/dist/i18n/" + res.Language + ".json", (data) => {
-        vuex.res = data
+        if (typeof(data) == "string") {
+          data = JSON.parse(data);
+        }
+        vuex.res = data;
         if ($.isFunction(cb)) {
           cb()
         }
@@ -19,12 +24,21 @@ var vuex = {
   initSimInfo: () => {
     Vue.sdk.get("GetSimStatus", null, (res) => {
       vuex.SimInfo = res;
-      if(res.SIMState=="initializing"){
-        setTimeout(()=>{
+      if (res.SIMState == "initializing") {
+        setTimeout(() => {
           vuex.initSimInfo()
-        },5000)
+        }, 5000)
       }
     })
+  },
+  initLoginState: () => {
+    Vue.sdk.get('GetLoginState', null, (res) => {
+      if (res.State === 1) {
+        vuex.heartBeat(true);
+      } else {
+        vuex.heartBeat(false);
+      }
+    });
   },
   refreshSystemStatus: () => {
     Vue.sdk.get("GetSystemStatus", null, (res) => {
@@ -40,6 +54,20 @@ var vuex = {
     Vue.sdk.get("GetWanIsConnInter", null, (res) => {
       vuex.WanConnStatus = res;
     });
+  },
+  refreshSMSStorageState:() => {
+    Vue.sdk.get("GetSMSStorageState", null, (res) => {
+      vuex.smsCount = res;
+    });
+  },
+  heartBeat: (IsHeart) => {
+    clearInterval(vuex.heartBeatInterval);
+    vuex.heartBeatInterval = null;
+    if (IsHeart) {
+      vuex.heartBeatInterval = setInterval(() => {
+        Vue.sdk.get("HeartBeat", null, (res) => {});
+      }, 6000);
+    }
   }
 };
 

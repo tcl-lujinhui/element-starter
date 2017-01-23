@@ -107,8 +107,11 @@ export default {
         let defaultProfile = $.grep(res.ProfileList, function(n,i){
           return n.Default === 1;
         })[0];
-
-        this.formData.currentProfileId = defaultProfile.ProfileID
+        if(defaultProfile != undefined){
+          this.formData.currentProfileId = defaultProfile.ProfileID;
+        }else{
+          this.formData.currentProfileId = "";
+        }        
       })
       this.sdk.get("GetWlanSettings", null, (res) => {
         this.page.wlanSettings= res;

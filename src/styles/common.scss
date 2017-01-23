@@ -92,12 +92,25 @@
 
 .main-menu.el-menu {
   background: #01a9f0;
+  padding: 0px 0 0 160px;
   .el-submenu .el-menu-item.is-active,
   .el-menu-item.is-active,
   .el-menu-item {
     text-align: center;
     color: #fff;
     border-bottom:none;
+    min-width: 160px;
+    height: 44px;
+    line-height: 44px;
+    span{
+      display:block;
+      width: 100%;
+      padding:0 10px;
+      height: 28px;
+      line-height: 28px;
+      margin: 8px 0;
+      border-right:1px solid #ddd;
+    }
   }
 }
 
@@ -108,19 +121,19 @@
 }
 
 .el-submenu .el-menu .el-menu-item{
-  height: 40px;
-  line-height: 40px;
-  
+
   background: #ededed;
   color: #535353;
   &.is-active{
     background:#ffffff;
   }
 }
+.no-submenu.el-menu-item{
+  padding-left: 5px;
+}
 
 .el-menu--horizontal .el-menu-item {
-  height: 44px;
-  line-height: 44px;
+  
 }
 
 
@@ -130,7 +143,9 @@
 .el-menu--horizontal>.el-submenu:hover .el-submenu__title {
   border-bottom:none;
   background: #0094d2;
-
+  span{
+    border:none;
+  }
 }
 
 .el-menu-item, .el-submenu__title{
@@ -231,7 +246,7 @@
   }
   //upload File css
   .uploadFile{
-    width:321px;
+    width:325px;
     position:relative;
     height:30px;
     overflow: hidden;
@@ -286,6 +301,23 @@
     color:red;
   }
 }
+.jumper{
+    float:right;
+    input[name="jumperInput"]{
+        width:38px;
+        height:28px;
+    }
+    .el-input{
+        float:right;
+        margin-top: 12px;
+    }
+    .btnGo{
+        float:right;
+        margin:12px 0 0 8px;
+        display:inline-block;
+        cursor:pointer;
+    }
+}
 
 .add-btn{
   float: right;
@@ -305,8 +337,8 @@
 @mixin svgIcon{
   background-repeat: no-repeat;
   background-position: center center;
-  height: 36px;
-  width: 42px;
+  height: 30px;
+  width: 36px;
   float:left;
   margin-top: 11px;
 }

@@ -36,7 +36,7 @@ export default {
     init (){
       this.vuex = vuex;
       this.initdata(Config);
-      this.initDataEvent();
+      //this.initDataEvent();
       this.page = {
         isTipsError:false
       }
@@ -48,8 +48,9 @@ export default {
             tips:"None",
             msg:"",
             callback(){
-              _self.firstLoginEvent();
-              _self.passwordSaveEvent();
+            vuex.initLoginState();
+            _self.firstLoginEvent();
+            _self.passwordSaveEvent();
             }
           },
           fail:{
@@ -58,7 +59,6 @@ export default {
             callback(){
                 let text = _self.vuex.res.ids_required;
                 _self.displayTipsText(text);
-                console.log("oooooooo")
             }
           },
           e1:{
@@ -90,7 +90,7 @@ export default {
         this.sdk.post("Login",this.formData,setLogin);
     }else{
         let text = this.vuex.res.ids_required;
-         _self.displayTipsText(text);
+         this.displayTipsText(text);
     }
       //this.sdk.post("Login",this.formData,(res)=>{
           //this.$router.push('internetStatistics');
@@ -121,11 +121,13 @@ export default {
         $.cookie("obj",str);
     },
     initDataEvent(){
-         let getObj = JSON.parse($.cookie("obj"));
-       if(getObj.save_flag == 1){
+        if($.cookie("obj") != "" || $.cookie("obj") != null || $.cookie("obj") != undefined){
+            let getObj = JSON.parse($.cookie("obj"));
+            if(getObj.save_flag == 1){
             this.formData.Password = getObj.Password;
             this.formData.save_flag = getObj.save_flag;
-       }
+            }
+        }
     },
     changeInput(){
         this.page.isTipsError = false;

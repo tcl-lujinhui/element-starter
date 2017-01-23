@@ -63,7 +63,7 @@ mixin switch(label,name)
     el-switch(v-model.number="formData.#{name}" on-text="" off-text="")&attributes(attributes)
       
 mixin text(label,val,label1)
-  +formItem(label)
+  +formItem(label)&attributes(attributes)
     div.el-text  #{val}
     if label1
       +span(label1)
@@ -112,8 +112,13 @@ mixin lirouterLink(state,text)
 
 
 mixin bottonRouterLink(state,text)
-  el-button(type="primary" size="small")
-    router-link.router-link(to="/#{state}")&attributes(attributes) #{text}
+  - var isIds= text.indexOf("ids_")==0?true:false;
+  if isIds
+    el-button(type="primary" size="small")
+      router-link.router-link(to="/#{state}")&attributes(attributes) {{vuex.res.#{text}}}
+  else
+    el-button(type="primary" size="small")
+      router-link.router-link(to="/#{state}")&attributes(attributes) #{text}
 mixin inputNone(label,model)
   - var prop= model.replace(/\./,':');
   span(v-model="formData.#{model}" v-if="typeof formData.#{model} =='number'")&attributes(attributes)

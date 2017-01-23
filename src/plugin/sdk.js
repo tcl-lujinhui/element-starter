@@ -3,6 +3,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import api from './api/api.js'
+import ApiSimulatorData from './api/data.js'
 Vue.use(VueResource)
 let apiURI = '/jrd/webapi';
 let showResult = (options) => {
@@ -37,15 +38,21 @@ export default {
           }
         }
         Vue.http.post(apiURI+"?api=" + apiName, requestBody).then((response) => {
-          var res = response.body.result
+          var res= response.body.result;
+          if(!res){
+            console.error("API return error:",apiName);
+            res = ApiSimulatorData[apiName];
+          }
           if (api.hasOwnProperty(apiName)) {
             if (api[apiName].hasOwnProperty("Response")) {
               res = api[apiName].Response(res)
             }
           }
-          callback(res)
+          callback(res);          
         }, (response) => {
-          ElementUI.Message.error("error")
+          console.error("API no response:",apiName);
+          callback(ApiSimulatorData[apiName]);
+          //ElementUI.Message.error("error")
         });
       },
       post: function(apiName, params, callback) {
@@ -70,7 +77,7 @@ export default {
             result.error = true;
             result.errorCode = "e"+res.error.code.substr(res.error.code.length-1);
           } else {
-            ElementUI.Message.error("error");
+            //ElementUI.Message.error("error");
           }
           /*
           if (api.hasOwnProperty(apiName)) {

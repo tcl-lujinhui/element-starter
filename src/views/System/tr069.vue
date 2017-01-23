@@ -22,11 +22,11 @@ var Config = _config.tr069
 export default {
   created() {
       this.init()
+      this.initdata(Config)
     },
     methods: {
       init() {
         this.vuex = vuex
-        this.initdata(Config)
         this.page = {
           clientConfiguration: [],
           InformInterval: ""

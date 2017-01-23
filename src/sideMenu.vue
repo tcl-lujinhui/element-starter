@@ -7,7 +7,7 @@
           b(v-if="!!val.icon",:class="'svg-icon-'+val.icon")
           span {{val.text |res}}
         el-menu-item(:index="item.router" v-for="item in val.submenu") {{item.text |res}}
-      el-menu-item(:index="val.router" v-if="!val.hasOwnProperty('submenu')") 
+      el-menu-item(:index="val.router" v-if="!val.hasOwnProperty('submenu')" class="no-submenu") 
         i(v-if="!!val.icon",:class="'svg-icon-'+val.icon")
         span {{val.text |res }}
 </template>

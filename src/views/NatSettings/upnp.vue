@@ -14,11 +14,11 @@ import {_config,vuex} from '../../common.js';
 var Config = _config.upnpSettings;
 export default {
   created () {
-    this.init()
+    this.init();
+    this.initdata(Config);
   },
   methods: {
     init (){
-      this.initdata(Config);
       this.vuex=vuex;
       this.sdk.get("GetUpnpSettings",null,(res)=>{
         this.formData = res;

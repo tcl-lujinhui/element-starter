@@ -6,38 +6,40 @@
       sim-state
         +form("formData")
           div(v-show="page.actionTypeCheck==1")
-            p.tips {{vuex.res.ids_update_onlineUpgrade}} 
+            p
+              span.title{{vuex.res.ids_update_onlineUpgrade}}:
               span {{page.Version}} {{vuex.res.ids_update_upToDate}}
             +formItem("")
               +button("ids_update_checkBtn")(type="primary" @click="startCheckUpdate")
           div(v-show="page.actionTypeChecking==1")
-            p.tips
+            p
               span(v-loading.body="page.loading") 
               span {{vuex.res.ids_update_checking}}
             +formItem("")
               +button("ids_update_checkBtn")(disabled type="primary" @click="")
           el-dialog(:title="vuex.res.ids_update_onlineUpgrade" v-model="page.newVersionType",size="tiny")
-            p.tips {{vuex.res.ids_update_onlineUpgrade}}
+            p 
+              span.title{{vuex.res.ids_update_onlineUpgrade}}:
               span {{vuex.res.ids_update_newVersionAvailable | replace('1.2.3',page.Version)}}{{vuex.res.ids_update_Size}}{{page.total_size | byTes}}.
             +formItem("")
               +button("ids_update_upgrade")(type="primary" @click="setFOTAStartDownload")
               +button("ids_cancel")(type="primary" @click="reset")
           el-dialog(v-model="page.actionTypeDownloading",size="tiny")
             el-progress(:text-inside="true",:stroke-width="24",:percentage="page.fotaProcess")
-            p.tips {{vuex.res.ids_update_download}}
+            p {{vuex.res.ids_update_download}}
             +formItem("")
               +button("ids_cancel")(type="primary" @click="stopDownloadFOTA")
           el-dialog(v-model="page.actionTypeDownloaded",size="tiny")
-            p.tips {{vuex.res.ids_update_updateConfirm}}
+            p {{vuex.res.ids_update_updateConfirm}}
             +formItem("")
               +button("ids_update_upgrade")(type="primary" @click="startUpdateFOTA")
           el-dialog(:title="vuex.res.ids_update_Updating" v-model="page.actionTypeUpgrading",size="tiny")
-            p.tips {{vuex.res.ids_update_upgradingWarning}}
+            p {{vuex.res.ids_update_upgradingWarning}}
           el-dialog(v-model="page.newVersionTypeNo",size="tiny")
-            p.tips {{vuex.res.ids_update_noNewSoft}}
+            p {{vuex.res.ids_update_noNewSoft}}
             +formItem("")
               +button("ids_finish")(type="primary" @click="reset")
-          p.tips {{vuex.res.ids_update_upgradingWarning}}        
+          p.Warning{{vuex.res.ids_update_upgradingWarning}}        
 </template>
 <script>
 import {$,vuex,G,_,_config} from '../../common.js';
@@ -304,12 +306,18 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.tips{
+p{
     font-size: 14px;
-    margin-top: 60px;
-    color: #5e6d82;
   }
-  span.tex{
-    float: right;
-  }
+span{
+  font-size: 14px;
+  margin-top: 60px;
+}
+.title{
+    font-weight: 700;
+    color: #1f2d3d;
+}
+.Warning{
+  margin-top: 60px;
+}
 </style>

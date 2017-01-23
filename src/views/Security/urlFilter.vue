@@ -29,7 +29,7 @@
             +button("ids_cancel")(@click="reset")
 </template>
 <script>
-import {_,_config,$,vuex} from '../../common.js';
+import { _,_config,$,vuex} from '../../common.js';
 var Config = _config.urlFilter;
 export default {
   created() {
@@ -45,7 +45,7 @@ export default {
           indexs: -1,
           filter_policy: ""
         }
-        this.sdk.get("GetUrlFilterSettings", null, (res) => {
+        this.sdk.get("getUrlFilterSettings", null, (res) => {
           _.extend(this.formData, res);
           this.page.filter_policy = res.filter_policy;
         })
@@ -64,8 +64,8 @@ export default {
           if (this.formData.filter_policy == 1) {
             if (this.page.action == 'add') {
               if ($.inArray(this.formData.url, this.formData.UrlAllowList) != -1) {
-                this.$alert(vuex.res['ids_security_urlAddrNameWarn'],  vuex.res['ids_confirm'],{
-                  confirmButtonText:  vuex.res['ids_ok'],
+                this.$alert(vuex.res['ids_security_urlAddrNameWarn'], vuex.res['ids_confirm'], {
+                  confirmButtonText: vuex.res['ids_ok'],
                   callback: action => {
                     vm.reset();
                   }
@@ -79,7 +79,7 @@ export default {
                 this.formData.UrlAllowList[this.page.indexs] = this.formData.url
               } else {
                 if ($.inArray(this.formData.url, this.formData.UrlAllowList) != -1) {
-                  this.$alert(vuex.res['ids_security_urlAddrNameWarn'],  vuex.res['ids_confirm'],{
+                  this.$alert(vuex.res['ids_security_urlAddrNameWarn'], vuex.res['ids_confirm'], {
                     confirmButtonText: vuex.res['ids_ok'],
                     callback: action => {
                       vm.reset();
@@ -94,8 +94,8 @@ export default {
           } else {
             if (this.page.action == 'add') {
               if ($.inArray(this.formData.url, this.formData.UrlDenyList) != -1) {
-                this.$alert(vuex.res['ids_security_urlAddrNameWarn'],  vuex.res['ids_confirm'], {
-                  confirmButtonText:  vuex.res['ids_ok'],
+                this.$alert(vuex.res['ids_security_urlAddrNameWarn'], vuex.res['ids_confirm'], {
+                  confirmButtonText: vuex.res['ids_ok'],
                   callback: action => {
                     vm.reset();
                   }
@@ -109,7 +109,7 @@ export default {
                 this.formData.UrlDenyList[this.page.indexs] = this.formData.url
               } else {
                 if ($.inArray(this.formData.url, this.formData.UrlDenyList) != -1) {
-                  this.$alert(vuex.res['ids_security_urlAddrNameWarn'],  vuex.res['ids_confirm'], {
+                  this.$alert(vuex.res['ids_security_urlAddrNameWarn'], vuex.res['ids_confirm'], {
                     confirmButtonText: vuex.res['ids_ok'],
                     callback: action => {
                       vm.reset();
@@ -148,19 +148,28 @@ export default {
 
       },
       deleteUrlFilter(index) {
-        if (this.formData.filter_policy == 1) {
-          this.formData.UrlAllowList.splice(index, 1);
-        } else {
-          this.formData.UrlDenyList.splice(index, 1);
-        }
-        let params = {
-          filter_policy: this.page.filter_policy,
-          UrlAllowList: this.formData.UrlAllowList,
-          UrlDenyList: this.formData.UrlDenyList
-        }
-        this.sdk.post("SetUrlFilterSettings", params, {
-          callback: this.init
-        })
+
+        this.$confirm(vuex.res['ids_delete_confirm'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['ids_delete'],
+          cancelButtonText: vuex.res['ids_cancel'],
+          type: 'warning'
+        }).then(() => {
+          if (this.formData.filter_policy == 1) {
+            this.formData.UrlAllowList.splice(index, 1);
+          } else {
+            this.formData.UrlDenyList.splice(index, 1);
+          }
+          let params = {
+            filter_policy: this.page.filter_policy,
+            UrlAllowList: this.formData.UrlAllowList,
+            UrlDenyList: this.formData.UrlDenyList
+          }
+          this.sdk.post("SetUrlFilterSettings", params, {
+            callback: this.init
+          })
+        }).catch(() => {
+          /*this.init();*/
+        });
       },
       update() {
         let params = {
@@ -176,7 +185,6 @@ export default {
     }
 }
 </script>
-
 <style lang="sass" scoped>
 table{
   width: 100%;

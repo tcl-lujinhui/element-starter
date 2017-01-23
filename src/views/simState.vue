@@ -1,7 +1,7 @@
 <template lang="jade">
   include ./components.jade
   #simState
-    div(v-loading.fullscreen.lock="page.fullscreenLoading")
+    div(v-loading.body="page.fullscreenLoading")
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pinReq'")
       h2.center {{vuex.SimInfo.SIMStateStr|res}}
       +form("formData")

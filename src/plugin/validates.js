@@ -148,6 +148,22 @@ let validates = {
     }
     showErr(callback, errMsg)
   },
+  checkInvalidateDestNet(vm, deIp, deMask) {
+    return (rule, value, callback) => {
+      var errMsg = '';
+      if (!validatesFn.checkInvalidateDestNet(vm.formData[deIp],vm.formData[deMask])) {
+        errMsg = 'false'
+      }
+      showErr(callback, errMsg)
+    };
+  },
+  isValidSubnetMask(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.isValidSubnetMask(value)) {
+      errMsg = 'false'
+    }
+    showErr(callback, errMsg)
+  },
 };
 
 export default validates;

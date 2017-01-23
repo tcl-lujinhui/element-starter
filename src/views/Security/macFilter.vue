@@ -41,30 +41,30 @@ export default {
         this.initdata(Config);
         this.page = {
           dialog: false,
-          action:"edit",
+          action: "edit",
           indexs: -1,
-          filter_policy:""
+          filter_policy: ""
         }
         this.sdk.get("GetMacFilterSettings", null, (res) => {
-          _.extend(this.formData,res);
-          this.page.filter_policy=res.filter_policy;
+          _.extend(this.formData, res);
+          this.page.filter_policy = res.filter_policy;
         })
       },
       editMacFilterDialog(item, index) {
         this.$refs.formData.resetFields();
-        this.page.action='edit';
-        this.formData.Address=item
+        this.page.action = 'edit';
+        this.formData.Address = item
         this.page.dialog = true;
-        this.page.indexs=index;
-        
+        this.page.indexs = index;
+
       },
       ediApply() {
         let vm = this;
-        let setForm=()=>{
+        let setForm = () => {
           if (this.formData.filter_policy == 1) {
             if (this.page.action == 'add') {
               if ($.inArray(this.formData.Address, this.formData.MacAllowList) != -1) {
-                this.$alert(vuex.res['ids_security_macAddrNameWarn'],  vuex.res['ids_confirm'], {
+                this.$alert(vuex.res['ids_security_macAddrNameWarn'], vuex.res['ids_confirm'], {
                   confirmButtonText: vuex.res['ids_ok'],
                   callback: action => {
                     vm.reset();
@@ -79,8 +79,8 @@ export default {
                 this.formData.MacAllowList[this.page.indexs] = this.formData.Address
               } else {
                 if ($.inArray(this.formData.Address, this.formData.MacAllowList) != -1) {
-                  this.$alert(vuex.res['ids_security_macAddrNameWarn'],  vuex.res['ids_confirm'], {
-                    confirmButtonText:  vuex.res['ids_ok'],
+                  this.$alert(vuex.res['ids_security_macAddrNameWarn'], vuex.res['ids_confirm'], {
+                    confirmButtonText: vuex.res['ids_ok'],
                     callback: action => {
                       vm.reset();
                     }
@@ -94,8 +94,8 @@ export default {
           } else {
             if (this.page.action == 'add') {
               if ($.inArray(this.formData.Address, this.formData.MacDenyList) != -1) {
-                this.$alert(vuex.res['ids_security_macAddrNameWarn'],  vuex.res['ids_confirm'],{
-                  confirmButtonText:vuex.res['ids_ok'],
+                this.$alert(vuex.res['ids_security_macAddrNameWarn'], vuex.res['ids_confirm'], {
+                  confirmButtonText: vuex.res['ids_ok'],
                   callback: action => {
                     vm.reset();
                   }
@@ -109,8 +109,8 @@ export default {
                 this.formData.MacDenyList[this.page.indexs] = this.formData.Address
               } else {
                 if ($.inArray(this.formData.Address, this.formData.MacDenyList) != -1) {
-                  this.$alert(vuex.res['ids_security_macAddrNameWarn'],  vuex.res['ids_confirm'], {
-                    confirmButtonText:vuex.res['ids_ok'],
+                  this.$alert(vuex.res['ids_security_macAddrNameWarn'], vuex.res['ids_confirm'], {
+                    confirmButtonText: vuex.res['ids_ok'],
                     callback: action => {
                       vm.reset();
                     }
@@ -122,10 +122,10 @@ export default {
               }
             }
           }
-          let params ={
-            filter_policy:this.formData.filter_policy,
-            MacDenyList:this.formData.MacDenyList,
-            MacAllowList:this.formData.MacAllowList
+          let params = {
+            filter_policy: this.formData.filter_policy,
+            MacDenyList: this.formData.MacDenyList,
+            MacAllowList: this.formData.MacAllowList
           }
           this.sdk.post("SetMacFilterSettings", params, {
             callback: this.init
@@ -136,31 +136,40 @@ export default {
       },
 
       add() {
-        this.page.action='add';
-        this.formData.url=""
+        this.page.action = 'add';
+        this.formData.url = ""
         this.page.dialog = true;
         this.$refs.formData.resetFields();
-        if(this.formData.filter_policy == 1){
-          this.page.indexs=this.formData.MacAllowList.length;
-        }else{
-          this.page.indexs=this.formData.MacDenyList.length;
+        if (this.formData.filter_policy == 1) {
+          this.page.indexs = this.formData.MacAllowList.length;
+        } else {
+          this.page.indexs = this.formData.MacDenyList.length;
         }
 
       },
       deleteMacFilter(index) {
-        if (this.formData.filter_policy == 1) {
-          this.formData.MacAllowList.splice(index, 1);
-        } else {
-          this.formData.MacDenyList.splice(index, 1);
-        }
-        let params = {
-          filter_policy: this.page.filter_policy,
-          MacAllowList: this.formData.MacAllowList,
-          MacDenyList: this.formData.MacDenyList
-        }
-        this.sdk.post("SetMacFilterSettings",params, {
-          callback: this.init
-        })
+        this.$confirm(vuex.res['ids_delete_confirm'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['ids_delete'],
+          cancelButtonText: vuex.res['ids_cancel'],
+          type: 'warning'
+        }).then(() => {
+          if (this.formData.filter_policy == 1) {
+            this.formData.MacAllowList.splice(index, 1);
+          } else {
+            this.formData.MacDenyList.splice(index, 1);
+          }
+          let params = {
+            filter_policy: this.page.filter_policy,
+            MacAllowList: this.formData.MacAllowList,
+            MacDenyList: this.formData.MacDenyList
+          }
+          this.sdk.post("SetMacFilterSettings", params, {
+            callback: this.init
+          })
+        }).catch(() => {
+          /*this.init();*/
+        });
+
       },
       update() {
         let params = {
@@ -176,7 +185,6 @@ export default {
     }
 }
 </script>
-
 <style lang="sass" scoped>
 table{
   width: 100%;

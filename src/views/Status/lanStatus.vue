@@ -3,124 +3,88 @@
   #lanStatus
     +sideMenuPage('Home')
       +breadcrumb("ids_lan_Lan")
-      +form("formData")
-        div.internetInfo
-          el-row(:gutter="15")(v-for="item in page.lanItem")
-            el-col.textAlignRight(:span="8")(v-html="item.nameVal") 
-            el-col(:span="8") {{item.lanOneVal}}
-            el-col(:span="8") {{item.lanTwoVal}}
-      
-      //-+formBtn()
+      table.state-table
+        tr
+          th(width="40%")
+          th(width="30%") {{vuex.res.ids_lan_Lan1}}
+          th(width="30%") {{vuex.res.ids_lan_Lan2}}
+        tr
+          td {{vuex.res.ids_lan_conStatus}}:
+          td {{page.lan1.ConnectionStatus|lanProtState}}
+          td {{page.lan2.ConnectionStatus|lanProtState}}
+        tr
+          td {{vuex.res.ids_ipAddress}}:
+          td {{page.lan1.IPAddress}}
+          td {{page.lan2.IPAddress}}
+        tr
+          td {{vuex.res.ids_lan_macAdress}}:
+          td {{page.lan1.MACAddress}}
+          td {{page.lan2.MACAddress}}
+        tr
+          td {{vuex.res.ids_lan_dhcpServer}}:
+          td {{page.lan1.DHCPServer}}
+          td {{page.lan2.DHCPServer}}
 </template>
 
 <script>
-import {_config,vuex} from '../../common.js'
-var Config = _config.homeStatus
+import {
+  $,
+  _config,
+  vuex
+} from '../../common.js'
+var Config = _config.homeLanStatus
 
 export default {
-  created () {
-    this.init();
-    this.initdata(Config);
-  },
-  methods: {
-    init (){
-      this.vuex = vuex
-      this.page = {
-        lanOneconnectedStateTxt:"",
-        lanTwoconnectedStateTxt:"",
-        ipAddressTxt:"",
-        macAddressTxt:"",
-        dhcpServerTxt:"",
-        LanFlagTxt:"",
-        LanFlagTwoTxt:"",
-        ipAddressTwoTxt:"",
-        macAddressTwoTxt:"",
-        dhcpServerTwoTxt:"",
-        lanItem:null
-      }
-      this.sdk.get("GetLanPortInfo",null,(res)=>{
-        this.formData = res;
-        this.interfaceLanInfoData();
-      })
+  created() {
+      this.init();
     },
-    interfaceLanInfoData(){
-      var formDataList = this.formData.List;
-      var lanInfoArr;
-      if(formDataList.length == 1){
-        this.lanOneInfo(formDataList);
-      }else{
-       this.lanOneInfo(formDataList);
-       this.lanTwoInfo(formDataList);
-      }
-     
-    this.page.lanOneconnectedStateTxt = Config.lanConnectedStatusArr[formDataList[0].ConnectionStatus][Config.lanConnectedDisplayNum];
-    this.page.lanTwoconnectedStateTxt = Config.lanConnectedStatusArr[formDataList[1].ConnectionStatus][Config.lanConnectedDisplayNum];
-
-    lanInfoArr = [
-          {
-            nameVal:"&nbsp;",
-            lanOneVal:this.page.LanFlagTxt,
-            lanTwoVal:this.page.LanFlagTwoTxt
+    methods: {
+      init() {
+        this.vuex = vuex
+        this.page = {
+          lan1:{
+            "LanFlag": "LAN1",
+            "ConnectionStatus": 0,
+            "IPAddress": "----",
+            "MACAddress": "----",
+            "DHCPServer": "----"
           },
-          {
-            nameVal:this.vuex.res.ids_lan_conStatus+":",
-            lanOneVal:this.page.lanOneconnectedStateTxt,
-            lanTwoVal:this.page.lanTwoconnectedStateTxt
-          },
-          {
-            nameVal:this.vuex.res.ids_ipAddress+":",
-            lanOneVal:this.page.ipAddressTxt,
-            lanTwoVal:this.page.ipAddressTwoTxt
-          },
-          {
-            nameVal:this.vuex.res.ids_lan_macAdress+":",
-            lanOneVal:this.page.macAddressTxt,
-            lanTwoVal:this.page.macAddressTwoTxt
-          },
-          {
-            nameVal:this.vuex.res.ids_lan_dhcpServer+":",
-            lanOneVal:this.page.dhcpServerTxt,
-            lanTwoVal:this.page.dhcpServerTwoTxt
+          lan2:{
+            "LanFlag": "LAN2",
+            "ConnectionStatus": 0,
+            "IPAddress": "----",
+            "MACAddress": "----",
+            "DHCPServer": "----"
           }
-        ]
-        this.page.lanItem = lanInfoArr;
-
-    },
-     lanOneInfo(formDataList){
-        if(formDataList[0].ConnectionStatus == 1){
-          this.page.LanFlagTxt = formDataList[0].LanFlag;
-          this.page.ipAddressTxt = formDataList[0].IPAddress;
-          this.page.macAddressTxt = formDataList[0].MACAddress;
-          this.page.dhcpServerTxt = formDataList[0].DHCPServer;
-
-        }else{
-          this.page.LanFlagTxt = formDataList[0].LanFlag;
-          this.page.ipAddressTxt = "- - - -";
-          this.page.macAddressTxt = "- - - -";
-          this.page.dhcpServerTxt = "- - - -";
         }
-      },
-      lanTwoInfo(formDataList){
-         if(formDataList[1].ConnectionStatus == 1){
-          this.page.LanFlagTwoTxt = formDataList[1].LanFlag;
-          this.page.ipAddressTwoTxt = formDataList[1].IPAddress;
-          this.page.macAddressTwoTxt = formDataList[1].MACAddress;
-          this.page.dhcpServerTwoTxt = formDataList[1].DHCPServer;
-
-        }else{
-          this.page.LanFlagTwoTxt = formDataList[1].LanFlag;
-          this.page.ipAddressTwoTxt = "- - - -";
-          this.page.macAddressTwoTxt = "- - - -";
-          this.page.dhcpServerTwoTxt = "- - - -";
-        }
+        this.sdk.get("GetLanPortInfo", null, (res) => {
+          let vm = this;
+          if(res.List&&$.isArray(res.List)){
+            $.each(res.List,(i,v)=>{
+              if(v.LanFlag.toUpperCase()=="LAN1"){
+                vm.page.lan1=v
+              };
+              if(v.LanFlag.toUpperCase()=="LAN2"){
+                vm.page.lan2=v
+              };
+            })
+          }
+          this.page.lanPortInfo = res.List;
+        })
       }
-
-  }
+    }
 }
 </script>
 
 <style lang="sass" scoped>
-.el-form{
-  width:620px;
+.state-table {
+  width: 60%;
+  margin: 40px auto;
+  font-size: 14px;
+  color: #5e6d82;
+  text-align: left;
+  th,td{
+    padding:10px;
+  }
 }
 </style>

@@ -94,6 +94,41 @@ units.qosProtocol = (val) => {
   }
 }
 
+units.networkRat = (val) => {
+  let networkRatArr = [
+    [1, "GSM"],
+    [2, "UMTS"],
+    [3, "LTE"],
+    [4, "CDMA"],
+    [5, "unknown"]
+  ];
+  let currentRat = _.find(networkRatArr, (num) => {
+    return num[0] == val;
+  })
+  if (!currentRat) {
+    return networkRatArr[0][1]
+  } else {
+    return currentRat[1]
+  }
+}
+
+units.networkState = (val) => {
+  let networkStateArr = [
+    [0, "unknown"],
+    [1, "available"],
+    [2, "register"],
+    [3, "forbidden"]
+  ];
+  let currentState = _.find(networkStateArr, (num) => {
+    return num[0] == val;
+  })
+  if (!currentState) {
+    return networkStateArr[0][1]
+  } else {
+    return currentState[1]
+  }
+}
+
 units.getTimePassed = (time) => {
   var day = Math.floor(time / (3600 * 24));
   var hours = Math.floor((time - day * 3600 * 24) / 3600);
@@ -147,4 +182,36 @@ units.times = (second, type) => {
   return formatStr;
 }
 
+units.usbStateText = (val) => {
+  let Arr = [
+    [0, "ids_Wan_usbNotInsert"],
+    [1, "ids_usb_storage"],
+    [2, "ids_usb_print"]
+  ];
+  let current = _.find(Arr, (num) => {
+    return num[0] == val;
+  })
+  if (!current) {
+    return Arr[0][1]
+  } else {
+    return current[1]
+  }
+}
+
+units.netConnState = (val) => {
+  let Arr = [
+    [0, "ids_disconnected"],
+    [1, "ids_connecting"],
+    [2, "ids_connected"],
+    [3, "ids_disconnecting"]
+  ];
+  let current = _.find(Arr, (num) => {
+    return num[0] == val;
+  })
+  if (!current) {
+    return Arr[0][1]
+  } else {
+    return current[1]
+  }
+}
 export default units;

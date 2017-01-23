@@ -48,7 +48,15 @@ Vue.filter('qosPriority', function (value) {
 })
 
 Vue.filter('qosProtocol', function (value) {
-  return units.qosProtocol(value)
+  return units.qosProtocol(value);
+})
+
+Vue.filter('networkRat', function (value) {
+  return units.networkRat(value)
+})
+
+Vue.filter('networkState', function (value) {
+  return units.networkState(value)
 })
 
 Vue.filter('res', function (value) {
@@ -71,10 +79,21 @@ Vue.filter("times", function(second, type) {
 Vue.filter("replace", function(strings,key,replaceKey){
   return strings.replace(key,replaceKey)  
 })
+
+Vue.filter('lanProtState', function (value) {
+  return value==1?vuex.res["ids_connected"]:vuex.res["ids_disconnected"];
+})
+
+Vue.filter('usbStateText', function (value) {
+  return vuex.res[units.usbStateText(value)]
+})
+Vue.filter('netConnState', function (value) {
+  return vuex.res[units.netConnState(value)]
+})
 const router = new VueRouter({
   routes: Routers
 });
-/*
+
 router.beforeEach((to, from, next) => {
   console.log(to.name);
   vuex.loginName = to.name;
@@ -92,7 +111,6 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-*/
 
 vuex.initRes(()=>{
   const app = new Vue({
@@ -101,3 +119,4 @@ vuex.initRes(()=>{
   }).$mount('#app');
 })
 
+vuex.initLoginState();

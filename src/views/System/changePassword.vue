@@ -13,27 +13,28 @@
 </template>
 <script>
 import {_config,vuex} from '../../common.js';
+//import ElementUI from 'element-ui';
 let Config = _config.changePassword;
 export default {
   created() {
-      this.init()
+      this.init();
+      this.initdata(Config);
     },
     methods: {
-      init() {
-        this.initdata(Config);
-        //this.vuex = vuex;
-      },
+      init() {},
       update() {
         let vm = this
         this.submit("formData", () => {
           let results = {
             callback: this.init,
+            //success:this.vuex.res.ids_success,
             success: {
-                tips:"Message",
-                msg:this.vuex.res.ids_success,
-                callback(){
-                    vm.setPassChangeFlag();
-                }
+              tips: "Message",
+              msg: this.vuex.res.ids_success,
+              callback() {
+                vm.setPassChangeFlag();
+                vm.reset();
+              }
             },
             fail: this.vuex.res.ids_fail,
             e2: {
@@ -42,16 +43,44 @@ export default {
                 vm.$alert(vuex.res['ids_login_inputCurrPwd'], vuex.res['ids_error'], {
                   confirmButtonText: vuex.res['ids_ok'],
                   callback: action => {
-                    this.init;
+                    //this.init();
                   }
                 });
               }
             }
           };
-          this.sdk.post("ChangePassword", this.formData, results);
+          let sendPassword = {
+              "UserName": this.formData.UserName,
+              "CurrPassword": this.formData.CurrPassword,
+              "NewPassword": this.formData.NewPassword
+            }
+            this.sdk.post("ChangePassword", sendPassword, results);
+          /*this.sdk.post("ChangePassword", sendPassword, (res) => {
+            if (this.requestJsonRpcIsOk(res)) {
+              ElementUI.Message.success(this.vuex.res.ids_success);
+              this.setPassChangeFlag();
+            } else {
+              if (res.error.code == "010402") {
+
+                this.$alert(vuex.res['ids_login_inputCurrPwd'],vuex.res['ids_error'], {
+                  confirmButtonText: vuex.res['ids_ok'],
+                  callback: action => {
+                    this.reset();
+                  }
+                });
+              }else if(res.error.code=="010401"){
+                ElementUI.Message.error("Failed!");
+              }else {
+                ElementUI.Message.error(this.vuex.res.ids_fail);
+              }
+            }
+          });*/
         })
       },
-      setPassChangeFlag(){
+     /* requestJsonRpcIsOk(result) {
+        return result.hasOwnProperty("result") && !result.hasOwnProperty("error");
+      },*/
+      setPassChangeFlag() {
         let paramt = {
             "change_flag":1
         }
@@ -60,5 +89,6 @@ export default {
     }
 }
 </script>
+
 <style lang="sass" scoped>
 </style>

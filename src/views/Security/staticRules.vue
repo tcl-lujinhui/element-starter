@@ -10,7 +10,7 @@
         el-table-column(type="index" ,:label="vuex.res.ids_index" width="100")
         el-table-column(prop="DestNetAddr" ,:label="vuex.res.ids_router_desIp" width='200')
         el-table-column(prop="DestNetmask" ,:label="vuex.res.ids_subnetMark" width='200')
-        el-table-column(prop="GateWay" ,:label="vuex.res.ids_router_rounterIp" width='200')
+        el-table-column(prop="GateWay" ,:label="vuex.res.ids_router_rounterIp" width='200' )
         el-table-column(:label="vuex.res.ids_netwrok_operation",:context="_self" width='120' inline-template fixed="right")
           span
             +button("")(icon="edit" size="mini" @click="editipFilterDialog($index,row)")
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import{$,_,_config,vuex} from '../../common.js';
+import {$,_,_config,vuex} from '../../common.js';
 let Config = _config.staticRules;
 
 export default {
@@ -37,38 +37,108 @@ export default {
       init() {
         this.vuex = vuex;
         this.initdata(Config);
-        this.page={
-          state:"",
-          StaticRoutingList:[],
-          dialog:false,
-          action:"edit",
+        this.page = {
+          state: "",
+          StaticRoutingList: [],
+          dialog: false,
+          action: "edit",
           indexs: -1
         }
         this.sdk.get("GetStaticRouting", null, (res) => {
           //this.formData = res;
-          this.page.StaticRoutingList=res.StaticRoutingList;
+          this.page.StaticRoutingList = res.StaticRoutingList;
           this.page.state = res.State == 1 ? true : false;
         })
       },
-      editipFilterDialog(index,item) {
+      editipFilterDialog(index, item) {
         this.$refs.formData.resetFields();
-        this.formData.DestNetAddr=item.DestNetAddr;
-        this.formData.DestNetmask=item.DestNetmask;
-        this.formData.GateWay=item.GateWay;
-        this.page.action='edit';
-        this.page.indexs=index;
+        this.formData = item;
+        this.page.action = 'edit';
+        this.page.indexs = index;
         this.page.dialog = true;
       },
       ediApply() {
-        let setForm=()=>{
-          this.page.StaticRoutingList[this.page.indexs]={};
-          this.page.StaticRoutingList[this.page.indexs].DestNetAddr=this.formData.DestNetAddr;
-          this.page.StaticRoutingList[this.page.indexs].DestNetmask=this.formData.DestNetmask;
-          this.page.StaticRoutingList[this.page.indexs].GateWay=this.formData.GateWay;
-          this.formData.State = this.page.state == true ? 1 : 0;
-          let params ={
-            State:this.formData.State,
-            StaticRoutingList:this.page.StaticRoutingList
+        let vm = this;
+        let sameIpFilter = true;
+        let setForm = () => {
+          if (this.page.action == 'add') {
+            _.each(vm.page.StaticRoutingList, (i, v) => {
+              if (vm.formData.DestNetAddr == i.DestNetAddr && vm.formData.DestNetmask == i.DestNetmask && vm.formData.GateWay == i.GateWay) {
+                sameIpFilter = false;
+                return false;
+              }
+            })
+            if (!sameIpFilter) {
+              this.$alert(vuex.res['ids_router_desIpInvalid'], vuex.res['ids_confirm'], {
+                confirmButtonText: vuex.res['ids_ok'],
+                callback: action => {
+                  vm.reset();
+                }
+              });
+              return false;
+            } else {
+
+              vm.page.StaticRoutingList[vm.page.indexs] = {};
+              vm.page.StaticRoutingList[vm.page.indexs].DestNetAddr = vm.formData.DestNetAddr;
+              vm.page.StaticRoutingList[vm.page.indexs].DestNetmask = vm.formData.DestNetmask;
+              vm.page.StaticRoutingList[vm.page.indexs].GateWay = vm.formData.GateWay;
+              vm.page.StaticRoutingList[vm.page.indexs].SourceNetAddr = "192.168.1.22";
+              vm.page.StaticRoutingList[vm.page.indexs].SourceNetmask = "255.255.0.0";
+              vm.page.StaticRoutingList[vm.page.indexs].Interface = 1;
+              vm.page.StaticRoutingList[vm.page.indexs].Metric = 0;
+              vm.page.StaticRoutingList[vm.page.indexs].MTU = 1500;
+              vm.page.StaticRoutingList[vm.page.indexs].Type = 0;
+              vm.page.StaticRoutingList[vm.page.indexs].Id = vm.page.indexs;
+              vm.formData.State = vm.page.state == true ? 1 : 0;
+            }
+          } else {
+            if (vm.page.StaticRoutingList[vm.page.indexs].DestNetAddr == vm.formData.DestNetAddr && vm.page.StaticRoutingList[vm.page.indexs].DestNetmask == vm.formData.DestNetmask && vm.page.StaticRoutingList[vm.page.indexs].GateWay == vm.formData.GateWay) {
+              vm.page.StaticRoutingList[vm.page.indexs] = {};
+              vm.page.StaticRoutingList[vm.page.indexs].DestNetAddr = vm.formData.DestNetAddr;
+              vm.page.StaticRoutingList[vm.page.indexs].DestNetmask = vm.formData.DestNetmask;
+              vm.page.StaticRoutingList[vm.page.indexs].GateWay = vm.formData.GateWay;
+              vm.formData.State = vm.page.state == true ? 1 : 0;
+              vm.page.StaticRoutingList[vm.page.indexs].SourceNetAddr = vm.formData.SourceNetAddr;
+              vm.page.StaticRoutingList[vm.page.indexs].SourceNetmask = vm.formData.SourceNetmask;
+              vm.page.StaticRoutingList[vm.page.indexs].Interface = vm.formData.Interface;
+              vm.page.StaticRoutingList[vm.page.indexs].Metric = vm.formData.Metric;
+              vm.page.StaticRoutingList[vm.page.indexs].MTU = vm.formData.MTU;
+              vm.page.StaticRoutingList[vm.page.indexs].Type = vm.formData.Type;
+              vm.page.StaticRoutingList[vm.page.indexs].Id = vm.formData.Id;
+            } else {
+              _.each(vm.page.StaticRoutingList, (i, v) => {
+                if (vm.formData.DestNetAddr == i.DestNetAddr && vm.formData.DestNetmask == i.DestNetmask && vm.formData.GateWay == i.GateWay) {
+                  sameIpFilter = false;
+                  return false;
+                }
+              })
+              if (!sameIpFilter) {
+                this.$alert(vuex.res['ids_router_desIpInvalid'], vuex.res['ids_confirm'], {
+                  confirmButtonText: vuex.res['ids_ok'],
+                  callback: action => {
+                    vm.reset();
+                  }
+                });
+                return false;
+              } else {
+                vm.page.StaticRoutingList[vm.page.indexs] = {};
+                vm.page.StaticRoutingList[vm.page.indexs].DestNetAddr = vm.formData.DestNetAddr;
+                vm.page.StaticRoutingList[vm.page.indexs].DestNetmask = vm.formData.DestNetmask;
+                vm.page.StaticRoutingList[vm.page.indexs].GateWay = vm.formData.GateWay;
+                vm.formData.State = vm.page.state == true ? 1 : 0;
+                vm.page.StaticRoutingList[vm.page.indexs].SourceNetAddr = vm.formData.SourceNetAddr;
+                vm.page.StaticRoutingList[vm.page.indexs].SourceNetmask = vm.formData.SourceNetmask;
+                vm.page.StaticRoutingList[vm.page.indexs].Interface = vm.formData.Interface;
+                vm.page.StaticRoutingList[vm.page.indexs].Metric = vm.formData.Metric;
+                vm.page.StaticRoutingList[vm.page.indexs].MTU = vm.formData.MTU;
+                vm.page.StaticRoutingList[vm.page.indexs].Type = vm.formData.Type;
+                vm.page.StaticRoutingList[vm.page.indexs].Id = vm.formData.Id;
+              }
+            }
+          }
+          let params = {
+            State: vm.formData.State,
+            StaticRoutingList: vm.page.StaticRoutingList
           }
           this.sdk.post("SetStaticRouting", params, {
             callback: this.init
@@ -78,33 +148,39 @@ export default {
         this.submit("formData", setForm)
       },
       add() {
-        this.page.action='add';
-        this.formData.DestNetAddr="";
-        this.formData.DestNetmask="";
-        this.formData.GateWay="";
+        this.page.action = 'add';
+        this.formData.DestNetAddr = "";
+        this.formData.DestNetmask = "";
+        this.formData.GateWay = "";
         this.page.dialog = true;
         this.$refs.formData.resetFields();
-        this.page.indexs=this.page.StaticRoutingList.length;
+        this.page.indexs = this.page.StaticRoutingList.length;
       },
       deleteIpFilter(index) {
-        this.page.StaticRoutingList.splice(index, 1);
-        this.sdk.post("SetStaticRouting", this.page, {
-          callback: this.init
-        })
+        this.$confirm(vuex.res['ids_delete_confirm'], vuex.res['ids_confirm'], {
+          confirmButtonText: vuex.res['ids_delete'],
+          cancelButtonText: vuex.res['ids_cancel'],
+          type: 'warning'
+        }).then(() => {
+          this.page.StaticRoutingList.splice(index, 1);
+          this.sdk.post("SetStaticRouting", this.page, {
+            callback: this.init
+          })
+        }).catch(() => {
+          /*this.init();*/
+        });
       },
       update() {
         this.formData.State = this.page.state == true ? 1 : 0;
-        let params ={
-            State:this.formData.State,
-            StaticRoutingList:this.page.StaticRoutingList
-          }
-        this.sdk.post("SetStaticRouting", params, (res) => {
-        })
+        let params = {
+          State: this.formData.State,
+          StaticRoutingList: this.page.StaticRoutingList
+        }
+        this.sdk.post("SetStaticRouting", params, (res) => {})
       }
     }
 }
 </script>
-
 <style lang="sass" scoped>
 .el-form{
   width: 721px;
