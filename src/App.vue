@@ -6,8 +6,13 @@
       div.float-right
         div.top-menu
           a.float-right(v-if="vuex.loginName!='login'" @click='logout()') {{vuex.res.ids_logout}}
-          a.float-right(hidden) {{vuex.res.ids_help}}
-          a.float-right(hidden) language
+          a.float-right() {{vuex.res.ids_help}}
+          el-dropdown.float-right.lang-dropdown(trigger="click" @command="changLang")
+            span.el-dropdown-link
+              | {{vuex.currentLanguage|currentLang}}
+              i.el-icon-caret-bottom.el-icon--right
+            el-dropdown-menu(slot="dropdown")
+              el-dropdown-item(:command="li[0]" v-for="li in sys.Language") {{li[1]}}
         status-icon
       sms-report
       //-img.status(src="./images/status.png")
@@ -21,12 +26,13 @@
 </template>
 
 <script>
-import {_config,vuex} from './common.js';
+import {_config,vuex,sys} from './common.js';
 export default {
   data () {
     return {
       vuex:vuex,
-      nav:_config.nav
+      nav:_config.nav,
+      sys:sys
     }
   },
   created() {
@@ -37,6 +43,11 @@ export default {
       this.sdk.post("Logout",this.formData,(res)=>{
         vuex.heartBeat(false);
         this.$router.push('login')
+      })
+    },
+    changLang(lang){
+      this.sdk.post("SetLanguage", {Language:lang}, (res) => {
+        location.reload()
       })
     }
   }
@@ -71,14 +82,23 @@ body {
   height: 30px;
   clear: both;
   display: block;
-  a,a:hover,a:visited,a:active,a:focus {
+  
+  a,a:hover,a:visited,a:active,a:focus,.lang-dropdown{
+    color: #c7c7c7;
     padding: 5px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
+  }
+  a:hover{
+    color: #01a9f0;
   }
 }
 .float-right{
   float: right;
+}
+.el-dropdown-menu__item{
+  color: #c7c7c7;
+  font-size:13px;
 }
 </style>

@@ -2,7 +2,7 @@
   include ../components.jade
   #lanStatistics
     +sideMenuPage('Home')
-      +breadcrumb("LAN Statistics")
+      +breadcrumb("ids_lan_Lan")
       div.main-box.border-notop
         fieldset.cbi-section
           table.table.table-bordered.table-tc

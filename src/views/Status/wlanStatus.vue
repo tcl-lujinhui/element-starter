@@ -5,7 +5,8 @@
       +breadcrumb("ids_wifi_WiFiTitle")
       +form("formData")
         div.internetInfo
-          +text("ids_wlan_2ghz:","{{page.wlanAP2GModeText}}","")
+          div.modeTitle
+            +text("ids_wlan_2ghz","{{page.wlanAP2GModeText}}","")
           div.AP2GMode(v-show="page.ApStatus2GMode")
             +text("ids_wifi_ssid:","{{page.AP2GSsid}}","")
               +bottonRouterLink('basic','ids_wlan_change')
@@ -13,9 +14,10 @@
             +text("ids_wlan_security:","{{page.wep2gTypeTxt}}","")
             +text("ids_wlan_connectedUsers:","{{page.AP2GCurrNum}}","")
             +text("ids_wlan_gatewayAddress:","{{formData.IPv4IPAddress}}","")
-            +text("ids_lan_macAdress:","{{formData.MacAddr}}","")
+            +text("ids_lan_macAdress:","{{page.SystemInfo.MacAddress}}","")
           div.line
-          +text("ids_wlan_5ghz:","{{page.wlanAP5GModeText}}","")
+          div.modeTitle
+            +text("ids_wlan_5ghz","{{page.wlanAP5GModeText}}","")
           div.AP5GMode(v-show="page.ApStatus5GMode")
             +text("ids_wifi_ssid:","{{page.AP5GSsid}}","")
               +bottonRouterLink('basic','ids_wlan_change')
@@ -23,7 +25,7 @@
             +text("ids_wlan_security:","{{page.wep5gTypeTxt}}","")
             +text("ids_wlan_connectedUsers:","{{page.AP5GCurrNum}}","")
             +text("ids_wlan_gatewayAddress:","{{formData.IPv4IPAddress}}","")
-            +text("ids_lan_macAdress:","{{formData.MacAddr}}","")      
+            +text("ids_lan_macAdress:","{{page.SystemInfo.MacAddress5G}}","")      
       //-+formBtn()
 </template>
 
@@ -53,7 +55,8 @@ export default {
         wlanAP2GModeText:"",
         wlanAP5GModeText:"",
         numFinish:0,
-        countFinish:3
+        countFinish:3,
+        SystemInfo:{}
       }
       
       this.sdk.get("GetWlanSettings",null,(res)=>{
@@ -62,8 +65,8 @@ export default {
           this.wlanSupportMode();
         }
       });
-      this.sdk.get("GetWanCurrentMacAddr",null,(res)=>{
-        _.extend(this.formData,res);
+      this.sdk.get("GetSystemInfo",null,(res)=>{
+         this.page.SystemInfo = res;
          if(++this.page.numFinish == this.page.countFinish){
           this.wlanSupportMode();
          }
@@ -77,17 +80,17 @@ export default {
 
     },
     wlanSupportMode(){
-      if(this.formData.AP2G.ApStatus == G.WLAN_MODEL_ApStatus_ENABLE && this.formData.AP5G.ApStatus == G.WLAN_MODEL_ApStatus_ENABLE){
+      if(this.formData.AP2G.ApStatus != G.WLAN_MODEL_ApStatus_DISABLE && this.formData.AP5G.ApStatus != G.WLAN_MODEL_ApStatus_DISABLE){
         this.page.ApStatus2GMode = true;
         this.page.ApStatus5GMode = true;
       }else{
-       if(this.formData.AP2G.ApStatus == G.WLAN_MODEL_ApStatus_ENABLE){
+       if(this.formData.AP2G.ApStatus != G.WLAN_MODEL_ApStatus_DISABLE){
         this.page.ApStatus2GMode = true;
       }else if(this.formData.AP2G.ApStatus == G.WLAN_MODEL_ApStatus_DISABLE){
         this.page.ApStatus2GMode = false;
         this.page.wlanAP2GModeText = this.vuex.res.ids_disabled;
       }
-      if(this.formData.AP5G.ApStatus == G.WLAN_MODEL_ApStatus_ENABLE){
+      if(this.formData.AP5G.ApStatus != G.WLAN_MODEL_ApStatus_DISABLE){
         this.page.ApStatus5GMode = true;
       }else if(this.formData.AP5G.ApStatus == G.WLAN_MODEL_ApStatus_DISABLE){
         this.page.ApStatus5GMode = false;
@@ -98,22 +101,40 @@ export default {
     this.page.AP5GSsid = this.formData.AP5G.Ssid;
     this.page.AP5GCurrNum = this.formData.AP5G.curr_num;
     this.page.AP2GCurrNum = this.formData.AP2G.curr_num;
-    switch(this.formData.AP2G.WepType){
-        case G.WLAN_MODEL_WepType_DISABLE:
-        this.page.wep2gTypeTxt = this.vuex.res.ids_wifi_wepOpen;
+    switch(this.formData.AP2G.SecurityMode){
+        case G.WLAN_MODEL_SecurityMode_DISABLE:
+        this.page.wep2gTypeTxt = "DISABLE"
         break;
-        case G.WLAN_MODEL_WepType_ENABLE:
-        this.page.wep2gTypeTxt = this.vuex.res.ids_wifi_wepShare
+        case G.WLAN_MODEL_SecurityMode_WEP:
+        this.page.wep2gTypeTxt = "WEP";
+        break;
+        case G.WLAN_MODEL_SecurityMode_WPA:
+        this.page.wep2gTypeTxt = "WPA"
+        break;
+        case G.WLAN_MODEL_SecurityMode_WPA2:
+        this.page.wep2gTypeTxt = "WPA2"
+        break;
+        case G.WLAN_MODEL_SecurityMode_WPAWPA2:
+        this.page.wep2gTypeTxt = "WPA/WPA2"
         break;
         default:
         break;
       }
-      switch(this.formData.AP5G.WepType){
-        case G.WLAN_MODEL_WepType_DISABLE:
-        this.page.wep5gTypeTxt = this.vuex.res.ids_wifi_wepOpen;
+      switch(this.formData.AP5G.SecurityMode){
+        case G.WLAN_MODEL_SecurityMode_DISABLE:
+        this.page.wep5gTypeTxt = "DISABLE"
         break;
-        case G.WLAN_MODEL_WepType_ENABLE:
-        this.page.wep5gTypeTxt = this.vuex.res.ids_wifi_wepShare
+        case G.WLAN_MODEL_SecurityMode_WEP:
+        this.page.wep5gTypeTxt = "WEP";
+        break;
+        case G.WLAN_MODEL_SecurityMode_WPA:
+        this.page.wep5gTypeTxt = "WPA"
+        break;
+        case G.WLAN_MODEL_SecurityMode_WPA2:
+        this.page.wep5gTypeTxt = "WPA2"
+        break;
+        case G.WLAN_MODEL_SecurityMode_WPAWPA2:
+        this.page.wep5gTypeTxt = "WPA/WPA2"
         break;
         default:
         break;

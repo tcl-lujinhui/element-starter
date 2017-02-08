@@ -4,7 +4,6 @@
     +sideMenuPage('System')
       +breadcrumb("ids_system_pageTitle")
       +form("formData")
-        //-+select("Antenna Switch:","AntennaSwitch")
         +select("ids_system_languageSettings:","Language")
         +input("ids_system_ntpServer1:","NtpServer1")
         +input("ids_system_ntpServer2:","NtpServer2")

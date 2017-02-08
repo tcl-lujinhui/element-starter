@@ -5,9 +5,9 @@
       +breadcrumb("ids_menu_smsSettings")
       sim-state
         +form("formData")
-          +radio("Storage Path:","StoreFlag")
-          +radio("SMS Report:","SMSReportFlag")
-          +input("SMS Center:","SMSCenter")(disabled)
+          +radio("ids_sms_storagePath:","StoreFlag")
+          +radio("ids_sms_settingSmsReport:","SMSReportFlag")
+          +input("ids_sms_centerNum:","SMSCenter")(disabled)
           +formBtn()
 </template>
 

@@ -44,7 +44,8 @@ import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.userSettings;
 export default {
   created() {
-      this.init()
+      this.init();      
+      this.initdata(Config);
     },
     watch: {
       'vuex.SystemStatus.TotalConnNum' (newValue, oldValue) {
@@ -53,8 +54,6 @@ export default {
     },
     methods: {
       init() {
-        this.vuex = vuex;
-        this.initdata(Config);
         this.page = {
           accessInternetRight: false,
           accessStorageRight: false,
@@ -88,11 +87,12 @@ export default {
         });
       },
       setDefaultRight() {
+        let results = {
+          callback:this.init
+        };
         this.page.defaultRight.InternetRight = this.page.accessInternetRight == true ? 1 : 0;
         this.page.defaultRight.StorageRight = this.page.accessStorageRight == true ? 1 : 0;
-        this.sdk.post("SetDeviceDefaultRight", this.page.defaultRight, (res) => {
-          console.log(res)
-        })
+        this.sdk.post("SetDeviceDefaultRight", this.page.defaultRight, results);
       },
       SetConnectedDeviceRight(item) {
         let params = {
@@ -101,27 +101,30 @@ export default {
           "InternetRight": item.exAccessInternetRight == true ? 1 : 0,
           "StorageRight": item.exAccessStorageRight == true ? 1 : 0
         }
-        this.sdk.post("SetConnectedDeviceRight", params, (res) => {
-          console.log(res)
-        });
+        let results = {
+          callback:this.init
+        };
+        this.sdk.post("SetConnectedDeviceRight", params, results);
       },
       blockEvent(item) {
         let params = {
           DeviceName: item.DeviceName,
           MacAddress: item.MacAddress
         }
-        this.sdk.post("SetConnectedDeviceBlock", params, (res) => {
-          this.init();
-        });
+        let results = {
+          callback:this.init
+        };
+        this.sdk.post("SetConnectedDeviceBlock", params, results);
       },
       unblockEvent(item) {
         let params = {
           DeviceName: item.DeviceName,
           MacAddress: item.MacAddress
         }
-        this.sdk.post("SetDeviceUnlock", params, (res) => {
-          this.init();
-        });
+        let results = {
+          callback:this.init
+        };
+        this.sdk.post("SetDeviceUnblock", params, results);
       },
       editDeviceNameDialog(item) {
         this.formData = {
@@ -131,9 +134,10 @@ export default {
         this.page.dialogFormVisible = true;
       },
       update() {
-        this.sdk.post("SetDeviceName", this.formData, (res) => {
-          this.init();
-        });
+        let results = {
+          callback:this.init
+        };
+        this.sdk.post("SetDeviceName", this.formData, results);
       }
     }
 }

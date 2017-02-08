@@ -2,7 +2,7 @@
   include ../components.jade
   #newSMS
     +sideMenuPage('Services')
-      +breadcrumb("New Message")
+      +breadcrumb("ids_sms_newMessage")
       sim-state
           //-+form("formData")(label-width="0px")
           #newSMSContent
@@ -16,7 +16,7 @@
             #btnSMS
               +button("ids_send")(@click="sendSMS")
               +button("ids_save")(@click="saveSMS")
-              +button("Cancel")(@click="cancel")
+              +button("ids_cancel")(@click="cancel")
           el-dialog(v-model="page.sendPop" size="tiny" custom-class="sendPop" close-on-click-modal=false)
             span {{vuex.res.ids_sms_sendingPrompt}}
       

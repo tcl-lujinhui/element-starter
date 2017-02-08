@@ -98,62 +98,58 @@
   .el-menu-item {
     text-align: center;
     color: #fff;
-    border-bottom:none;
+    border-bottom: none;
     min-width: 160px;
     height: 44px;
     line-height: 44px;
-    span{
-      display:block;
+    span {
+      display: block;
       width: 100%;
-      padding:0 10px;
+      padding: 0 10px;
       height: 28px;
       line-height: 28px;
       margin: 8px 0;
-      border-right:1px solid #ddd;
+      border-right: 1px solid #ddd;
     }
   }
 }
 
-
-
-.el-menu .el-menu-item,.el-menu .el-submenu{
-  border-bottom:1px solid #fff;
+.el-menu .el-menu-item,
+.el-menu .el-submenu {
+  border-bottom: 1px solid #fff;
 }
 
-.el-submenu .el-menu .el-menu-item{
-
+.el-submenu .el-menu .el-menu-item {
   background: #ededed;
   color: #535353;
-  &.is-active{
-    background:#ffffff;
+  &.is-active {
+    background: #ffffff;
   }
 }
-.no-submenu.el-menu-item{
+
+.no-submenu.el-menu-item {
   padding-left: 5px;
 }
 
-.el-menu--horizontal .el-menu-item {
-  
-}
-
-
+.el-menu--horizontal .el-menu-item {}
 
 .el-menu--horizontal>.el-menu-item:hover,
 .el-menu--horizontal>.el-submenu.is-active .el-submenu__title,
 .el-menu--horizontal>.el-submenu:hover .el-submenu__title {
-  border-bottom:none;
+  border-bottom: none;
   background: #0094d2;
-  span{
-    border:none;
+  span {
+    border: none;
   }
 }
 
-.el-menu-item, .el-submenu__title{
-  transition:none;
+.el-menu-item,
+.el-submenu__title {
+  transition: none;
 }
 
-#sideMenu .el-submenu .el-submenu__title{
-  padding-left:5px;
+#sideMenu .el-submenu .el-submenu__title {
+  padding-left: 5px;
 }
 
 .center {
@@ -223,191 +219,249 @@
   .el-col {
     border-radius: 4px;
   }
-  .el-button a{
-  text-decoration: none;
-  color:#fff;
+  .el-button a {
+    text-decoration: none;
+    color: #fff;
   }
   .btnMarginLeft {
     margin-left: 5px;
   }
-  .line{
-    margin:8px 0 21px 0;
-    border-top:1px solid #20a0ff;
+  .line {
+    margin: 8px 0 21px 0;
+    border-top: 1px solid #20a0ff;
   }
-}
-  .textAlignRight{
-    text-align:right;
-  }
-  .textBlue{
-    color:#20a0ff;
-  }
-  .textGray{
-    color:#999;
-  }
-  //upload File css
-  .uploadFile{
-    width:325px;
-    position:relative;
-    height:30px;
-    overflow: hidden;
-    padding-bottom:13px;
-  .fileUpload{
-    position:absolute;
-    z-index:9;
-    width:20%;
-    height:30px;
-    opacity:0;
-    right:0;
-    font-size:26px;
-    cursor:pointer;
-  }
-}
-.backupRestore{
-  .paddingBox{
-    padding:23px 0;
-  }
-.uploadFile,
-.backupTxt{
-  padding-bottom:13px;
-}
-  .restoreArea{
-    padding-top:37px;
-  }
-}
-#login{
-  .title{
-    padding:0 0 46px 0;
-  }
-  .imgTextAlign{
-    text-align:center;
-    padding:21px 75px 0 0;
-  }
-  .cutLine{
-    border-left:1px solid #20a0ff;
-    min-height:379px;
-  }
-  .loginArea{
-    padding-left:75px;
-  }
-  .paddingVal{
-    padding:5px 0;
-  }
-  .btnLogin button{
-    width:68%;
-  }
-  .tips-error{
-    padding:5px 0 0 0;
-    font-size:12px;
-    color:red;
-  }
-}
-.jumper{
-    float:right;
-    input[name="jumperInput"]{
-        width:38px;
-        height:28px;
-    }
-    .el-input{
-        float:right;
-        margin-top: 12px;
-    }
-    .btnGo{
-        float:right;
-        margin:12px 0 0 8px;
-        display:inline-block;
-        cursor:pointer;
-    }
 }
 
-.add-btn{
+.textAlignRight {
+  text-align: right;
+}
+
+.textBlue {
+  color: #20a0ff;
+}
+
+.textGray {
+  color: #999;
+}
+
+//upload File css
+.uploadFile {
+  width: 325px;
+  position: relative;
+  height: 30px;
+  overflow: hidden;
+  padding-bottom: 13px;
+  .fileUpload {
+    position: absolute;
+    z-index: 9;
+    width: 20%;
+    height: 30px;
+    opacity: 0;
+    right: 0;
+    font-size: 26px;
+    cursor: pointer;
+  }
+}
+
+.backupRestore {
+  .paddingBox {
+    padding: 23px 0;
+  }
+  .uploadFile,
+  .backupTxt {
+    padding-bottom: 13px;
+  }
+  .restoreArea {
+    padding-top: 37px;
+  }
+}
+
+#login {
+  .title {
+    padding: 0 0 46px 0;
+  }
+  .imgTextAlign {
+    text-align: center;
+    padding: 21px 75px 0 0;
+  }
+  .cutLine {
+    border-left: 1px solid #20a0ff;
+    min-height: 379px;
+  }
+  .loginArea {
+    padding-left: 75px;
+  }
+  .paddingVal {
+    padding: 5px 0;
+  }
+  .btnLogin button {
+    width: 68%;
+  }
+  .tips-error {
+    padding: 5px 0 0 0;
+    font-size: 12px;
+    color: red;
+  }
+}
+
+.jumper {
+  float: right;
+  input[name="jumperInput"] {
+    width: 38px;
+    height: 28px;
+  }
+  .el-input {
+    float: right;
+    margin-top: 12px;
+  }
+  .btnGo {
+    float: right;
+    margin: 12px 0 0 8px;
+    display: inline-block;
+    cursor: pointer;
+  }
+}
+
+.modeTitle {
+  label {
+    font-size: 1.17em;
+    color: #1f88c8;
+  }
+  .el-form-item__content div {
+    color: #999;
+  }
+}
+
+.add-btn {
   float: right;
   margin-bottom: 2px;
 }
 
-.el-table{
+.el-table {
   margin-top: 6px;
 }
 
-.tips{
+.tips {
   font-size: 14px;
   margin-top: 60px;
   color: #5e6d82;
 }
 
-@mixin svgIcon{
+@mixin svgIcon {
   background-repeat: no-repeat;
   background-position: center center;
   height: 30px;
   width: 36px;
-  float:left;
+  float: left;
   margin-top: 11px;
 }
-.svg-icon-natsetting{
+
+.svg-icon-natsetting {
   background-image: url(images/svg/natsetting.svg);
   @include svgIcon;
 }
 
-.svg-icon-calllogs{
+.svg-icon-calllogs {
   background-image: url(images/svg/calllogs.svg);
   @include svgIcon;
 }
-.svg-icon-dailup{
+
+.svg-icon-dailup {
   background-image: url(images/svg/dailup.svg);
   @include svgIcon;
 }
-.svg-icon-deviceinfo{
+
+.svg-icon-deviceinfo {
   background-image: url(images/svg/deviceinfo.svg);
   @include svgIcon;
 }
-.svg-icon-devicemgmt{
+
+.svg-icon-devicemgmt {
   background-image: url(images/svg/devicemgmt.svg);
   @include svgIcon;
 }
-.svg-icon-lan{
+
+.svg-icon-lan {
   background-image: url(images/svg/lan.svg);
   @include svgIcon;
 }
-.svg-icon-qos{
+
+.svg-icon-qos {
   background-image: url(images/svg/qos.svg);
   @include svgIcon;
 }
-.svg-icon-reset{
+
+.svg-icon-reset {
   background-image: url(images/svg/reset.svg);
   @include svgIcon;
 }
-.svg-icon-security{
+
+.svg-icon-security {
   background-image: url(images/svg/security.svg);
   @include svgIcon;
 }
-.svg-icon-setup-wizard{
+
+.svg-icon-setup-wizard {
   background-image: url(images/svg/setup-wizard.svg);
   @include svgIcon;
 }
-.svg-icon-share{
+
+.svg-icon-share {
   background-image: url(images/svg/share.svg);
   @include svgIcon;
 }
-.svg-icon-SMS{
+
+.svg-icon-SMS {
   background-image: url(images/svg/SMS.svg);
   @include svgIcon;
 }
-.svg-icon-statistics{
+
+.svg-icon-statistics {
   background-image: url(images/svg/statistics.svg);
   @include svgIcon;
 }
-.svg-icon-status{
+
+.svg-icon-status {
   background-image: url(images/svg/status.svg);
   @include svgIcon;
 }
-.svg-icon-upgrade{
+
+.svg-icon-upgrade {
   background-image: url(images/svg/upgrade.svg);
   @include svgIcon;
 }
-.svg-icon-wan{
+
+.svg-icon-wan {
   background-image: url(images/svg/wan.svg);
   @include svgIcon;
 }
-.svg-icon-wlan{
+
+.svg-icon-wlan {
   background-image: url(images/svg/wlan.svg);
   @include svgIcon;
+}
+
+a.a-el-button {
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid #20a0ff;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0;
+  color: #fff;
+  background-color: #20a0ff;
+  padding: 7px 9px;
+  font-size: 12px;
+  border-radius: 4px;
+  &:hover {
+    background: #4db3ff;
+    border-color: #4db3ff;
+  }
+}
+
+body {
+  margin: 0;
 }

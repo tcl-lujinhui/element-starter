@@ -7,7 +7,7 @@ import 'element-ui/lib/theme-default/index.css'
 import App from './app.vue'
 import Routers from './router'
 import sdk from './plugin/sdk'
-import {units,vuex} from './common'
+import {units,vuex,sys} from './common'
 
 
 import appConfig from './appConfig'
@@ -30,8 +30,13 @@ Vue.use(VueRouter)
 Vue.use(ElementUI, { locale })
 
 
+
 Vue.filter('networkType', function (value) {
-  return units.networkType(value)
+  if(vuex.res[units.networkType(value)]){
+    return vuex.res[units.networkType(value)];
+  }else{
+    return units.networkType(value);
+  }
 })
 Vue.filter('covertNum', function (value) {
   return units.covertNum(value)
@@ -90,12 +95,15 @@ Vue.filter('usbStateText', function (value) {
 Vue.filter('netConnState', function (value) {
   return vuex.res[units.netConnState(value)]
 })
+
+Vue.filter('currentLang', function (value) {
+  return sys.allLanguage[value]
+})
 const router = new VueRouter({
   routes: Routers
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to.name);
   vuex.loginName = to.name;
 
   if (to.name != 'login') {

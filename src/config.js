@@ -21,14 +21,19 @@ let common = {
     [0, 'ids_manual'],
     [1, 'ids_auto']
   ],
-
+  checkBoxDisable: [
+    [0, 'ids_enable'],
+    [1, 'ids_disable']
+  ],
 
 
   rule: {
     required: { required: true, message: 'ids_required', trigger: 'change' },
     IP: { validator: validates.ip, message: 'ids_qos_ipInvalid', trigger: 'change' },
     pin: { validator: validates.pin, message: 'ids_sim_pinRule', trigger: 'change' },
-    puk: { validator: validates.puk, message: 'ids_sim_pukRule', trigger: 'change' }
+    puk: { validator: validates.puk, message: 'ids_sim_pukRule', trigger: 'change' },
+    wepkey: { validator: validates.wepkey, message: 'ids_wlan_wepKeyRule', trigger: 'change' },
+    wpakey: { validator: validates.wpakey, message: 'ids_wlan_wpaKeyRule', trigger: 'change' }
   }
 }
 
@@ -39,11 +44,13 @@ config.mobileConnection = {
       [0, 'IPV4'],
       [2, 'IPV6'],
       [3, 'IPv4v6']
+    ],
+    RoamingConnect: [
+      [1, 'ids_disable'],
+      [0, 'ids_enable']
     ]
   },
   formData: {
-    ConnectMode: 0,
-    PdpType: 0
   },
   formRules: {}
 };
@@ -51,14 +58,14 @@ config.mobileConnection = {
 config.networkSettings = {
   formOptions: {
     NetselectionMode: [
-      [0, 'Auto'],
-      [1, 'Manual']
+      [0, 'ids_auto'],
+      [1, 'ids_manual']
     ],
     NetworkMode: [
-      [0, 'AUTO'],
-      [1, '2G Only'],
-      [2, '3G Only'],
-      [3, '4G Only']
+      [0, 'ids_auto'],
+      [1, 'ids_2gOnly'],
+      [2, 'ids_3gOnly'],
+      [3, 'ids_4gOnly']
     ],
     RoamingConnect: common.checkBoxEnable
   },
@@ -225,10 +232,6 @@ config.systemSettings = {
       ZoneName: "UTC"
     },
     formOptions: {
-      AntennaSwitch: [
-        [0, 'Internal'],
-        [1, 'External']
-      ],
       Language: [],
       TimeZone: []
     },
@@ -293,12 +296,12 @@ config.smsSettings = {
   },
   formOptions: {
     StoreFlag: [
-      [0, 'SIM Card'],
-      [1, 'Device']
+      [0, 'ids_sms_modeSimCard'],
+      [1, 'ids_device']
     ],
     SMSReportFlag: [
-      [1, 'Enable'],
-      [0, 'Disable']
+      [1, 'ids_enable'],
+      [0, 'ids_disable']
 
     ]
   },
@@ -334,7 +337,7 @@ config.profileManagement = {
   formData: {},
   formOptions: {
     AuthType: [
-      [0, 'None'],
+      [0, 'ids_none'],
       [1, 'PAP'],
       [2, 'CHAP'],
       [3, 'PAP& CHAP']
@@ -342,13 +345,13 @@ config.profileManagement = {
   },
   formRules: {
     ProfileName: [
-      { required: true, message: '请输入APN', trigger: 'blur' },
+      { required: true, message: 'ids_required', trigger: 'blur' },
     ],
     DailNumber: [
-      { required: true, message: '请输入APN', trigger: 'blur' },
+      { required: true, message: 'ids_required', trigger: 'blur' },
     ],
     APN: [
-      { required: true, message: '请输入Password', trigger: 'blur' },
+      { required: true, message: 'ids_required', trigger: 'blur' },
     ]
   },
 };
@@ -357,29 +360,27 @@ config.monthlyPlan = {
   formData: {},
   formOptions: {
     AutoDisconnFlag: [
-      [0, 'disable'],
-      [1, 'enable']
+      [0, 'ids_disable'],
+      [1, 'ids_enable']
     ],
     TimeLimitFlag: [
-      [0, 'disable'],
-      [1, 'enable']
+      [0, 'ids_disable'],
+      [1, 'ids_enable']
     ],
     Unit: [
-      [0, 'MB'],
-      [1, 'GB'],
-      [2, 'KB']
+      [0, 'ids_mb'],
+      [1, 'ids_gb'],
+      [2, 'ids_kb']
     ]
   },
   formRules: {
     MonthlyPlan: [
       { required: true, message: 'Required', trigger: 'blur' },
-      { min: 1, max: 4, message: '长度在 1 到 4 个字符' },
-      { validator: validates.monthlyPlan, message: 'Please input the data between 1-1024.', trigger: 'blur' }
+      { validator: validates.monthlyPlan, message: 'ids_monthlyPlan_totalUsageInvalid', trigger: 'blur' }
     ],
     TimeLimitTimes: [
       { required: true, message: 'Required', trigger: 'blur' },
-      { min: 1, max: 5, message: '长度在 1 到 5 个字符' },
-      { validator: validates.timeLimitTimes, message: 'Please input the data between 1-43200.', trigger: 'blur' }
+      { validator: validates.timeLimitTimes, message: 'ids_monthlyPlan_overtimeInvalid', trigger: 'blur' }
     ]
   }
 };
@@ -417,16 +418,16 @@ config.wlanStatistics = {
 config.algSettings = {
   formOptions: {
     PptpStatus: [
-      [0, 'Enable'],
-      [1, 'Disable']
+      [0, 'ids_enable'],
+      [1, 'ids_disable']
     ],
     H323AlgStatus: [
-      [0, 'Enable'],
-      [1, 'Disable']
+      [0, 'ids_enable'],
+      [1, 'ids_disable']
     ],
     SipAlgStatus: [
-      [0, 'Enable'],
-      [1, 'Disable']
+      [0, 'ids_enable'],
+      [1, 'ids_disable']
     ]
   },
   formData: {},
@@ -437,8 +438,8 @@ config.algSettings = {
 config.dmzSettings = {
   formOptions: {
     dmz_status: [
-      [0, 'Enable'],
-      [1, 'Disable']
+      [0, 'ids_enable'],
+      [1, 'ids_disable']
     ]
   },
   formData: {
@@ -458,8 +459,8 @@ config.dmzSettings = {
 config.upnpSettings = {
   formOptions: {
     upnp_switch: [
-      [0, 'Enable'],
-      [1, 'Disable']
+      [0, 'ids_enable'],
+      [1, 'ids_disable']
     ]
   },
   formData: {},
@@ -470,8 +471,8 @@ config.upnpSettings = {
 config.virtualServer = {
   formOptions: {
     fwding_status: [
-      [0, 'Off'],
-      [1, 'On']
+      [0, 'ids_wifi_off'],
+      [1, 'ids_wifi_on']
     ],
     fwding_protocol: [
       [6, 'TCP'],
@@ -537,23 +538,23 @@ config.qos = {
   },
   formOptions: {
     State: [
-      [0, 'disable'],
-      [1, 'enable'],
+      [0, 'ids_disable'],
+      [1, 'ids_enable'],
     ],
     Protocol: [
-      [0, 'ALL'],
+      [0, 'ids_all'],
       [1, 'TCP'],
       [2, 'UDP'],
       [3, 'ICMP']
     ],
     Priority: [
-      [0, 'Express'],
-      [1, 'High'],
-      [2, 'Normal'],
-      [3, 'Low']
+      [0, 'ids_qos_express'],
+      [1, 'ids_qos_high'],
+      [2, 'ids_qos_normal'],
+      [3, 'ids_qos_low']
     ],
     Service: [
-      [0, 'All'],
+      [0, 'ids_all'],
       [1, 'ICQ'],
       [2, 'BitTorrent'],
       [3, 'eMule'],
@@ -651,8 +652,7 @@ config.userSettings = {
   formOptions: {},
   formRules: {
     DeviceName: [
-      common.rule.required,
-      { min: 1, max: 32, message: 'The maximum length of 32 characters.' }
+      common.rule.required
     ]
   }
 }
@@ -733,7 +733,7 @@ config.homeInternetStatus = {
   ],
   networkTypeDisplayNum: 1, //val:0,1,2;control networkTypeArr display val
   networkTypeArr: [
-    [0, "NA", "NO SERVER"],
+    [0, "NA", "ids_netwrok_noService"],
     [1, "2G", "GPRS"],
     [2, "2G", "EDGE"],
     [3, "3G", "HSPA"],
@@ -749,10 +749,7 @@ config.homeInternetStatus = {
 config.homeWlanStatus = {
   formData: {},
   ssidBroadcastDisplayNum: 1, //val:0,1
-  ssidBroadcastArr: [
-    [0, "ids_disable"],
-    [1, "ids_enable"]
-  ],
+  ssidBroadcastArr: common.checkBoxDisable,
   formRules: {}
 };
 //localUpgrade
@@ -1025,16 +1022,14 @@ config.systemSettings.formOptions.Language = sys.Language;
 
 config.Wlan = {
   formData: {
-    "AP2G_Ssid": "ds9",
     "show2GPassword": false,
     "show5GPassword": false,
-    "CountryCode": "IT",
     "WiFiOffTime": 0,
     "AP2G": {
-      "ApStatus": 1,
+      "ApStatus": 0,
       "WMode": 3,
       "CountryCode": "CN",
-      "Ssid": "WebPocket-BAB5",
+      "Ssid": "",
       "SsidHidden": 0,
       "Channel": 0,
       "SecurityMode": 3,
@@ -1049,10 +1044,10 @@ config.Wlan = {
       "Bandwidth": 0
     },
     "AP5G": {
-      "ApStatus": 1,
+      "ApStatus": 0,
       "WMode": 3,
       "CountryCode": "CN",
-      "Ssid": "WebPocket-BAB5-5G",
+      "Ssid": "",
       "SsidHidden": 0,
       "Channel": 0,
       "SecurityMode": 3,
@@ -1088,8 +1083,8 @@ config.Wlan = {
         [4, 'WPA/WPA2']
       ],
       WepType: [
-        [0, 'OPEN'],
-        [1, 'share']
+        [0, 'ids_wifi_wepOpen'],
+        [1, 'ids_wifi_wepShare']
       ],
       WpaType: [
         [0, 'TKIP'],
@@ -1097,8 +1092,8 @@ config.Wlan = {
         [2, 'ids_auto']
       ],
       ApIsolation: [
-        [0, 'Off'],
-        [1, 'On'],
+        [0, 'ids_wifi_off'],
+        [1, 'ids_wifi_on'],
       ],
       WMode: [
         [0, 'ids_auto'],
@@ -1106,7 +1101,7 @@ config.Wlan = {
         [2, '802.11b/g'],
         [3, '802.11b/g/n']
       ],
-      SsidHidden: common.checkBoxEnable,
+      SsidHidden: common.checkBoxDisable,
       Bandwidth: [
         [0, '20MHz/40MHz'],
         [1, '20MHz'],
@@ -1127,8 +1122,8 @@ config.Wlan = {
         [4, 'WPA/WPA2']
       ],
       WepType: [
-        [0, 'OPEN'],
-        [1, 'share']
+        [0, 'ids_wifi_wepOpen'],
+        [1, 'ids_wifi_wepShare']
       ],
       WpaType: [
         [0, 'TKIP'],
@@ -1145,7 +1140,7 @@ config.Wlan = {
         [5, '802.11a/n'],
         [6, '802.11a/c']
       ],
-      SsidHidden: common.checkBoxEnable,
+      SsidHidden: common.checkBoxDisable,
       Bandwidth: [
         [0, '20MHz/40MHz'],
         [1, '20MHz'],
@@ -1160,6 +1155,22 @@ config.Wlan = {
     "AP5G:Ssid": [
       common.rule.required
     ],
+    "AP2G:WepKey": [
+      common.rule.required,
+      common.rule.wepkey
+    ],
+    "AP5G:WepKey": [
+      common.rule.required,
+      common.rule.wepkey
+    ],
+    "AP2G:WpaKey": [
+      common.rule.required,
+      common.rule.wpakey
+    ],
+    "AP5G:WpaKey": [
+      common.rule.required,
+      common.rule.wpakey
+    ]
   },
 }
 

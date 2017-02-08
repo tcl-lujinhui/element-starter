@@ -356,26 +356,26 @@ export default {
         "Language": "en"
     },
     GetSystemStatus: {
-        "NetworkType": 8,
-        "SignalStrength": 1,
-        "WlanState": 1,
+        "NetworkType": 0,
+        "SignalStrength": 0,
+        "WlanState": 0,
         "ConnectionStatus": 0,
-        "SmsState": 1,
-        "chg_state": 2,
-        "bat_cap": 31,
+        "SmsState": 0,
+        "chg_state": 0,
+        "bat_cap": 0,
         "bat_level": 1,
         "Roaming": 0,
-        "curr_num": 4,
-        "Conprofileerror": 1,
-        "NetworkName": "CMCC",
-        "TotalConnNum": 5,
-        "UsbStatus":1
+        "curr_num": 0,
+        "Conprofileerror": 0,
+        "NetworkName": "",
+        "TotalConnNum": 0,
+        "UsbStatus":0
     },
     GetUpnpSettings: {
         "upnp_switch": 1
     },
     GetCurrentTime: {
-        "CurrTime": "2015-01-20 01:17:16",
+        "CurrTime": "",
         "TimeZone": "GMT0",
         "ZoneName": "UTC"
     },
@@ -459,24 +459,24 @@ export default {
 
     //*****************WAN*****************
     GetWanSettings: {
-        "SubNetMask": "255.255.255.0",
-        "Gateway": "192.168.1.1",
-        "IpAddress": "192.168.1.120",
-        "Mtu": 1500,
+        "SubNetMask": "",
+        "Gateway": "",
+        "IpAddress": "",
+        "Mtu": 0,
         "ConnectType": 0,
-        "PrimaryDNS": "202.201.23.01",
-        "SecondaryDNS": "202.201.23.01",
-        "Account": "sz13234@163gd.com",
-        "Password": "123456",
+        "PrimaryDNS": "",
+        "SecondaryDNS": "",
+        "Account": "",
+        "Password": "",
         "Status": 0,
-        "StaticIpAddress":"10.128.208.150",
-        "pppoeMtu": 1492,
-        "DurationTime": 100,
-        "WanType": "eth0"
+        "StaticIpAddress":"",
+        "pppoeMtu": 0,
+        "DurationTime": 0,
+        "WanType": ""
     },
     GetWanCurrentMacAddr: {
-        "MacAddr": "AA:BB:CC:DD:EE:FF",
-        "HostMacAddr": "BB:BB:CC:DD:EE:FF"
+        "MacAddr": "",
+        "HostMacAddr": ""
     },
     GetWanIsConnInter: {
         "ConnToInterStatus": 0
@@ -490,12 +490,12 @@ export default {
 
     //*****************routingrules*****************
     GetStaticRouting: {
-        "State": 1,
+        "State": 0,
         "StaticRoutingList": []
     },
     GetDynamicRouting: {
-        "RipState": 1,
-        "Operation": 1,
+        "RipState": 0,
+        "Operation": 0,
         "RipVerion": 0
     },
     //*****************tr069*****************

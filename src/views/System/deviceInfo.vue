@@ -3,13 +3,13 @@
   div#deviceInfo
     +sideMenuPage('System')
       el-form(label-width="200px")
-        +text("Device Name:","{{SystemInfo.DeviceName}}")
-        +text("IMEI:","{{SystemInfo.IMEI}}")
-        +text("IMSI:","{{SystemInfo.IMSI}}")
-        +text("My Number:","{{SystemInfo.SISDN}}")
-        +text("Hardware version:","{{SystemInfo.HwVersion}}")
-        +text("Software version:","{{SystemInfo.SwVersion}}")
-        +text("MAC address:","{{SystemInfo.HwVersion}}")
+        +text("ids_system_deviceName:","{{SystemInfo.DeviceName}}")
+        +text("ids_system_imei:","{{SystemInfo.IMEI}}")
+        +text("ids_system_imsi:","{{SystemInfo.IMSI}}")
+        +text("ids_system_myNumber:","{{SystemInfo.MSISDN}}")
+        +text("ids_system_hardwareVersion:","{{SystemInfo.HwVersion}}")
+        +text("ids_system_softwareVersion:","{{SystemInfo.SwVersion}}")
+        +text("ids_lan_macAdress:","{{SystemInfo.MacAddress}}")
 </template>
 <script>
 export default {

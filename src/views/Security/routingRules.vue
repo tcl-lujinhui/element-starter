@@ -2,7 +2,7 @@
   include ../components.jade
   #routingRules
     +sideMenuPage('Settings')
-      +breadcrumb("Routing Rules")
+      +breadcrumb("ids_router_Title")
       staticRules
       dynamicRules
 </template>

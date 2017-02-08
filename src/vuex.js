@@ -3,6 +3,7 @@ import $ from 'jquery'
 var vuex = {
   res: {},
   SimInfo: {},
+  currentLanguage:"en",
   SystemStatus: {},
   WanSettings: {},
   WanConnStatus: {},
@@ -10,6 +11,7 @@ var vuex = {
   heartBeatInterval: null,
   initRes: (cb) => {
     Vue.sdk.get("GetCurrentLanguage", null, (res) => {
+      vuex.currentLanguage=res.Language;
       $.get("/dist/i18n/" + res.Language + ".json", (data) => {
         if (typeof(data) == "string") {
           data = JSON.parse(data);

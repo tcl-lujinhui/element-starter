@@ -44,11 +44,11 @@ menuConfig.sideMenu = {
       text: "ids_wifi_WiFiTitle",
       router: "wlanStatistics"
     }]
-  }, /*{
+  }, {
     icon: "setup-wizard",
     text: "ids_setupWizard",
     router: "setupWizard"
-  }*/],
+  }],
   "Services": [{
     icon: "SMS",
     text: "ids_sms_titleSms",
@@ -83,7 +83,7 @@ menuConfig.sideMenu = {
     }]
   }, {
     icon: "share",
-    text: "ids_wifi_wepShare",
+    text: "ids_share",
     submenu: [{
       text: "ids_storageShare",
       router: "storageShare"
@@ -178,11 +178,11 @@ menuConfig.sideMenu = {
       text: "ids_vtServer_titleVirtualServer",
       router: "virtualServer"
     }]
-  }, /*{
+  }, {
     icon: "qos",
     text: "ids_qos_titleQos",
     router: "qos"
-  }, */{
+  }, {
     icon: "lan",
     text: "ids_lan_Lan",
     router: "lanSettings"
@@ -211,10 +211,10 @@ menuConfig.sideMenu = {
     },*/ {
       text: "ids_update_onlineUpgrade",
       router: "onlineUpgrade"
-    }, /*{
+    }, {
       text: "ids_title_tr069",
       router: "tr069"
-    }*/]
+    }]
   }, {
     icon: "devicemgmt",
     text: "ids_system_deviceMamt",
@@ -224,10 +224,10 @@ menuConfig.sideMenu = {
     }, {
       text: "ids_system_pageTitle",
       router: "systemSettings"
-    },/* {
+    }, {
       text: "ids_system_backupRestore",
       router: "restore"
-    }*/]
+    }]
   }]
 }
 

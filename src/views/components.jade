@@ -3,6 +3,7 @@ mixin form(form)
   el-form(:rules="formRules" ref="#{form}",:model="#{form}" label-width="198px")&attributes(attributes)
     if block
       block
+
 mixin formItem(label)
   - var isIds= label.indexOf("ids_")==0?true:false;
   - var labels = label.split(":");
@@ -16,6 +17,7 @@ mixin formItem(label)
     el-form-item(label="#{label}")&attributes(attributes)
       if block
         block
+
 mixin span(label1)
   - var isIds= label1.indexOf("ids_")==0?true:false;
   if isIds
@@ -55,8 +57,7 @@ mixin checkbox(label,name,label1="")
     if isIds
       el-checkbox(v-model="formData.#{name}",:true-label="formOptions.#{name}[0][0]",:false-label="formOptions.#{name}[1][0]")&attributes(attributes) {{vuex.res.#{label1}}}
     else 
-      el-checkbox(v-model="formData.#{name}",:true-label="formOptions.#{name}[0][0]",:false-label="formOptions.#{name}[1][0]")&attributes(attributes) #{label1}
-    
+      el-checkbox(v-model="formData.#{name}",:true-label="formOptions.#{name}[0][0]",:false-label="formOptions.#{name}[1][0]")&attributes(attributes) #{label1}    
 
 mixin switch(label,name)
   +formItem(label)(prop="#{name}")
@@ -80,21 +81,19 @@ mixin button(label)
   if isIds
     el-button&attributes(attributes)(size="small") {{vuex.res.#{label}}}
   else
-    el-button&attributes(attributes)(size="small") #{label}
-  
+    el-button&attributes(attributes)(size="small") #{label}  
 
 mixin formBtn()
   +formItem("")
-    +button("Apply")(type="primary" @click="update")
-    +button("Cancel")(@click="reset")
+    +button("ids_apply")(type="primary" @click="update")
+    +button("ids_cancel")(@click="reset")
 
 mixin breadcrumb(title)
   - var isIds= title.indexOf("ids_")==0?true:false;
   if isIds
     h3.breadcrumb&attributes(attributes) {{vuex.res.#{title}}}
   else
-    h3.breadcrumb&attributes(attributes) #{title}
-  
+    h3.breadcrumb&attributes(attributes) #{title}  
 
 mixin sideMenuPage(menu)
   el-row
@@ -105,30 +104,33 @@ mixin sideMenuPage(menu)
         if block
         block
 
-
 mixin lirouterLink(state,text)
   li
     router-link.router-link(to="/#{state}")&attributes(attributes) #{text}
 
-
 mixin bottonRouterLink(state,text)
   - var isIds= text.indexOf("ids_")==0?true:false;
   if isIds
-    el-button(type="primary" size="small")
-      router-link.router-link(to="/#{state}")&attributes(attributes) {{vuex.res.#{text}}}
+    router-link.a-el-button.router-link(to="#{state}")&attributes(attributes) {{vuex.res.#{text}}}
   else
-    el-button(type="primary" size="small")
-      router-link.router-link(to="/#{state}")&attributes(attributes) #{text}
+    router-link.a-el-button.router-link(to="#{state}")&attributes(attributes) #{text}
+
 mixin inputNone(label,model)
   - var prop= model.replace(/\./,':');
   span(v-model="formData.#{model}" v-if="typeof formData.#{model} =='number'")&attributes(attributes)
   el-input(v-model="formData.#{model}" v-else)&attributes(attributes)
+
 mixin formBtnNone()
   div.btnLogin&attributes(attributes)
-    +button("Login")(type="primary" @click="update")
+    +button("ids_login")(type="primary" @click="update")
+
 mixin formCheckbox(name,label1)
+  - var isIds= label1.indexOf("ids_")==0?true:false;
   div&attributes(attributes)
-    el-checkbox(v-model="formData.#{name}",:true-label="formOptions.#{name}[0][0]",:false-label="formOptions.#{name}[1][0]")&attributes(attributes) #{label1}
+    if isIds
+      el-checkbox(v-model="formData.#{name}",:true-label="formOptions.#{name}[0][0]",:false-label="formOptions.#{name}[1][0]")&attributes(attributes) {{vuex.res.#{label1}}}
+    else
+      el-checkbox(v-model="formData.#{name}",:true-label="formOptions.#{name}[0][0]",:false-label="formOptions.#{name}[1][0]")&attributes(attributes) #{label1}
 
   
 

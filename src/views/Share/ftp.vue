@@ -17,12 +17,11 @@ import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.ftp;
 export default {
   created() {
-      this.init()
+      this.init();      
+      this.initdata(Config);
     },
     methods: {
       init() {
-        this.vuex = vuex;
-        this.initdata(Config);
         this.page = {
           ftpStatus: false
         }
@@ -32,10 +31,11 @@ export default {
         });
       },
       update() {
+        let results = {
+          callback:this.init
+        };
         this.formData.FtpStatus = this.page.ftpStatus == true ? 1 : 0;
-        this.sdk.post("SetFtpSettings", this.formData, (res) => {          
-          console.log(res)
-        })
+        this.sdk.post("SetFtpSettings", this.formData, results);
       }
     }
 }

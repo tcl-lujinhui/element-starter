@@ -18,10 +18,11 @@
           div.loginArea
             div.title {{vuex.res.ids_login_loginPwd}}
             //-+input("username:","UserName")(type="password")
+            input(type="password" style="display:none" onkeypress="update(event)")
             +inputNone("","Password")(type="password")(v-on:change = "changeInput()", :placeholder="vuex.res.ids_login_placeHolder" name="passVal")
             div.tips-error(v-show="page.isTipsError")
-            +formCheckbox("save_flag","Remember password")(class="paddingVal")
-            +formBtnNone()
+            +formCheckbox("save_flag","ids_login_rememberPassword")(class="paddingVal")
+            +formBtnNone(class="submit")
 </template>
 
 <script>
@@ -36,9 +37,10 @@ export default {
     init (){
       this.vuex = vuex;
       this.initdata(Config);
-      //this.initDataEvent();
+      this.initDataEvent();
       this.page = {
-        isTipsError:false
+        isTipsError:false,
+        className:"submit"
       }
     },
     update (){
@@ -99,16 +101,17 @@ export default {
     firstLoginEvent(){
       this.sdk.post("GetPasswordChangeFlag",this.formData,(res) =>{
         if(res.result.change_flag == 0){
+          this.page.className = "submitNone";
           this.$confirm(vuex.res['ids_login_changePasswordTips'],vuex.res['ids_login_loginPwd'],{
             confirmButtonText:vuex.res['ids_login_changeNow'],
             cancelButtonText:vuex.res['ids_cancel']
           }).then(() =>{
             this.$router.push('changePassword')
           }).catch(() =>{
-            this.$router.push('internetStatistics')
+            this.$router.push('internetStatus')
           });
         }else{
-          this.$router.push('internetStatistics')
+          this.$router.push('internetStatus')
         }
       });
     },
@@ -121,13 +124,22 @@ export default {
         $.cookie("obj",str);
     },
     initDataEvent(){
-        if($.cookie("obj") != "" || $.cookie("obj") != null || $.cookie("obj") != undefined){
-            let getObj = JSON.parse($.cookie("obj"));
+        if(!$.isEmptyObject($.cookie("obj"))){
+            let getObj = $.parseJSON($.cookie("obj"));
             if(getObj.save_flag == 1){
-            this.formData.Password = getObj.Password;
-            this.formData.save_flag = getObj.save_flag;
+                this.formData.Password = getObj.Password;
+                this.formData.save_flag = getObj.save_flag;
+            }else{
+                getObj.Password = "";
+                this.formData.Password = "";
             }
         }
+        let _self = this;
+        $(document).keypress(function(e) {
+        if (e.which == 13) {
+            $("."+_self.page.className).find("button").click();
+        }
+    });
     },
     changeInput(){
         this.page.isTipsError = false;
@@ -135,6 +147,7 @@ export default {
     displayTipsText(text){
         this.page.isTipsError = true;
         $(".tips-error").html(text);
+        $("input[name = 'passVal']").select();
     }
   }
 }

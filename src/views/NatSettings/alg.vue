@@ -5,9 +5,9 @@
       +breadcrumb("ids_alg_title")
       +form("formData")
         +radio("PPTP:","PptpStatus")
-        +radio("H.323 ALG Status:","H323AlgStatus")
-        +radio("SIP ALG Status:","SipAlgStatus")
-        +input("SIP port","SipAlgPort")
+        +radio("ids_alg_h323Status:","H323AlgStatus")
+        +radio("ids_alg_sipStatus:","SipAlgStatus")
+        +input("ids_alg_sipPort","SipAlgPort")
         +formBtn()
         p.tips {{vuex.res.ids_note}}:<br/>{{vuex.res.ids_alg_Note}}
 </template>

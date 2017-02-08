@@ -8,9 +8,9 @@
           +input("ids_monthlyPlan_dataPlan:","MonthlyPlan")
           +select("","Unit")
           +checkbox("ids_monthlyPlan_autoDisconnet:","AutoDisconnFlag")
-          +text("Data Consumption:","{{formData.UsedData | covertNum}}")
-          +input("ids_monthlyPlan_setTimeLimit:","TimeLimitTimes","Mins")(:disabled="formData.TimeLimitFlag==1")
-          +checkbox("Enable or Disable Time Limit:","TimeLimitFlag")
+          +text("ids_dataConsuption:","{{formData.UsedData | covertNum}}")
+          +input("ids_monthlyPlan_setTimeLimit:","TimeLimitTimes","ids_mins")(:disabled="formData.TimeLimitFlag==1")
+          +checkbox("ids_isTimeLimit:","TimeLimitFlag")
           +text("ids_monthlyPlan_timePass:","{{formData.UsedTimes*60 | UsedTimes}}")
           +formBtn()
 </template>

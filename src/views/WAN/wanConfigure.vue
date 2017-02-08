@@ -53,7 +53,7 @@ export default {
             return isAPIParam(value);
           });
           this.sdk.post("SetWanSettings", params, (res) => {
-            console.log(res)
+            this.init();
           });
         }).catch(() => {
 

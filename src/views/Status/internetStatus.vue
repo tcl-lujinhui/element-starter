@@ -16,7 +16,7 @@
             span(v-if="vuex.SimInfo.SIMState=='ready'&&(vuex.SystemStatus.ConnectionStatus==0||vuex.SystemStatus.ConnectionStatus==2)")
               +button("{{vuex.res[vuex.SystemStatus.ConnectionStatus==0?'ids_connect':'ids_disconnect']}}")(type="primary" size="small" @click="connectOrDisconnectNet")
           +text("ids_netwrok_networkName:","{{vuex.SystemStatus.NetworkName}}")
-          +text("ids_netwrok_networkType:","{{vuex.SystemStatus.networkType|networkType}}","")
+          +text("ids_netwrok_networkType:","{{vuex.SystemStatus.NetworkType|networkType}}","")
           +text("ids_profile_name:","{{page.currentProfile}}","")
           +text("ids_netwrok_ipv4Address:","{{page.ConnectionState.IPv4Adrress}}","")
           +text("ids_netwrok_ipv6Address:","{{page.ConnectionState.IPv6Adrress}}","")

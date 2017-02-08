@@ -1,11 +1,12 @@
 var path = require('path')
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 var webpack = require('webpack')
 
 module.exports = {
   entry: {
     "build": './src/app.js',
-    "config": "./src/config.js"
+    //"config": "./src/config.js"
   },
   //entry: './src/app.js',
   output: {
@@ -53,7 +54,7 @@ module.exports = {
     noInfo: true,
     proxy: {
       '/jrd/webapi': {
-        //target: 'http://127.0.0.1:9096',
+        target: 'http://127.0.0.1:9096',
         target: 'http://192.168.1.1',
         secure: false
       },
@@ -75,6 +76,12 @@ if (process.env.NODE_ENV === 'production') {
       'process.env': {
         NODE_ENV: '"production"'
       }
+    }),
+    new HtmlWebpackPlugin({
+      title: '4G LINKHUB',
+      hash: true,
+      template: 'index.ejs',
+      filename: '../index.html'
     }),
     new CopyWebpackPlugin([{
       from:'src/i18n',

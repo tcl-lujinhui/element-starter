@@ -8,15 +8,15 @@
           +radio("ids_networkSearchMode:","NetselectionMode")
           +select("ids_netwrok_netMode:","NetworkMode")
           div.btn-wrap
-            +button("Apply")(type="primary" @click="update" )
-            +button("Search")(:disabled="formData.NetselectionMode==0" type="primary" @click="refreshEvent" )
-            +button("Cancel")(@click="reset")    
+            +button("ids_apply")(type="primary" @click="update" )
+            +button("ids_netwrok_search")(:disabled="(page.NetworkSettings.NetselectionMode==0||formData.NetselectionMode==0)" type="primary" @click="refreshEvent" )
+            +button("ids_cancel")(@click="reset")    
         div.networkListBox
           table.nw-list(cellpadding="0" cellspacing="0")
             tr
               th(width="25%") {{vuex.res.ids_netwrok_networkName}}
               th(width="25%") {{vuex.res.ids_netwrok_networkType}}
-              th(width="25%") {{vuex.res.ids_net_status}}
+              th(width="25%") {{vuex.res.ids_state}}
               th(width="25%")
             tr(v-loading.body="page.SearchState==1||page.regist_state==1" v-show="page.SearchState==1||page.regist_state==1")
               td(row="4")
@@ -56,9 +56,11 @@ export default {
           State: "",
           indexs: -1,
           SearchState: '',
-          regist_state:0
+          regist_state:0,
+          NetworkSettings:{}
         };
         this.sdk.get("GetNetworkSettings", null, (res) => {
+          $.extend(this.page.NetworkSettings,res)
           this.formData = res;
         })
       },
@@ -111,7 +113,7 @@ export default {
           },
           fail: {
             tips: "Message",
-            msg: "fail!",
+            msg: this.vuex.res.ids_fail,
             callback: this.init
           }
         };

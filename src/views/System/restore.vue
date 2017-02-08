@@ -15,7 +15,7 @@
             el-col(:span="15")
               div.uploadFile
                 input.fileUpload(type="file" id="fileUpload" name="fileUpload")(v-on:change = "showUpgradeFileUrl()")
-                el-input(size="small" class="inline-input" placeholder="Tap to select file" v-model="page.fileUrlName", :change="changeInput()")
+                el-input(size="small" class="inline-input" placeholder="" v-model="page.fileUrlName", :change="changeInput()")
                 +button("ids_update_Browse")(size="small" type="primary")
               +button("ids_restore")(size="small" type="primary" @click="restoreDevice", :disabled="page.restoreDisabled")
           el-dialog(v-model="page.deviceRestored" size="tiny" top="50%" show-close = false)

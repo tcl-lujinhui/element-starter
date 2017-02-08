@@ -1,4 +1,4 @@
-﻿{
+{
     "ids_cancel": "Cancel",
     "ids_help": "Help",
     "ids_home": "Home",
@@ -486,14 +486,5 @@
     "ids_restore_device_restoration": "Device restoration not complete. Restart device and try again.",
     "ids_restore_factory_settings": "Restore your device to factory settings now?",
     "ids_wifi_wpsActive": "WPS is active.",
-    "ids_net_operator": "operator",
-    "ids_net_service": "service",
-    "ids_net_status": "status",
-    "ids_btn_refresh": "refresh",
-    "ids_btn_select": "select",
-    "ids_net_gsm": "gsm",
-    "ids_net_umts": "umts",
-    "ids_net_lte": "lte",
-    "ids_sim_unknown": "unknown",
-    "ids_net_active": "active" 
+    "ids_share": "Share"
 }

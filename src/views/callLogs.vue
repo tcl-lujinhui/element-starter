@@ -39,7 +39,7 @@ export default {
           select: []
         };
         if (this.$route.name == "incomingCall") {
-          this.page.pageName = "Incoming call";//this.vuex.res.ids_call_Incoming;
+          this.page.pageName = this.vuex.res.ids_call_Incoming;
           this.formData.pageNum = this.page.currentPage;
           this.formData.type = 1;
           this.sdk.get("GetCallLogList", this.formData, (res) => {
@@ -51,7 +51,7 @@ export default {
             console.log(this.page.totalPageCount );
           })
         } else if (this.$route.name == "outgoingCall") {
-          this.page.pageName = "Outgoing call";//this.vuex.res.ids_call_Outgoing;
+          this.page.pageName = this.vuex.res.ids_call_Outgoing;
           this.formData.pageNum = this.page.currentPage;
           this.formData.type = 2;
           this.sdk.get("GetCallLogList", this.formData, (res) => {
@@ -60,7 +60,7 @@ export default {
             this.initTableList();
           })
         } else if (this.$route.name == "missedCall") {
-          this.page.pageName = "Missed call";//this.vuex.res.ids_call_Missed;
+          this.page.pageName = this.vuex.res.ids_call_Missed;
           this.formData.pageNum = this.page.currentPage;
           this.formData.type = 3;
           this.sdk.get("GetCallLogList", this.formData, (res) => {
@@ -69,7 +69,7 @@ export default {
             this.initTableList();
           })
         } else {
-          this.page.pageName = "Incoming call";//this.vuex.res.ids_call_Incoming;
+          this.page.pageName = this.vuex.res.ids_call_Incoming;
           this.formData.pageNum = this.page.currentPage;
           this.formData.type = 0;
           this.sdk.get("GetCallLogList", this.formData, (res) => {

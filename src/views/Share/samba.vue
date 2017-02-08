@@ -17,12 +17,11 @@ import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.samba;
 export default {
   created() {
-      this.init()
+      this.init();
+      this.initdata(Config);
     },
     methods: {
-      init() {
-        this.vuex = vuex;
-        this.initdata(Config);
+      init() {        
         this.page = {
           sambaStatus: false
         }
@@ -32,10 +31,11 @@ export default {
         });
       },
       update() {
+        let results = {
+          callback:this.init
+        };
         this.formData.SambaStatus = this.page.sambaStatus == true ? 1 : 0;
-        this.sdk.post("SetSambaSettings", this.formData, (res) => {          
-          console.log(res)
-        })
+        this.sdk.post("SetSambaSettings", this.formData, results);
       }
     }
 }

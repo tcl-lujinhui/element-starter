@@ -4,7 +4,7 @@ let units = {}
 
 units.networkType = (type) => {
   let networkTypeMap = [
-    [0, "NA", "NO SERVER"],
+    [0, "NA", "ids_netwrok_noService"],
     [1, "2G", "GPRS"],
     [2, "2G", "EDGE"],
     [3, "3G", "HSPA"],
@@ -32,7 +32,7 @@ units.covertNum = (number) => {
 
 units.qosService = (val) => {
   let qosServiceArr = [
-    [0, "All"],
+    [0, "ids_all"],
     [1, "ICQ"],
     [2, "BitTorrent"],
     [3, "eMule"],
@@ -62,10 +62,10 @@ units.qosService = (val) => {
 
 units.qosPriority = (val) => {
   let qosPriorityArr = [
-    [0, "Express"],
-    [1, "High"],
-    [2, "Normal"],
-    [3, "Low"]  
+    [0, 'ids_qos_express'],
+    [1, 'ids_qos_high'],
+    [2, 'ids_qos_normal'],
+    [3, 'ids_qos_low']
   ];
   let currentPriority = _.find(qosPriorityArr, (num) => {
     return num[0] == val;
@@ -79,7 +79,7 @@ units.qosPriority = (val) => {
 
 units.qosProtocol = (val) => {
   let qosProtocolArr = [
-    [0, "ALL"],
+    [0, "ids_all"],
     [1, "TCP"],
     [2, "UDP"],
     [3, "ICMP"]   
@@ -100,7 +100,7 @@ units.networkRat = (val) => {
     [2, "UMTS"],
     [3, "LTE"],
     [4, "CDMA"],
-    [5, "unknown"]
+    [5, "ids_unknown"]
   ];
   let currentRat = _.find(networkRatArr, (num) => {
     return num[0] == val;
@@ -114,10 +114,10 @@ units.networkRat = (val) => {
 
 units.networkState = (val) => {
   let networkStateArr = [
-    [0, "unknown"],
-    [1, "available"],
-    [2, "register"],
-    [3, "forbidden"]
+    [0, "ids_unknown"],
+    [1, "ids_netwrok_available"],
+    [2, "ids_netwrok_register"],
+    [3, "ids_netwrok_forbidden"]
   ];
   let currentState = _.find(networkStateArr, (num) => {
     return num[0] == val;

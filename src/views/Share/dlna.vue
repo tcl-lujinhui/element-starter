@@ -13,12 +13,11 @@ import {_,_config,$,vuex,G} from '../../common.js';
 let Config = _config.dlna;
 export default {
   created() {
-      this.init()
+      this.init();      
+      this.initdata(Config);
     },
     methods: {
       init() {
-        this.vuex = vuex;
-        this.initdata(Config);
         this.page = {
           dlnaStatus: false
         }
@@ -28,10 +27,11 @@ export default {
         })
       },
       update() {
+        let results = {
+          callback:this.init
+        };
         this.formData.DlnaStatus = this.page.dlnaStatus == true ? 1 : 0;
-        this.sdk.post("SetDLNASettings", this.formData, (res) => {          
-          console.log(res)
-        })
+        this.sdk.post("SetDLNASettings", this.formData, results);
       }
     }
 }

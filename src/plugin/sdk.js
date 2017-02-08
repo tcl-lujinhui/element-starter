@@ -4,13 +4,14 @@ import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import api from './api/api.js'
 import ApiSimulatorData from './api/data.js'
+import {_config,vuex} from '../common.js';
 Vue.use(VueResource)
 let apiURI = '/jrd/webapi';
 let showResult = (options) => {
   let defaults = {
     duration:1000,
     type: "success",
-    msg: "fail!",
+    msg: vuex.res["ids_success"],
     callback() {}
   };
   _.extend(defaults, options);
@@ -92,13 +93,13 @@ export default {
             var successCallbackOption = {
               tips:"Message",
               type: "success",
-              msg: "success!",
+              msg: vuex.res["ids_success"],
               callback() {}
             };
             var failCallbackOption = {
               tips:"Message",
               type: "error",
-              msg: "fail!",
+              msg: vuex.res["ids_fail"],
               callback() {}
             };
             if (callback.hasOwnProperty("callback")&&_.isFunction(callback.callback)) {

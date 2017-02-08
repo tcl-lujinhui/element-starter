@@ -164,6 +164,20 @@ let validates = {
     }
     showErr(callback, errMsg)
   },
+  wepkey(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.wepKey(value)) {
+      errMsg = 'Invalid'
+    }
+    showErr(callback, errMsg)
+  },
+  wpakey(rule, value, callback) {
+    var errMsg = ''
+    if (!validatesFn.wpaKey(value)) {
+      errMsg = 'Invalid'
+    }
+    showErr(callback, errMsg)
+  },
 };
 
 export default validates;

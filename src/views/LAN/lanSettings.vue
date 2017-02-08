@@ -31,16 +31,8 @@ export default {
       },
       update (){
         let setForm = () => {
-          this.$confirm(vuex.res['ids_lan_restartWarn'], vuex.res['ids_confirm'], {
-            confirmButtonText: vuex.res['ids_ok'],
-            cancelButtonText: vuex.res['ids_cancel'],
-            type: 'warning'
-          }).then(() => {
-            this.sdk.post("SetLanSettings", this.formData, (res) => {
-              console.log(res)
-            });
-          }).catch(() => {
-
+          this.sdk.post("SetLanSettings", this.formData, (res) => {
+            this.init();
           }); 
         }
         this.submit("formData", setForm)    

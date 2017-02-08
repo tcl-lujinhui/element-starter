@@ -5,32 +5,32 @@
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pinReq'")
       h2.center {{vuex.SimInfo.SIMStateStr|res}}
       +form("formData")
-        +input('Pin Code:','Pin')(type="password")
+        +input('ids_sim_pinCode:','Pin')(type="password")
         +formItem("")
           div.el-text  {{vuex.res.ids_sim_remainTime}}: {{vuex.SimInfo.PinRemainingTimes}}
         +formItem("")
-          +button("Apply")(type="primary" @click="UnlockPin")
-          +button("Cancel")(@click="$refs.formData.resetFields()")
+          +button("ids_apply")(type="primary" @click="UnlockPin")
+          +button("ids_cancel")(@click="$refs.formData.resetFields()")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pukReq'")
       h2.center{{vuex.SimInfo.SIMStateStr|res}}
       +form("formData")
-        +input("PUK","Puk")(type="password")
-        +input('Pin Code:','Pin')(type="password")
-        +input('Confirm Pin:','ConfirmPin')(type="password")
+        +input("ids_sim_pukCode","Puk")(type="password")
+        +input('ids_sim_pinCode:','Pin')(type="password")
+        +input('ids_sim_confirmPINCode:','ConfirmPin')(type="password")
         +formItem("")
           div.el-text  {{vuex.res.ids_sim_remainTime}}: {{vuex.SimInfo.PukRemainingTimes}}
         +formItem("")
-          +button("Apply")(type="primary" @click="UnlockPuk")
-          +button("Cancel")(@click="$refs.formData.resetFields()")
+          +button("ids_apply")(type="primary" @click="UnlockPuk")
+          +button("ids_cancel")(@click="$refs.formData.resetFields()")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='simLock'")
       h2.center{{vuex.SimInfo.SIMStateStr |res}}
       +form("formData")
-        +input('SIM LockCode:','SIMLockCode')(type="password")
+        +input('ids_sim_simlockCode:','SIMLockCode')(type="password")
         +formItem("")
-          +button("Apply")(type="primary" @click="UnlockSinLock")
-          +button("Cancel")(@click="$refs.formData.resetFields()")
+          +button("ids_apply")(type="primary" @click="UnlockSinLock")
+          +button("ids_cancel")(@click="$refs.formData.resetFields()")
 
     slot(v-if="vuex.SimInfo.SIMState=='ready'")
 

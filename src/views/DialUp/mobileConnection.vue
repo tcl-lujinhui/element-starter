@@ -5,7 +5,8 @@
       +breadcrumb("ids_network_Mobconn")
       +form("formData")
         +radio("ids_netwrok_connectionMode:","ConnectMode")
-        +select("PdpType:","PdpType")
+        +select("ids_netwrok_connnectIpMode:","PdpType")
+        +checkbox("","RoamingConnect","ids_netwrok_roamingEnable")(v-show="formData.ConnectMode==1")
         +formBtn()
   </template>
 
@@ -29,8 +30,6 @@ export default {
         this.sdk.post("SetConnectionSettings", this.formData, {
             callback: this.init
           })
-      },
-      reset() {
       }
     }
 }

@@ -47,6 +47,11 @@ export default {
       })
     },
     update (){
+      this.submit("formData",()=>{
+        this.sdk.post("",this.formData,(res)=>{
+            this.reset()
+          })
+      })
     }
   }
 }

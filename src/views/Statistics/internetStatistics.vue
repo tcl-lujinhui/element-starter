@@ -30,7 +30,7 @@
                 th {{page.connectionInfo.ConnectionTime | covertNum}}
                 th {{page.UsageRecord.TConnTimes | covertNum}}  
 
-        div.noteTips Note:<br /> {{vuex.res.ids_netwrok_statisticsDescription}}
+        div.noteTips {{vuex.res.ids_note}}:<br /> {{vuex.res.ids_netwrok_statisticsDescription}}
 </template>
 <script>
 import {_,_config,$,vuex,G} from '../../common.js';

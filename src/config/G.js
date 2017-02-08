@@ -227,8 +227,11 @@ G.WAN_MAC_ADDRESS_RESTORE = 1;
 G.WLAN_MODEL_ApStatus_DISABLE = 0;
 G.WLAN_MODEL_ApStatus_ENABLE = 1;
 
-G.WLAN_MODEL_WepType_DISABLE = 0;
-G.WLAN_MODEL_WepType_ENABLE = 1;
+G.WLAN_MODEL_SecurityMode_DISABLE = 0;
+G.WLAN_MODEL_SecurityMode_WEP = 1;
+G.WLAN_MODEL_SecurityMode_WPA = 2;
+G.WLAN_MODEL_SecurityMode_WPA2 = 3;
+G.WLAN_MODEL_SecurityMode_WPAWPA2 = 4;
 
 
 export default G;
