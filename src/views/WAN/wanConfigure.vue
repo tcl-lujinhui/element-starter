@@ -52,8 +52,8 @@ export default {
             }
             return isAPIParam(value);
           });
-          this.sdk.post("SetWanSettings", params, (res) => {
-            this.init();
+          this.sdk.post("SetWanSettings", params, {
+            callback: this.init
           });
         }).catch(() => {
 

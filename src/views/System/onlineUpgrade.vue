@@ -7,7 +7,7 @@
         +form("formData")
           div(v-show="page.actionTypeCheck==1")
             p
-              span.title{{vuex.res.ids_update_onlineUpgrade}}:
+              span.title {{vuex.res.ids_update_onlineUpgrade}}:
               span {{page.Version}} {{vuex.res.ids_update_upToDate}}
             +formItem("")
               +button("ids_update_checkBtn")(type="primary" @click="startCheckUpdate")
@@ -19,7 +19,7 @@
               +button("ids_update_checkBtn")(disabled type="primary" @click="")
           el-dialog(:title="vuex.res.ids_update_onlineUpgrade" v-model="page.newVersionType",size="tiny")
             p 
-              span.title{{vuex.res.ids_update_onlineUpgrade}}:
+              span.title {{vuex.res.ids_update_onlineUpgrade}}:
               span {{vuex.res.ids_update_newVersionAvailable | replace('1.2.3',page.Version)}}{{vuex.res.ids_update_Size}}{{page.total_size | byTes}}.
             +formItem("")
               +button("ids_update_upgrade")(type="primary" @click="setFOTAStartDownload")
@@ -39,7 +39,7 @@
             p {{vuex.res.ids_update_noNewSoft}}
             +formItem("")
               +button("ids_finish")(type="primary" @click="reset")
-          p.Warning{{vuex.res.ids_update_upgradingWarning}}        
+          p.Warning {{vuex.res.ids_update_upgradingWarning}}        
 </template>
 <script>
 import {$,vuex,G,_,_config} from '../../common.js';

@@ -7,8 +7,9 @@
         +text("ids_system_imei:","{{SystemInfo.IMEI}}")
         +text("ids_system_imsi:","{{SystemInfo.IMSI}}")
         +text("ids_system_myNumber:","{{SystemInfo.MSISDN}}")
-        +text("ids_system_hardwareVersion:","{{SystemInfo.HwVersion}}")
-        +text("ids_system_softwareVersion:","{{SystemInfo.SwVersion}}")
+        //-+text("ids_system_hardwareVersion:","{{SystemInfo.HwVersion}}")
+        +text("ids_system_softwareVersion:","{{SystemInfo.SwVersionMain}}")
+        +text("ids_system_modemVersion:","{{SystemInfo.SwVersion}}")
         +text("ids_lan_macAdress:","{{SystemInfo.MacAddress}}")
 </template>
 <script>

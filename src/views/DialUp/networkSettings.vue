@@ -8,24 +8,22 @@
           +radio("ids_networkSearchMode:","NetselectionMode")
           +select("ids_netwrok_netMode:","NetworkMode")
           div.btn-wrap
-            +button("ids_apply")(type="primary" @click="update" )
-            +button("ids_netwrok_search")(:disabled="(page.NetworkSettings.NetselectionMode==0||formData.NetselectionMode==0)" type="primary" @click="refreshEvent" )
-            +button("ids_cancel")(@click="reset")    
+            +button("ids_apply")(type="primary" @click="update",:disabled="(page.SearchState==1||page.regist_state==1)")
+            +button("ids_netwrok_search")(:disabled="(page.NetworkSettings.NetselectionMode==0||formData.NetselectionMode==0||page.SearchState==1||page.regist_state==1)" type="primary" @click="refreshEvent" )
+            +button("ids_cancel")(@click="reset",:disabled="(page.SearchState==1||page.regist_state==1)")    
         div.networkListBox
-          table.nw-list(cellpadding="0" cellspacing="0")
+          table.table.nw-list(cellpadding="0" cellspacing="0" v-loading.body="page.SearchState==1||page.regist_state==1")
             tr
               th(width="25%") {{vuex.res.ids_netwrok_networkName}}
               th(width="25%") {{vuex.res.ids_netwrok_networkType}}
               th(width="25%") {{vuex.res.ids_state}}
               th(width="25%")
-            tr(v-loading.body="page.SearchState==1||page.regist_state==1" v-show="page.SearchState==1||page.regist_state==1")
-              td(row="4")
             tr(v-for="list in page.listNetworkItem" v-show="page.SearchState==2")
               td(width="25%") {{list.FullName}}
               td(width="25%") {{list.Rat | networkRat}}
               td(width="25%") {{list.State | networkState}}
               td(width="25%")
-                +button('register')(v-show="list.State==2||list.State==1" @click="selectEvent(list.NetworkID)")
+                +button('ids_netwrok_register')(v-show="list.State==2||list.State==1" @click="selectEvent(list.NetworkID)")
              
         p.select_result {{vuex.res.ids_fail}}
         p.select_text {{vuex.res.ids_net_searching}}
@@ -47,7 +45,6 @@ export default {
     },
     methods: {
       init() {
-        let vm = this
         this.vuex = vuex
         vuex.initSimInfo()
         this.page = {
@@ -68,7 +65,7 @@ export default {
         let vm = this;
         vm.$refs.formData.resetFields()
        // vm.page.actionType = 0;
-       vm.initnetlist()
+        vm.initnetlist()
         let currentNetwork = $.grep(vm.page.listNetworkItem, function(n, i) {
           return n.NetworkID === vm.page.currentNetworkID;
         })[0];
@@ -105,16 +102,10 @@ export default {
         let results = {
           callback: this.init,
           success: {
-            tips: "Message",
-            msg: this.vuex.res.ids_success,
+            tips: "None",
             callback() {
               vm.initnetlist();
             }
-          },
-          fail: {
-            tips: "Message",
-            msg: this.vuex.res.ids_fail,
-            callback: this.init
           }
         };
         this.sdk.post("SearchNetwork", "", results);
@@ -128,28 +119,34 @@ export default {
             setTimeout(()=>{
               vm.getRegisterResult();
             },4000)
+          }else if(vm.page.regist_state==G.NETWORK_REGISTER_STATE_SUCCESSFUL){
+            vm.$message.success(vuex.res.ids_success)
+            vm.init()
+          }else{
+            vm.$message.error(vuex.res.ids_fail)
+            vm.init()
           }
         })
       },
 
       selectEvent(id) {
-        let params = {
-          NetworkID: id
-        }
         let vm=this;
+        let params = {NetworkID: id}
         let results = {
           callback: this.init,
           success: {
             tips: "None",
             callback(){
+              vm.page.SearchState=G.NETWORK_SEARCH_STATE_NONE
+              vm.page.listNetworkItem=[]
               vm.getRegisterResult()
             }
           },
           fail: {
-            callback: this.init
+            callback: vm.init
           }
         }
-        this.sdk.post("RegisterNetwork", params, results)
+        vm.sdk.post("RegisterNetwork", params, results)
       },
       reset() {
         this.init();
@@ -161,29 +158,6 @@ export default {
 <style lang="sass" scoped>
 .nw-list {
   width: 100%;
-}
-
-table th {
-  font-weight: normal;
-  color: #333;
-  border: 1px solid #ccc;
-  background: #fff;
-  height: 20px;
-  line-height: 20px;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-.nw-list td,
-.nw-list th {
-  color: #333;
-  border: 1px solid #ccc;
-  background: #fff;
-  height: 20px;
-  line-height: 20px;
 }
 
 p.select_text, p.select_result {
@@ -207,5 +181,12 @@ p.select_text, p.select_result {
 .networkListBox {
   margin: 0px auto;
   width: 80%;
+  min-height: 250px;
+}
+.table{
+  tr,tr th,tr td{
+    line-height: 22px;
+    padding:5px;
+  }
 }
 </style>

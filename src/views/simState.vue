@@ -13,7 +13,7 @@
           +button("ids_cancel")(@click="$refs.formData.resetFields()")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='pukReq'")
-      h2.center{{vuex.SimInfo.SIMStateStr|res}}
+      h2.center {{vuex.SimInfo.SIMStateStr|res}}
       +form("formData")
         +input("ids_sim_pukCode","Puk")(type="password")
         +input('ids_sim_pinCode:','Pin')(type="password")
@@ -25,7 +25,7 @@
           +button("ids_cancel")(@click="$refs.formData.resetFields()")
 
     div.sim-state(v-if="vuex.SimInfo.SIMState=='simLock'")
-      h2.center{{vuex.SimInfo.SIMStateStr |res}}
+      h2.center {{vuex.SimInfo.SIMStateStr |res}}
       +form("formData")
         +input('ids_sim_simlockCode:','SIMLockCode')(type="password")
         +formItem("")
@@ -35,7 +35,7 @@
     slot(v-if="vuex.SimInfo.SIMState=='ready'")
 
     div(v-if="vuex.SimInfo.SIMState!='pinReq'&vuex.SimInfo.SIMState!='pukReq'&vuex.SimInfo.SIMState!='simLock'&vuex.SimInfo.SIMState!='ready'")
-      h2.center{{vuex.SimInfo.SIMStateStr|res}}
+      h2.center {{vuex.SimInfo.SIMStateStr|res}}
 
     
 </template>

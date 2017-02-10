@@ -486,5 +486,6 @@
     "ids_restore_device_restoration": "Ripristino dispositivo non completato. Riavviare il dispositivo e riprovare.",
     "ids_restore_factory_settings": "Ripristinare le impostazioni di fabbrica sul dispositivo adesso?",
     "ids_wifi_wpsActive": "WPS attivato.",
-    "ids_share": "Quota"
+    "ids_share": "Quota",
+    "ids_system_modemVersion": "Modem version"
 }

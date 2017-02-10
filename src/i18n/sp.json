@@ -486,5 +486,6 @@
     "ids_restore_device_restoration": "No se ha podido completar la restauración del dispositivo. Reinícielo y vuelva a intentarlo.",
     "ids_restore_factory_settings": "¿Restablecer los ajustes de fábrica de su dispositivo ahora?",
     "ids_wifi_wpsActive": "WPS activada.",
-    "ids_share": "Compartir"
+    "ids_share": "Compartir",
+    "ids_system_modemVersion": "Modem version"
 }

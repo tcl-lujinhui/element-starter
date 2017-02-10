@@ -31,8 +31,8 @@ export default {
       },
       update (){
         let setForm = () => {
-          this.sdk.post("SetLanSettings", this.formData, (res) => {
-            this.init();
+          this.sdk.post("SetLanSettings", this.formData, {
+            callback: this.init
           }); 
         }
         this.submit("formData", setForm)    

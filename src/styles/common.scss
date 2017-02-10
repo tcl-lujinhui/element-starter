@@ -465,3 +465,55 @@ a.a-el-button {
 body {
   margin: 0;
 }
+
+/*icon font style*/
+.icon-style{
+  font-size:28px;
+}
+.iconfont{
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: baseline;
+  display: inline-block;
+}
+.el-menu .iconfont{
+  float: left;
+  margin-top: 13px;
+}
+#sideMenu .el-menu {
+  .el-menu-item,.el-submenu__title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    .el-submenu__icon-arrow{
+      right: 10px;
+    }
+  }
+}
+.el-submenu {
+  .el-menu-item{
+    height: 50px;
+    line-height: 50px;
+    padding: 0 45px;
+    padding-left: 30px;
+    padding-right: 10px;
+  }
+}
+.table{
+  font-size: 14px;
+  width: 80%;
+  margin: 10px auto 10px;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+  background:#fff;
+  tr,tr th,tr td{
+    text-align: center;
+    border: 1px solid #eee;
+    padding:8px;
+  }
+}

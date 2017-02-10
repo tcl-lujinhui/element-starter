@@ -68,7 +68,7 @@
               +checkbox("","show5GPassword","ids_wlan_showPw")
           div.center
             +button("ids_back")(@click="prev" type="primary" v-show="page.setp_status!=0")
-            +button("ids_quicksetup_done")(@click="update" type="primary" v-show="page.setp_status==3")
+            +button("ids_quicksetup_done")(@click="next" type="primary" v-show="page.setp_status==3")
       
 </template>
 
@@ -236,13 +236,30 @@ export default {
     },
     next() {
       if(this.page.setp_status==2){
-        this.$refs['form2'].validate((valid) => {
-          if (valid) {
-            this.page.setp_status++
-          } else {
-            return false;
-          }
-        })
+        if(this.formData.AP2G.ApStatus==0&this.formData.AP5G.ApStatus==0){
+          this.page.setp_status++
+        }else{
+          this.$refs['form2'].validate((valid) => {
+            if (valid) {
+              this.page.setp_status++
+            } else {
+              return false;
+            }
+          })
+        }
+      }else if(this.page.setp_status==3){
+        if(this.formData.AP2G.ApStatus==0&this.formData.AP5G.ApStatus==0){
+          this.page.setp_status++
+        }else{
+          this.$refs['form3'].validate((valid) => {
+            if (valid) {
+              this.page.setp_status++
+              this.update()
+            } else {
+              return false;
+            }
+          })
+        }
       }else{
         this.page.setp_status++
       }

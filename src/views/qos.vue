@@ -14,9 +14,9 @@
         el-table-column(prop="Protocol",:label="vuex.res.ids_protocol" width='100' inline-template,:context="_self")
           span {{row.Protocol | qosProtocol}}
         el-table-column(prop="Port",:label="vuex.res.ids_port" width='100')
-        el-table-column(:label="vuex.res.ids_netwrok_operation" fixed="right",:context="_self" width='130' inline-template)(style="margin:0 auto")
+        el-table-column(:label="vuex.res.ids_netwrok_operation" fixed="right",:context="_self" width='130' inline-template style="margin:0 auto")
           span
-            +button("")(icon="edit" size="mini" @click="edit($index,row.Id)")
+            +button("")(icon="edit" size="mini" @click="edit(row)")
             +button("")(icon="delete" size="mini" type="danger" @click="del($index,row)")
     
       el-dialog(:title="page.actionType==1?'Edit':'Add'" v-model="page.dialogFormVisible")
@@ -55,7 +55,8 @@ export default {
           currentQosId: 1,
           qosList: [],
           State: "",
-          indexs: -1
+          indexs: -1,
+          listIndex: 0
         };
         this.sdk.get("GetQosSettings", null, (res) => {
           this.formData.qosList = res.QosList;
@@ -72,13 +73,7 @@ export default {
           type: 'warning'
         }).then(() => {
           this.page.qosList.splice(index, 1);
-          let params = {
-            State: this.formData.State,
-            QosList: this.formData.qosList
-          }
-          this.sdk.post("SetQosSettings", params, {
-            callback: this.init
-          })
+          this.save()
 
         }).catch(() => {
 
@@ -91,66 +86,36 @@ export default {
         this.formData = $.extend({}, Config.initNewData);
         this.page.actionType = 2;
         this.page.dialogFormVisible = true;
-        this.page.qosList.push(this.formData);
       },
-      edit(index, id) {
+      edit(item) {
         this.page.actionType = 1;
         this.page.dialogFormVisible = true;
-        let vm = this;
-
-
-        //vm.page.actionType=0;
-        let currentQos = $.grep(vm.page.qosList, function(n, i) {
-          return n.Id === id;
-        })[0];
-        //console.log(currentProfile);
-        vm.formData = $.extend({}, currentQos);
-        this.page.indexs = index;
-
-        /* this.page.qosList[this.page.indexs]={};
-         this.page.qosList[this.page.indexs].Id=vm.formData.Id;
-         this.page.qosList[this.page.indexs].Priority=vm.formData.Priority;
-         this.page.qosList[this.page.indexs].SrcIPAddress=vm.formData.SrcIPAddress;
-         this.page.qosList[this.page.indexs].Service=vm.formData.Service;
-         this.page.qosList[this.page.indexs].Protocol=vm.formData.Protocol;
-         this.page.qosList[this.page.indexs].Port=vm.formData.Port; */
-        /*$.each(this.page.qosList,function(i,v) {
-          v.Id = vm.formData.Id;
-          v.Priority = vm.formData.Priority;
-          v.SrcIPAddress = vm.formData.SrcIPAddress;
-          v.Service = vm.formData.Service;
-          v.Protocol = vm.formData.Protocol;
-          v.Port = vm.formData.Port;
-          // body...
-        })*/
-        //console.log(this.page.qosList[id])
-        //this.$refs.formData.resetFields();
+        this.page.listIndex = _.indexOf(this.page.qosList, item)
+        this.formData = _.findWhere(this.page.qosList, item) 
       },
-      update() {
-        /*let params = {
-          State: this.formData.State,
-          QosList: this.page.qosList
-        }*/
+      update() {        
         let setForm = () => {
-
-          this.page.qosList[this.page.indexs] = {};
-          this.page.qosList[this.page.indexs].Id = this.formData.Id;
-          this.page.qosList[this.page.indexs].Priority = this.formData.Priority;
-          this.page.qosList[this.page.indexs].SrcIPAddress = this.formData.SrcIPAddress;
-          this.page.qosList[this.page.indexs].Service = this.formData.Service;
-          this.page.qosList[this.page.indexs].Protocol = this.formData.Protocol;
-          this.page.qosList[this.page.indexs].Port = this.formData.Port;
-
-          let params = {
-            State: this.formData.State,
-            QosList: this.page.qosList
+          if (this.page.actionType == 1) {
+            this.page.qosList[this.page.listIndex] = this.formData
+          } else if (this.page.actionType == 2) {
+            if(!this.page.qosList){
+              this.page.qosList=[]
+            }
+            this.page.qosList.push(this.formData)
           }
-
-          this.sdk.post("SetQosSettings", params, {
-            callback: this.init
-          })
+          this.save()
         }
         this.submit("formData", setForm);
+      },
+
+      save() {
+        let params = {
+          State: this.formData.State,
+          QosList: this.page.qosList
+        }
+        this.sdk.post("SetQosSettings", params, {
+          callback: this.init
+        })
       }
     }
 }

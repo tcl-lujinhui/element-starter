@@ -4,12 +4,12 @@
     div(v-for="(val,index) in Config[submenu]")
       el-submenu(:index="index.toString()" v-if="val.hasOwnProperty('submenu')")
         template(slot="title") 
-          b(v-if="!!val.icon",:class="'svg-icon-'+val.icon")
-          span {{val.text |res}}
-        el-menu-item(:index="item.router" v-for="item in val.submenu") {{item.text |res}}
+          b(v-if="!!val.icon",:class="'icon-style iconfont icon-'+val.icon")
+          span(:title="val.text |res") {{val.text |res}}
+        el-menu-item(:title="item.text |res",:index="item.router" v-for="item in val.submenu") {{item.text |res}}
       el-menu-item(:index="val.router" v-if="!val.hasOwnProperty('submenu')" class="no-submenu") 
-        i(v-if="!!val.icon",:class="'svg-icon-'+val.icon")
-        span {{val.text |res }}
+        i(v-if="!!val.icon",:class="'icon-style iconfont icon-'+val.icon")
+        span(:title="val.text |res") {{val.text |res }}
 </template>
   
 

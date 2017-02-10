@@ -96,19 +96,19 @@ units.qosProtocol = (val) => {
 
 units.networkRat = (val) => {
   let networkRatArr = [
-    [1, "GSM"],
-    [2, "UMTS"],
-    [3, "LTE"],
-    [4, "CDMA"],
-    [5, "ids_unknown"]
+    [1, "GSM", "2G"],
+    [2, "UMTS", "3G"],
+    [3, "LTE", "4G"],
+    [4, "CDMA", ""],
+    [5, "ids_unknown", ""]
   ];
   let currentRat = _.find(networkRatArr, (num) => {
     return num[0] == val;
   })
   if (!currentRat) {
-    return networkRatArr[0][1]
+    return networkRatArr[0][2]
   } else {
-    return currentRat[1]
+    return currentRat[2]
   }
 }
 

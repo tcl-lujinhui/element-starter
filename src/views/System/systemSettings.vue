@@ -44,6 +44,7 @@ export default {
                   this.sdk.post("SetLanguage", this.formData, (res) => {
                     if (this.requestJsonRpcIsOk(res)) {
                       ElementUI.Message.success(this.vuex.res.ids_success);
+                      location.reload()
                     } else {
                       ElementUI.Message.error(this.vuex.res.ids_fail);
                     }

@@ -8,7 +8,7 @@
           el-col.textAlignRight(:span="8") {{vuex.res.ids_update_localUpgrade}}
           el-col(:span="16")
             div.uploadFile
-              input.fileUpload(type="file" id="fileUpload" name="fileUpload")(v-on:change = "showUpgradeFileUrl()")
+              input.fileUpload(type="file" id="fileUpload" name="fileUpload" v-on:change = "showUpgradeFileUrl()")
               el-input(size="small" class="inline-input" placeholder="Please Choice File" v-model="page.fileUrlName", :change="changeUpload()")
               +button("ids_update_Browse")(size="small" type="primary")
             +button("ids_update_upgrade")(size="small" type="primary" @click="update", :disabled="page.upgradeDisabled")

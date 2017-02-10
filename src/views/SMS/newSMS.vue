@@ -9,9 +9,9 @@
             el-input(v-model="formData.PhoneNumber")
               span(slot="prepend") {{vuex.res.ids_sms_to}}:
             #phoneNumberInputWarn(:class="{hidden:page.inputNumberWarn}") {{vuex.res.ids_sms_inputNumber}}
-            #phoneNumberRule(:class="{hidden:page.phoneNumberRule}"){{vuex.res.ids_sms_numberRule}}
-            p(v-bind="listenCharCount()"){{page.length}}
-            el-input(v-model="formData.SMSContent")(type="textarea",:rows.number=10)
+            #phoneNumberRule(:class="{hidden:page.phoneNumberRule}") {{vuex.res.ids_sms_numberRule}}
+            p(v-bind="listenCharCount()") {{page.length}}
+            el-input(v-model="formData.SMSContent" type="textarea",:rows.number=10)
             #smsMaxNumWarn(:class="{hidden:page.maxContentWarnDisplay}") {{vuex.res.ids_sms_contentRule}}
             #btnSMS
               +button("ids_send")(@click="sendSMS")

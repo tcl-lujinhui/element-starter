@@ -6,7 +6,7 @@
       +form("formData")
         +formItem("ids_profile_pageTitle:")
           el-select(v-model.mumber="page.currentProfileId" @change="changeProfile()")
-            el-option(v-for="val in page.profileList",:label="showSelectList(val)",:value.number="val.ProfileID")
+            el-option(v-for="val in profileList",:label="val.Default==1?val.ProfileName+'(D)':val.ProfileName",:value.number="val.ProfileID")
         +input("ids_profile_name:","ProfileName")(:disabled="page.actionType==0")
         +input("ids_profile_dialNumber:","DailNumber")(:disabled="page.actionType==0")
         +input("ids_profile_apn:","APN")(:disabled="page.actionType==0")
@@ -15,10 +15,10 @@
         +select("ids_protocol:","AuthType")(:disabled="page.actionType==0")
         div.center
           +button("ids_new")(@click="newProfile",:disabled="page.actionType==2||page.actionType==1")
-          +button("edit")(@click="editProfile",:disabled="page.actionType==2||page.actionType==1||page.currentProfileId==''")
+          +button("ids_edit")(@click="editProfile",:disabled="page.actionType==2||page.actionType==1||page.currentProfileId==''")
           +button("ids_save")(@click="saveProfile",:disabled="page.actionType==0")
-          +button("ids_delete")(@click="delProfile()",:disabled="page.defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0||page.currentProfileId==''")
-          +button("ids_profile_setDefault")(@click="setDefaultProfile",:disabled="page.defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0||page.currentProfileId==''")
+          +button("ids_delete")(@click="delProfile()",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0||page.currentProfileId==''")
+          +button("ids_profile_setDefault")(@click="setDefaultProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0||page.currentProfileId==''")
 
 </template>
 
@@ -40,38 +40,34 @@ export default {
       init() {
         this.vuex = vuex
         this.page = {
-          currentProfileId: "",
+          currentProfileId: 1,
           actionType: 0,
           //0:list;1:edit;2:new
-          indexs: -1,
-          profileList:[],
-          defaultProfile:{}
+          indexs: -1
         }
+        this.profileList = {};
+        this.defaultProfile = {};
         this.curprofile_operate = null;
         this.sdk.get("GetProfileList", null, (res) => {
-          this.page.profileList = res.ProfileList;
+          this.profileList = res.ProfileList;
           let defaultProfile = $.grep(res.ProfileList, function(n, i) {
             return n.Default === 1;
           })[0];
           this.formData = $.extend({}, defaultProfile);
-          this.page.defaultProfile = $.extend({}, defaultProfile);
+          this.defaultProfile = $.extend({}, defaultProfile);
           if(defaultProfile != undefined){
             this.page.currentProfileId = defaultProfile.ProfileID;
           }else{
-            this.page.currentProfileId = 1;
+            this.page.currentProfileId = "";
           } 
         })
-      },
-
-      showSelectList(val){
-        return val.ProfileName+(val.Default==1?'(D)':'')
       },
 
       changeProfile() {
         let vm = this;
         vm.$refs.formData.resetFields()
         vm.page.actionType = 0;
-        let currentProfile = $.grep(vm.page.profileList, function(n, i) {
+        let currentProfile = $.grep(vm.profileList, function(n, i) {
           return n.ProfileID === vm.page.currentProfileId;
         })[0];
         vm.formData = $.extend({}, currentProfile);

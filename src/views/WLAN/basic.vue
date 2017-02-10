@@ -73,7 +73,12 @@ export default {
 
         }); 
       }
-      vm.submit("formData", setForm)    
+      if(this.formData.AP2G.ApStatus==0&&this.formData.AP2G.ApStatus==0){
+        setForm()   
+      }else{
+        vm.submit("formData", setForm)    
+      }
+      
     }
   }
 }

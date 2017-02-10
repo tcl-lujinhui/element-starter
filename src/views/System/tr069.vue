@@ -8,7 +8,7 @@
         +input("ids_tr069_informInterval:","InformInterval")(:disabled="formData.Inform==0")
         +input("ids_tr069_acsUrl:","AcsUrl")(:disabled="formData.Inform==0")
         +input("ids_tr069_acsUsername:","AcsUserName")(:disabled="formData.Inform==0")
-        +input("ids_tr069_acsPw:","AcsUserPassword")(:disabled="formData.Inform==0")(type="password")
+        +input("ids_tr069_acsPw:","AcsUserPassword")(:disabled="formData.Inform==0" type="password")
         +checkbox("","ConReqAuthent","ids_tr069_connRqAuth")(:disabled="formData.Inform==0")
         div(v-if="formData.ConReqAuthent==1")
           +input("ids_tr069_connRqUsername:","ConReqUserName")(:disabled="formData.Inform==0")
@@ -80,7 +80,12 @@ export default {
             callback: this.init
           })
         }
-        this.submit("formData", setForm)
+
+        if(this.formData.Inform==0){
+          setForm()   
+        }else{
+          this.submit("formData", setForm)    
+        }
       }
     }
 }

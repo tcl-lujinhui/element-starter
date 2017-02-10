@@ -57,11 +57,19 @@ Vue.filter('qosProtocol', function (value) {
 })
 
 Vue.filter('networkRat', function (value) {
-  return units.networkRat(value)
+  if(vuex.res[units.networkRat(value)]){
+    return vuex.res[units.networkRat(value)];
+  }else{
+    return units.networkRat(value);
+  }
 })
 
 Vue.filter('networkState', function (value) {
-  return units.networkState(value)
+  if(vuex.res[units.networkState(value)]){
+    return vuex.res[units.networkState(value)];
+  }else{
+    return units.networkState(value);
+  }
 })
 
 Vue.filter('res', function (value) {

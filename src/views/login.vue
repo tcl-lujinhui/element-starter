@@ -19,7 +19,7 @@
             div.title {{vuex.res.ids_login_loginPwd}}
             //-+input("username:","UserName")(type="password")
             input(type="password" style="display:none" onkeypress="update(event)")
-            +inputNone("","Password")(type="password")(v-on:change = "changeInput()", :placeholder="vuex.res.ids_login_placeHolder" name="passVal")
+            +inputNone("","Password")(type="password" v-on:change = "changeInput()", :placeholder="vuex.res.ids_login_placeHolder" name="passVal")
             div.tips-error(v-show="page.isTipsError")
             +formCheckbox("save_flag","ids_login_rememberPassword")(class="paddingVal")
             +formBtnNone(class="submit")

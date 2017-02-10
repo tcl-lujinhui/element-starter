@@ -50,8 +50,7 @@ config.mobileConnection = {
       [0, 'ids_enable']
     ]
   },
-  formData: {
-  },
+  formData: {},
   formRules: {}
 };
 
@@ -191,7 +190,7 @@ config.lanSettings = {
 //changePassword
 config.changePassword = {
   formData: {
-    UserName: "admim",
+    UserName: "admin",
     CurrPassword: "",
     NewPassword: "",
     ConfirmPassword: "",
@@ -530,11 +529,11 @@ config.wps = {
 config.qos = {
   initNewData: {
     "Id": "",
-    "Priority": 1,
-    "SrcIPAddress": "192.168.1.10",
-    "Service": 0,
-    "Protocol": 0,
-    "Port": "9090"
+    "Priority": "",
+    "SrcIPAddress": "",
+    "Service": "",
+    "Protocol": "",
+    "Port": ""
   },
   formOptions: {
     State: [
@@ -579,11 +578,14 @@ config.qos = {
   },
   formRules: {
     Port: [
-      { validator: validates.checkPortInvalid, message: 'Invalid Port!' }
+      { required: true, message: 'ids_required', trigger: 'blur' },
+      { validator: validates.checkPortInvalid, message: 'ids_qos_portInvalid' },
     ],
     SrcIPAddress: [
-      { validator: validates.checkIpAddressInvalid, message: 'Invalid IpAddress!', trigger: 'blur' }
-    ],
+      { required: true, message: 'ids_required', trigger: 'blur' },
+      { validator: validates.checkIpAddressInvalid, message: 'ids_qos_ipInvalid', trigger: 'blur' },
+
+    ]
   }
 };
 
@@ -715,9 +717,9 @@ config.homeLanStatus = {
 };
 //internetStatus
 config.homeInternetStatus = {
-    formData:{
-        "IPv4Adrress":""
-    },
+  formData: {
+    "IPv4Adrress": ""
+  },
   usbStatusDisplayNum: 1, //val:0,1
   usbStatusArr: [
     [0, "ids_Wan_usbNotInsert"],
@@ -744,7 +746,7 @@ config.homeInternetStatus = {
     [8, "4G", "LTE"],
     [9, "4G+", "LTE_PLUS"]
   ],
-    formRules:{}
+  formRules: {}
 };
 config.homeWlanStatus = {
   formData: {},
@@ -980,21 +982,21 @@ config.staticRules = {
     }
   },
   formRules: {
-    DestNetAddr:[
+    DestNetAddr: [
       common.rule.required,
       common.rule.IP
     ],
-    DestNetmask:[
+    DestNetmask: [
       common.rule.required,
       { validator: validates.isValidSubnetMask, message: 'ids_router_subnetInvalid' }
     ],
-    GateWay:[
+    GateWay: [
       common.rule.required,
       common.rule.IP
     ]
   },
   formRulesExtension: {
-    DestNetmask: { validator: "DestNetmaskVal", message: 'ids_router_subnetInvalid' , trigger: 'blur'},
+    DestNetmask: { validator: "DestNetmaskVal", message: 'ids_router_subnetInvalid', trigger: 'blur' },
     //DestNetAddr: { validator: "DestNetmaskVal", message: 'ids_router_subnetInvalid' , trigger: 'blur'},
   }
 };

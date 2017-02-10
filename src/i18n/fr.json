@@ -428,7 +428,7 @@
     "ids_update_Size": "Taille ",
     "ids_tr069_Client": "Client TR069",
     "ids_admin_confirmPdwNotSame": "Le nouveau mot de passe et le mot de passe de confirmation doivent être identiques.",
-    "ids_admin_confPwd": "Confirmation :",
+    "ids_admin_confPwd": "Confirmation",
     "ids_admin_currPwd": "Mot de passe actuel",
     "ids_admin_newPwd": "Nouveau mot de passe",
     "ids_admin_passwordRulePrompt": "Mot de passe non valide ! Il doit comporter entre 4 et 16 caractères, lesquels peuvent être des chiffres de 0 à 9, des lettres minuscules de a à z, des majuscules de A à Z et les caractères -+!@$#^&*. Veuillez le ressaisir.",
@@ -486,5 +486,6 @@
     "ids_restore_device_restoration": "La restauration de l’appareil est incomplète. Redémarrez l’appareil, puis réessayez.",
     "ids_restore_factory_settings": "Rétablir maintenant les paramètres d’usine de votre appareil ?",
     "ids_wifi_wpsActive": "WPS actif.",
-    "ids_share": "Partag"
+    "ids_share": "Partag",
+    "ids_system_modemVersion": "Modem version"
 }

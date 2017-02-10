@@ -5,7 +5,7 @@
       +breadcrumb("ids_ethWan_menuWanStatus")
       el-form(label-width="200px")
         +text("ids_duration:","{{vuex.WanSettings.DurationTime | times('2')}}")
-        +text("ids_lan_conStatus:","{{vuex.WanConnStatus.exConnToInterStatusStr | res}}")   
+        +text("ids_lan_conStatus:","{{vuex.WanSettings.exStatusStr | res}}")   
         +text("ids_lan_macAdress:","{{formData.MacAddr}}")
         +text("ids_netwrok_connectionMode:","{{vuex.WanSettings.exConnectTypeStr | res}}")
         +text("ids_ipAddress:","{{vuex.WanSettings.IpAddress}}")

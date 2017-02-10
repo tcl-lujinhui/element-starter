@@ -37,19 +37,26 @@ var Config = _config.homeLanStatus
 export default {
   created() {
       this.init();
+      this.Inter = setInterval(() => {
+        this.getLanPortInfo()
+      }, 6000);
+    },
+    destroyed() {
+      clearInterval(this.Inter)
+      this.Inter = null
     },
     methods: {
       init() {
         this.vuex = vuex
         this.page = {
-          lan1:{
+          lan1: {
             "LanFlag": "LAN1",
             "ConnectionStatus": 0,
             "IPAddress": "----",
             "MACAddress": "----",
             "DHCPServer": "----"
           },
-          lan2:{
+          lan2: {
             "LanFlag": "LAN2",
             "ConnectionStatus": 0,
             "IPAddress": "----",
@@ -57,15 +64,18 @@ export default {
             "DHCPServer": "----"
           }
         }
+        this.getLanPortInfo()
+      },
+      getLanPortInfo() {
         this.sdk.get("GetLanPortInfo", null, (res) => {
           let vm = this;
-          if(res.List&&$.isArray(res.List)){
-            $.each(res.List,(i,v)=>{
-              if(v.LanFlag.toUpperCase()=="LAN1"){
-                vm.page.lan1=v
+          if (res.List && $.isArray(res.List)) {
+            $.each(res.List, (i, v) => {
+              if (v.LanFlag.toUpperCase() == "LAN1") {
+                vm.page.lan1 = v
               };
-              if(v.LanFlag.toUpperCase()=="LAN2"){
-                vm.page.lan2=v
+              if (v.LanFlag.toUpperCase() == "LAN2") {
+                vm.page.lan2 = v
               };
             })
           }
@@ -75,6 +85,8 @@ export default {
     }
 }
 </script>
+
+
 
 <style lang="sass" scoped>
 .state-table {

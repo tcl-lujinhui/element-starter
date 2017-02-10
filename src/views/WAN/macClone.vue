@@ -44,8 +44,8 @@ export default {
           if (type == "restore") {
             params.Type = G.WAN_MAC_ADDRESS_RESTORE;
           }
-          this.sdk.post("SetWanCurrentMacAddr", params, (res) => {
-            this.init();
+          this.sdk.post("SetWanCurrentMacAddr", params, {
+            callback: this.init
           });
         }).catch(() => {
 

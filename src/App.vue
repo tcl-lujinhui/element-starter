@@ -18,7 +18,7 @@
       //-img.status(src="./images/status.png")
     el-menu.main-menu.el-menu-demo(mode="horizontal" router=true v-if="vuex.loginName != 'login'")
       el-menu-item(:index="val.router" v-for="val in nav") 
-        span {{val.text |res}}
+        span(:title="val.text |res") {{val.text |res}}
     router-view.main
      
     .footer 
@@ -56,6 +56,7 @@ export default {
 
 <style lang="sass">
 @import "./styles/common.scss";
+@import "./styles/iconfont.css";
 body {
   font-family: Helvetica, sans-serif;
 }

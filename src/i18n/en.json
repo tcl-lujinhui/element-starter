@@ -486,5 +486,6 @@
     "ids_restore_device_restoration": "Device restoration not complete. Restart device and try again.",
     "ids_restore_factory_settings": "Restore your device to factory settings now?",
     "ids_wifi_wpsActive": "WPS is active.",
-    "ids_share": "Share"
+    "ids_share": "Share",
+    "ids_system_modemVersion": "Modem version"
 }
