@@ -391,9 +391,7 @@
     "ids_system_rebootReset": "Reiniciar y restablecer",
     "ids_system_restartDevice": "Reiniciar el dispositivo",
     "ids_system_resetDescription": "Restablecer datos de fábrica",
-    "ids_system_resetTips1": "Esta opción elimina todos los ajustes del dispositivo y lo restablece a los valores predeterminados de fábrica.",
-    "ids_system_resetTips2": "Esta acción no se puede deshacer.",
-    "ids_system_resetTips3": "¿Restablecer el dispositivo ahora?",
+    "ids_system_resetTips": "Esta opción elimina todos los ajustes del dispositivo y lo restablece a los valores predeterminados de fábrica.Esta acción no se puede deshacer.¿Restablecer el dispositivo ahora?",
     "ids_update_checkFail": "No se ha podido comprobar la nueva versión.",
     "ids_update_checking": "Comprobando…",
     "ids_update_download": "Descargar…",
@@ -487,7 +485,5 @@
     "ids_restore_factory_settings": "¿Restablecer los ajustes de fábrica de su dispositivo ahora?",
     "ids_wifi_wpsActive": "WPS activada.",
     "ids_share": "Compartir",
-    "ids_system_modemVersion": "Modem version",
-    "ids_sys_rebootWarn": "¿Desea reiniciar el dispositivo?",
-    "ids_sys_restoreFactoryWarn": "Esta acción restablece la configuración predeterminada de fábrica y reinicia el dispositivo. ¿Aún desea continuar?"
+    "ids_system_modemVersion": "Modem version"
 }

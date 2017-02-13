@@ -391,9 +391,7 @@
     "ids_system_rebootReset": "Reboot & reset",
     "ids_system_restartDevice": "Restart device",
     "ids_system_resetDescription": "Factory data reset",
-    "ids_system_resetTips1": "This will erase all settings from your device and reset to factory defaults.",
-    "ids_system_resetTips2": "This action can't be undone.",
-    "ids_system_resetTips3": "Reset now?",
+    "ids_system_resetTips": "This will erase all settings from your device and reset to factory defaults.This action can't be undone.Reset now?",
     "ids_update_checkFail": "Couldn't check for updates",
     "ids_update_checking": "Checking for updates...",
     "ids_update_download": "Downloading...",
@@ -487,7 +485,5 @@
     "ids_restore_factory_settings": "Restore your device to factory settings now?",
     "ids_wifi_wpsActive": "WPS is active.",
     "ids_share": "Share",
-    "ids_system_modemVersion": "Modem version",
-    "ids_sys_rebootWarn": "Are you sure to restart this device?",
-    "ids_sys_restoreFactoryWarn": "This action will restore the default factory settings and restart the device. Are you sure you want to continue?"
+    "ids_system_modemVersion": "Modem version"
 }

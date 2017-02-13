@@ -391,9 +391,7 @@
     "ids_system_rebootReset": "Riavvia e ripristina",
     "ids_system_restartDevice": "Riavvia dispositivo",
     "ids_system_resetDescription": "Ripristino dati di fabbrica",
-    "ids_system_resetTips1": "Questa operazione cancellerà tutti le impostazioni del dispositivo e ripristinerà quelle predefinite.",
-    "ids_system_resetTips2": "Non è possibile annullare l'operazione.",
-    "ids_system_resetTips3": "Ripristinare adesso?",
+    "ids_system_resetTips": "Questa operazione cancellerà tutti le impostazioni del dispositivo e ripristinerà quelle predefinite.Non è possibile annullare l'operazione.Ripristinare adesso?",
     "ids_update_checkFail": "Verifica della nuova versione non riuscita.",
     "ids_update_checking": "Controllo in corso…",
     "ids_update_download": "Download",
@@ -487,8 +485,5 @@
     "ids_restore_factory_settings": "Ripristinare le impostazioni di fabbrica sul dispositivo adesso?",
     "ids_wifi_wpsActive": "WPS attivato.",
     "ids_share": "Quota",
-    "ids_system_modemVersion": "Modem version",
-    "ids_sys_rebootWarn": "Riavviare il dispositivo?",
-    "ids_sys_restoreFactoryWarn": "Questa azione riporterà le impostazioni sui valori predefiniti e riavvierà il dispositivo; continuare?"
-
+    "ids_system_modemVersion": "Modem version"
 }

@@ -194,14 +194,7 @@ menuConfig.sideMenu = {
   }, {
     icon: "reset",
     text: "ids_system_rebootReset",
-    submenu: [{
-      text: "ids_system_reboot",
-      router: "reboot"
-    }, {
-      icon: "calllogs",
-      text: "ids_reset",
-      router: "reset"
-    }]
+    router: "reboot"
   }, {
     icon: "upgrade",
     text: "ids_update_upgrade",

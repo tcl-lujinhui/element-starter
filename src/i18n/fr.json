@@ -391,9 +391,7 @@
     "ids_system_rebootReset": "Redémarrer et réinitialiser",
     "ids_system_restartDevice": "Redémarrer l’appareil",
     "ids_system_resetDescription": "Restaurer valeurs d'usine",
-    "ids_system_resetTips1": "Cela effacera tous les paramètres de votre appareil et rétablira les paramètres par défaut.",
-    "ids_system_resetTips2": "L’opération est irréversible.",
-    "ids_system_resetTips3": "Réinitialiser ?",
+    "ids_system_resetTips": "Cela effacera tous les paramètres de votre appareil et rétablira les paramètres par défaut.L’opération est irréversible.Réinitialiser ?",
     "ids_update_checkFail": "Échec de la recherche d’une nouvelle version",
     "ids_update_checking": "Vérification…",
     "ids_update_download": "Télécharger…",
@@ -487,8 +485,5 @@
     "ids_restore_factory_settings": "Rétablir maintenant les paramètres d’usine de votre appareil ?",
     "ids_wifi_wpsActive": "WPS actif.",
     "ids_share": "Partag",
-    "ids_system_modemVersion": "Modem version",
-    "ids_sys_rebootWarn": "Voulez-vous vraiment redémarrer cet appareil ?",
-    "ids_sys_restoreFactoryWarn": "Les réglages usines seront restaurés et l'appareil redémarré. Voulez-vous vraiment continuer ?"
-
+    "ids_system_modemVersion": "Modem version"
 }
