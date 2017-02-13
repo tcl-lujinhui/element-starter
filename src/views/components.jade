@@ -70,11 +70,6 @@ mixin text(label,val,label1)
       +span(label1)
     else if block
       block
-
-mixin text1(label,val)
-  +formItem(label)
-    label(style="padding-right:30px") #{val}
-    +button("Reset")(@click="" style="color: #fff;background-color: #20a0ff;border-color: #20a0ff;")
     
 mixin button(label)
   - var isIds= label.indexOf("ids_")==0?true:false;
@@ -103,10 +98,6 @@ mixin sideMenuPage(menu)
       .main-block
         if block
         block
-
-mixin lirouterLink(state,text)
-  li
-    router-link.router-link(to="/#{state}")&attributes(attributes) #{text}
 
 mixin bottonRouterLink(state,text)
   - var isIds= text.indexOf("ids_")==0?true:false;

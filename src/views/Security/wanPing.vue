@@ -38,9 +38,4 @@ export default {
 
 
 <style lang="sass" scoped>
-  .tips{
-    font-size: 14px;
-    margin-top: 60px;
-    color: #5e6d82;
-  }
 </style>

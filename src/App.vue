@@ -57,49 +57,4 @@ export default {
 <style lang="sass">
 @import "./styles/common.scss";
 @import "./styles/iconfont.css";
-body {
-  font-family: Helvetica, sans-serif;
-}
-#app{
-  max-width:1004px;
-  margin: 0 auto;
-}
-
-.footer{
-  height: 30px;
-  background: #eff2f7;
-  line-height: 30px;
-  font-size: 13px;
-  text-align: center;
-  margin-top: 10px;
-  .copyright{
-    padding-left: 60px;
-    margin:0 auto;
-    background: url(images/under_logo.png) left center no-repeat;
-  }
-}
-.top-menu {
-  margin-right: 20px;
-  height: 30px;
-  clear: both;
-  display: block;
-  
-  a,a:hover,a:visited,a:active,a:focus,.lang-dropdown{
-    color: #c7c7c7;
-    padding: 5px;
-    text-decoration: none;
-    font-size: 13px;
-    cursor: pointer;
-  }
-  a:hover{
-    color: #01a9f0;
-  }
-}
-.float-right{
-  float: right;
-}
-.el-dropdown-menu__item{
-  color: #c7c7c7;
-  font-size:13px;
-}
 </style>

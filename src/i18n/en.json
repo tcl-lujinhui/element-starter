@@ -487,5 +487,7 @@
     "ids_restore_factory_settings": "Restore your device to factory settings now?",
     "ids_wifi_wpsActive": "WPS is active.",
     "ids_share": "Share",
-    "ids_system_modemVersion": "Modem version"
+    "ids_system_modemVersion": "Modem version",
+    "ids_sys_rebootWarn": "Are you sure to restart this device?",
+    "ids_sys_restoreFactoryWarn": "This action will restore the default factory settings and restart the device. Are you sure you want to continue?"
 }

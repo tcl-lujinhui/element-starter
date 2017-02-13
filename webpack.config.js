@@ -2,10 +2,11 @@ var path = require('path')
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var webpack = require('webpack')
+var srcCatalog = "./webrc/"
 
 module.exports = {
   entry: {
-    "build": './src/app.js',
+    "build": srcCatalog + '/app.js',
     //"config": "./src/config.js"
   },
   //entry: './src/app.js',
@@ -55,7 +56,7 @@ module.exports = {
     proxy: {
       '/jrd/webapi': {
         target: 'http://127.0.0.1:9096',
-        target: 'http://192.168.1.1',
+        //target: 'http://192.168.1.1',
         secure: false
       },
       '/setSimState/*': {
@@ -80,14 +81,14 @@ if (process.env.NODE_ENV === 'production') {
     new HtmlWebpackPlugin({
       title: '4G LINKHUB',
       hash: true,
-      template: 'index.ejs',
+      template: srcCatalog + 'index.ejs',
       filename: '../index.html'
     }),
     new CopyWebpackPlugin([{
-      from:'src/i18n',
+      from: srcCatalog + 'i18n/',
       to: 'i18n'
-    },{
-      from:'src/cfgbak',
+    }, {
+      from: srcCatalog + '/cfgbak',
       to: '../cfgbak'
     }]),
     new webpack.optimize.UglifyJsPlugin({

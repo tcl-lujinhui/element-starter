@@ -487,5 +487,8 @@
     "ids_restore_factory_settings": "Rétablir maintenant les paramètres d’usine de votre appareil ?",
     "ids_wifi_wpsActive": "WPS actif.",
     "ids_share": "Partag",
-    "ids_system_modemVersion": "Modem version"
+    "ids_system_modemVersion": "Modem version",
+    "ids_sys_rebootWarn": "Voulez-vous vraiment redémarrer cet appareil ?",
+    "ids_sys_restoreFactoryWarn": "Les réglages usines seront restaurés et l'appareil redémarré. Voulez-vous vraiment continuer ?"
+
 }

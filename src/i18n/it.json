@@ -487,5 +487,8 @@
     "ids_restore_factory_settings": "Ripristinare le impostazioni di fabbrica sul dispositivo adesso?",
     "ids_wifi_wpsActive": "WPS attivato.",
     "ids_share": "Quota",
-    "ids_system_modemVersion": "Modem version"
+    "ids_system_modemVersion": "Modem version",
+    "ids_sys_rebootWarn": "Riavviare il dispositivo?",
+    "ids_sys_restoreFactoryWarn": "Questa azione riporterà le impostazioni sui valori predefiniti e riavvierà il dispositivo; continuare?"
+
 }

@@ -4,7 +4,7 @@
     +sideMenuPage('Settings')
       +breadcrumb("ids_lan_lanSettings")
       +form("formData")
-        +input("ids_lan_ipv4IpAddress:","IPv4IPAddress")
+        +input("ids_wlan_gatewayAddress:","IPv4IPAddress")
         +input("ids_subnetMark","SubnetMask")
         +radio("ids_lan_dhcpServer:","DHCPServerStatus")
         div(v-if="formData.DHCPServerStatus==1")

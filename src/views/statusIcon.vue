@@ -28,6 +28,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../styles/color.scss";
 $iconDirectory:"../images/icon/";
 .status {
   li {
@@ -45,7 +46,7 @@ $iconDirectory:"../images/icon/";
       } 
     }
     &.icon-network-type{
-      color: #01a9f0;
+      color: $color_main_level_1;
       font-weight:600;
       font-size: 16px;
     }

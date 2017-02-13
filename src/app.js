@@ -116,7 +116,6 @@ router.beforeEach((to, from, next) => {
 
   if (to.name != 'login') {
     Vue.sdk.get('GetLoginState', null, (res) => {
-      console.log(res)
       if (res.State === 1) {
         next()
       } else {
