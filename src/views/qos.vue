@@ -13,8 +13,8 @@
           span {{row.Service | qosService}}
         el-table-column(prop="Protocol",:label="vuex.res.ids_protocol" width='100' inline-template,:context="_self")
           span {{row.Protocol | qosProtocol}}
-        el-table-column(prop="Port",:label="vuex.res.ids_port" width='100')
-        el-table-column(:label="vuex.res.ids_netwrok_operation" fixed="right",:context="_self" width='130' inline-template style="margin:0 auto")
+        el-table-column(prop="Port",:label="vuex.res.ids_port")
+        el-table-column(:label="vuex.res.ids_netwrok_operation" ,:context="_self" width='130' inline-template)
           span
             +button("")(icon="edit" size="mini" @click="edit(row)")
             +button("")(icon="delete" size="mini" type="danger" @click="del($index,row)")

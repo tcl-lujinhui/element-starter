@@ -16,6 +16,14 @@
     display: inline-block;
     margin-right: 8px;
   }
+  .sub-text{    
+    margin-top: -20px;
+    .el-form-item__content{
+      line-height: 20px;
+      color: $color_gray666_font;
+      font-size: 12px;
+    }    
+  }
 }
 
 .el-form-item__error {
@@ -40,7 +48,7 @@
 .main-block {
   float: right;
   width: 97%;
-  padding: 0 0 0 10px;
+  padding: 0 0 10px 10px;
   min-height: 500px;
   background: $color_main_block_bg;
   .breadcrumb {
@@ -595,4 +603,4 @@ body {
   border-color: $color_main_level_1;
 }
 /** import custom style file **/
-//@import "./styles/common_custom.scss";
+@import "./styles/common_custom.scss";

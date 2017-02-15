@@ -225,26 +225,25 @@ config.systemSettings = {
       AntennaSwitch: 0,
       Language: "fr",
       CurrTime: "",
-      NtpServer1: "",
-      NtpServer2: "",
-      //TimeZone: "UTC"
+      NtpServer1: "0.openwrt.pool.ntp.org",
+      NtpServer2: "0.openwrt.pool.ntp.org",
+      //TimeZone: "UTC",
       ZoneName: "UTC"
     },
     formOptions: {
       Language: [],
-      TimeZone: []
+      NtpServer1:[],
+      NtpServer2:[],
+      ZoneName: []
     },
-    formRules: {
-      NtpServer1: [
-        common.rule.required,
-        common.rule.IP
-      ],
-      NtpServer2: [
-        common.rule.required,
-        common.rule.IP
-      ]
-    }
+    formRules: {}
   }
+
+config.systemSettings.formOptions.ZoneName = sys.ZoneName;
+config.systemSettings.formOptions.Language = sys.Language;
+config.systemSettings.formOptions.NtpServer1 = sys.NtpServer1;
+config.systemSettings.formOptions.NtpServer2 = sys.NtpServer2;
+
   //backupRestore
 config.backupRestore = {
   formData: {
@@ -416,7 +415,7 @@ config.wlanStatistics = {
 
 config.algSettings = {
   formOptions: {
-    PptpStatus: [
+    FtpStatus: [
       [0, 'ids_enable'],
       [1, 'ids_disable']
     ],
@@ -1018,9 +1017,6 @@ config.dynamicRules = {
   },
   formRules: {}
 };
-
-config.systemSettings.formOptions.ZoneName = sys.ZoneName;
-config.systemSettings.formOptions.Language = sys.Language;
 
 config.Wlan = {
   formData: {

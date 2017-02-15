@@ -35,6 +35,7 @@ import localUpgrade from './views/System/localUpgrade.vue';
 import onlineUpgrade from './views/System/onlineUpgrade.vue';
 import reboot from './views/System/reboot.vue';
 import reset from './views/System/reset.vue';
+import resetReboot from './views/System/resetReboot.vue';
 import restore from './views/System/restore.vue';
 import systemSettings from './views/System/systemSettings.vue';
 import tr069 from './views/System/tr069.vue';
@@ -131,6 +132,7 @@ let routers = [
   { name: 'onlineUpgrade', path: '/onlineUpgrade', component: onlineUpgrade },
   { name: 'reboot', path: '/reboot', component: reboot },
   { name: 'reset', path: '/reset', component: reset },
+  { name: 'resetReboot', path: '/resetReboot', component: resetReboot },
   { name: 'restore', path: '/restore', component: restore },
   { name: 'systemSettings', path: '/systemSettings', component: systemSettings },
   { name: 'tr069', path: '/tr069', component: tr069 },

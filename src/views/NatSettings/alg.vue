@@ -4,7 +4,7 @@
     +sideMenuPage('Settings')
       +breadcrumb("ids_alg_title")
       +form("formData")
-        +radio("PPTP:","PptpStatus")
+        +radio("FTP:","FtpStatus")
         +radio("ids_alg_h323Status:","H323AlgStatus")
         +radio("ids_alg_sipStatus:","SipAlgStatus")
         +input("ids_alg_sipPort","SipAlgPort")

@@ -44,6 +44,15 @@ mixin select(label,name,label1)
     else if block
       block
 
+mixin selectBlock(label,name,label1)
+  +formItem(label)
+    el-select(v-model.mumber="formData.#{name}")&attributes(attributes)
+      el-option(v-for="val in formOptions.#{name}",:label="(String(val[1]).indexOf('ids_')==0?vuex.res[val[1]]:val[1])",:value.number="val[1]")
+    if label1
+      +span(label1)
+    else if block
+      block
+
 mixin radio(label,name)
   +formItem(label)&attributes(attributes)
     el-radio(v-for="val in formOptions.#{name}" v-model="formData.#{name}",:label="val[0]")&attributes(attributes) {{val[1] | res}}
@@ -66,6 +75,14 @@ mixin switch(label,name)
 mixin text(label,val,label1)
   +formItem(label)&attributes(attributes)
     div.el-text  #{val}
+    if label1
+      +span(label1)
+    else if block
+      block
+
+mixin subText(label,val,label1)
+  el-form-item.sub-text(label="#{label}")&attributes(attributes)
+    div  #{val}
     if label1
       +span(label1)
     else if block

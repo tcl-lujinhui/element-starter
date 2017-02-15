@@ -2,7 +2,8 @@ var path = require('path')
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var webpack = require('webpack')
-var srcCatalog = "./webrc/"
+var srcCatalog = "./code_rc/fota/"
+srcCatalog = "./code_rc/fota/"
 
 module.exports = {
   entry: {
@@ -58,6 +59,21 @@ module.exports = {
         target: 'http://127.0.0.1:9096',
         //target: 'http://192.168.1.1',
         secure: false
+      },
+      '/firmware/*': {
+        target: 'http://www.alcatel-move.com',
+        //target: 'http://192.168.1.1',
+        secure: true
+      },
+      '/user/*': {
+        target: 'http://127.0.0.1:3000',
+        //target: 'http://192.168.1.1',
+        secure: false
+      },
+      '/goform/uploadBackupSettings': {
+        target: 'http://127.0.0.1:9096',
+        //target: 'http://192.168.1.1',
+        secure: true
       },
       '/setSimState/*': {
         target: 'http://127.0.0.1:9096',

@@ -2,414 +2,415 @@
 全局变量
 */
 let sys = {};
+
 /*TimeZone*/
 sys.ZoneName = [
-  ["UTC", "UTC"],
-  ["Atlantic/Faroe", "Atlantic/Faroe"], //"Atlantic/Faroe": "WET0WEST,M3.5.0/1,M10.5.0"
-  ["Pacific/Norfolk", "Pacific/Norfolk"], //"Pacific/Norfolk": "NFT-11:30"
-  ["America/Argentina/Cordoba", "America/Argentina/Cordoba"], //"America/Argentina/Cordoba": "ART3"
-  ["Europe/Simferopol", "Europe/Simferopol"], //"Europe/Simferopol": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Antarctica/Casey", "Antarctica/Casey"], //"Antarctica/Casey": "WST-8"
-  ["America/Argentina/La Rioja", "America/Argentina/La Rioja"], //"America/Argentina/La Rioja": "ART3"
-  ["Asia/Thimphu", "Asia/Thimphu"], //"Asia/Thimphu": "BTT-6"
-  ["Europe/Budapest", "Europe/Budapest"], //"Europe/Budapest": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Antarctica/Syowa", "Antarctica/Syowa"], //"Antarctica/Syowa": "SYOT-3"
-  ["America/El Salvador", "America/El Salvador"], //"America/El Salvador": "CST6"
-  ["Indian/Mahe", "Indian/Mahe"], //"Indian/Mahe": "SCT-4"
-  ["America/Boise", "America/Boise"], //"America/Boise": "MST7MDT,M3.2.0,M11.1.0"
-  ["America/St Thomas", "America/St Thomas"], //"America/St Thomas": "AST4"
-  ["Europe/Gibraltar", "Europe/Gibraltar"], //"Europe/Gibraltar": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Pacific/Apia", "Pacific/Apia"], //"Pacific/Apia": "WST-13"
-  ["Europe/Minsk", "Europe/Minsk"], //"Europe/Minsk": "FET-3"
-  ["Pacific/Rarotonga", "Pacific/Rarotonga"], //"Pacific/Rarotonga": "CKT10"
-  ["Arctic/Longyearbyen", "Arctic/Longyearbyen"], //"Arctic/Longyearbyen": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Asia/Shanghai", "Asia/Shanghai"], //"Asia/Shanghai": "CST-8"
-  ["America/North Dakota/New Salem", "America/North Dakota/New Salem"], //"America/North Dakota/New Salem": "CST6CDT,M3.2.0,M11.1.0"
-  ["Africa/Tripoli", "Africa/Tripoli"], //"Africa/Tripoli": "EET-2"
-  ["America/Lima", "America/Lima"], //"America/Lima": "PET5"
-  ["America/Rio Branco", "America/Rio Branco"], //"America/Rio Branco": "AMT4"
-  ["Africa/Libreville", "Africa/Libreville"], //"Africa/Libreville": "WAT-1"
-  ["Pacific/Pohnpei", "Pacific/Pohnpei"], //"Pacific/Pohnpei": "PONT-11"
-  ["Europe/Dublin", "Europe/Dublin"], //"Europe/Dublin": "GMT0IST,M3.5.0/1,M10.5.0"
-  ["America/Adak", "America/Adak"], //"America/Adak": "HAST10HADT,M3.2.0,M11.1.0"
-  ["Asia/Qyzylorda", "Asia/Qyzylorda"], //"Asia/Qyzylorda": "QYZT-6"
-  ["Indian/Chagos", "Indian/Chagos"], //"Indian/Chagos": "IOT-6"
-  ["Asia/Kuching", "Asia/Kuching"], //"Asia/Kuching": "MYT-8"
-  ["Europe/Kaliningrad", "Europe/Kaliningrad"], //"Europe/Kaliningrad": "FET-3"
-  ["Europe/Sofia", "Europe/Sofia"], //"Europe/Sofia": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Asia/Taipei", "Asia/Taipei"], //"Asia/Taipei": "CST-8"
-  ["America/Dawson", "America/Dawson"], //"America/Dawson": "PST8PDT,M3.2.0,M11.1.0"
-  ["Africa/Banjul", "Africa/Banjul"], //"Africa/Banjul": "GMT0"
-  ["America/Campo Grande", "America/Campo Grande"], //"America/Campo Grande": "AMT4AMST,M10.3.0/0,M2.3.0/0"
-  ["Africa/Blantyre", "Africa/Blantyre"], //"Africa/Blantyre": "CAT-2"
-  ["America/Rankin Inlet", "America/Rankin Inlet"], //"America/Rankin Inlet": "CST6CDT,M3.2.0,M11.1.0"
-  ["Africa/Bujumbura", "Africa/Bujumbura"], //"Africa/Bujumbura": "CAT-2"
-  ["Africa/Luanda", "Africa/Luanda"], //"Africa/Luanda": "WAT-1"
-  ["America/Marigot", "America/Marigot"], //"America/Marigot": "AST4"
-  ["Atlantic/St Helena", "Atlantic/St Helena"], //"Atlantic/St Helena": "GMT0"
-  ["Asia/Almaty", "Asia/Almaty"], //"Asia/Almaty": "ALMT-6"
-  ["Europe/Vaduz", "Europe/Vaduz"], //"Europe/Vaduz": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["America/Inuvik", "America/Inuvik"], //"America/Inuvik": "MST7MDT,M3.2.0,M11.1.0"
-  ["Asia/Hebron", "Asia/Hebron"], //"Asia/Hebron": "EET-2"
-  ["America/Mazatlan", "America/Mazatlan"], //"America/Mazatlan": "MST7MDT,M4.1.0,M10.5.0"
-  ["America/Curacao", "America/Curacao"], //"America/Curacao": "AST4"
-  ["Africa/Ndjamena", "Africa/Ndjamena"], //"Africa/Ndjamena": "WAT-1"
-  ["Asia/Kuwait", "Asia/Kuwait"], //"Asia/Kuwait": "AST-3"
-  ["Africa/Nouakchott", "Africa/Nouakchott"], //"Africa/Nouakchott": "GMT0"
-  ["Antarctica/Rothera", "Antarctica/Rothera"], //"Antarctica/Rothera": "ROTT3"
-  ["Europe/Uzhgorod", "Europe/Uzhgorod"], //"Europe/Uzhgorod": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Africa/Bamako", "Africa/Bamako"], //"Africa/Bamako": "GMT0"
-  ["America/Phoenix", "America/Phoenix"], //"America/Phoenix": "MST7"
-  ["America/Costa Rica", "America/Costa Rica"], //"America/Costa Rica": "CST6"
-  ["Atlantic/South Georgia", "Atlantic/South Georgia"], //"Atlantic/South Georgia": "GST2"
-  ["Pacific/Majuro", "Pacific/Majuro"], //"Pacific/Majuro": "MHT-12"
-  ["America/Port-au-Prince", "America/Port-au-Prince"], //"America/Port-au-Prince": "EST5"
-  ["Asia/Yekaterinburg", "Asia/Yekaterinburg"], //"Asia/Yekaterinburg": "YEKT-6"
-  ["Asia/Kashgar", "Asia/Kashgar"], //"Asia/Kashgar": "CST-8"
-  ["Africa/Algiers", "Africa/Algiers"], //"Africa/Algiers": "CET-1"
-  ["America/Eirunepe", "America/Eirunepe"], //"America/Eirunepe": "AMT4"
-  ["Europe/Vilnius", "Europe/Vilnius"], //"Europe/Vilnius": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Africa/Casablanca", "Africa/Casablanca"], //"Africa/Casablanca": "WET0"
-  ["Asia/Anadyr", "Asia/Anadyr"], //"Asia/Anadyr": "ANAT-12"
-  ["America/Edmonton", "America/Edmonton"], //"America/Edmonton": "MST7MDT,M3.2.0,M11.1.0"
-  ["Africa/El Aaiun", "Africa/El Aaiun"], //"Africa/El Aaiun": "WET0"
-  ["Atlantic/Canary", "Atlantic/Canary"], //"Atlantic/Canary": "WET0WEST,M3.5.0/1,M10.5.0"
-  ["America/Argentina/Rio Gallegos", "America/Argentina/Rio Gallegos"], //"America/Argentina/Rio Gallegos": "ART3"
-  ["America/Argentina/Ushuaia", "America/Argentina/Ushuaia"], //"America/Argentina/Ushuaia": "ART3"
-  ["America/Denver", "America/Denver"], //"America/Denver": "MST7MDT,M3.2.0,M11.1.0"
-  ["Pacific/Enderbury", "Pacific/Enderbury"], //"Pacific/Enderbury": "PHOT-13"
-  ["America/Resolute", "America/Resolute"], //"America/Resolute": "CST6CDT,M3.2.0,M11.1.0"
-  ["America/Goose Bay", "America/Goose Bay"], //"America/Goose Bay": "AST4ADT,M3.2.0,M11.1.0"
-  ["America/Regina", "America/Regina"], //"America/Regina": "CST6"
-  ["Asia/Macau", "Asia/Macau"], //"Asia/Macau": "CST-8"
-  ["Africa/Dar es Salaam", "Africa/Dar es Salaam"], //"Africa/Dar es Salaam": "EAT-3"
-  ["Africa/Kinshasa", "Africa/Kinshasa"], //"Africa/Kinshasa": "WAT-1"
-  ["America/Bahia Banderas", "America/Bahia Banderas"], //"America/Bahia Banderas": "CST6CDT,M4.1.0,M10.5.0"
-  ["Europe/Madrid", "Europe/Madrid"], //"Europe/Madrid": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Asia/Dili", "Asia/Dili"], //"Asia/Dili": "TLT-9"
-  ["Antarctica/Mawson", "Antarctica/Mawson"], //"Antarctica/Mawson": "MAWT-5"
-  ["America/Ojinaga", "America/Ojinaga"], //"America/Ojinaga": "MST7MDT,M3.2.0,M11.1.0"
-  ["Pacific/Niue", "Pacific/Niue"], //"Pacific/Niue": "NUT11"
-  ["America/Anguilla", "America/Anguilla"], //"America/Anguilla": "AST4"
-  ["Africa/Bangui", "Africa/Bangui"], //"Africa/Bangui": "WAT-1"
-  ["Indian/Christmas", "Indian/Christmas"], //"Indian/Christmas": "CXT-7"
-  ["Indian/Maldives", "Indian/Maldives"], //"Indian/Maldives": "MVT-5"
-  ["America/Barbados", "America/Barbados"], //"America/Barbados": "AST4"
-  ["Asia/Kamchatka", "Asia/Kamchatka"], //"Asia/Kamchatka": "PETT-12"
-  ["America/Cayenne", "America/Cayenne"], //"America/Cayenne": "GFT3"
-  ["Europe/Volgograd", "Europe/Volgograd"], //"Europe/Volgograd": "VOLT-4"
-  ["America/St Lucia", "America/St Lucia"], //"America/St Lucia": "AST4"
-  ["Australia/Eucla", "Australia/Eucla"], //"Australia/Eucla": "CWST-8:45"
-  ["Pacific/Kiritimati", "Pacific/Kiritimati"], //"Pacific/Kiritimati": "LINT-14"
-  ["Europe/Sarajevo", "Europe/Sarajevo"], //"Europe/Sarajevo": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["America/Dawson Creek", "America/Dawson Creek"], //"America/Dawson Creek": "MST7"
-  ["America/Antigua", "America/Antigua"], //"America/Antigua": "AST4"
-  ["Africa/Tunis", "Africa/Tunis"], //"Africa/Tunis": "CET-1"
-  ["America/Indiana/Vevay", "America/Indiana/Vevay"], //"America/Indiana/Vevay": "EST5EDT,M3.2.0,M11.1.0"
-  ["Africa/Asmara", "Africa/Asmara"], //"Africa/Asmara": "EAT-3"
-  ["Asia/Aqtobe", "Asia/Aqtobe"], //"Asia/Aqtobe": "AQTT-5"
-  ["Pacific/Kosrae", "Pacific/Kosrae"], //"Pacific/Kosrae": "KOST-11"
-  ["Atlantic/Cape Verde", "Atlantic/Cape Verde"], //"Atlantic/Cape Verde": "CVT1"
-  ["Africa/Lome", "Africa/Lome"], //"Africa/Lome": "GMT0"
-  ["Asia/Choibalsan", "Asia/Choibalsan"], //"Asia/Choibalsan": "CHOT-8"
-  ["Asia/Jakarta", "Asia/Jakarta"], //"Asia/Jakarta": "WIT-7"
-  ["America/Indiana/Winamac", "America/Indiana/Winamac"], //"America/Indiana/Winamac": "EST5EDT,M3.2.0,M11.1.0"
-  ["America/Yakutat", "America/Yakutat"], //"America/Yakutat": "AKST9AKDT,M3.2.0,M11.1.0"
-  ["America/Dominica", "America/Dominica"], //"America/Dominica": "AST4"
-  ["America/Rainy River", "America/Rainy River"], //"America/Rainy River": "CST6CDT,M3.2.0,M11.1.0"
-  ["America/Belize", "America/Belize"], //"America/Belize": "CST6"
-  ["America/Indiana/Vincennes", "America/Indiana/Vincennes"], //"America/Indiana/Vincennes": "EST5EDT,M3.2.0,M11.1.0"
-  ["Asia/Oral", "Asia/Oral"], //"Asia/Oral": "ORAT-5"
-  ["Pacific/Tongatapu", "Pacific/Tongatapu"], //"Pacific/Tongatapu": "TOT-13"
-  ["America/Recife", "America/Recife"], //"America/Recife": "BRT3"
-  ["Pacific/Guam", "Pacific/Guam"], //"Pacific/Guam": "ChST-10"
-  ["Asia/Chongqing", "Asia/Chongqing"], //"Asia/Chongqing": "CST-8"
-  ["Asia/Ashgabat", "Asia/Ashgabat"], //"Asia/Ashgabat": "TMT-5"
-  ["America/Fortaleza", "America/Fortaleza"], //"America/Fortaleza": "BRT3"
-  ["America/Indiana/Tell City", "America/Indiana/Tell City"], //"America/Indiana/Tell City": "CST6CDT,M3.2.0,M11.1.0"
-  ["America/St Barthelemy", "America/St Barthelemy"], //"America/St Barthelemy": "AST4"
-  ["Asia/Bangkok", "Asia/Bangkok"], //"Asia/Bangkok": "ICT-7"
-  ["Africa/Windhoek", "Africa/Windhoek"], //"Africa/Windhoek": "WAT-1WAST,M9.1.0,M4.1.0"
-  ["Europe/Podgorica", "Europe/Podgorica"], //"Europe/Podgorica": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["America/Scoresbysund", "America/Scoresbysund"], //"America/Scoresbysund": "EGT1EGST,M3.5.0/0,M10.5.0/1"
-  ["Africa/Lagos", "Africa/Lagos"], //"Africa/Lagos": "WAT-1"
-  ["America/Cambridge Bay", "America/Cambridge Bay"], //"America/Cambridge Bay": "MST7MDT,M3.2.0,M11.1.0"
-  ["Africa/Gaborone", "Africa/Gaborone"], //"Africa/Gaborone": "CAT-2"
-  ["America/Port of Spain", "America/Port of Spain"], //"America/Port of Spain": "AST4"
-  ["Africa/Malabo", "Africa/Malabo"], //"Africa/Malabo": "WAT-1"
-  ["America/Menominee", "America/Menominee"], //"America/Menominee": "CST6CDT,M3.2.0,M11.1.0"
-  ["Africa/Djibouti", "Africa/Djibouti"], //"Africa/Djibouti": "EAT-3"
-  ["Europe/Mariehamn", "Europe/Mariehamn"], //"Europe/Mariehamn": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Europe/Riga", "Europe/Riga"], //"Europe/Riga": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["America/Argentina/Salta", "America/Argentina/Salta"], //"America/Argentina/Salta": "ART3"
-  ["America/Shiprock", "America/Shiprock"], //"America/Shiprock": "MST7MDT,M3.2.0,M11.1.0"
-  ["Asia/Qatar", "Asia/Qatar"], //"Asia/Qatar": "AST-3"
-  ["America/Guadeloupe", "America/Guadeloupe"], //"America/Guadeloupe": "AST4"
-  ["Pacific/Wallis", "Pacific/Wallis"], //"Pacific/Wallis": "WFT-12"
-  ["America/Guatemala", "America/Guatemala"], //"America/Guatemala": "CST6"
-  ["Pacific/Wake", "Pacific/Wake"], //"Pacific/Wake": "WAKT-12"
-  ["America/Moncton", "America/Moncton"], //"America/Moncton": "AST4ADT,M3.2.0,M11.1.0"
-  ["America/Miquelon", "America/Miquelon"], //"America/Miquelon": "PMST3PMDT,M3.2.0,M11.1.0"
-  ["Pacific/Tahiti", "Pacific/Tahiti"], //"Pacific/Tahiti": "TAHT10"
-  ["America/Monterrey", "America/Monterrey"], //"America/Monterrey": "CST6CDT,M4.1.0,M10.5.0"
-  ["America/Tortola", "America/Tortola"], //"America/Tortola": "AST4"
-  ["Pacific/Saipan", "Pacific/Saipan"], //"Pacific/Saipan": "ChST-10"
-  ["America/Thule", "America/Thule"], //"America/Thule": "AST4ADT,M3.2.0,M11.1.0"
-  ["Asia/Beirut", "Asia/Beirut"], //"Asia/Beirut": "EET-2EEST,M3.5.0/0,M10.5.0/0"
-  ["America/Aruba", "America/Aruba"], //"America/Aruba": "AST4"
-  ["Indian/Mauritius", "Indian/Mauritius"], //"Indian/Mauritius": "MUT-4"
-  ["Pacific/Port Moresby", "Pacific/Port Moresby"], //"Pacific/Port Moresby": "PGT-10"
-  ["America/Yellowknife", "America/Yellowknife"], //"America/Yellowknife": "MST7MDT,M3.2.0,M11.1.0"
-  ["Asia/Omsk", "Asia/Omsk"], //"Asia/Omsk": "OMST-7"
-  ["Australia/Darwin", "Australia/Darwin"], //"Australia/Darwin": "CST-9:30"
-  ["Pacific/Palau", "Pacific/Palau"], //"Pacific/Palau": "PWT-9"
-  ["Africa/Sao Tome", "Africa/Sao Tome"], //"Africa/Sao Tome": "GMT0"
-  ["Pacific/Noumea", "Pacific/Noumea"], //"Pacific/Noumea": "NCT-11"
-  ["Atlantic/Azores", "Atlantic/Azores"], //"Atlantic/Azores": "AZOT1AZOST,M3.5.0/0,M10.5.0/1"
-  ["Europe/Paris", "Europe/Paris"], //"Europe/Paris": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Pacific/Nauru", "Pacific/Nauru"], //"Pacific/Nauru": "NRT-12"
-  ["Pacific/Midway", "Pacific/Midway"], //"Pacific/Midway": "SST11"
-  ["Asia/Seoul", "Asia/Seoul"], //"Asia/Seoul": "KST-9"
-  ["Australia/Perth", "Australia/Perth"], //"Australia/Perth": "WST-8"
-  ["America/Asuncion", "America/Asuncion"], //"America/Asuncion": "PYT4PYST,M10.1.0/0,M4.2.0/0"
-  ["Pacific/Kwajalein", "Pacific/Kwajalein"], //"Pacific/Kwajalein": "MHT-12"
-  ["Asia/Bahrain", "Asia/Bahrain"], //"Asia/Bahrain": "AST-3"
-  ["Asia/Baghdad", "Asia/Baghdad"], //"Asia/Baghdad": "AST-3"
-  ["Europe/Malta", "Europe/Malta"], //"Europe/Malta": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["America/Sao Paulo", "America/Sao Paulo"], //"America/Sao Paulo": "BRT3BRST,M10.3.0/0,M2.3.0/0"
-  ["Africa/Khartoum", "Africa/Khartoum"], //"Africa/Khartoum": "EAT-3"
-  ["Europe/Tirane", "Europe/Tirane"], //"Europe/Tirane": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Asia/Bishkek", "Asia/Bishkek"], //"Asia/Bishkek": "KGT-6"
-  ["Pacific/Johnston", "Pacific/Johnston"], //"Pacific/Johnston": "HST10"
-  ["Pacific/Gambier", "Pacific/Gambier"], //"Pacific/Gambier": "GAMT9"
-  ["America/New York", "America/New York"], //"America/New York": "EST5EDT,M3.2.0,M11.1.0"
-  ["Asia/Damascus", "Asia/Damascus"], //"Asia/Damascus": "EET-2EEST,M4.1.5/0,M10.5.5/0"
-  ["Asia/Colombo", "Asia/Colombo"], //"Asia/Colombo": "IST-5:30"
-  ["Europe/Brussels", "Europe/Brussels"], //"Europe/Brussels": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Pacific/Funafuti", "Pacific/Funafuti"], //"Pacific/Funafuti": "TVT-12"
-  ["America/Danmarkshavn", "America/Danmarkshavn"], //"America/Danmarkshavn": "GMT0"
-  ["Pacific/Fiji", "Pacific/Fiji"], //"Pacific/Fiji": "FJT-12"
-  ["America/Santarem", "America/Santarem"], //"America/Santarem": "BRT3"
-  ["America/Caracas", "America/Caracas"], //"America/Caracas": "VET4:30"
-  ["America/Nassau", "America/Nassau"], //"America/Nassau": "EST5EDT,M3.2.0,M11.1.0"
-  ["Pacific/Fakaofo", "Pacific/Fakaofo"], //"Pacific/Fakaofo": "TKT10"
-  ["America/Detroit", "America/Detroit"], //"America/Detroit": "EST5EDT,M3.2.0,M11.1.0"
-  ["Pacific/Efate", "Pacific/Efate"], //"Pacific/Efate": "VUT-11"
-  ["Pacific/Chuuk", "Pacific/Chuuk"], //"Pacific/Chuuk": "CHUT-10"
-  ["America/North Dakota/Center", "America/North Dakota/Center"], //"America/North Dakota/Center": "CST6CDT,M3.2.0,M11.1.0"
-  ["Pacific/Chatham", "Pacific/Chatham"], //"Pacific/Chatham": "CHAST-12:45CHADT,M9.5.0/2:45,M4.1.0/3:45"
-  ["America/Panama", "America/Panama"], //"America/Panama": "EST5"
-  ["Asia/Kuala Lumpur", "Asia/Kuala Lumpur"], //"Asia/Kuala Lumpur": "MYT-8"
-  ["America/Metlakatla", "America/Metlakatla"], //"America/Metlakatla": "MeST8"
-  ["America/Vancouver", "America/Vancouver"], //"America/Vancouver": "PST8PDT,M3.2.0,M11.1.0"
-  ["America/Winnipeg", "America/Winnipeg"], //"America/Winnipeg": "CST6CDT,M3.2.0,M11.1.0"
-  ["Indian/Reunion", "Indian/Reunion"], //"Indian/Reunion": "RET-4"
-  ["Indian/Mayotte", "Indian/Mayotte"], //"Indian/Mayotte": "EAT-3"
-  ["Asia/Sakhalin", "Asia/Sakhalin"], //"Asia/Sakhalin": "SAKT-11"
-  ["America/Manaus", "America/Manaus"], //"America/Manaus": "AMT4"
-  ["Asia/Tashkent", "Asia/Tashkent"], //"Asia/Tashkent": "UZT-5"
-  ["Indian/Kerguelen", "Indian/Kerguelen"], //"Indian/Kerguelen": "TFT-5"
-  ["America/Hermosillo", "America/Hermosillo"], //"America/Hermosillo": "MST7"
-  ["Asia/Dubai", "Asia/Dubai"], //"Asia/Dubai": "GST-4"
-  ["Australia/Hobart", "Australia/Hobart"], //"Australia/Hobart": "EST-10EST,M10.1.0,M4.1.0/3"
-  ["America/Bahia", "America/Bahia"], //"America/Bahia": "BRT3BRST,M10.3.0/0,M2.3.0/0"
-  ["Indian/Cocos", "Indian/Cocos"], //"Indian/Cocos": "CCT-6:30"
-  ["Australia/Lord Howe", "Australia/Lord Howe"], //"Australia/Lord Howe": "LHST-10:30LHST-11,M10.1.0,M4.1.0"
-  ["Indian/Antananarivo", "Indian/Antananarivo"], //"Indian/Antananarivo": "EAT-3"
-  ["America/Argentina/Jujuy", "America/Argentina/Jujuy"], //"America/Argentina/Jujuy": "ART3"
-  ["Africa/Mogadishu", "Africa/Mogadishu"], //"Africa/Mogadishu": "EAT-3"
-  ["Europe/Zurich", "Europe/Zurich"], //"Europe/Zurich": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/Zaporozhye", "Europe/Zaporozhye"], //"Europe/Zaporozhye": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Europe/Zagreb", "Europe/Zagreb"], //"Europe/Zagreb": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/Warsaw", "Europe/Warsaw"], //"Europe/Warsaw": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/Vienna", "Europe/Vienna"], //"Europe/Vienna": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/Vatican", "Europe/Vatican"], //"Europe/Vatican": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Pacific/Guadalcanal", "Pacific/Guadalcanal"], //"Pacific/Guadalcanal": "SBT-11"
-  ["America/Nome", "America/Nome"], //"America/Nome": "AKST9AKDT,M3.2.0,M11.1.0"
-  ["Pacific/Pitcairn", "Pacific/Pitcairn"], //"Pacific/Pitcairn": "PST8"
-  ["America/Argentina/San Juan", "America/Argentina/San Juan"], //"America/Argentina/San Juan": "ART3"
-  ["Europe/Kiev", "Europe/Kiev"], //"Europe/Kiev": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["America/Mexico City", "America/Mexico City"], //"America/Mexico City": "CST6CDT,M4.1.0,M10.5.0"
-  ["Asia/Aden", "Asia/Aden"], //"Asia/Aden": "AST-3"
-  ["Europe/Skopje", "Europe/Skopje"], //"Europe/Skopje": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/San Marino", "Europe/San Marino"], //"Europe/San Marino": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["America/Kralendijk", "America/Kralendijk"], //"America/Kralendijk": "AST4"
-  ["America/Swift Current", "America/Swift Current"], //"America/Swift Current": "CST6"
-  ["Africa/Maputo", "Africa/Maputo"], //"Africa/Maputo": "CAT-2"
-  ["Atlantic/Bermuda", "Atlantic/Bermuda"], //"Atlantic/Bermuda": "AST4ADT,M3.2.0,M11.1.0"
-  ["Antarctica/DumontDUrville", "Antarctica/DumontDUrville"], //"Antarctica/DumontDUrville": "DDUT-10"
-  ["Europe/Samara", "Europe/Samara"], //"Europe/Samara": "SAMT-4"
-  ["Europe/Rome", "Europe/Rome"], //"Europe/Rome": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/Prague", "Europe/Prague"], //"Europe/Prague": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/Oslo", "Europe/Oslo"], //"Europe/Oslo": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/Moscow", "Europe/Moscow"], //"Europe/Moscow": "MSK-4"
-  ["Europe/Monaco", "Europe/Monaco"], //"Europe/Monaco": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/Luxembourg", "Europe/Luxembourg"], //"Europe/Luxembourg": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["America/Santa Isabel", "America/Santa Isabel"], //"America/Santa Isabel": "PST8PDT,M4.1.0,M10.5.0"
-  ["Europe/London","Europe/London"], //"Europe/London": "GMT0BST,M3.5.0/1,M10.5.0"
-  ["Europe/Ljubljana", "Europe/Ljubljana"], //"Europe/Ljubljana": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Europe/Lisbon", "Europe/Lisbon"], //"Europe/Lisbon": "WET0WEST,M3.5.0/1,M10.5.0"
-  ["Asia/Vladivostok", "Asia/Vladivostok"], //"Asia/Vladivostok": "VLAT-11"
-  ["Europe/Jersey", "Europe/Jersey"], //"Europe/Jersey": "GMT0BST,M3.5.0/1,M10.5.0"
-  ["Antarctica/South Pole", "Antarctica/South Pole"], //"Antarctica/South Pole": "NZST-12NZDT,M9.5.0,M4.1.0/3"
-  ["America/Grand Turk", "America/Grand Turk"], //"America/Grand Turk": "EST5EDT,M3.2.0,M11.1.0"
-  ["America/Anchorage", "America/Anchorage"], //"America/Anchorage": "AKST9AKDT,M3.2.0,M11.1.0"
-  ["America/Managua", "America/Managua"], //"America/Managua": "CST6"
-  ["Europe/Belgrade", "Europe/Belgrade"], //"Europe/Belgrade": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["America/Montserrat", "America/Montserrat"], //"America/Montserrat": "AST4"
-  ["Indian/Comoro", "Indian/Comoro"], //"Indian/Comoro": "EAT-3"
-  ["Africa/Bissau", "Africa/Bissau"], //"Africa/Bissau": "GMT0"
-  ["Asia/Aqtau", "Asia/Aqtau"], //"Asia/Aqtau": "AQTT-5"
-  ["America/Tegucigalpa", "America/Tegucigalpa"], //"America/Tegucigalpa": "CST6"
-  ["Asia/Makassar", "Asia/Makassar"], //"Asia/Makassar": "CIT-8"
-  ["America/Guayaquil", "America/Guayaquil"], //"America/Guayaquil": "ECT5"
-  ["America/Indiana/Marengo", "America/Indiana/Marengo"], //"America/Indiana/Marengo": "EST5EDT,M3.2.0,M11.1.0"
-  ["Asia/Ulaanbaatar", "Asia/Ulaanbaatar"], //"Asia/Ulaanbaatar": "ULAT-8"
-  ["America/North Dakota/Beulah", "America/North Dakota/Beulah"], //"America/North Dakota/Beulah": "CST6CDT,M3.2.0,M11.1.0"
-  ["Asia/Magadan", "Asia/Magadan"], //"Asia/Magadan": "MAGT-12"
-  ["Africa/Abidjan", "Africa/Abidjan"], //"Africa/Abidjan": "GMT0"
-  ["America/Porto Velho", "America/Porto Velho"], //"America/Porto Velho": "AMT4"
-  ["Africa/Lubumbashi", "Africa/Lubumbashi"], //"Africa/Lubumbashi": "CAT-2"
-  ["Europe/Chisinau", "Europe/Chisinau"], //"Europe/Chisinau": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Europe/Bucharest", "Europe/Bucharest"], //"Europe/Bucharest": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Pacific/Galapagos", "Pacific/Galapagos"], //"Pacific/Galapagos": "GALT6"
-  ["America/Cancun", "America/Cancun"], //"America/Cancun": "CST6CDT,M4.1.0,M10.5.0"
-  ["America/Indiana/Petersburg", "America/Indiana/Petersburg"], //"America/Indiana/Petersburg": "EST5EDT,M3.2.0,M11.1.0"
-  ["Asia/Samarkand", "Asia/Samarkand"], //"Asia/Samarkand": "UZT-5"
-  ["Asia/Irkutsk", "Asia/Irkutsk"], //"Asia/Irkutsk": "IRKT-9"
-  ["Asia/Harbin", "Asia/Harbin"], //"Asia/Harbin": "CST-8"
-  ["America/Thunder Bay", "America/Thunder Bay"], //"America/Thunder Bay": "EST5EDT,M3.2.0,M11.1.0"
-  ["America/Pangnirtung", "America/Pangnirtung"], //"America/Pangnirtung": "EST5EDT,M3.2.0,M11.1.0"
-  ["America/Santo Domingo", "America/Santo Domingo"], //"America/Santo Domingo": "AST4"
-  ["America/Puerto Rico", "America/Puerto Rico"], //"America/Puerto Rico": "AST4"
-  ["Europe/Istanbul", "Europe/Istanbul"], //"Europe/Istanbul": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Europe/Athens", "Europe/Athens"], //"Europe/Athens": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Europe/Andorra", "Europe/Andorra"], //"Europe/Andorra": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Asia/Novokuznetsk", "Asia/Novokuznetsk"], //"Asia/Novokuznetsk": "NOVT-7"
-  ["Australia/Sydney", "Australia/Sydney"], //"Australia/Sydney": "EST-10EST,M10.1.0,M4.1.0/3"
-  ["Antarctica/Vostok", "Antarctica/Vostok"], //"Antarctica/Vostok": "VOST-6"
-  ["Asia/Kabul", "Asia/Kabul"], //"Asia/Kabul": "AFT-4:30"
-  ["Australia/Lindeman", "Australia/Lindeman"], //"Australia/Lindeman": "EST-10"
-  ["America/Whitehorse", "America/Whitehorse"], //"America/Whitehorse": "PST8PDT,M3.2.0,M11.1.0"
-  ["Australia/Melbourne", "Australia/Melbourne"], //"Australia/Melbourne": "EST-10EST,M10.1.0,M4.1.0/3"
-  ["Africa/Juba", "Africa/Juba"], //"Africa/Juba": "EAT-3"
-  ["Africa/Kigali", "Africa/Kigali"], //"Africa/Kigali": "CAT-2"
-  ["Europe/Isle of Man", "Europe/Isle of Man"], //"Europe/Isle of Man": "GMT0BST,M3.5.0/1,M10.5.0"
-  ["Europe/Tallinn", "Europe/Tallinn"], //"Europe/Tallinn": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Asia/Karachi", "Asia/Karachi"], //"Asia/Karachi": "PKT-5"
-  ["Africa/Addis Ababa", "Africa/Addis Ababa"], //"Africa/Addis Ababa": "EAT-3"
-  ["Australia/Currie", "Australia/Currie"], //"Australia/Currie": "EST-10EST,M10.1.0,M4.1.0/3"
-  ["Australia/Broken Hill", "Australia/Broken Hill"], //"Australia/Broken Hill": "CST-9:30CST,M10.1.0,M4.1.0/3"
-  ["America/Kentucky/Monticello", "America/Kentucky/Monticello"], //"America/Kentucky/Monticello": "EST5EDT,M3.2.0,M11.1.0"
-  ["Asia/Brunei", "Asia/Brunei"], //"Asia/Brunei": "BNT-8"
-  ["America/Montreal", "America/Montreal"], //"America/Montreal": "EST5EDT,M3.2.0,M11.1.0"
-  ["Africa/Porto-Novo", "Africa/Porto-Novo"], //"Africa/Porto-Novo": "WAT-1"
-  ["Australia/Adelaide", "Australia/Adelaide"], //"Australia/Adelaide": "CST-9:30CST,M10.1.0,M4.1.0/3"
-  ["Atlantic/Stanley", "Atlantic/Stanley"], //"Atlantic/Stanley": "FKT4FKST,M9.1.0,M4.3.0"
-  ["Africa/Accra", "Africa/Accra"], //"Africa/Accra": "GMT0"
-  ["Atlantic/Madeira", "Atlantic/Madeira"], //"Atlantic/Madeira": "WET0WEST,M3.5.0/1,M10.5.0"
-  ["Antarctica/Davis", "Antarctica/Davis"], //"Antarctica/Davis": "DAVT-7"
-  ["Asia/Yerevan", "Asia/Yerevan"], //"Asia/Yerevan": "AMT-4AMST,M3.5.0,M10.5.0/3"
-  ["Africa/Maseru", "Africa/Maseru"], //"Africa/Maseru": "SAST-2"
-  ["Africa/Harare", "Africa/Harare"], //"Africa/Harare": "CAT-2"
-  ["Asia/Yakutsk", "Asia/Yakutsk"], //"Asia/Yakutsk": "YAKT-10"
-  ["Pacific/Pago Pago", "Pacific/Pago Pago"], //"Pacific/Pago Pago": "SST11"
-  ["Asia/Pontianak", "Asia/Pontianak"], //"Asia/Pontianak": "WIT-7"
-  ["Antarctica/McMurdo", "Antarctica/McMurdo"], //"Antarctica/McMurdo": "NZST-12NZDT,M9.5.0,M4.1.0/3"
-  ["Asia/Pyongyang", "Asia/Pyongyang"], //"Asia/Pyongyang": "KST-9"
-  ["Asia/Riyadh", "Asia/Riyadh"], //"Asia/Riyadh": "AST-3"
-  ["America/Kentucky/Louisville", "America/Kentucky/Louisville"], //"America/Kentucky/Louisville": "EST5EDT,M3.2.0,M11.1.0"
-  ["Europe/Helsinki", "Europe/Helsinki"], //"Europe/Helsinki": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Africa/Brazzaville", "Africa/Brazzaville"], //"Africa/Brazzaville": "WAT-1"
-  ["Africa/Nairobi", "Africa/Nairobi"], //"Africa/Nairobi": "EAT-3"
-  ["America/Sitka", "America/Sitka"], //"America/Sitka": "AKST9AKDT,M3.2.0,M11.1.0"
-  ["Asia/Tokyo", "Asia/Tokyo"], //"Asia/Tokyo": "JST-9"
-  ["Asia/Baku", "Asia/Baku"], //"Asia/Baku": "AZT-4AZST,M3.5.0/4,M10.5.0/5"
-  ["America/Glace Bay", "America/Glace Bay"], //"America/Glace Bay": "AST4ADT,M3.2.0,M11.1.0"
-  ["America/Jamaica", "America/Jamaica"], //"America/Jamaica": "EST5"
-  ["America/Havana", "America/Havana"], //"America/Havana": "CST5CDT,M3.2.0/0,M10.5.0/1"
-  ["America/Juneau", "America/Juneau"], //"America/Juneau": "AKST9AKDT,M3.2.0,M11.1.0"
-  ["Asia/Singapore", "Asia/Singapore"], //"Asia/Singapore": "SGT-8"
-  ["America/Araguaina", "America/Araguaina"], //"America/Araguaina": "BRT3"
-  ["Pacific/Marquesas", "Pacific/Marquesas"], //"Pacific/Marquesas": "MART9:30"
-  ["Europe/Bratislava", "Europe/Bratislava"], //"Europe/Bratislava": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Asia/Urumqi", "Asia/Urumqi"], //"Asia/Urumqi": "CST-8"
-  ["America/Nipigon", "America/Nipigon"], //"America/Nipigon": "EST5EDT,M3.2.0,M11.1.0"
-  ["Asia/Rangoon", "Asia/Rangoon"], //"Asia/Rangoon": "MMT-6:30"
-  ["America/Montevideo", "America/Montevideo"], //"America/Montevideo": "UYT3UYST,M10.1.0,M3.2.0"
-  ["Africa/Mbabane", "Africa/Mbabane"], //"Africa/Mbabane": "SAST-2"
-  ["Asia/Ho Chi Minh", "Asia/Ho Chi Minh"], //"Asia/Ho Chi Minh": "ICT-7"
-  ["Asia/Phnom Penh", "Asia/Phnom Penh"], //"Asia/Phnom Penh": "ICT-7"
-  ["America/Lower Princes", "America/Lower Princes"], //"America/Lower Princes": "AST4"
-  ["America/Chihuahua", "America/Chihuahua"], //"America/Chihuahua": "MST7MDT,M4.1.0,M10.5.0"
-  ["Asia/Novosibirsk", "Asia/Novosibirsk"], //"Asia/Novosibirsk": "NOVT-7"
-  ["Europe/Amsterdam", "Europe/Amsterdam"], //"Europe/Amsterdam": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["America/Indiana/Knox", "America/Indiana/Knox"], //"America/Indiana/Knox": "CST6CDT,M3.2.0,M11.1.0"
-  ["Asia/Muscat", "Asia/Muscat"], //"Asia/Muscat": "GST-4"
-  ["Asia/Manila", "Asia/Manila"], //"Asia/Manila": "PHT-8"
-  ["America/Blanc-Sablon", "America/Blanc-Sablon"], //"America/Blanc-Sablon": "AST4"
-  ["Europe/Guernsey", "Europe/Guernsey"], //"Europe/Guernsey": "GMT0BST,M3.5.0/1,M10.5.0"
-  ["America/St Kitts", "America/St Kitts"], //"America/St Kitts": "AST4"
-  ["America/Martinique", "America/Martinique"], //"America/Martinique": "AST4"
-  ["Asia/Jayapura", "Asia/Jayapura"], //"Asia/Jayapura": "EIT-9"
-  ["Asia/Krasnoyarsk", "Asia/Krasnoyarsk"], //"Asia/Krasnoyarsk": "KRAT-8"
-  ["America/Paramaribo", "America/Paramaribo"], //"America/Paramaribo": "SRT3"
-  ["America/Boa Vista", "America/Boa Vista"], //"America/Boa Vista": "AMT4"
-  ["Asia/Kolkata", "Asia/Kolkata"], //"Asia/Kolkata": "IST-5:30"
-  ["America/Indiana/Indianapolis", "America/Indiana/Indianapolis"], //"America/Indiana/Indianapolis": "EST5EDT,M3.2.0,M11.1.0"
-  ["Asia/Kathmandu", "Asia/Kathmandu"], //"Asia/Kathmandu": "NPT-5:45"
-  ["America/St Johns", "America/St Johns"], //"America/St Johns": "NST3:30NDT,M3.2.0,M11.1.0"
-  ["Atlantic/Reykjavik", "Atlantic/Reykjavik"], //"Atlantic/Reykjavik": "GMT0"
-  ["America/Matamoros", "America/Matamoros"], //"America/Matamoros": "CST6CDT,M3.2.0,M11.1.0"
-  ["Pacific/Auckland", "Pacific/Auckland"], //"Pacific/Auckland": "NZST-12NZDT,M9.5.0,M4.1.0/3"
-  ["Antarctica/Macquarie", "Antarctica/Macquarie"], //"Antarctica/Macquarie": "MIST-11"
-  ["America/Argentina/Catamarca", "America/Argentina/Catamarca"], //"America/Argentina/Catamarca": "ART3"
-  ["America/Merida", "America/Merida"], //"America/Merida": "CST6CDT,M4.1.0,M10.5.0"
-  ["Africa/Niamey", "Africa/Niamey"], //"Africa/Niamey": "WAT-1"
-  ["America/Halifax", "America/Halifax"], //"America/Halifax": "AST4ADT,M3.2.0,M11.1.0"
-  ["Africa/Ceuta", "Africa/Ceuta"], //"Africa/Ceuta": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["America/Chicago", "America/Chicago"], //"America/Chicago": "CST6CDT,M3.2.0,M11.1.0"
-  ["Europe/Stockholm", "Europe/Stockholm"], //"Europe/Stockholm": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Asia/Vientiane", "Asia/Vientiane"], //"Asia/Vientiane": "ICT-7"
-  ["Africa/Conakry", "Africa/Conakry"], //"Africa/Conakry": "GMT0"
-  ["America/Argentina/Tucuman", "America/Argentina/Tucuman"], //"America/Argentina/Tucuman": "ART3"
-  ["Europe/Berlin", "Europe/Berlin"], //"Europe/Berlin": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Asia/Nicosia", "Asia/Nicosia"], //"Asia/Nicosia": "EET-2EEST,M3.5.0/3,M10.5.0/4"
-  ["Africa/Dakar", "Africa/Dakar"], //"Africa/Dakar": "GMT0"
-  ["Africa/Lusaka", "Africa/Lusaka"], //"Africa/Lusaka": "CAT-2"
-  ["America/Cayman", "America/Cayman"], //"America/Cayman": "EST5"
-  ["Asia/Gaza", "Asia/Gaza"], //"Asia/Gaza": "EET-2"
-  ["Asia/Tbilisi", "Asia/Tbilisi"], //"Asia/Tbilisi": "GET-4"
-  ["America/Atikokan", "America/Atikokan"], //"America/Atikokan": "EST5"
-  ["Asia/Dhaka", "Asia/Dhaka"], //"Asia/Dhaka": "BDT-6"
-  ["America/Tijuana", "America/Tijuana"], //"America/Tijuana": "PST8PDT,M3.2.0,M11.1.0"
-  ["Africa/Douala", "Africa/Douala"], //"Africa/Douala": "WAT-1"
-  ["America/Maceio", "America/Maceio"], //"America/Maceio": "BRT3"
-  ["Australia/Brisbane", "Australia/Brisbane"], //"Australia/Brisbane": "EST-10"
-  ["Pacific/Honolulu", "Pacific/Honolulu"], //"Pacific/Honolulu": "HST10"
-  ["America/Argentina/Mendoza", "America/Argentina/Mendoza"], //"America/Argentina/Mendoza": "ART3"
-  ["America/Cuiaba", "America/Cuiaba"], //"America/Cuiaba": "AMT4AMST,M10.3.0/0,M2.3.0/0"
-  ["America/La Paz", "America/La Paz"], //"America/La Paz": "BOT4"
-  ["Africa/Ouagadougou", "Africa/Ouagadougou"], //"Africa/Ouagadougou": "GMT0"
-  ["America/Noronha", "America/Noronha"], //"America/Noronha": "FNT2"
-  ["America/Los Angeles", "America/Los Angeles"], //"America/Los Angeles": "PST8PDT,M3.2.0,M11.1.0"
-  ["America/Argentina/Buenos Aires", "America/Argentina/Buenos Aires"], //"America/Argentina/Buenos Aires": "ART3"
-  ["America/Toronto", "America/Toronto"], //"America/Toronto": "EST5EDT,M3.2.0,M11.1.0"
-  ["America/Grenada", "America/Grenada"], //"America/Grenada": "AST4"
-  ["Africa/Kampala", "Africa/Kampala"], //"Africa/Kampala": "EAT-3"
-  ["America/St Vincent", "America/St Vincent"], //"America/St Vincent": "AST4"
-  ["Africa/Freetown", "Africa/Freetown"], //"Africa/Freetown": "GMT0"
-  ["America/Iqaluit", "America/Iqaluit"], //"America/Iqaluit": "EST5EDT,M3.2.0,M11.1.0"
-  ["Asia/Hovd", "Asia/Hovd"], //"Asia/Hovd": "HOVT-7"
-  ["America/Bogota", "America/Bogota"], //"America/Bogota": "COT5"
-  ["America/Belem", "America/Belem"], //"America/Belem": "BRT3"
-  ["Europe/Copenhagen", "Europe/Copenhagen"], //"Europe/Copenhagen": "CET-1CEST,M3.5.0,M10.5.0/3"
-  ["Africa/Johannesburg", "Africa/Johannesburg"], //"Africa/Johannesburg": "SAST-2"
-  ["Pacific/Tarawa", "Pacific/Tarawa"], //"Pacific/Tarawa": "GILT-12"
-  ["Africa/Monrovia", "Africa/Monrovia"], //"Africa/Monrovia": "GMT0"
-  ["Asia/Dushanbe", "Asia/Dushanbe"], //"Asia/Dushanbe": "TJT-5"
-  ["America/Guyana", "America/Guyana"], //"America/Guyana": "GYT4"
-  ["Asia/Hong Kong", "Asia/Hong Kong"] //"Asia/Hong Kong": "HKT-8"
+  ["UTC","UTC"],
+  ["WET0WEST,M3.5.0/1,M10.5.0","Atlantic/Faroe"],
+  ["NFT-11:30","Pacific/Norfolk"],
+  ["ART3","America/Argentina/Cordoba"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Simferopol"],
+  ["WST-8","Antarctica/Casey"],
+  ["ART3","America/Argentina/La Rioja"],
+  ["BTT-6","Asia/Thimphu"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Budapest"],
+  ["SYOT-3","Antarctica/Syowa"],
+  ["CST6","America/El Salvador"],
+  ["SCT-4","Indian/Mahe"],
+  ["MST7MDT,M3.2.0,M11.1.0","America/Boise"],
+  ["AST4","America/St Thomas"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Gibraltar"],
+  ["WST-13","Pacific/Apia"],
+  ["FET-3","Europe/Minsk"],
+  ["CKT10","Pacific/Rarotonga"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Arctic/Longyearbyen"],
+  ["CST-8","Asia/Shanghai"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/North Dakota/New Salem"],
+  ["EET-2","Africa/Tripoli"],
+  ["PET5","America/Lima"],
+  ["AMT4","America/Rio Branco"],
+  ["WAT-1","Africa/Libreville"],
+  ["PONT-11","Pacific/Pohnpei"],
+  ["GMT0IST,M3.5.0/1,M10.5.0","Europe/Dublin"],
+  ["HAST10HADT,M3.2.0,M11.1.0","America/Adak"],
+  ["QYZT-6","Asia/Qyzylorda"],
+  ["IOT-6","Indian/Chagos"],
+  ["MYT-8","Asia/Kuching"],
+  ["FET-3","Europe/Kaliningrad"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Sofia"],
+  ["CST-8","Asia/Taipei"],
+  ["PST8PDT,M3.2.0,M11.1.0","America/Dawson"],
+  ["GMT0","Africa/Banjul"],
+  ["AMT4AMST,M10.3.0/0,M2.3.0/0","America/Campo Grande"],
+  ["CAT-2","Africa/Blantyre"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/Rankin Inlet"],
+  ["CAT-2","Africa/Bujumbura"],
+  ["WAT-1","Africa/Luanda"],
+  ["AST4","America/Marigot"],
+  ["GMT0","Atlantic/St Helena"],
+  ["ALMT-6","Asia/Almaty"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Vaduz"],
+  ["MST7MDT,M3.2.0,M11.1.0","America/Inuvik"],
+  ["EET-2","Asia/Hebron"],
+  ["MST7MDT,M4.1.0,M10.5.0","America/Mazatlan"],
+  ["AST4","America/Curacao"],
+  ["WAT-1","Africa/Ndjamena"],
+  ["AST-3","Asia/Kuwait"],
+  ["GMT0","Africa/Nouakchott"],
+  ["ROTT3","Antarctica/Rothera"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Uzhgorod"],
+  ["GMT0","Africa/Bamako"],
+  ["MST7","America/Phoenix"],
+  ["CST6","America/Costa Rica"],
+  ["GST2","Atlantic/South Georgia"],
+  ["MHT-12","Pacific/Majuro"],
+  ["EST5","America/Port-au-Prince"],
+  ["YEKT-6","Asia/Yekaterinburg"],
+  ["CST-8","Asia/Kashgar"],
+  ["CET-1","Africa/Algiers"],
+  ["AMT4","America/Eirunepe"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Vilnius"],
+  ["WET0","Africa/Casablanca"],
+  ["ANAT-12","Asia/Anadyr"],
+  ["MST7MDT,M3.2.0,M11.1.0","America/Edmonton"],
+  ["WET0","Africa/El Aaiun"],
+  ["WET0WEST,M3.5.0/1,M10.5.0","Atlantic/Canary"],
+  ["ART3","America/Argentina/Rio Gallegos"],
+  ["ART3","America/Argentina/Ushuaia"],
+  ["MST7MDT,M3.2.0,M11.1.0","America/Denver"],
+  ["PHOT-13","Pacific/Enderbury"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/Resolute"],
+  ["AST4ADT,M3.2.0,M11.1.0","America/Goose Bay"],
+  ["CST6","America/Regina"],
+  ["CST-8","Asia/Macau"],
+  ["EAT-3","Africa/Dar es Salaam"],
+  ["WAT-1","Africa/Kinshasa"],
+  ["CST6CDT,M4.1.0,M10.5.0","America/Bahia Banderas"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Madrid"],
+  ["TLT-9","Asia/Dili"],
+  ["MAWT-5","Antarctica/Mawson"],
+  ["MST7MDT,M3.2.0,M11.1.0","America/Ojinaga"],
+  ["NUT11","Pacific/Niue"],
+  ["AST4","America/Anguilla"],
+  ["WAT-1","Africa/Bangui"],
+  ["CXT-7","Indian/Christmas"],
+  ["MVT-5","Indian/Maldives"],
+  ["AST4","America/Barbados"],
+  ["PETT-12","Asia/Kamchatka"],
+  ["GFT3","America/Cayenne"],
+  ["VOLT-4","Europe/Volgograd"],
+  ["AST4","America/St Lucia"],
+  ["CWST-8:45","Australia/Eucla"],
+  ["LINT-14","Pacific/Kiritimati"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Sarajevo"],
+  ["MST7","America/Dawson Creek"],
+  ["AST4","America/Antigua"],
+  ["CET-1","Africa/Tunis"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Indiana/Vevay"],
+  ["EAT-3","Africa/Asmara"],
+  ["AQTT-5","Asia/Aqtobe"],
+  ["KOST-11","Pacific/Kosrae"],
+  ["CVT1","Atlantic/Cape Verde"],
+  ["GMT0","Africa/Lome"],
+  ["CHOT-8","Asia/Choibalsan"],
+  ["WIT-7","Asia/Jakarta"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Indiana/Winamac"],
+  ["AKST9AKDT,M3.2.0,M11.1.0","America/Yakutat"],
+  ["AST4","America/Dominica"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/Rainy River"],
+  ["CST6","America/Belize"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Indiana/Vincennes"],
+  ["ORAT-5","Asia/Oral"],
+  ["TOT-13","Pacific/Tongatapu"],
+  ["BRT3","America/Recife"],
+  ["ChST-10","Pacific/Guam"],
+  ["CST-8","Asia/Chongqing"],
+  ["TMT-5","Asia/Ashgabat"],
+  ["BRT3","America/Fortaleza"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/Indiana/Tell City"],
+  ["AST4","America/St Barthelemy"],
+  ["ICT-7","Asia/Bangkok"],
+  ["WAT-1WAST,M9.1.0,M4.1.0","Africa/Windhoek"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Podgorica"],
+  ["EGT1EGST,M3.5.0/0,M10.5.0/1","America/Scoresbysund"],
+  ["WAT-1","Africa/Lagos"],
+  ["MST7MDT,M3.2.0,M11.1.0","America/Cambridge Bay"],
+  ["CAT-2","Africa/Gaborone"],
+  ["AST4","America/Port of Spain"],
+  ["WAT-1","Africa/Malabo"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/Menominee"],
+  ["EAT-3","Africa/Djibouti"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Mariehamn"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Riga"],
+  ["ART3","America/Argentina/Salta"],
+  ["MST7MDT,M3.2.0,M11.1.0","America/Shiprock"],
+  ["AST-3","Asia/Qatar"],
+  ["AST4","America/Guadeloupe"],
+  ["WFT-12","Pacific/Wallis"],
+  ["CST6","America/Guatemala"],
+  ["WAKT-12","Pacific/Wake"],
+  ["AST4ADT,M3.2.0,M11.1.0","America/Moncton"],
+  ["PMST3PMDT,M3.2.0,M11.1.0","America/Miquelon"],
+  ["TAHT10","Pacific/Tahiti"],
+  ["CST6CDT,M4.1.0,M10.5.0","America/Monterrey"],
+  ["AST4","America/Tortola"],
+  ["ChST-10","Pacific/Saipan"],
+  ["AST4ADT,M3.2.0,M11.1.0","America/Thule"],
+  ["EET-2EEST,M3.5.0/0,M10.5.0/0","Asia/Beirut"],
+  ["AST4","America/Aruba"],
+  ["MUT-4","Indian/Mauritius"],
+  ["PGT-10","Pacific/Port Moresby"],
+  ["MST7MDT,M3.2.0,M11.1.0","America/Yellowknife"],
+  ["OMST-7","Asia/Omsk"],
+  ["CST-9:30","Australia/Darwin"],
+  ["PWT-9","Pacific/Palau"],
+  ["GMT0","Africa/Sao Tome"],
+  ["NCT-11","Pacific/Noumea"],
+  ["AZOT1AZOST,M3.5.0/0,M10.5.0/1","Atlantic/Azores"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Paris"],
+  ["NRT-12","Pacific/Nauru"],
+  ["SST11","Pacific/Midway"],
+  ["KST-9","Asia/Seoul"],
+  ["WST-8","Australia/Perth"],
+  ["PYT4PYST,M10.1.0/0,M4.2.0/0","America/Asuncion"],
+  ["MHT-12","Pacific/Kwajalein"],
+  ["AST-3","Asia/Bahrain"],
+  ["AST-3","Asia/Baghdad"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Malta"],
+  ["BRT3BRST,M10.3.0/0,M2.3.0/0","America/Sao Paulo"],
+  ["EAT-3","Africa/Khartoum"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Tirane"],
+  ["KGT-6","Asia/Bishkek"],
+  ["HST10","Pacific/Johnston"],
+  ["GAMT9","Pacific/Gambier"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/New York"],
+  ["EET-2EEST,M4.1.5/0,M10.5.5/0","Asia/Damascus"],
+  ["IST-5:30","Asia/Colombo"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Brussels"],
+  ["TVT-12","Pacific/Funafuti"],
+  ["GMT0","America/Danmarkshavn"],
+  ["FJT-12","Pacific/Fiji"],
+  ["BRT3","America/Santarem"],
+  ["VET4:30","America/Caracas"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Nassau"],
+  ["TKT10","Pacific/Fakaofo"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Detroit"],
+  ["VUT-11","Pacific/Efate"],
+  ["CHUT-10","Pacific/Chuuk"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/North Dakota/Center"],
+  ["CHAST-12:45CHADT,M9.5.0/2:45,M4.1.0/3:45","Pacific/Chatham"],
+  ["EST5","America/Panama"],
+  ["MYT-8","Asia/Kuala Lumpur"],
+  ["MeST8","America/Metlakatla"],
+  ["PST8PDT,M3.2.0,M11.1.0","America/Vancouver"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/Winnipeg"],
+  ["RET-4","Indian/Reunion"],
+  ["EAT-3","Indian/Mayotte"],
+  ["SAKT-11","Asia/Sakhalin"],
+  ["AMT4","America/Manaus"],
+  ["UZT-5","Asia/Tashkent"],
+  ["TFT-5","Indian/Kerguelen"],
+  ["MST7","America/Hermosillo"],
+  ["GST-4","Asia/Dubai"],
+  ["EST-10EST,M10.1.0,M4.1.0/3","Australia/Hobart"],
+  ["BRT3BRST,M10.3.0/0,M2.3.0/0","America/Bahia"],
+  ["CCT-6:30","Indian/Cocos"],
+  ["LHST-10:30LHST-11,M10.1.0,M4.1.0","Australia/Lord Howe"],
+  ["EAT-3","Indian/Antananarivo"],
+  ["ART3","America/Argentina/Jujuy"],
+  ["EAT-3","Africa/Mogadishu"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Zurich"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Zaporozhye"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Zagreb"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Warsaw"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Vienna"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Vatican"],
+  ["SBT-11","Pacific/Guadalcanal"],
+  ["AKST9AKDT,M3.2.0,M11.1.0","America/Nome"],
+  ["PST8","Pacific/Pitcairn"],
+  ["ART3","America/Argentina/San Juan"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Kiev"],
+  ["CST6CDT,M4.1.0,M10.5.0","America/Mexico City"],
+  ["AST-3","Asia/Aden"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Skopje"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/San Marino"],
+  ["AST4","America/Kralendijk"],
+  ["CST6","America/Swift Current"],
+  ["CAT-2","Africa/Maputo"],
+  ["AST4ADT,M3.2.0,M11.1.0","Atlantic/Bermuda"],
+  ["DDUT-10","Antarctica/DumontDUrville"],
+  ["SAMT-4","Europe/Samara"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Rome"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Prague"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Oslo"],
+  ["MSK-4","Europe/Moscow"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Monaco"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Luxembourg"],
+  ["PST8PDT,M4.1.0,M10.5.0","America/Santa Isabel"],
+  ["GMT0BST,M3.5.0/1,M10.5.0","Europe/London"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Ljubljana"],
+  ["WET0WEST,M3.5.0/1,M10.5.0","Europe/Lisbon"],
+  ["VLAT-11","Asia/Vladivostok"],
+  ["GMT0BST,M3.5.0/1,M10.5.0","Europe/Jersey"],
+  ["NZST-12NZDT,M9.5.0,M4.1.0/3","Antarctica/South Pole"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Grand Turk"],
+  ["AKST9AKDT,M3.2.0,M11.1.0","America/Anchorage"],
+  ["CST6","America/Managua"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Belgrade"],
+  ["AST4","America/Montserrat"],
+  ["EAT-3","Indian/Comoro"],
+  ["GMT0","Africa/Bissau"],
+  ["AQTT-5","Asia/Aqtau"],
+  ["CST6","America/Tegucigalpa"],
+  ["CIT-8","Asia/Makassar"],
+  ["ECT5","America/Guayaquil"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Indiana/Marengo"],
+  ["ULAT-8","Asia/Ulaanbaatar"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/North Dakota/Beulah"],
+  ["MAGT-12","Asia/Magadan"],
+  ["GMT0","Africa/Abidjan"],
+  ["AMT4","America/Porto Velho"],
+  ["CAT-2","Africa/Lubumbashi"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Chisinau"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Bucharest"],
+  ["GALT6","Pacific/Galapagos"],
+  ["CST6CDT,M4.1.0,M10.5.0","America/Cancun"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Indiana/Petersburg"],
+  ["UZT-5","Asia/Samarkand"],
+  ["IRKT-9","Asia/Irkutsk"],
+  ["CST-8","Asia/Harbin"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Thunder Bay"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Pangnirtung"],
+  ["AST4","America/Santo Domingo"],
+  ["AST4","America/Puerto Rico"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Istanbul"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Athens"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Andorra"],
+  ["NOVT-7","Asia/Novokuznetsk"],
+  ["EST-10EST,M10.1.0,M4.1.0/3","Australia/Sydney"],
+  ["VOST-6","Antarctica/Vostok"],
+  ["AFT-4:30","Asia/Kabul"],
+  ["EST-10","Australia/Lindeman"],
+  ["PST8PDT,M3.2.0,M11.1.0","America/Whitehorse"],
+  ["EST-10EST,M10.1.0,M4.1.0/3","Australia/Melbourne"],
+  ["EAT-3","Africa/Juba"],
+  ["CAT-2","Africa/Kigali"],
+  ["GMT0BST,M3.5.0/1,M10.5.0","Europe/Isle of Man"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Tallinn"],
+  ["PKT-5","Asia/Karachi"],
+  ["EAT-3","Africa/Addis Ababa"],
+  ["EST-10EST,M10.1.0,M4.1.0/3","Australia/Currie"],
+  ["CST-9:30CST,M10.1.0,M4.1.0/3","Australia/Broken Hill"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Kentucky/Monticello"],
+  ["BNT-8","Asia/Brunei"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Montreal"],
+  ["WAT-1","Africa/Porto-Novo"],
+  ["CST-9:30CST,M10.1.0,M4.1.0/3","Australia/Adelaide"],
+  ["FKT4FKST,M9.1.0,M4.3.0","Atlantic/Stanley"],
+  ["GMT0","Africa/Accra"],
+  ["WET0WEST,M3.5.0/1,M10.5.0","Atlantic/Madeira"],
+  ["DAVT-7","Antarctica/Davis"],
+  ["AMT-4AMST,M3.5.0,M10.5.0/3","Asia/Yerevan"],
+  ["SAST-2","Africa/Maseru"],
+  ["CAT-2","Africa/Harare"],
+  ["YAKT-10","Asia/Yakutsk"],
+  ["SST11","Pacific/Pago Pago"],
+  ["WIT-7","Asia/Pontianak"],
+  ["NZST-12NZDT,M9.5.0,M4.1.0/3","Antarctica/McMurdo"],
+  ["KST-9","Asia/Pyongyang"],
+  ["AST-3","Asia/Riyadh"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Kentucky/Louisville"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Europe/Helsinki"],
+  ["WAT-1","Africa/Brazzaville"],
+  ["EAT-3","Africa/Nairobi"],
+  ["AKST9AKDT,M3.2.0,M11.1.0","America/Sitka"],
+  ["JST-9","Asia/Tokyo"],
+  ["AZT-4AZST,M3.5.0/4,M10.5.0/5","Asia/Baku"],
+  ["AST4ADT,M3.2.0,M11.1.0","America/Glace Bay"],
+  ["EST5","America/Jamaica"],
+  ["CST5CDT,M3.2.0/0,M10.5.0/1","America/Havana"],
+  ["AKST9AKDT,M3.2.0,M11.1.0","America/Juneau"],
+  ["SGT-8","Asia/Singapore"],
+  ["BRT3","America/Araguaina"],
+  ["MART9:30","Pacific/Marquesas"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Bratislava"],
+  ["CST-8","Asia/Urumqi"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Nipigon"],
+  ["MMT-6:30","Asia/Rangoon"],
+  ["UYT3UYST,M10.1.0,M3.2.0","America/Montevideo"],
+  ["SAST-2","Africa/Mbabane"],
+  ["ICT-7","Asia/Ho Chi Minh"],
+  ["ICT-7","Asia/Phnom Penh"],
+  ["AST4","America/Lower Princes"],
+  ["MST7MDT,M4.1.0,M10.5.0","America/Chihuahua"],
+  ["NOVT-7","Asia/Novosibirsk"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Amsterdam"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/Indiana/Knox"],
+  ["GST-4","Asia/Muscat"],
+  ["PHT-8","Asia/Manila"],
+  ["AST4","America/Blanc-Sablon"],
+  ["GMT0BST,M3.5.0/1,M10.5.0","Europe/Guernsey"],
+  ["AST4","America/St Kitts"],
+  ["AST4","America/Martinique"],
+  ["EIT-9","Asia/Jayapura"],
+  ["KRAT-8","Asia/Krasnoyarsk"],
+  ["SRT3","America/Paramaribo"],
+  ["AMT4","America/Boa Vista"],
+  ["IST-5:30","Asia/Kolkata"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Indiana/Indianapolis"],
+  ["NPT-5:45","Asia/Kathmandu"],
+  ["NST3:30NDT,M3.2.0,M11.1.0","America/St Johns"],
+  ["GMT0","Atlantic/Reykjavik"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/Matamoros"],
+  ["NZST-12NZDT,M9.5.0,M4.1.0/3","Pacific/Auckland"],
+  ["MIST-11","Antarctica/Macquarie"],
+  ["ART3","America/Argentina/Catamarca"],
+  ["CST6CDT,M4.1.0,M10.5.0","America/Merida"],
+  ["WAT-1","Africa/Niamey"],
+  ["AST4ADT,M3.2.0,M11.1.0","America/Halifax"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Africa/Ceuta"],
+  ["CST6CDT,M3.2.0,M11.1.0","America/Chicago"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Stockholm"],
+  ["ICT-7","Asia/Vientiane"],
+  ["GMT0","Africa/Conakry"],
+  ["ART3","America/Argentina/Tucuman"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Berlin"],
+  ["EET-2EEST,M3.5.0/3,M10.5.0/4","Asia/Nicosia"],
+  ["GMT0","Africa/Dakar"],
+  ["CAT-2","Africa/Lusaka"],
+  ["EST5","America/Cayman"],
+  ["EET-2","Asia/Gaza"],
+  ["GET-4","Asia/Tbilisi"],
+  ["EST5","America/Atikokan"],
+  ["BDT-6","Asia/Dhaka"],
+  ["PST8PDT,M3.2.0,M11.1.0","America/Tijuana"],
+  ["WAT-1","Africa/Douala"],
+  ["BRT3","America/Maceio"],
+  ["EST-10","Australia/Brisbane"],
+  ["HST10","Pacific/Honolulu"],
+  ["ART3","America/Argentina/Mendoza"],
+  ["AMT4AMST,M10.3.0/0,M2.3.0/0","America/Cuiaba"],
+  ["BOT4","America/La Paz"],
+  ["GMT0","Africa/Ouagadougou"],
+  ["FNT2","America/Noronha"],
+  ["PST8PDT,M3.2.0,M11.1.0","America/Los Angeles"],
+  ["ART3","America/Argentina/Buenos Aires"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Toronto"],
+  ["AST4","America/Grenada"],
+  ["EAT-3","Africa/Kampala"],
+  ["AST4","America/St Vincent"],
+  ["GMT0","Africa/Freetown"],
+  ["EST5EDT,M3.2.0,M11.1.0","America/Iqaluit"],
+  ["HOVT-7","Asia/Hovd"],
+  ["COT5","America/Bogota"],
+  ["BRT3","America/Belem"],
+  ["CET-1CEST,M3.5.0,M10.5.0/3","Europe/Copenhagen"],
+  ["SAST-2","Africa/Johannesburg"],
+  ["GILT-12","Pacific/Tarawa"],
+  ["GMT0","Africa/Monrovia"],
+  ["TJT-5","Asia/Dushanbe"],
+  ["GYT4","America/Guyana"],
+  ["HKT-8","Asia/Hong Kong"]
 ];
 
 
@@ -467,6 +468,42 @@ sys.Language = [
   ['sp', 'Español']
 ];
 sys.customLanguage = [];
+sys.NtpServer1=[
+  ["0.openwrt.pool.ntp.org","0.openwrt.pool.ntp.org"],
+  ["1.openwrt.pool.ntp.org","1.openwrt.pool.ntp.org"],
+  ["0.asia.pool.ntp.org","0.asia.pool.ntp.org"],
+  ["1.asia.pool.ntp.org","1.asia.pool.ntp.org"],
+  ["0.europe.pool.ntp.org","0.europe.pool.ntp.org"],
+  ["1.europe.pool.ntp.org","1.europe.pool.ntp.org"],
+  ["0.africa.pool.ntp.org","0.africa.pool.ntp.org"],
+  ["1.africa.pool.ntp.org","1.africa.pool.ntp.org"],
+  ["0.europe.pool.ntp.org","0.europe.pool.ntp.org"],
+  ["1.europe.pool.ntp.org","1.europe.pool.ntp.org"],
+  ["0.north-america.pool.ntp.org","0.north-america.pool.ntp.org"],
+  ["1.north-america.pool.ntp.org","1.north-america.pool.ntp.org"],
+  ["0.oceania.pool.ntp.org","0.oceania.pool.ntp.org"],
+  ["1.oceania.pool.ntp.org","1.oceania.pool.ntp.org"],
+  ["0.south-america.pool.ntp.org","0.south-america.pool.ntp.org"],
+  ["1.south-america.pool.ntp.org","1.south-america.pool.ntp.org"]
+];
+sys.NtpServer2=[
+  ["0.openwrt.pool.ntp.org","0.openwrt.pool.ntp.org"],
+  ["1.openwrt.pool.ntp.org","1.openwrt.pool.ntp.org"],
+  ["0.asia.pool.ntp.org","0.asia.pool.ntp.org"],
+  ["1.asia.pool.ntp.org","1.asia.pool.ntp.org"],
+  ["0.europe.pool.ntp.org","0.europe.pool.ntp.org"],
+  ["1.europe.pool.ntp.org","1.europe.pool.ntp.org"],
+  ["0.africa.pool.ntp.org","0.africa.pool.ntp.org"],
+  ["1.africa.pool.ntp.org","1.africa.pool.ntp.org"],
+  ["0.europe.pool.ntp.org","0.europe.pool.ntp.org"],
+  ["1.europe.pool.ntp.org","1.europe.pool.ntp.org"],
+  ["0.north-america.pool.ntp.org","0.north-america.pool.ntp.org"],
+  ["1.north-america.pool.ntp.org","1.north-america.pool.ntp.org"],
+  ["0.oceania.pool.ntp.org","0.oceania.pool.ntp.org"],
+  ["1.oceania.pool.ntp.org","1.oceania.pool.ntp.org"],
+  ["0.south-america.pool.ntp.org","0.south-america.pool.ntp.org"],
+  ["1.south-america.pool.ntp.org","1.south-america.pool.ntp.org"]
+];
 
 
 export default sys;

@@ -63,7 +63,7 @@ function buildString() {
   })
   _.each(stringMap, function(i, v) {
     _.each(langArr, function(n) {
-      stringRes[n][v] = StringData[i][n] || ""
+      stringRes[n][v] = StringData[i][n] || StringData[i]["en"] ||""
     })
   })
   var i =0;
@@ -71,7 +71,7 @@ function buildString() {
     var str_custom_path = "./" + WEBRC_WWW + "/i18n/"+n+"_custom.json";
     var str_custom;
     var jsonPath = "./" + WEBRC_WWW + "/i18n/"+n + ".json"
-    if (n!="en"&&fs.existsSync(str_custom_path)) {
+    if (fs.existsSync(str_custom_path)) {
       str_custom=require(str_custom_path)||{}
       _.extend(stringRes[n],str_custom)
     }

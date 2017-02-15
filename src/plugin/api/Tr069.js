@@ -1,4 +1,5 @@
-import G from "../../config/G.js";
+//import G from "../../config/G.js";
+import {_,$,G} from '../../common.js';
 export default {
   GetClientConfiguration: {
     Request(req) {

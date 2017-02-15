@@ -5,9 +5,9 @@
       +breadcrumb("ids_filter_ipFilter")
       +form("formData")
         +select("ids_filter_ipFilter:","filter_policy")
-        span.add(v-show="(formData.filter_policy==2&&page.total_num<16)||(formData.filter_policy==1&&page.total_num<16)")
+        span.add(v-show="(formData.filter_policy==2)||(formData.filter_policy==1)")
           +button("")(icon="plus" size="mini" @click="add" type="primary")
-        el-table(:data="page.ipFilter_list" border)
+        el-table(:data="formData.filter_policy==1?page.ipFilter_list:page.ipFilterAllowlist" v-show="formData.filter_policy!=0" border)
           el-table-column(prop="lan_ip" ,:label="vuex.res.ids_ipAddress" width='200')
           el-table-column(prop="lan_port" ,:label="vuex.res.ids_vtServer_lanPort" width='120')
           el-table-column(prop="wan_ip", :label="vuex.res.ids_filter_wanIpAddress" width='200')
@@ -44,6 +44,7 @@ export default {
         this.initdata(Config);
         this.page = {
           ipFilter_list: [],
+          ipFilterAllowlist: [],
           dialog: false,
           action: "edit",
           indexs: -1,
@@ -55,6 +56,7 @@ export default {
         this.sdk.get("getIPFilterList", null, (res) => {
           this.formData.filter_policy = res.filter_policy;
           this.page.ipFilter_list = res.ipFilter_list;
+          this.page.ipFilterAllowlist = res.ipFilterAllowlist;
           this.page.filter_policy = res.filter_policy;
           this.page.total_num = res.total_num;
         });
@@ -72,45 +74,12 @@ export default {
         this.page.dialog = true;
       },
       ediApply() {
+        let params = {};
         let vm = this;
         let sameIpFilter = true;
         let setForm = () => {
-          if (this.page.action == 'add') {
-            _.each(vm.page.ipFilter_list, (i, v) => {
-              if (vm.formData.lan_ip == i.lan_ip && vm.formData.lan_port == i.lan_port && vm.formData.wan_ip == i.wan_ip && vm.formData.wan_port == i.wan_port && (vm.formData.ip_protocol == i.ip_protocol || 3 * vm.formData.ip_protocol < i.ip_protocol)) {
-                sameIpFilter = false;
-                return false;
-              }
-            })
-            if (!sameIpFilter) {
-              this.$alert(vuex.res['ids_security_ipFilterWarn'], vuex.res['ids_confirm'], {
-                confirmButtonText: vuex.res['ids_ok'],
-                callback: action => {
-                  vm.reset();
-                }
-              });
-              return false;
-            } else {
-              vm.page.ipFilter_list[vm.page.indexs] = {};
-              vm.page.ipFilter_list[vm.page.indexs].lan_ip = vm.formData.lan_ip;
-              vm.page.ipFilter_list[vm.page.indexs].lan_port = vm.formData.lan_port;
-              vm.page.ipFilter_list[vm.page.indexs].wan_ip = vm.formData.wan_ip;
-              vm.page.ipFilter_list[vm.page.indexs].wan_port = vm.formData.wan_port;
-              vm.page.ipFilter_list[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
-              /*vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.indexs;*/
-              vm.page.ipFilter_list[vm.page.indexs].ip_status = 1;
-            }
-          } else {
-            if (vm.page.ipFilter_list[vm.page.indexs].lan_ip == vm.formData.lan_ip && vm.page.ipFilter_list[vm.page.indexs].lan_port == vm.formData.lan_port && vm.page.ipFilter_list[vm.page.indexs].wan_ip == vm.formData.wan_ip && vm.page.ipFilter_list[vm.page.indexs].wan_port == vm.formData.wan_port && vm.page.ipFilter_list[vm.page.indexs].ip_protocol == vm.formData.ip_protocol) {
-              vm.page.ipFilter_list[vm.page.indexs] = {};
-              vm.page.ipFilter_list[vm.page.indexs].lan_ip = vm.formData.lan_ip;
-              vm.page.ipFilter_list[vm.page.indexs].lan_port = vm.formData.lan_port;
-              vm.page.ipFilter_list[vm.page.indexs].wan_ip = vm.formData.wan_ip;
-              vm.page.ipFilter_list[vm.page.indexs].wan_port = vm.formData.wan_port;
-              vm.page.ipFilter_list[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
-              //vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.list_id;
-              vm.page.ipFilter_list[vm.page.indexs].ip_status = vm.page.ip_status;
-            } else {
+          if (this.formData.filter_policy == 1) {
+            if (this.page.action == 'add') {
               _.each(vm.page.ipFilter_list, (i, v) => {
                 if (vm.formData.lan_ip == i.lan_ip && vm.formData.lan_port == i.lan_port && vm.formData.wan_ip == i.wan_ip && vm.formData.wan_port == i.wan_port && (vm.formData.ip_protocol == i.ip_protocol || 3 * vm.formData.ip_protocol < i.ip_protocol)) {
                   sameIpFilter = false;
@@ -132,15 +101,120 @@ export default {
                 vm.page.ipFilter_list[vm.page.indexs].wan_ip = vm.formData.wan_ip;
                 vm.page.ipFilter_list[vm.page.indexs].wan_port = vm.formData.wan_port;
                 vm.page.ipFilter_list[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
+                /*vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.indexs;*/
+                vm.page.ipFilter_list[vm.page.indexs].ip_status = 1;
+              }
+            } else {
+              if (vm.page.ipFilter_list[vm.page.indexs].lan_ip == vm.formData.lan_ip && vm.page.ipFilter_list[vm.page.indexs].lan_port == vm.formData.lan_port && vm.page.ipFilter_list[vm.page.indexs].wan_ip == vm.formData.wan_ip && vm.page.ipFilter_list[vm.page.indexs].wan_port == vm.formData.wan_port && vm.page.ipFilter_list[vm.page.indexs].ip_protocol == vm.formData.ip_protocol) {
+                vm.page.ipFilter_list[vm.page.indexs] = {};
+                vm.page.ipFilter_list[vm.page.indexs].lan_ip = vm.formData.lan_ip;
+                vm.page.ipFilter_list[vm.page.indexs].lan_port = vm.formData.lan_port;
+                vm.page.ipFilter_list[vm.page.indexs].wan_ip = vm.formData.wan_ip;
+                vm.page.ipFilter_list[vm.page.indexs].wan_port = vm.formData.wan_port;
+                vm.page.ipFilter_list[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
                 //vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.list_id;
                 vm.page.ipFilter_list[vm.page.indexs].ip_status = vm.page.ip_status;
+              } else {
+                _.each(vm.page.ipFilter_list, (i, v) => {
+                  if (vm.formData.lan_ip == i.lan_ip && vm.formData.lan_port == i.lan_port && vm.formData.wan_ip == i.wan_ip && vm.formData.wan_port == i.wan_port && (vm.formData.ip_protocol == i.ip_protocol || 3 * vm.formData.ip_protocol < i.ip_protocol)) {
+                    sameIpFilter = false;
+                    return false;
+                  }
+                })
+                if (!sameIpFilter) {
+                  this.$alert(vuex.res['ids_security_ipFilterWarn'], vuex.res['ids_confirm'], {
+                    confirmButtonText: vuex.res['ids_ok'],
+                    callback: action => {
+                      vm.reset();
+                    }
+                  });
+                  return false;
+                } else {
+                  vm.page.ipFilter_list[vm.page.indexs] = {};
+                  vm.page.ipFilter_list[vm.page.indexs].lan_ip = vm.formData.lan_ip;
+                  vm.page.ipFilter_list[vm.page.indexs].lan_port = vm.formData.lan_port;
+                  vm.page.ipFilter_list[vm.page.indexs].wan_ip = vm.formData.wan_ip;
+                  vm.page.ipFilter_list[vm.page.indexs].wan_port = vm.formData.wan_port;
+                  vm.page.ipFilter_list[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
+                  //vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.list_id;
+                  vm.page.ipFilter_list[vm.page.indexs].ip_status = vm.page.ip_status;
+                }
               }
             }
-          }
-          let params = {
-            filter_policy: vm.formData.filter_policy,
-            ipFilter_list: vm.page.ipFilter_list,
-            total_num: vm.page.ipFilter_list.length
+            let params1 = {
+              filter_policy: vm.formData.filter_policy,
+              ipFilter_list: vm.page.ipFilter_list
+            }
+            _.extend(params, params1);
+          } else {
+            if (this.page.action == 'add') {
+              _.each(vm.page.ipFilterAllowlist, (i, v) => {
+                if (vm.formData.lan_ip == i.lan_ip && vm.formData.lan_port == i.lan_port && vm.formData.wan_ip == i.wan_ip && vm.formData.wan_port == i.wan_port && (vm.formData.ip_protocol == i.ip_protocol || 3 * vm.formData.ip_protocol < i.ip_protocol)) {
+                  sameIpFilter = false;
+                  return false;
+                }
+              })
+              if (!sameIpFilter) {
+                this.$alert(vuex.res['ids_security_ipFilterWarn'], vuex.res['ids_confirm'], {
+                  confirmButtonText: vuex.res['ids_ok'],
+                  callback: action => {
+                    vm.reset();
+                  }
+                });
+                return false;
+              } else {
+                vm.page.ipFilterAllowlist[vm.page.indexs] = {};
+                vm.page.ipFilterAllowlist[vm.page.indexs].lan_ip = vm.formData.lan_ip;
+                vm.page.ipFilterAllowlist[vm.page.indexs].lan_port = vm.formData.lan_port;
+                vm.page.ipFilterAllowlist[vm.page.indexs].wan_ip = vm.formData.wan_ip;
+                vm.page.ipFilterAllowlist[vm.page.indexs].wan_port = vm.formData.wan_port;
+                vm.page.ipFilterAllowlist[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
+                /*vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.indexs;*/
+                vm.page.ipFilterAllowlist[vm.page.indexs].ip_status = 1;
+              }
+            } else {
+              if (vm.page.ipFilterAllowlist[vm.page.indexs].lan_ip == vm.formData.lan_ip && vm.page.ipFilterAllowlist[vm.page.indexs].lan_port == vm.formData.lan_port && vm.page.ipFilterAllowlist[vm.page.indexs].wan_ip == vm.formData.wan_ip && vm.page.ipFilterAllowlist[vm.page.indexs].wan_port == vm.formData.wan_port && vm.page.ipFilterAllowlist[vm.page.indexs].ip_protocol == vm.formData.ip_protocol) {
+                vm.page.ipFilterAllowlist[vm.page.indexs] = {};
+                vm.page.ipFilterAllowlist[vm.page.indexs].lan_ip = vm.formData.lan_ip;
+                vm.page.ipFilterAllowlist[vm.page.indexs].lan_port = vm.formData.lan_port;
+                vm.page.ipFilterAllowlist[vm.page.indexs].wan_ip = vm.formData.wan_ip;
+                vm.page.ipFilterAllowlist[vm.page.indexs].wan_port = vm.formData.wan_port;
+                vm.page.ipFilterAllowlist[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
+                //vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.list_id;
+                vm.page.ipFilterAllowlist[vm.page.indexs].ip_status = vm.page.ip_status;
+              } else {
+                _.each(vm.page.ipFilterAllowlist, (i, v) => {
+                  if (vm.formData.lan_ip == i.lan_ip && vm.formData.lan_port == i.lan_port && vm.formData.wan_ip == i.wan_ip && vm.formData.wan_port == i.wan_port && (vm.formData.ip_protocol == i.ip_protocol || 3 * vm.formData.ip_protocol < i.ip_protocol)) {
+                    sameIpFilter = false;
+                    return false;
+                  }
+                })
+                if (!sameIpFilter) {
+                  this.$alert(vuex.res['ids_security_ipFilterWarn'], vuex.res['ids_confirm'], {
+                    confirmButtonText: vuex.res['ids_ok'],
+                    callback: action => {
+                      vm.reset();
+                    }
+                  });
+                  return false;
+                } else {
+                  vm.page.ipFilterAllowlist[vm.page.indexs] = {};
+                  vm.page.ipFilterAllowlist[vm.page.indexs].lan_ip = vm.formData.lan_ip;
+                  vm.page.ipFilterAllowlist[vm.page.indexs].lan_port = vm.formData.lan_port;
+                  vm.page.ipFilterAllowlist[vm.page.indexs].wan_ip = vm.formData.wan_ip;
+                  vm.page.ipFilterAllowlist[vm.page.indexs].wan_port = vm.formData.wan_port;
+                  vm.page.ipFilterAllowlist[vm.page.indexs].ip_protocol = vm.formData.ip_protocol;
+                  //vm.page.ipFilter_list[vm.page.indexs].list_id = vm.page.list_id;
+                  vm.page.ipFilterAllowlist[vm.page.indexs].ip_status = vm.page.ip_status;
+                }
+              }
+
+            }
+            let params1 = {
+              filter_policy: vm.formData.filter_policy,
+              ipFilter_list: vm.page.ipFilterAllowlist
+            }
+            _.extend(params, params1);
           }
           this.sdk.post("SetIPFilter", params, {
             callback: this.init
@@ -158,34 +232,58 @@ export default {
         this.formData.ip_protocol = 6;
         this.page.dialog = true;
         this.$refs.formData.resetFields();
-        this.page.indexs = this.page.ipFilter_list.length;
+        if (this.formData.filter_policy == 1) {
+          this.page.indexs = this.page.ipFilter_list.length;
+        } else {
+          this.page.indexs = this.page.ipFilterAllowlist.length;
+        }
       },
       deleteIpFilter(index) {
-        this.$confirm(vuex.res['ids_delete_confirm'], vuex.res['ids_confirm'], {
+        let vm = this;
+        let params = {};
+        vm.$confirm(vuex.res['ids_delete_confirm'], vuex.res['ids_confirm'], {
           confirmButtonText: vuex.res['ids_delete'],
           cancelButtonText: vuex.res['ids_cancel'],
           type: 'warning'
         }).then(() => {
-          this.page.ipFilter_list.splice(index, 1);
-          let params = {
-          filter_policy: this.page.filter_policy,
-          ipFilter_list: this.page.ipFilter_list,
-          total_num: this.page.ipFilter_list.length
-        }
+          if (vm.formData.filter_policy == 1) {
+            vm.page.ipFilter_list.splice(index, 1);
+            let params1 = {
+              filter_policy: vm.formData.filter_policy,
+              ipFilter_list: vm.page.ipFilter_list
+            }
+            _.extend(params, params1);
+          } else {
+            vm.page.ipFilterAllowlist.splice(index, 1);
+            let params1 = {
+              filter_policy: vm.formData.filter_policy,
+              ipFilter_list: vm.page.ipFilterAllowlist
+            }
+            _.extend(params, params1);
+          }
           this.sdk.post("SetIPFilter", params, {
             callback: this.init
           })
         }).catch(() => {
           /*this.init();*/
         });
-
       },
       update() {
-        let params = {
-          filter_policy: this.formData.filter_policy,
-          ipFilter_list: this.page.ipFilter_list,
-          total_num: this.page.total_num
+        let params = {}
+        if (this.formData.filter_policy == 1) {
+          let params1 = {
+            filter_policy: this.formData.filter_policy,
+            ipFilter_list: this.page.ipFilter_list
+          }
+          _.extend(params, params1);
+        } else {
+          let params1 = {
+            filter_policy: this.formData.filter_policy,
+            ipFilter_list: this.page.ipFilterAllowlist
+          }
+          _.extend(params, params1);
         }
+
         this.sdk.post("SetIPFilter", params, {
           callback: this.init
         })

@@ -1,0 +1,21 @@
+{
+    "ids_sim_pinManagement": "SIM PIN management",
+    "ids_download": "Downloaded",
+    "ids_statistics_duration": "Uptime",
+    "ids_netwrok_currentVolume": "Statistics for this session",
+    "ids_upload": "Uploaded",
+    "ids_byte": "Mb",
+    "ids_packet": "Packets",
+    "ids_statistics_error": "Errors",
+    "ids_netwrok_totalVolumeMonthly": "Statistics for this month",
+    "ids_netwrok_statisticsDescription": "The statistics provided here should be used as a guide, for details of charges please refer to your itemised billing. Possible add a hyperlink to MyEE here.",
+    "ids_sms_outbox": "Sent",
+    "ids_sms_storageStatus": "SMS Storage Status(Used capacity/Total)",
+    "ids_statistics_send": "Sent",
+    "ids_sms_settingSmsReport": "SMS delivery report",
+    "ids_samba_storageUsb": "USB mass storage",
+    "ids_storageShare": "USB mass storage",
+    "ids_user_deviceAccess": "Connected devices",
+    "ids_wlan_InvalidWpsPinTips": "Invalid WPS key",
+    "ids_wlan_wpsPin": "WPS key"
+}

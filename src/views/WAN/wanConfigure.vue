@@ -10,14 +10,14 @@
           +input("ids_subnetMark:","SubNetMask")
           +input("ids_ethWan_defaultGateway:","Gateway")
           +input("ids_ethWan_Mtu:","Mtu")           
-          +text("","{{vuex.res.ids_ethWan_MtuNote | replace('1492','1500')}}")(class="inputNote")
+          +subText("","{{vuex.res.ids_ethWan_MtuNote | replace('1492','1500')}}")
           +input("ids_ethWan_primaryDNS:","PrimaryDNS")
           +input("ids_ethWan_secondaryDNS:","SecondaryDNS","ids_ethWan_secDnsOption")
         div(v-if="formData.ConnectType == 0")
           +input("ids_profile_userName:","Account")
           +input("ids_profile_password:","Password")
           +input("ids_ethWan_Mtu:","pppoeMtu")
-          +text("","{{vuex.res.ids_ethWan_MtuNote}}")
+          +subText("","{{vuex.res.ids_ethWan_MtuNote}}")
           
           
         +formBtn()      

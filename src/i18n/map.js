@@ -486,5 +486,14 @@ module.exports = {
   ids_restore_device_restoration: "str_restore_device_restoration",
   ids_restore_factory_settings: "str_restore_factory_settings",
   ids_wifi_wpsActive: "str_wifi_wpsActive",
-  ids_share: "str_share"
+  ids_share: "str_share",
+  ids_system_modemVersion: "str_system_modemVersion",
+  ids_enabled: "str_enabled",
+  ids_anonymousEnableTips: "str_anonymousEnableTips",
+  ids_anonymousDisableTips1: "str_anonymousDisableTips1",
+  ids_anonymousDisableTips2: "str_anonymousDisableTips2",
+  ids_anonymousDisableTips3: "str_anonymousDisableTips3",
+  ids_statistics_duration: "str_duration",
+  ids_statistics_error: "str_error",
+  ids_statistics_send: "str_send"
 }

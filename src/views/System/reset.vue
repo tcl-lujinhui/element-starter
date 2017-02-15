@@ -1,12 +1,10 @@
 <template lang="jade">
   include ../components.jade
   #reset
-    +sideMenuPage('System')
-      +breadcrumb("ids_reset")
-      div.reboot
+    +form("formData")
+      div.reset
         p {{vuex.res.ids_system_resetDescription}}.
-        +button("ids_reset")(@click="update" type="primary" v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="")
-        
+        +button("ids_reset")(@click="update_reset" type="primary" v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="")        
 </template>
 <script>
 import VueRouter from 'vue-router'
@@ -34,9 +32,9 @@ export default {
         this.$router.push(tabs.$el.getAttribute("router"))
       },
 
-      update() {
+      update_reset() {
         let vm = this
-        this.$confirm(this.vuex.res.ids_system_resetTips, this.vuex.res.ids_reset, {
+        this.$confirm(this.vuex.res.ids_system_resetTips1 + this.vuex.res.ids_system_resetTips2 + this.vuex.res.ids_system_resetTips3, this.vuex.res.ids_reset, {
           confirmButtonText: this.vuex.res.ids_reset,
           cancelButtonText: this.vuex.res.ids_cancel,
           type: 'warning'
@@ -71,13 +69,12 @@ export default {
 
 
 <style lang="sass" scoped>
-.reboot {
-  width: 90%;
-  margin: 45px auto;
-  text-align: center;
+.reset {
+  text-align: left;
   font-size: 14px;
   color: #5e6d82;
   line-height: 1;
+  margin-bottom: 40px;
   p {
     padding-bottom: 10px;
   }

@@ -168,10 +168,10 @@ menuConfig.sideMenu = {
     submenu: [{
       text: "ids_security_dmzTitle",
       router: "dmz"
-    }, {
+    }, /*{
       text: "ids_alg_Title",
       router: "alg"
-    }, {
+    },*/ {
       text: "ids_security_upnp",
       router: "upnp"
     }, {
@@ -194,7 +194,7 @@ menuConfig.sideMenu = {
   }, {
     icon: "reset",
     text: "ids_system_rebootReset",
-    router: "reboot"
+    router: "resetReboot"
   }, {
     icon: "upgrade",
     text: "ids_update_upgrade",
@@ -204,9 +204,6 @@ menuConfig.sideMenu = {
     },*/ {
       text: "ids_update_onlineUpgrade",
       router: "onlineUpgrade"
-    }, {
-      text: "ids_title_tr069",
-      router: "tr069"
     }]
   }, {
     icon: "devicemgmt",
@@ -220,6 +217,9 @@ menuConfig.sideMenu = {
     }, {
       text: "ids_system_backupRestore",
       router: "restore"
+    }, {
+      text: "ids_title_tr069",
+      router: "tr069"
     }]
   }]
 }

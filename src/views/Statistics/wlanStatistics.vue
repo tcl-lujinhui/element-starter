@@ -9,15 +9,15 @@
             tr
               th(rowspan="2") {{vuex.res.ids_lan_interface}}
               th(colspan="4") {{vuex.res.ids_wlan_received}}
-              th(colspan="4") {{vuex.res.ids_send}}
+              th(colspan="4") {{vuex.res.ids_statistics_send}}
             tr
               td {{vuex.res.ids_byte}}
               td {{vuex.res.ids_packet}} 
-              td {{vuex.res.ids_error}} 
+              td {{vuex.res.ids_statistics_error}} 
               td {{vuex.res.ids_discarded}} 
               td {{vuex.res.ids_byte}} 
               td {{vuex.res.ids_packet}}   
-              td {{vuex.res.ids_error}} 
+              td {{vuex.res.ids_statistics_error}} 
               td {{vuex.res.ids_discarded}}
             tr(v-for="list in formData.List")
               td {{list.Ssid}}

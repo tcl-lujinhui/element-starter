@@ -82,7 +82,7 @@ units.qosProtocol = (val) => {
     [0, "ids_all"],
     [1, "TCP"],
     [2, "UDP"],
-    [3, "ICMP"]   
+    [3, "ICMP"]
   ];
   let currentProtocol = _.find(qosProtocolArr, (num) => {
     return num[0] == val;
@@ -156,12 +156,12 @@ units.IPprotocol = (ipProtocolVal) => {
 }
 units.bytes = (bytes) => {
   if (bytes === 0) return '0';
-    var k = 1024;
-    var sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    var i = Math.floor(Math.log(bytes) / Math.log(k));
-    return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+  var k = 1024;
+  var sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  var i = Math.floor(Math.log(bytes) / Math.log(k));
+  return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
 }
-units.times = (second, type) => {  
+units.times = (second, type) => {
   var formatStr;
   var hours = parseInt(second / 60 / 60);
   var min = parseInt(second / 60 % 60);
@@ -214,4 +214,23 @@ units.netConnState = (val) => {
     return current[1]
   }
 }
+
+units.getSystemTime = () => {
+  var currentDate = new Date();
+  var currentYear = currentDate.getFullYear();
+  var currentMonth = currentDate.getMonth() + 1;
+  var currentDay = currentDate.getDate();
+  var currentHours = currentDate.getHours();
+  var currentMinutes = currentDate.getMinutes();
+  var currentSecs = currentDate.getSeconds();
+  var currentTime = "";
+  currentTime += currentYear + "-";
+  currentTime += ((currentMonth < 10) ? "0" : "") + currentMonth + "-";
+  currentTime += ((currentDay < 10) ? "0" : "") + currentDay + " ";
+  currentTime += ((currentHours < 10) ? "0" : "") + currentHours + ":";
+  currentTime += ((currentMinutes < 10) ? "0" : "") + currentMinutes + ":";
+  currentTime += ((currentSecs < 10) ? "0" : "") + currentSecs;
+  return currentTime
+}
+
 export default units;

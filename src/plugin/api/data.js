@@ -281,7 +281,7 @@ export default {
     },
 
     GetALGSettings:{
-      "PptpStatus": 0,
+      "FtpStatus": 0,
       "H323AlgStatus": 0,
       "SipAlgStatus":0,
       "SipAlgPort":5060

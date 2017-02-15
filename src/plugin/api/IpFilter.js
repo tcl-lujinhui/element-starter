@@ -1,7 +1,7 @@
 //import G from "../../config/G.js";
 import {_,$,G} from '../../common.js';
 export default {
-  GetIPFilterList: {
+  getIPFilterList: {
     Request(req) {
       return req;
     },
@@ -12,7 +12,14 @@ export default {
           res.ipFilter_list[v].wan_port = String(i.wan_port);
         })
       }
+      if (res.ipFilterAllowlist.length > 0) {
+        _.each(res.ipFilterAllowlist, (i, v) => {
+          res.ipFilterAllowlist[v].lan_port = String(i.lan_port);
+          res.ipFilterAllowlist[v].wan_port = String(i.wan_port);
+        })
+      }
       console.log(res.ipFilter_list)
+      console.log(res.ipFilterAllowlist)
       return res;
     }
   },

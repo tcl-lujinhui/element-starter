@@ -8,6 +8,12 @@
         +formItem("ids_share_storage:")
           | {{vuex.res.ids_samba_storageUsb}}  
         +radio("ids_samba_anonymous:","Anonymous")
+        div(v-if="formData.Anonymous==1")      
+          +subText("","{{vuex.res.ids_anonymousEnableTips}}")
+        div(v-if="formData.Anonymous==0")        
+          +subText("","{{vuex.res.ids_anonymousDisableTips1}}")
+          +subText("","{{vuex.res.ids_anonymousDisableTips2}}")        
+          +subText("","{{vuex.res.ids_anonymousDisableTips3}}")        
         +radio("ids_samba_rights:","AuthType")
         +formBtn()
 </template>
