@@ -2,11 +2,11 @@ const {
   resolve
 } = require('path')
 const webpack = require('webpack')
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const publicPath = ''
-var srcCatalog = "./webrc/"
+const srcCatalog = "./src/"
 
 module.exports = (options = {}) => ({
   entry: {
@@ -85,20 +85,17 @@ module.exports = (options = {}) => ({
     port: 8018,
     proxy: {
       '/jrd/webapi': {
-        //target: 'http://127.0.0.1:9096',
-        target: 'http://192.168.1.1'
+        target: 'http://127.0.0.1:9096',
+       //target: 'http://192.168.1.1'
       },
       '/firmware/*': {
         target: 'http://www.alcatel-move.com',
-        secure: true
       },
       '/svnlog': {
         target: 'http://10.129.60.82:8000',
-        secure: false
       },
       '/smartreleaseapi': {
         target: 'http://127.0.0.1:8000',
-        secure: false
       }
     }
   },
