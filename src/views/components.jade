@@ -125,12 +125,8 @@ mixin bottonRouterLink(state,text)
 
 mixin inputNone(label,model)
   - var prop= model.replace(/\./,':');
-  span(v-model="formData.#{model}" v-if="typeof formData.#{model} =='number'")&attributes(attributes)
+  span(v-model="formData.#{model}" v-if="typeof formData.#{model} =='number'")
   el-input(v-model="formData.#{model}" v-else)&attributes(attributes)
-
-mixin formBtnNone()
-  div.btnLogin&attributes(attributes)
-    +button("ids_login")(type="primary" @click="update")
 
 mixin formCheckbox(name,label1)
   - var isIds= label1.indexOf("ids_")==0?true:false;

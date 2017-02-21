@@ -13,18 +13,18 @@
 </template>
 
 <script>
-import {_config,vuex} from '../../common.js';
+import {_,_config,vuex} from '../../common.js';
 var Config = _config.algSettings;
 export default {
   created() {
+      this.initdata(Config);
       this.init()
     },
     methods: {
       init() {
-        this.initdata(Config);
         this.vuex=vuex;
         this.sdk.get("GetALGSettings", null, (res) => {
-          this.formData = res;
+          _.extend(this.formData,res)
         })
       },
       update() {
@@ -38,5 +38,6 @@ export default {
     }
 }
 </script>
+
 <style lang="sass" scoped>
 </style>

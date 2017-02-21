@@ -17,5 +17,20 @@
     "ids_storageShare": "USB mass storage",
     "ids_user_deviceAccess": "Connected devices",
     "ids_wlan_InvalidWpsPinTips": "Invalid WPS key",
-    "ids_wlan_wpsPin": "WPS key"
+    "ids_wlan_wpsPin": "WPS key",    
+    "ids_orange_wan_to": "to",
+    "ids_network_lowSignShow": "The Network Coverage is too low to maintain a Network Connection.",
+    "ids_orange_wan_deviceConnect": "Devices connected",
+    "ids_orange_sms_des": "To read text messages sent to your 4GEE WiFi number,",
+    "ids_orange_click": "click here",
+    "ids_orange_login":" and log in.",
+    "ids_orange_account_des": "To manage your EE account settings or manage payments, go to",
+    "ids_orange_account": "My Account",
+    "ids_orange_new_window": "(opens in a new window)",
+    "ids_orange_settings_des": "To manage settings on your 4GEE WiFi device such as changing the name and password for your WiFi network,",
+    "ids_orange_login_here": " log in here.",
+    "ids_orange_usage_des": "To check your remaining data allowance or buy a new data add-on, ",
+    "ids_index_click": "Click here",
+    "ids_index_smsFwd_des": " to forward your SMS messages to your phone.",
+    "ids_menu_smsSettings": "SMS storage"
 }

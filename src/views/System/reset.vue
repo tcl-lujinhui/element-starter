@@ -65,14 +65,10 @@ export default {
 }
 </script>
 
-
-
-
 <style lang="sass" scoped>
 .reset {
   text-align: left;
   font-size: 14px;
-  color: #5e6d82;
   line-height: 1;
   margin-bottom: 40px;
   p {

@@ -114,12 +114,13 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   vuex.loginName = to.name;
 
-  if (to.name != 'login') {
+  if (to.name != 'index') {
     Vue.sdk.get('GetLoginState', null, (res) => {
       if (res.State === 1) {
         next()
       } else {
-        router.push('login')
+        vuex.loginName = 'index';
+        router.push('index');
       }
     })
   }else{

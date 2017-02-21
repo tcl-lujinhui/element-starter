@@ -8,11 +8,11 @@
           #newSMSContent
             el-input(v-model="formData.PhoneNumber")
               span(slot="prepend") {{vuex.res.ids_sms_to}}:
-            #phoneNumberInputWarn(:class="{hidden:page.inputNumberWarn}") {{vuex.res.ids_sms_inputNumber}}
-            #phoneNumberRule(:class="{hidden:page.phoneNumberRule}") {{vuex.res.ids_sms_numberRule}}
+            div.tips-error(:class="{hidden:page.inputNumberWarn}") {{vuex.res.ids_sms_inputNumber}}
+            div.tips-error(:class="{hidden:page.phoneNumberRule}") {{vuex.res.ids_sms_numberRule}}
             p(v-bind="listenCharCount()") {{page.length}}
             el-input(v-model="formData.SMSContent" type="textarea",:rows.number=10)
-            #smsMaxNumWarn(:class="{hidden:page.maxContentWarnDisplay}") {{vuex.res.ids_sms_contentRule}}
+            div.tips-error(:class="{hidden:page.maxContentWarnDisplay}") {{vuex.res.ids_sms_contentRule}}
             #btnSMS
               +button("ids_send")(@click="sendSMS")
               +button("ids_save")(@click="saveSMS")
@@ -215,39 +215,37 @@ export default {
     }
 }
 </script>
+
 <style lang="sass">
-  .sendPop .el-dialog__close.el-icon.el-icon-close{
-    display: none;
-  }
+.sendPop .el-dialog__close.el-icon.el-icon-close {
+  display: none;
+}
 </style>
-
 <style lang="sass" scoped>
-.el-input,.el-textarea textarea{
-  width:100%;
-} 
-p{
-  float:right;
+.el-input,
+.el-textarea textarea {
+  width: 100%;
 }
-#btnSMS{
+
+p {
+  float: right;
+}
+
+#btnSMS {
   text-align: center;
-  padding-top:20px;
-
+  padding-top: 20px;
 }
+
 .hidden {
-    display: none;
+  display: none;
 }
-#smsMaxNumWarn,#phoneNumberInputWarn,#phoneNumberRule{
-  color:#FF0000;
-  padding-top:10px;
-  margin-left:15px;
 
+#newSMSContent {
+  margin: 20px 10px;
 }
-#newSMSContent{
-  margin:20px 10px;
-} 
+
 .el-form {
-  width:95%;
-  margin: 0 10px; 
+  width: 95%;
+  margin: 0 10px;
 }
-
 </style>

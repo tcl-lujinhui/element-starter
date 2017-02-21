@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {_config} from '../../common.js';
+import {_,_config} from '../../common.js';
 var Config = _config.dmzSettings;
 export default {
   created() {
@@ -21,7 +21,7 @@ export default {
     methods: {
       init() {
         this.sdk.get("getDMZInfo", null, (res) => {
-          this.formData = res;
+          _.extend(this.formData,res)
         })
       },
       update() {

@@ -8,11 +8,13 @@ import sys from './config/sys.js';
 import countryCode from './config/countryCode.js';
 import units from './plugin/units.js';
 
-exports.$ = $;
-exports.vuex = vuex;
-exports._config = _config;
-exports.G = G;
-exports._ = _;
-exports.units = units;
-exports.sys = sys;
-exports.countryCode=countryCode;
+export {
+  $,
+  vuex,
+  _config,
+  G,
+  _,
+  units,
+  sys,
+  countryCode
+}

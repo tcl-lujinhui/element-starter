@@ -132,10 +132,9 @@ p {
   float: left;
   font-size: 12px;
 }
-.el-table th {
-  text-align: center;
-}
-#draftList{
-  margin:20px 10px;
+
+#draftList {
+  margin: 20px 10px;
 }
 </style>
+

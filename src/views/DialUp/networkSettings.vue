@@ -12,7 +12,7 @@
             +button("ids_netwrok_search")(:disabled="(page.NetworkSettings.NetselectionMode==0||formData.NetselectionMode==0||page.SearchState==1||page.regist_state==1)" type="primary" @click="refreshEvent" )
             +button("ids_cancel")(@click="reset",:disabled="(page.SearchState==1||page.regist_state==1)")    
         div.networkListBox
-          table.table.nw-list(cellpadding="0" cellspacing="0" v-loading.body="page.SearchState==1||page.regist_state==1")
+          table.el-table(cellpadding="0" cellspacing="0" v-loading.body="page.SearchState==1||page.regist_state==1")
             tr
               th(width="25%") {{vuex.res.ids_netwrok_networkName}}
               th(width="25%") {{vuex.res.ids_netwrok_networkType}}
@@ -24,9 +24,6 @@
               td(width="25%") {{list.State | networkState}}
               td(width="25%")
                 +button('ids_netwrok_register')(v-show="list.State==2||list.State==1" @click="selectEvent(list.NetworkID)")
-             
-        p.select_result {{vuex.res.ids_fail}}
-        p.select_text {{vuex.res.ids_net_searching}}
 </template>
 
 <script>
@@ -156,21 +153,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.nw-list {
-  width: 100%;
-}
-
-p.select_text, p.select_result {
-  height: 25px;
-  line-height: 25px;
-  background: #fff;
-  color: #000;
-  margin: 0 1px;
-  border-top: 1px solid #ccc;
-  padding: 0 7px;
-  display: none
-}
-
 .btn-wrap {
   text-align: center;
   margin-top: 20px;
@@ -182,11 +164,5 @@ p.select_text, p.select_result {
   margin: 0px auto;
   width: 80%;
   min-height: 250px;
-}
-.table{
-  tr,tr th,tr td{
-    line-height: 22px;
-    padding:5px;
-  }
 }
 </style>

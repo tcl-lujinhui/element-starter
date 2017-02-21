@@ -7,11 +7,11 @@
       span.add
         +button("")(icon="plus" size="mini" @click="add" type="primary")
       el-table(:data="page.StaticRoutingList" border)
-        el-table-column(type="index" ,:label="vuex.res.ids_index" width="100")
-        el-table-column(prop="DestNetAddr" ,:label="vuex.res.ids_router_desIp" width='200')
-        el-table-column(prop="DestNetmask" ,:label="vuex.res.ids_subnetMark" width='200')
-        el-table-column(prop="GateWay" ,:label="vuex.res.ids_router_rounterIp" width='200' )
-        el-table-column(:label="vuex.res.ids_netwrok_operation",:context="_self" width='120' inline-template fixed="right")
+        el-table-column(type="index" ,:label="vuex.res.ids_index" width="150")
+        el-table-column(prop="DestNetAddr" ,:label="vuex.res.ids_router_desIp" width='150')
+        el-table-column(prop="DestNetmask" ,:label="vuex.res.ids_subnetMark" width='150')
+        el-table-column(prop="GateWay" ,:label="vuex.res.ids_router_rounterIp" width='150' )
+        el-table-column(:label="vuex.res.ids_netwrok_operation",:context="_self" width='150' inline-template)
           span
             +button("")(icon="edit" size="mini" @click="editipFilterDialog($index,row)")
             +button("")(icon="delete" size="mini" type="danger" @click="deleteIpFilter($index,row)")
@@ -181,11 +181,13 @@ export default {
     }
 }
 </script>
+
 <style lang="sass" scoped>
-.el-form{
+.el-form {
   width: 721px;
 }
-span.add{
+
+span.add {
   float: right;
 }
 </style>

@@ -1,11 +1,11 @@
 <template lang="jade">
   include ./views/components.jade
-  #app
+  #app(:class="{index:(vuex.loginName=='index')}")
     div.header
       img(src="./images/logo.png")
       div.float-right
         div.top-menu
-          a.float-right(v-if="vuex.loginName!='login'" @click='logout()') {{vuex.res.ids_logout}}
+          a.float-right(v-if="vuex.loginName!='index'" @click='logout()') {{vuex.res.ids_logout}}
           a.float-right() {{vuex.res.ids_help}}
           el-dropdown.float-right.lang-dropdown(trigger="click" @command="changLang")
             span.el-dropdown-link
@@ -16,10 +16,12 @@
         status-icon
       sms-report
       //-img.status(src="./images/status.png")
-    el-menu.main-menu.el-menu-demo(mode="horizontal" router=true v-if="vuex.loginName != 'login'")
-      el-menu-item(:index="val.router" v-for="val in nav") 
-        span(:title="val.text |res") {{val.text |res}}
-    router-view.main
+
+    div.container
+      el-menu.main-menu.el-menu-demo(mode="horizontal" router=true v-if="vuex.loginName != 'index'")
+        el-menu-item(:index="val.router" v-for="val in nav") 
+          span(:title="val.text |res") {{val.text |res}}
+      router-view.main
      
     .footer 
       span.copyright {{vuex.res.ids_system_copyright}}
@@ -42,7 +44,7 @@ export default {
     logout(){
       this.sdk.post("Logout",this.formData,(res)=>{
         vuex.heartBeat(false);
-        this.$router.push('login')
+        this.$router.push('index')
       })
     },
     changLang(lang){

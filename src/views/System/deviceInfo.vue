@@ -32,8 +32,9 @@ export default {
   }
 }
 </script>
+
 <style lang="sass" scoped>
-  .el-form-item{
-    margin-bottom:0
-  }
+.el-form-item {
+  margin-bottom: 0
+}
 </style>

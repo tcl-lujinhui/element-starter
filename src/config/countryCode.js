@@ -1,29 +1,4 @@
-let countryCode = {
-  "CN": [13, "CHINA", "CN"],
-  "US": [11, "UNITED STATES", "US"],
-  "JP": [13, "JAPAN", "JP"],
-  "CA": [11, "CANADA", "US"],
-  "MX": [11, "MEXICO", "US"],
-  "DE": [13, "GERMANY", "JP"],
-  "GB": [13, "UNITED KINGDOM", "JP"],
-  "IN": [13, "INDIA", "SG"],
-  "IL": [13, "ISRAEL", "JP"],
-  "KR": [13, "KOREA, REPUBLIC OF", "US"],
-  "MY": [13, "MALAYSIA", "MY"],
-  "RU": [13, "RUSSIAN FEDERATION", "JP"],
-  "SG": [13, "SINGAPORE", "SG"],
-  "TW": [11, "TAIWAN, PROVINCE OF CHINA", "TW"],
-  "CZ": [13, "THE CZECH REPUBLIC", "JP"],
-  "FR": [13, "FRANCE", "JP"],
-  "ES": [13, "ESPAÑA", "JP"],
-  "IT": [13, "Italy", "JP"],
-  "SK": [13, "Slovak", "JP"],
-  "PT": [13, "Portugal", "JP"],
-  "RO": [13, "Romania", "JP"],
-  "ZA": [13, "South Afica", "JP"],
-}
-
-let country5gChannel = {
+let Channel5g ={
   "CN": [36, 40, 44, 48, 149, 153, 157, 161, 165],
   "US": [36, 40, 44, 48, 149, 153, 157, 161], //US,CA,MX,KR,
   "SG": [36, 40, 44, 48, 149, 153, 157, 161, 165], //SG,IN
@@ -32,5 +7,29 @@ let country5gChannel = {
   "JP": [36, 40, 44, 48] //JP,GB,DE,EU,AF,IT,ES
 }
 
-exports.countryCode = countryCode;
-exports.country5gChannel = country5gChannel;
+let countryCode = {
+  "CN":["CHINA", 13, Channel5g.CN],
+  "US":["UNITED STATES", 11, Channel5g.US],
+  "JP":["JAPAN", 13, Channel5g.JP],
+  "CA":["CANADA", 11, Channel5g.US],
+  "MX":["MEXICO", 11, Channel5g.US],
+  "DE":["GERMANY", 13, Channel5g.JP],
+  "GB":["UNITED KINGDOM", 13, Channel5g.JP],
+  "IN":["INDIA", 13, Channel5g.SG],
+  "IL":["ISRAEL", 13, Channel5g.JP],
+  "KR":["KOREA, REPUBLIC OF", 13, Channel5g.US],
+  "MY":["MALAYSIA", 13, Channel5g.MY],
+  "RU":["RUSSIAN FEDERATION", 13, Channel5g.JP],
+  "SG":["SINGAPORE", 13, "SG"],
+  "TW":["TAIWAN, PROVINCE OF CHINA", 11, Channel5g.TW],
+  "CZ":["THE CZECH REPUBLIC", 13, Channel5g.JP],
+  "FR":["FRANCE", 13, Channel5g.JP],
+  "ES":["ESPAÑA", 13, Channel5g.JP],
+  "IT":["Italy", 13, Channel5g.JP],
+  "SK":["Slovak", 13, Channel5g.JP],
+  "PT":["Portugal", 13, Channel5g.JP],
+  "RO":["Romania", 13, Channel5g.JP],
+  "ZA":["South Afica", 13, Channel5g.JP],
+}
+
+export default countryCode;

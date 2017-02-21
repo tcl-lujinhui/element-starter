@@ -3,22 +3,22 @@
   #wlanStatistics
     +sideMenuPage('Home')
       +breadcrumb("ids_wifi_WiFiTitle")
-      div.main-box
-        table.table.table-bordered.table-tc
+      div
+        table.el-table.table-bordered.table-tc
           tbody
             tr
               th(rowspan="2") {{vuex.res.ids_lan_interface}}
               th(colspan="4") {{vuex.res.ids_wlan_received}}
               th(colspan="4") {{vuex.res.ids_statistics_send}}
             tr
-              td {{vuex.res.ids_byte}}
-              td {{vuex.res.ids_packet}} 
-              td {{vuex.res.ids_statistics_error}} 
-              td {{vuex.res.ids_discarded}} 
-              td {{vuex.res.ids_byte}} 
-              td {{vuex.res.ids_packet}}   
-              td {{vuex.res.ids_statistics_error}} 
-              td {{vuex.res.ids_discarded}}
+              th {{vuex.res.ids_byte}}
+              th {{vuex.res.ids_packet}} 
+              th {{vuex.res.ids_statistics_error}} 
+              th {{vuex.res.ids_discarded}} 
+              th {{vuex.res.ids_byte}} 
+              th {{vuex.res.ids_packet}}   
+              th {{vuex.res.ids_statistics_error}} 
+              th {{vuex.res.ids_discarded}}
             tr(v-for="list in formData.List")
               td {{list.Ssid}}
               td {{list.ReceivedByte | covertNum}}
@@ -58,13 +58,10 @@ export default {
   }
 }
 </script>
+
 <style lang="sass" scoped>
-.main-box {
-  min-height: 420px;
-  height: auto!important;
-  height: 420px;
-  overflow: visible;
+.el-table{
+  width: 80%;
+  margin-top: 80px;
 }
-
-
 </style>

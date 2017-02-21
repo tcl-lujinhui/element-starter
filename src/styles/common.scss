@@ -1,5 +1,6 @@
 @import "./styles/color.scss";
 //@import "./styles/color_custom.scss";
+$width_main: 1004px;
 .el-breadcrumb {
   padding: 10px 10px 0 0;
   margin-bottom: 10px;
@@ -16,13 +17,13 @@
     display: inline-block;
     margin-right: 8px;
   }
-  .sub-text{    
+  .sub-text {
     margin-top: -20px;
-    .el-form-item__content{
+    .el-form-item__content {
       line-height: 20px;
       color: $color_gray666_font;
       font-size: 12px;
-    }    
+    }
   }
 }
 
@@ -64,17 +65,13 @@
   }
 }
 
-.header {
-  height: 80px;
-  background: $color_header_bg;
-}
-
 .main {
   padding: 15px 0;
 }
 
 .status {
   float: right;
+  margin-top: -10px;
 }
 
 .main-menu.el-menu {
@@ -112,7 +109,7 @@
   &.is-active {
     color: $color_submenu_active_font;
     background: $color_submenu_active_bg;
-  }  
+  }
 }
 
 .no-submenu.el-menu-item {
@@ -120,7 +117,7 @@
   &.is-active {
     color: $color_no_submenu_active_font;
     background: $color_no_submenu_active_bg;
-  }  
+  }
 }
 
 .el-menu--horizontal .el-menu-item {}
@@ -194,23 +191,25 @@
   margin: 30px auto;
   text-align: center;
 }
-.el-step__head{
-  &.is-text{
-    &.is-finish{
+
+.el-step__head {
+  &.is-text {
+    &.is-finish {
       color: $color_step_finish_font;
       background-color: $color_step_finish_bg;
       border-color: $color_step_finish_border;
     }
-    &.is-process{
+    &.is-process {
       color: $color_step_process_font;
       background-color: $color_step_process_bg;
       border-color: $color_step_process_border;
     }
   }
 }
+
 .el-step__title {
   text-align: center;
-  &.is-finish{
+  &.is-finish {
     color: $color_main_level_1;
   }
 }
@@ -225,7 +224,7 @@
   }
   .el-col {
     border-radius: 4px;
-  }  
+  }
   .line {
     margin: 8px 0 21px 0;
     border-top: 1px solid $color_main_level_1;
@@ -272,31 +271,26 @@
   }
 }
 
+.tips-error {
+  padding: 5px 0 0 0;
+  color: $color_tips_error_font;
+}
+
 #login {
   .title {
     padding: 0 0 46px 0;
   }
-  .imgTextAlign {
-    text-align: center;
-    padding: 21px 75px 0 0;
-  }
-  .cutLine {
-    border-left: 1px solid $color_main_level_1;
-    min-height: 379px;
-  }
-  .loginArea {
-    padding-left: 75px;
-  }
   .paddingVal {
     padding: 5px 0;
   }
+  .el-form {
+    width: 250px;
+  }
   .btnLogin button {
-    width: 68%;
+    width: 100%;
   }
   .tips-error {
-    padding: 5px 0 0 0;
     font-size: 12px;
-    color: red;
   }
 }
 
@@ -331,10 +325,6 @@
 .add-btn {
   float: right;
   margin-bottom: 2px;
-}
-
-.el-table {
-  margin-top: 6px;
 }
 
 .tips {
@@ -462,11 +452,14 @@ body {
   margin: 0;
 }
 
+
 /*icon font style*/
-.icon-style{
-  font-size:28px;
+
+.icon-style {
+  font-size: 28px;
 }
-.iconfont{
+
+.iconfont {
   speak: none;
   font-style: normal;
   font-weight: 400;
@@ -476,27 +469,32 @@ body {
   vertical-align: baseline;
   display: inline-block;
 }
-.el-menu .iconfont{
+
+.el-menu .iconfont {
   float: left;
   margin-top: 13px;
 }
-#sideMenu{
-  min-height: 500px;    
-  background: $color_sideMenu_bg;  
+
+#sideMenu {
+  min-height: 500px;
+  background: $color_sideMenu_bg;
 }
-#sideMenu .el-menu {    
-  background: $color_sideMenu_bg;  
-  .el-menu-item,.el-submenu__title {
+
+#sideMenu .el-menu {
+  background: $color_sideMenu_bg;
+  .el-menu-item,
+  .el-submenu__title {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    .el-submenu__icon-arrow{
+    .el-submenu__icon-arrow {
       right: 10px;
     }
   }
 }
+
 .el-submenu {
-  .el-menu-item{
+  .el-menu-item {
     height: 50px;
     line-height: 50px;
     padding: 0 45px;
@@ -504,103 +502,159 @@ body {
     padding-right: 10px;
   }
 }
-.table{
-  font-size: 14px;
-  width: 80%;
+
+.el-table {
   margin: 10px auto 10px;
+  font-size: 14px;
   border-spacing: 0;
-  border-collapse: collapse;
   border: 1px solid $color_table_border;
-  background:$color_table_bg;
-  tr,tr th,tr td{
+  tr,
+  tr th,
+  tr td,
+  th.is-leaf {
     text-align: center;
     border: 1px solid $color_table_border;
-    padding:8px;
+  }
+  tr th,
+  .el-table__fixed-header-wrapper thead div,
+  .el-table__header-wrapper thead div {
+    background-color: $color_table_th_bg;
+  }
+  tr td {
+    background: $color_table_td_bg;
+  }
+  .cell,
+  th>div {
+    padding: 0 5px;
+  }
+  .el-table__empty-block {
+    display: none;
+  }
+  &::before,
+  &::after {
+    background: none;
   }
 }
+
+
+/* td support even color different 
+.table tr:nth-child(odd) td { 
+  background-color: $color_table_bg;
+}
+*/
+
 body {
   font-family: Helvetica, sans-serif;
 }
-#app{
-  max-width:1004px;
-  margin: 0 auto;
-  background: $color_app_bg; 
+
+.header {         
+  max-width: $width_main;
+  margin: 0 auto;    
+  height: 80px;
+  background: $color_header_bg;
+}
+.container{    
+  max-width: $width_main;
+  margin: 0 auto;    
+  background: $color_app_bg;
 }
 
-.footer{
+.footer {     
+  max-width: $width_main;
+  margin: 0 auto;  
   height: 30px;
   background: $color_footer_bg;
   line-height: 30px;
   font-size: 13px;
   text-align: center;
-  margin-top: 10px;
-  .copyright{
+  .copyright {
     padding-left: 60px;
-    margin:0 auto;
+    margin: 0 auto;
     background: url(images/under_logo.png) left center no-repeat;
   }
 }
+
 .top-menu {
   margin-right: 20px;
   height: 30px;
   clear: both;
   display: block;
-  
-  a,a:hover,a:visited,a:active,a:focus,.lang-dropdown{
+  a,
+  a:hover,
+  a:visited,
+  a:active,
+  a:focus,
+  .lang-dropdown {
     color: $color_header_link_font;
     padding: 5px;
     text-decoration: none;
     font-size: 13px;
     cursor: pointer;
   }
-  a:hover{
+  a:hover {
     color: $color_header_link_font_hover;
   }
 }
-.float-right{
+
+.float-right {
   float: right;
 }
-.el-dropdown-menu__item{
+
+.el-dropdown-menu__item {
   color: $color_header_link_font;
-  font-size:13px;
+  font-size: 13px;
 }
 
+
 /*button*/
-.el-button{
+
+.el-button {
   background: $color_el_button_bg;
   border: 1px solid $color_el_button_border;
   color: $color_el_button_font;
-  &:focus,&:hover{
+  &:focus,
+  &:hover {
     background: $color_el_button_hover_bg;
     border: 1px solid $color_el_button_hover_border;
     color: $color_el_button_hover_font;
   }
 }
+
 .el-button--primary {
   background: $color_el_button_primary_bg;
   border: 1px solid $color_el_button_primary_border;
   color: $color_el_button_primary_font;
-  &:focus,&:hover{
+  &:focus,
+  &:hover {
     background: $color_el_button_primary_hover_bg;
     border: 1px solid $color_el_button_primary_hover_border;
     color: $color_el_button_primary_hover_font;
   }
 }
+
 .el-radio__inner.is-checked,
 .el-switch__input:checked+.el-switch__core,
 .el-select-dropdown__item.selected,
 .el-select-dropdown__item.selected.hover,
 .el-checkbox__inner.is-checked,
-.el-pager li.active{
+.el-pager li.active {
   background: $color_el_button_primary_bg;
   border: 1px solid $color_el_button_primary_border;
 }
+
 .el-input__inner:focus,
 .el-checkbox__inner.is-focus,
 .el-select .el-input__inner:focus,
 .el-radio__inner:not(.is-disabled):hover,
-.el-checkbox__inner:not(.is-disabled):hover{
+.el-checkbox__inner:not(.is-disabled):hover {
   border-color: $color_main_level_1;
 }
+
+/*dialog*/
+.el-dialog__close:hover{
+  color: $color_main_level_1;
+}
+
 /** import custom style file **/
+
 @import "./styles/common_custom.scss";

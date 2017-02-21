@@ -1,5 +1,5 @@
 let menuConfig = {};
-menuConfig.nav = [{
+menuConfig.nav = [/*{
   name: "Home",
   text: "ids_home",
   router: 'home'
@@ -7,15 +7,15 @@ menuConfig.nav = [{
   name: "deviceManagement",
   text: "Device",
   router: 'device'
-}, {
+}, */{
   name: "fotaManagement",
-  text: "Fota",
+  text: "Fota Management",
   router: 'fota'
-}, {
+},/* {
   name: "User",
   text: "User",
   router: 'user'
-}];
+}*/];
 
 menuConfig.sideMenu = {
   

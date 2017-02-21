@@ -41,11 +41,13 @@ export default {
     }
 }
 </script>
+
 <style lang="sass" scoped>
-.el-form{
+.el-form {
   width: 721px;
 }
-span.add{
+
+span.add {
   float: right;
 }
 </style>

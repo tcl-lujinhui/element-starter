@@ -37,7 +37,6 @@ export default {
       },
       update() {
         let sysSettings={
-          "AntennaSwitch":this.formData.AntennaSwitch,
           "NtpServer1":this.formData.NtpServer1,
           "NtpServer2":this.formData.NtpServer2
         };
@@ -59,7 +58,7 @@ export default {
                   this.sdk.post("SetLanguage", language, (res) => {
                     if (this.requestJsonRpcIsOk(res)) {
                       ElementUI.Message.success(this.vuex.res.ids_success);
-                      //location.reload()
+                        location.reload()
                     } else {
                       ElementUI.Message.error(this.vuex.res.ids_fail);
                     }
@@ -93,9 +92,6 @@ export default {
     }
 }
 </script>
-
-
-
 
 <style lang="sass" scoped>
 </style>

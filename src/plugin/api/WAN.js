@@ -27,30 +27,13 @@ export default {
           connTypeStr = "ids_ethWan_pppoe";
           break;
       }
-
-      switch (res.Status) {
-        case G.WAN_PORT_STATUS_DISCONNECTED:
-          connState = "disconnected";
-          connStateStr = "ids_disconnected";
-          break;
-        case G.WAN_PORT_STATUS_CONNECTING:
-          connStateStr = "ids_connecting";
-          connState = "connecting";
-          break;
-        case G.WAN_PORT_STATUS_CONNECTED:
-          connStateStr = "ids_connected";
-          connState = "connected";
-          break;
-        case G.WAN_PORT_STATUS_DISCONNECTING:
-          connStateStr = "ids_disconnecting";
-          connState = "disconnecting";
-          break;
-        default:
-          connStateStr = "ids_disconnected";
-          connState = "disconnected";
-          break;
+      if(res.Status == G.WAN_PORT_STATUS_CONNECTED){
+        connStateStr = "ids_connected";
+        connState = "connected";
+      }else{
+        connState = "disconnected";
+        connStateStr = "ids_disconnected";
       }
-
       res.IpAddress = res.IpAddress || "0.0.0.0";
       res.exConnectType = connType;
       res.exConnectTypeStr = connTypeStr;

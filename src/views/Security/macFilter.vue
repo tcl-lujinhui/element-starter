@@ -7,7 +7,7 @@
         +select("ids_filter_macFilter:","filter_policy")
         span(v-show="(formData.filter_policy==1&&(formData.MacAllowList).length<10)||(formData.filter_policy==2&&(formData.MacDenyList).length<10)")
           +button("")(icon="plus" size="mini" @click="add" type="primary")
-        table.urlFilterTableTh(v-show="formData.filter_policy!=0")
+        table.el-table(v-show="formData.filter_policy!=0")
           thead
             tr
               th.firstTh {{vuex.res.ids_lan_macAdress}}
@@ -185,32 +185,9 @@ export default {
     }
 }
 </script>
-<style lang="sass" scoped>
-table{
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-.urlFilterTableTh .firstTh{
-  width: 80%;
-}
-.urlFilterTableTh .sencondTh{
-  width: 20%;
-  word-break: break-all;
-}
-.urlFilterTableTh tr{
-   height: 26px;
-  border:1px solid #ababab;
-}
 
-td{
-  text-align: center;
-  border:1px solid #ababab;
-}
-th{
-  border:1px solid #ababab;
-}
-span{
+<style lang="sass" scoped>
+span {
   float: right;
 }
 </style>

@@ -120,22 +120,16 @@ export default {
 }
 </script>
 
-
 <style lang="sass" scoped>
-.el-button{
-  float:right;
-  margin:10px 0 10px 0;
+.el-button {
+  float: right;
+  margin: 10px 0 10px 0;
   padding: 7px 9px;
   font-size: 12px;
 }
-.el-table{
-  margin-top:40px;
+
+.el-pagination {
+  float: right;
+  margin: 10px 0 0 0;
 }
-.el-pagination{
-  float:right;
-  margin:10px 0 0 0;
-}
-/* .el-table,.el-table th{
-  text-align: center;
-} */
 </style>

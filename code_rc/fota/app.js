@@ -1,22 +1,19 @@
 import $ from 'jquery'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import App from './app.vue'
 import Routers from './router'
-import sdk from './plugin/sdk'
 import { units, vuex } from './common'
-
-import appConfig from './appConfig'
 
 import locale from 'element-ui/lib/locale/lang/en'
 
-Vue.use(sdk)
-Vue.use(appConfig)
 
 Vue.use(VueRouter)
+Vue.use(VueResource)
 Vue.use(ElementUI, { locale })
 
 
@@ -38,34 +35,32 @@ Vue.filter('res', function(value) {
   } else {
     return value;
   }
-
 })
 
 const router = new VueRouter({
   routes: Routers
 });
 
-/*router.beforeEach((to, from, next) => {
-  vuex.loginName = to.name;
-
-  if (to.name != 'login') {
-    Vue.sdk.get('GetLoginState', null, (res) => {
-      if (res.State === 1) {
-        next()
-      } else {
+router.beforeEach((to, from, next) => {
+  if(to.name != 'login'){
+    Vue.http.get("/user/getLoginInfo?"+Math.random(), {}).then((res) => {
+      vuex.systemInfo.isLogined=res.body.isLogined
+      if(!res.body.isLogined){
         router.push('login')
+      }else{
+        next()
       }
-    })
+    }, (response) => {
+      router.push('login')
+    });
   }else{
     next()
   }
 })
-*/
+
 vuex.initRes(() => {
   const app = new Vue({
     router,
     render: h => h(App)
   }).$mount('#app');
 })
-
-vuex.initLoginState();

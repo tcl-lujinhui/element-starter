@@ -86,17 +86,15 @@ export default {
 }
 </script>
 
-
-
 <style lang="sass" scoped>
 .state-table {
   width: 60%;
   margin: 40px auto;
   font-size: 14px;
-  color: #5e6d82;
   text-align: left;
-  th,td{
-    padding:10px;
+  th,
+  td {
+    padding: 10px;
   }
 }
 </style>

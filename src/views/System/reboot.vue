@@ -4,7 +4,7 @@
     +form("formData")
       div.reboot
       p {{vuex.res.ids_system_restartDevice}}
-      +button("ids_reset")(@click="update_reboot" type="primary" v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="")
+      +button("ids_system_reboot")(@click="update_reboot" type="primary" v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="")
 </template>
 <script>
 import {
@@ -67,7 +67,6 @@ export default {
 .reboot {
   text-align: left;
   font-size: 14px;
-  color: #5e6d82;
   line-height: 1;
   margin-bottom: 40px;
   p {
@@ -75,3 +74,4 @@ export default {
   }
 }
 </style>
+

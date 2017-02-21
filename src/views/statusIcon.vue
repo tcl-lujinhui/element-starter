@@ -39,62 +39,61 @@ $iconDirectory:"../images/icon/";
     line-height: 39px;
     min-width: 32px;
     background-repeat: no-repeat;
-    background-position:center center;
-    &.icon-update{
-      &.on{
+    background-position: center center;
+    &.icon-update {
+      &.on {
         background:url(#{$iconDirectory}update.png);
-      } 
+      }
     }
-    &.icon-network-type{
+    &.icon-network-type {
       color: $color_main_level_1;
-      font-weight:600;
+      font-weight: 600;
       font-size: 16px;
     }
-    &.icon-signal{
+    &.icon-signal {
       margin: 1px 3px;
       background:url(#{$iconDirectory}signal.png);
-      background-position:0 0px;
-      &.signal_0{
-        background-position:0 0;
+      background-position: 0 0px;
+      &.signal_0 {
+        background-position: 0 0;
       }
-      &.signal_1{
-        background-position:0 -32px;
+      &.signal_1 {
+        background-position: 0 -32px;
       }
-      &.signal_2{
-        background-position:0 -64px;
+      &.signal_2 {
+        background-position: 0 -64px;
       }
-      &.signal_3{
-        background-position:0 -96px;
+      &.signal_3 {
+        background-position: 0 -96px;
       }
-      &.signal_4{
-        background-position:0 -128px;
+      &.signal_4 {
+        background-position: 0 -128px;
       }
-      
     }
-    &.icon-network-status{
+    &.icon-network-status {
       background:url(#{$iconDirectory}global_off.png);
-      &.on{
+      &.on {
         background:url(#{$iconDirectory}global_on.png);
       }
     }
-    &.icon-wifi{
+    &.icon-wifi {
       background:url(#{$iconDirectory}wifi_off.png);
-      &.on{
+      &.on {
         background:url(#{$iconDirectory}wifi_on.png);
       }
     }
-    &.icon-sms{
+    &.icon-sms {
       background:url(#{$iconDirectory}message_allread.png);
-      &.fullMessage{
+      &.fullMessage {
         background:url(#{$iconDirectory}message_full.png);
       }
-      &.newNessage{
+      &.newNessage {
         background:url(#{$iconDirectory}message.png);
       }
     }
-    &.icon-usb{
+    &.icon-usb {
       background:url(#{$iconDirectory}usb_disconnect.png);
-      &.connect{
+      &.connect {
         background:url(#{$iconDirectory}usb_connect.png);
       }
     }

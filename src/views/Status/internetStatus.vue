@@ -67,7 +67,4 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.el-form{
-  width:620px;
-}
 </style>

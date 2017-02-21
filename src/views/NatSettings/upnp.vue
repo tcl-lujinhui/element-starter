@@ -10,18 +10,18 @@
 </template>
 
 <script>
-import {_config,vuex} from '../../common.js';
+import {_,_config,vuex} from '../../common.js';
 var Config = _config.upnpSettings;
 export default {
   created () {
-    this.init();
     this.initdata(Config);
+    this.init();
   },
   methods: {
     init (){
       this.vuex=vuex;
       this.sdk.get("GetUpnpSettings",null,(res)=>{
-        this.formData = res;
+        _.extend(this.formData,res)
       })
     },
     update (){

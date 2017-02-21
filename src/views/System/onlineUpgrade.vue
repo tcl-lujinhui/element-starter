@@ -306,18 +306,21 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-p{
-    font-size: 14px;
-  }
-span{
+p {
+  font-size: 14px;
+}
+
+span {
   font-size: 14px;
   margin-top: 60px;
 }
-.title{
-    font-weight: 700;
-    color: #1f2d3d;
+
+.title {
+  font-weight: 700;
 }
-.Warning{
+
+.Warning {
   margin-top: 60px;
 }
 </style>
+

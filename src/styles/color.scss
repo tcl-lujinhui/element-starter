@@ -12,8 +12,9 @@ $color_sideMenu_bg: #f4f4f4;
 
 $color_el_text_font: #1f2d3d;
 
-$color_table_bg: #fff; 
-$color_table_border: #eee;
+$color_table_th_bg: #eeeeee; 
+$color_table_td_bg: #f5f5f5;
+$color_table_border: #fff;
 
 $color_header_link_font: #c7c7c7;
 $color_header_link_font_hover: $color_main_level_1;
@@ -67,4 +68,5 @@ $color_message_box_closeBtn_hover: #eee;
 $color_gray666_font: #666;
 $color_gray999_font: #999;
 $color_grayNote_font: #5e6d82;
+$color_tips_error_font: red;
 

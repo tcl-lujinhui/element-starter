@@ -4,16 +4,16 @@ let units = {}
 
 units.networkType = (type) => {
   let networkTypeMap = [
-    [0, "NA", "ids_netwrok_noService"],
-    [1, "2G", "GPRS"],
-    [2, "2G", "EDGE"],
-    [3, "3G", "HSPA"],
-    [4, "3G", "HSUPA"],
-    [5, "3G", "UMTS"],
-    [6, "3G+", "HSPA_PLUS"],
-    [7, "3G+", "DC-HSPA_PLUS"],
-    [8, "4G", "LTE"],
-    [9, "4G+", "LTE_PLUS"]
+    [0, "NetTypeNOSERVICE", "ids_netwrok_noService"],
+    [1, "NetTypeGPRS", "2G"],
+    [2, "NetTypeEDGE", "2G"],
+    [3, "NetTypeHSPA", "3G"],
+    [4, "NetTypeHSUPA", "3G"],
+    [5, "NetTypeUMTS", "3G"],
+    [6, "NetTypeHSPAPLUS", "3G+"],
+    [7, "NetTypeDCHSPAPLUS", "3G+"],
+    [8, "NetTypeLTE", "4G"],
+    [9, "NetTypeLTEPLUS", "4G+"]
   ];
 
   let currentType = _.find(networkTypeMap, (num) => {

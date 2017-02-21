@@ -1,99 +1,66 @@
-var path = require('path')
+const {
+  resolve
+} = require('path')
+const webpack = require('webpack')
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var webpack = require('webpack')
-var srcCatalog = "./code_rc/fota/"
-srcCatalog = "./code_rc/fota/"
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const url = require('url')
+const publicPath = ''
+var srcCatalog = "./webrc/"
 
-module.exports = {
+module.exports = (options = {}) => ({
   entry: {
-    "build": srcCatalog + '/app.js',
-    //"config": "./src/config.js"
+    "build": srcCatalog + '/app.js'
   },
-  //entry: './src/app.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: resolve(__dirname, 'dist'),
     publicPath: '/dist/',
-    filename: '[name].js'
+    filename: options.dev ? '[name].js' : '[name].js?[chunkhash]',
+    chunkFilename: '[id].js?[chunkhash]'
   },
-  /*
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules'),
-  },*/
   module: {
-    loaders: [{
+    rules: [{
       test: /\.vue$/,
-      loader: 'vue'
-    }, {
-      test: /\.jade$/,
-      loader: 'jade'
+      use: ['vue-loader']
     }, {
       test: /\.js$/,
-      loader: 'babel',
+      use: ['babel-loader'],
       exclude: /node_modules/
     }, {
+      test: /\.jade$/,
+      use: ['jade-loader']
+    }, {
+      test: /\.html$/,
+      use: [{
+        loader: 'html-loader',
+        options: {
+          root: resolve(__dirname, 'src'),
+          attrs: ['img:src', 'link:href']
+        }
+      }]
+    }, {
       test: /\.css$/,
-      loader: 'style!css'
+      use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
     }, {
-      test: /\.(eot|ttf|woff|woff2)(\?\S*)?$/,
-      loader: 'file'
+      test: /favicon\.png$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
+      }]
     }, {
-      test: /\.(png|jpe?g|gif|svg)(\?\S*)?$/,
-      loader: 'file',
-      query: {
-        name: '[name].[ext]?[hash]'
-      }
+      test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+      exclude: /favicon\.png$/,
+      use: [{
+        loader: 'url-loader',
+        options: {
+          limit: 10000
+        }
+      }]
     }]
   },
-  //添加，否则类似const Bar = { template: '<div>bar</div>' };不可用
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue'
-    }
-  },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    proxy: {
-      '/jrd/webapi': {
-        target: 'http://127.0.0.1:9096',
-        //target: 'http://192.168.1.1',
-        secure: false
-      },
-      '/firmware/*': {
-        target: 'http://www.alcatel-move.com',
-        //target: 'http://192.168.1.1',
-        secure: true
-      },
-      '/user/*': {
-        target: 'http://127.0.0.1:3000',
-        //target: 'http://192.168.1.1',
-        secure: false
-      },
-      '/goform/uploadBackupSettings': {
-        target: 'http://127.0.0.1:9096',
-        //target: 'http://192.168.1.1',
-        secure: true
-      },
-      '/setSimState/*': {
-        target: 'http://127.0.0.1:9096',
-        secure: false
-      }
-    }
-  },
-  devtool: '#eval-source-map'
-}
-
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-    // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
+  plugins: [
     new HtmlWebpackPlugin({
       title: '4G LINKHUB',
       hash: true,
@@ -106,11 +73,34 @@ if (process.env.NODE_ENV === 'production') {
     }, {
       from: srcCatalog + '/cfgbak',
       to: '../cfgbak'
-    }]),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
+    }])
+  ],
+  resolve: {
+    alias: {
+      '~': resolve(__dirname, 'src')
+    }
+  },
+  devServer: {
+    host: '127.0.0.1',
+    port: 8018,
+    proxy: {
+      '/jrd/webapi': {
+        //target: 'http://127.0.0.1:9096',
+        target: 'http://192.168.1.1'
+      },
+      '/firmware/*': {
+        target: 'http://www.alcatel-move.com',
+        secure: true
+      },
+      '/svnlog': {
+        target: 'http://10.129.60.82:8000',
+        secure: false
+      },
+      '/smartreleaseapi': {
+        target: 'http://127.0.0.1:8000',
+        secure: false
       }
-    })
-  ])
-}
+    }
+  },
+  //devtool: options.dev ? '#eval-source-map' : '#source-map'
+})

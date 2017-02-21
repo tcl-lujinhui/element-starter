@@ -232,10 +232,6 @@ p {
   font-size: 12px;
 }
 
-#inboxList table th,#inboxList table td{
-  text-align: center;
-}
-
 .hidden {
   display: none;
 }
@@ -263,12 +259,14 @@ p {
 
 .read {
   background-image: url(../../images/icon/message_allread.png);
-  display:block;
-  width:32px;
-  height:32px;
+  display: block;
+  width: 32px;
+  height: 32px;
 }
+
 .unread {
-    background-image: url(../../images/icon/message.png);
-  }
+  background-image: url(../../images/icon/message.png);
+}
 </style>
+
 

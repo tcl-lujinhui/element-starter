@@ -6,9 +6,7 @@
       +form("formData")(style="width: 100%" v-loading.body="page.loading")
         div {{vuex.res.ids_wlan_2ghz}}
         div(v-if="formData.AP2G.ApStatus!=0")
-          +formItem("ids_wlan_countryRegion:")
-            el-select(v-model="formData.AP2G.CountryCode" @change="change2gChannelArray()")
-              el-option(v-for="(k,v) in countryCode.countryCode",:label="k[1]",:value="v")
+          +select("ids_wlan_countryRegion:","AP2G.CountryCode")(@change="change2gChannelArray()")
           +formItem("ids_wlan_channel:")
             el-select(v-model="formData.AP2G.Channel")
               el-option(:label="vuex.res.ids_auto",:value.number="0")
@@ -20,14 +18,12 @@
           
         div {{vuex.res.ids_wlan_5ghz}}
         div(v-if="formData.AP5G.ApStatus!=0")
-          +formItem("ids_wlan_countryRegion:")
-            el-select(v-model="formData.AP5G.CountryCode" @change="change5gChannelArray")
-              el-option(v-for="(k,v) in countryCode.countryCode",:label="k[1]",:value="v")
+          +select("ids_wlan_countryRegion:","AP5G.CountryCode")(@change="change5gChannelArray()")
           +formItem("ids_wlan_channel:")
             el-select(v-model="formData.AP5G.Channel")
               el-option(:label="vuex.res.ids_auto",:value.number="0")
               el-option(v-for="v in page.channelArray['5G']",:label="v",:value.number="v")
-          +select("ids_wlan_802Mode:","AP5G.WMode")
+          +select("ids_wlan_802Mode:","AP5G.WMode")(@change="changeBandwidth")
           +select("ids_wlan_apIsolation:","AP5G.ApIsolation")
           +select("ids_wlan_bandwidth:","AP5G.Bandwidth")
         +formBtn()
@@ -48,8 +44,8 @@ export default {
       this.page={
         loading:false,
         channelArray:{
-          "2G":this.countryCode.countryCode[this.formData.AP2G.CountryCode][0]||13,
-          "5G":this.countryCode.country5gChannel[this.formData.AP5G.CountryCode]||[]
+          "2G":countryCode[this.formData.AP2G.CountryCode][0]||13,
+          "5G":countryCode[this.formData.AP5G.CountryCode][2]||[]
         }
       }
       this.sdk.get("GetWlanSettings",null,(res)=>{
@@ -57,19 +53,19 @@ export default {
       })
     },
     change2gChannelArray (){
-      this.page.channelArray['2G']=this.countryCode.countryCode[this.formData.AP2G.CountryCode][0]||13;
+      this.page.channelArray['2G']=countryCode[this.formData.AP2G.CountryCode][0]||13;
       this.formData.AP2G.Channel = 0
     },
     change5gChannelArray (){
-      let country5gChannelList = this.countryCode.country5gChannel;
-      let CountryCode5G = this.formData.AP5G.CountryCode
-      if(country5gChannelList.hasOwnProperty(CountryCode5G)){
-        this.page.channelArray['5G']=country5gChannelList[CountryCode5G]
+      this.page.channelArray['5G']=countryCode[this.formData.AP5G.CountryCode][2]||countryCode["MY"][2];
+      this.formData.AP5G.Channel = 0
+    },
+    changeBandwidth(){
+      this.formData.AP5G.Bandwidth = 0;
+      if(this.formData.AP5G.WMode==6){
+        this.formOptions.AP5G.Bandwidth=Config.formOptions.AP5G.BandwidthAc
       }else{
-        this.page.channelArray['5G']=country5gChannelList["MY"]
-      }
-      if($.inArray(this.formData.AP5G.Channel,this.page.channelArray['5G'])==-1){
-        this.formData.AP5G.Channel = 0
+        this.formOptions.AP5G.Bandwidth=Config.formOptions.AP5G.BandwidthAuto
       }
     },
     update (){

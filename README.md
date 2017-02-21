@@ -4,10 +4,18 @@
 
 *If you are familiar with [cooking](https://github.com/elemefe/cooking), [here](https://github.com/ElementUI/element-cooking-starter) is a starter generated with it*
 
+## Environment
+
+`Node >= 6`
+
 ## Start
 
  - Clone or download this repository
  - Enter your local directory, and install dependencies:
+
+``` bash
+npm install webpack webpack-dev-server -g
+```
 
 ``` bash
 npm install
@@ -16,7 +24,7 @@ npm install
 ## Develop
 
 ``` bash
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8010
 npm run dev
 ```
 
@@ -26,3 +34,9 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+
+
+## sublime text ²å¼þ
+
+- Vue Syntax Highlight
+- 

@@ -198,18 +198,18 @@ p {
   float: left;
   font-size: 12px;
 }
-.el-table th {
-  text-align: center;
-}
 
 .hidden {
   display: none;
 }
- #outboxList,#outboxDetail{
-  margin:20px 10px;
+
+#outboxList,
+#outboxDetail {
+  margin: 20px 10px;
 }
-#outboxDetail .el-textarea{
-  margin-top:50px;
+
+#outboxDetail .el-textarea {
+  margin-top: 50px;
 }
 
 #btnList {

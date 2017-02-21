@@ -1,4 +1,4 @@
-import home from './views/home.vue';
+import home from './views/fota.vue';
 import fota from './views/fota.vue';
 import device from './views/device.vue';
 import login from './views/login.vue';

@@ -78,6 +78,7 @@ import smsSettings from './views/SMS/smsSettings.vue';
 
 import login from './views/login.vue';
 import callLogs from './views/callLogs.vue';
+import index from './views/index.vue';
 
 let routers = [
   //other
@@ -161,8 +162,8 @@ let routers = [
   { name: 'login', path: '/login', component: login },
   { name: 'incomingCall', path: '/incomingCall', component: callLogs },
   { name: 'outgoingCall', path: '/outgoingCall', component: callLogs },
-  { name: 'missedCall', path: '/missedCall', component: callLogs }
-
+  { name: 'missedCall', path: '/missedCall', component: callLogs },
+  { name: 'index', path: '/index', component: index }
 
 ];
 

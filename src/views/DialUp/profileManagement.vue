@@ -18,7 +18,7 @@
           +button("ids_edit")(@click="editProfile",:disabled="page.actionType==2||page.actionType==1||page.currentProfileId==''")
           +button("ids_save")(@click="saveProfile",:disabled="page.actionType==0")
           +button("ids_delete")(@click="delProfile()",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0||page.currentProfileId==''")
-          +button("ids_profile_setDefault")(@click="setDefaultProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0||page.currentProfileId==''")
+          +button("ids_profile_setDefault")(@click="setDefaultProfile",:disabled="defaultProfile.ProfileID==page.currentProfileId||page.actionType!=0||page.currentProfileId==''||page.ConnectionStatus==G.WAN_STATE_CONNECTED||page.ConnectionStatus==G.WAN_STATE_CONNECTING||page.ConnectionStatus==G.WAN_STATE_DISCONNECTING")
 
 </template>
 
@@ -38,12 +38,14 @@ export default {
     },
     methods: {
       init() {
+        this.G = G
         this.vuex = vuex
         this.page = {
           currentProfileId: 1,
           actionType: 0,
           //0:list;1:edit;2:new
-          indexs: -1
+          indexs: -1,
+          ConnectionStatus: ""
         }
         this.profileList = {};
         this.defaultProfile = {};
@@ -55,12 +57,16 @@ export default {
           })[0];
           this.formData = $.extend({}, defaultProfile);
           this.defaultProfile = $.extend({}, defaultProfile);
-          if(defaultProfile != undefined){
+          if (defaultProfile != undefined) {
             this.page.currentProfileId = defaultProfile.ProfileID;
-          }else{
+          } else {
             this.page.currentProfileId = "";
-          } 
+          }
         })
+        this.sdk.get("GetConnectionState", null, (res) => {
+          this.page.ConnectionStatus = res.ConnectionStatus;
+        })
+
       },
 
       changeProfile() {
@@ -92,14 +98,14 @@ export default {
           callback: this.init,
         }
         if (this.curprofile_operate == "add") {
-          this.submit("formData", ()=>{
-            this.sdk.post("AddNewProfile", this.formData, results)  
+          this.submit("formData", () => {
+            this.sdk.post("AddNewProfile", this.formData, results)
           })
         } else if (this.curprofile_operate == "edit") {
-          this.submit("formData", ()=>{
-            this.sdk.post("EditProfile", this.formData, results)  
+          this.submit("formData", () => {
+            this.sdk.post("EditProfile", this.formData, results)
           })
-           
+
         } else {
           console.log(res)
         }
@@ -125,7 +131,7 @@ export default {
           ProfileID: vm.formData.ProfileID
         }
         let results = {
-          callback(){
+          callback() {
             //vm.$refs.formData.resetFields();
             //vm.init()
             location.reload()

@@ -1,5 +1,5 @@
 import config from './config.js';
-config.macFilter.formOptions.filter_policy=[
+config.urlFilter.formOptions.filter_policy=[
   [0, 'ids_disable'],
   [2, 'ids_blacklist']
 ]

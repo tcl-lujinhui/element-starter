@@ -5,8 +5,8 @@
       +breadcrumb("ids_internet")
       div.internet
         +button("ids_network_resetStatistics")(type="primary" @click="resetStatistics")
-      div.main-box
-        table.table
+      div
+        table.el-table
           tbody
             tr
               th {{vuex.res.ids_type}}
@@ -31,7 +31,7 @@
               td {{page.connectionInfo.ConnectionTime | times('2')}}
               td {{page.UsageRecord.TConnTimes | times('2')}}  
 
-        div.noteTips {{vuex.res.ids_note}}:<br /> {{vuex.res.ids_netwrok_statisticsDescription}}
+        div.tips {{vuex.res.ids_note}}:<br /> {{vuex.res.ids_netwrok_statisticsDescription}}
 </template>
 <script>
 import {
@@ -92,43 +92,16 @@ export default {
   float: right;
   margin-right: 78px;
   margin-top: 8px;
+  margin-bottom: 20px;
 }
 
-.main-box {
-  min-height: 420px;
-  height: auto!important;
-  height: 420px;
-  overflow: visible;
+.tips {
+  width: 90%;
+  margin: 30px auto;
 }
 
-.table {
-  font-size: 14px;
+.el-table{
   width: 80%;
-  margin: 50px auto 10px;
-  border-spacing: 0;
-  border-collapse: collapse;
-  border: 1px solid #fff;
-  background: #fff;
-  tr,
-  tr th,
-  tr td {
-    text-align: center;
-    border: 2px solid #fff;
-    padding: 8px;
-  }
-}
-
-.table tr:nth-child(odd) td,
-.table tr:nth-child(odd) th {
-  background: #eee;
-}
-
-.table tr:nth-child(even) td {
-  background: #f5f5f5;
-}
-
-.noteTips {
-  width: 80%;
-  margin: 0 auto;
+  margin-top: 50px;
 }
 </style>

@@ -91,14 +91,15 @@ export default {
   }
 }
 </script>
-<style lang="sass" scoped>
 
-.noteTips{
-  padding:101px 0 5px 0;
+<style lang="sass" scoped>
+.noteTips {
+  padding: 101px 0 5px 0;
   font-size: 12px;
 }
-.loadingTxt{
-  padding:20px 0;
-  text-align:center;
+
+.loadingTxt {
+  padding: 20px 0;
+  text-align: center;
 }
 </style>

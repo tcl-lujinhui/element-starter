@@ -110,7 +110,4 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.sim-state{
-  //padding:50px;
-}
 </style>

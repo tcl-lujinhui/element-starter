@@ -86,8 +86,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.el-notification{
-    bottom:50;
-    top:auto !important;
+.el-notification {
+  bottom: 50;
+  top: auto !important;
 }
 </style>

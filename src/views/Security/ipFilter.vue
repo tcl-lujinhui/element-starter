@@ -5,16 +5,16 @@
       +breadcrumb("ids_filter_ipFilter")
       +form("formData")
         +select("ids_filter_ipFilter:","filter_policy")
-        span.add(v-show="(formData.filter_policy==2)||(formData.filter_policy==1)")
+        span.add(v-show="(formData.filter_policy==2&&(page.ipFilterAllowlist).length<16)||(formData.filter_policy==1&&(page.ipFilter_list).length<16)")
           +button("")(icon="plus" size="mini" @click="add" type="primary")
         el-table(:data="formData.filter_policy==1?page.ipFilter_list:page.ipFilterAllowlist" v-show="formData.filter_policy!=0" border)
-          el-table-column(prop="lan_ip" ,:label="vuex.res.ids_ipAddress" width='200')
+          el-table-column(prop="lan_ip" ,:label="vuex.res.ids_ipAddress" width='120')
           el-table-column(prop="lan_port" ,:label="vuex.res.ids_vtServer_lanPort" width='120')
-          el-table-column(prop="wan_ip", :label="vuex.res.ids_filter_wanIpAddress" width='200')
+          el-table-column(prop="wan_ip", :label="vuex.res.ids_filter_wanIpAddress" width='120')
           el-table-column(prop="wan_port", :label="vuex.res.ids_vtServer_wanPort" width='120')
           el-table-column(:label="vuex.res.ids_protocol",:context="_self" width='120' inline-template)
             span {{row.ip_protocol | ipProtocol}}
-          el-table-column(:label="vuex.res.ids_netwrok_operation",:context="_self" width='120' inline-template fixed="right")
+          el-table-column(:label="vuex.res.ids_netwrok_operation",:context="_self" width='120' inline-template)
             span
               +button("")(icon="edit" size="mini" @click="editipFilterDialog($index,row)")
               +button("")(icon="delete" size="mini" type="danger" @click="deleteIpFilter($index,row)")
@@ -49,7 +49,7 @@ export default {
           action: "edit",
           indexs: -1,
           filter_policy: "",
-          total_num: 0,
+          //total_num: 0,
           ip_status: ""
 
         }
@@ -58,7 +58,7 @@ export default {
           this.page.ipFilter_list = res.ipFilter_list;
           this.page.ipFilterAllowlist = res.ipFilterAllowlist;
           this.page.filter_policy = res.filter_policy;
-          this.page.total_num = res.total_num;
+          //this.page.total_num = res.total_num;
         });
         this.sdk.get("GetLanSettings", null, (res) => {
           _.extend(this.formData, res);
@@ -291,11 +291,14 @@ export default {
     }
 }
 </script>
+
 <style lang="sass" scoped>
-.el-form{
+.el-form {
   width: 721px;
 }
-span.add{
+
+span.add {
   float: right;
 }
 </style>
+

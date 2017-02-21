@@ -1,16 +1,17 @@
+import _ from 'underscore';
 import menuConfig from './config/menuConfig.js'
 import sys from "./config/sys.js";
+import countryCode from "./config/countryCode.js";
 import validates from './plugin/validates.js';
 let config = {};
 
+let countryCodeformOptions = []
+_.each(countryCode,(v,k)=>{
+  countryCodeformOptions.push([k,v[0]])
+})
+
 config.nav = menuConfig.nav;
 config.sideMenu = menuConfig.sideMenu;
-
-let Unit = {
-  validates: (callback, errMsg) => {
-    return callback(errMsg !== '' ? new Error(errMsg) : undefined);
-  }
-}
 
 let common = {
   checkBoxEnable: [
@@ -222,7 +223,6 @@ config.changePassword = {
 //systemSettings
 config.systemSettings = {
     formData: {
-      AntennaSwitch: 0,
       Language: "fr",
       CurrTime: "",
       NtpServer1: "0.openwrt.pool.ntp.org",
@@ -581,9 +581,8 @@ config.qos = {
       { validator: validates.checkPortInvalid, message: 'ids_qos_portInvalid' },
     ],
     SrcIPAddress: [
-      { required: true, message: 'ids_required', trigger: 'blur' },
-      { validator: validates.checkIpAddressInvalid, message: 'ids_qos_ipInvalid', trigger: 'blur' },
-
+     common.rule.required,
+     common.rule.IP
     ]
   }
 };
@@ -734,16 +733,16 @@ config.homeInternetStatus = {
   ],
   networkTypeDisplayNum: 1, //val:0,1,2;control networkTypeArr display val
   networkTypeArr: [
-    [0, "NA", "ids_netwrok_noService"],
-    [1, "2G", "GPRS"],
-    [2, "2G", "EDGE"],
-    [3, "3G", "HSPA"],
-    [4, "3G", "HSUPA"],
-    [5, "3G", "UMTS"],
-    [6, "3G+", "HSPA_PLUS"],
-    [7, "3G+", "DC-HSPA_PLUS"],
-    [8, "4G", "LTE"],
-    [9, "4G+", "LTE_PLUS"]
+    [0, "NetTypeNOSERVICE", "ids_netwrok_noService"],
+    [1, "NetTypeGPRS", "2G"],
+    [2, "NetTypeEDGE", "2G"],
+    [3, "NetTypeHSPA", "3G"],
+    [4, "NetTypeHSUPA", "3G"],
+    [5, "NetTypeUMTS", "3G"],
+    [6, "NetTypeHSPAPLUS", "3G+"],
+    [7, "NetTypeDCHSPAPLUS", "3G+"],
+    [8, "NetTypeLTE", "4G"],
+    [9, "NetTypeLTEPLUS", "4G+"]
   ],
   formRules: {}
 };
@@ -1063,16 +1062,9 @@ config.Wlan = {
   formOptions: {
     show2GPassword: common.checkBoxEnable,
     show5GPassword: common.checkBoxEnable,
-    CountryCode: [
-      ["IT", 'IT'],
-      ["CN", 'CN']
-    ],
     AP2G: {
       ApStatus: common.checkBoxEnable,
-      CountryCode: [
-        ["IT", 'ITs'],
-        ["CN", 'CNs']
-      ],
+      CountryCode: countryCodeformOptions,
       SecurityMode: [
         [0, 'ids_disable'],
         [1, 'WEP'],
@@ -1108,10 +1100,7 @@ config.Wlan = {
     },
     AP5G: {
       ApStatus: common.checkBoxEnable,
-      CountryCode: [
-        ["IT", 'IT'],
-        ["CN", 'CN']
-      ],
+      CountryCode: countryCodeformOptions,
       SecurityMode: [
         [0, 'ids_disable'],
         [1, 'WEP'],
@@ -1143,6 +1132,17 @@ config.Wlan = {
         [0, '20MHz/40MHz'],
         [1, '20MHz'],
         [2, '40MHz']
+      ],
+      BandwidthAuto: [
+        [0, '20MHz/40MHz'],
+        [1, '20MHz'],
+        [2, '40MHz']
+      ],
+      BandwidthAc: [
+        [0, '20MHz/40MHz'],
+        [1, '20MHz'],
+        [2, '40MHz'],
+        [3, '80MHz']
       ]
     }
   },
