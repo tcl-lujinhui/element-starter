@@ -36,7 +36,7 @@ npm run build
 ```
 
 
-## sublime text ²å¼þ
+## sublime text 
 
 - Vue Syntax Highlight
 - 

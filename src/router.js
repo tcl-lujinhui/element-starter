@@ -73,6 +73,7 @@ import draft from './views/SMS/draft.vue';
 import inbox from './views/SMS/inbox.vue';
 import newSMS from './views/SMS/newSMS.vue';
 import outbox from './views/SMS/outbox.vue';
+import smsForwarding from './views/SMS/smsForwarding.vue'
 import smsSettings from './views/SMS/smsSettings.vue';
 
 
@@ -157,6 +158,7 @@ let routers = [
   { name: 'inbox', path: '/inbox', component: inbox },
   { name: 'newSMS', path: '/newSMS', component: newSMS },
   { name: 'outbox', path: '/outbox', component: outbox },
+  { name: 'smsForwarding', path: '/smsForwarding', component: smsForwarding },
   { name: 'smsSettings', path: '/smsSettings', component: smsSettings },
 
   { name: 'login', path: '/login', component: login },

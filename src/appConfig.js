@@ -17,6 +17,7 @@ export default {
         return {
           vuex:vuex,
           page:{},
+          pageItem:{},
           formData: {},
           formOptions: {},
           formRules: {},
@@ -25,6 +26,7 @@ export default {
       },
       methods: {
         initdata(Config) {
+          this.pageItem = $.extend({},Config.pageItem);
           this.formRules = $.extend({},Config.formRules);
           this.formData = $.extend({},Config.formData);
           this.formOptions = $.extend({},Config.formOptions);

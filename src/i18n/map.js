@@ -495,5 +495,8 @@ module.exports = {
   ids_anonymousDisableTips3: "str_anonymousDisableTips3",
   ids_statistics_duration: "str_duration",
   ids_statistics_error: "str_error",
-  ids_statistics_send: "str_send"
+  ids_statistics_send: "str_send",
+  ids_sms_smsForwarding:"str_sms_smsForwarding",
+  ids_sms_autoForward:"str_sms_autoForward",
+  ids_sms_recipient:"str_sms_recipient"
 }

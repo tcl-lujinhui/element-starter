@@ -65,9 +65,8 @@ export default {
         let deletReportId=[];
         deletReportId[0]=this.page.smsReport[0].SMSId;
         let deleteInfo = {
-            "DelFlag": 2,
-            //"ContactId": "",
-            "SMSId": deletReportId
+            "DelFlag": 3,
+            "SMSArray": deletReportId
           };
          this.sdk.post("DeleteSMS", deleteInfo, (res) => {
           deletReportId.splice(0,1);

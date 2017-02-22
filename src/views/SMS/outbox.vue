@@ -89,9 +89,8 @@ export default {
           type: 'warning'
         }).then(() => {
           let deleteInfo = {
-            "DelFlag": 2,
-            //"ContactId": "",
-            "SMSId": selectId
+            "DelFlag": 3,
+            "SMSArray": selectId
           };
           this.sdk.post("DeleteSMS", deleteInfo, results);
         }).catch(() => {
@@ -141,9 +140,8 @@ export default {
         let selectId = [];
         selectId[0] = selectSMSId;
         let deleteInfo = {
-            "DelFlag": 2,
-            //"ContactId": "",
-            "SMSId": selectId
+            "DelFlag": 3,
+            "SMSArray": selectId
           };
         let results = {
           callback: this.init

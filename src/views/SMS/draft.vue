@@ -74,9 +74,8 @@ export default {
           type: 'warning'
         }).then(() => {
           let deleteInfo = {
-            "DelFlag": 2,
-            "ContactId": "",
-            "SMSId": selectId
+            "DelFlag": 3,
+            "SMSArray": selectId
           };
           this.sdk.post("DeleteSMS", deleteInfo, results);
         }).catch(() => {

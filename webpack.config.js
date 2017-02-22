@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const publicPath = ''
-const srcCatalog = "./src/"
+const srcCatalog = "./webrc/"
 
 module.exports = (options = {}) => ({
   entry: {
@@ -86,7 +86,7 @@ module.exports = (options = {}) => ({
     proxy: {
       '/jrd/webapi': {
         target: 'http://127.0.0.1:9096',
-       //target: 'http://192.168.1.1'
+        //target: 'http://192.168.1.1'
       },
       '/firmware/*': {
         target: 'http://www.alcatel-move.com',

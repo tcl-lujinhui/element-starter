@@ -287,6 +287,9 @@ config.newSMS = {
   }
   //SMS Settings
 config.smsSettings = {
+  pageItem:{
+    StoreFlag:true
+  },
   formData: {
     "StoreFlag": 1,
     "SMSReportFlag": 1,
@@ -298,6 +301,22 @@ config.smsSettings = {
       [1, 'ids_device']
     ],
     SMSReportFlag: [
+      [1, 'ids_enable'],
+      [0, 'ids_disable']
+
+    ]
+  },
+  formRules: {}
+}
+
+//SMS Forwarding
+config.smsForwarding = {
+  formData: {
+    "redirect_flag": 0,
+    "redirect_number": ""
+  },
+  formOptions: {
+    redirect_flag: [
       [1, 'ids_enable'],
       [0, 'ids_disable']
 
@@ -620,6 +639,9 @@ config.usb = {
 
 //samba
 config.samba = {
+  pageItem:{
+    Anonymous:true
+  },
   formData: {},
   formOptions: {
     AuthType: [
@@ -633,6 +655,9 @@ config.samba = {
 
 //ftp
 config.ftp = {
+  pageItem:{
+    Anonymous:true
+  },
   formData: {},
   formOptions: {
     AuthType: [

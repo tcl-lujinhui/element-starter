@@ -65,6 +65,9 @@ menuConfig.sideMenu = {
       text: "ids_sms_newMessage",
       router: "newSMS"
     }, {
+      text: "ids_sms_smsForwarding",
+      router: "smsForwarding"
+    }, {
       text: "ids_menu_smsSettings",
       router: "smsSettings"
     }]

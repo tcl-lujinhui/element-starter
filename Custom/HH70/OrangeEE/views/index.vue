@@ -70,7 +70,7 @@
             a(@click="showLogin" id="menuSmsFwd") {{vuex.res.ids_index_click}} 
             | {{vuex.res.ids_index_smsFwd_des}}         
         div.boxBottom
-    el-dialog.loginBox(:title="login" v-model="vuex.dialogLoginVisible" size="tiny")
+    el-dialog.loginBox(title="login" v-model="vuex.dialogLoginVisible" size="tiny")
       login
 </template>
 
