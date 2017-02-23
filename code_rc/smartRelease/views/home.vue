@@ -33,6 +33,7 @@
           td 
             el-tag(type="gray") {{list.date}}
           td.center
+            el-button(@click="getFileData(list.name)" type="primary" size="small") getFileData
             el-button(@click="getFileLog(list.name)" type="primary" size="small") log
       el-dialog(title="Log list" v-model="dialogLogVisible")
         table.table
@@ -150,7 +151,27 @@ export default {
 
       });
 
+    },
+    getFileData(file){
+      
+      let url = "/smartreleaseapi"
+      let vm = this;
+      let params = {
+        "method": "getFile",
+        "params": {
+          "file":this.defaultProject+"/"+file
+        }
+      }
+      vm.$http.post(url, params).then((res) => {
+        console.log(res.body)
+      }, (response) => {
+
+      });
+
     }
+
+
+
   }
 }
 </script>
