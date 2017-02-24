@@ -498,5 +498,6 @@ module.exports = {
   ids_statistics_send: "str_send",
   ids_sms_smsForwarding:"str_sms_smsForwarding",
   ids_sms_autoForward:"str_sms_autoForward",
-  ids_sms_recipient:"str_sms_recipient"
+  ids_sms_recipient:"str_sms_recipient",
+  ids_system_ntpServer:"str_system_ntpServer"
 }

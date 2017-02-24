@@ -6,7 +6,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const publicPath = ''
-const srcCatalog = "./webrc/"
+var srcCatalog = "./webrc/"
+      srcCatalog = "./code_rc/smartRelease/"
 
 module.exports = (options = {}) => ({
   entry: {

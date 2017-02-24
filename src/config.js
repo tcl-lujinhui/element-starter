@@ -225,15 +225,15 @@ config.systemSettings = {
     formData: {
       Language: "fr",
       CurrTime: "",
-      NtpServer1: "0.openwrt.pool.ntp.org",
-      NtpServer2: "0.openwrt.pool.ntp.org",
+      /*NtpServer1: "0.openwrt.pool.ntp.org",
+      NtpServer2: "0.openwrt.pool.ntp.org",*/
       //TimeZone: "UTC",
       ZoneName: "UTC"
     },
     formOptions: {
       Language: [],
-      NtpServer1:[],
-      NtpServer2:[],
+      /*NtpServer1:[],
+      NtpServer2:[],*/
       ZoneName: []
     },
     formRules: {}
@@ -241,8 +241,23 @@ config.systemSettings = {
 
 config.systemSettings.formOptions.ZoneName = sys.ZoneName;
 config.systemSettings.formOptions.Language = sys.Language;
-config.systemSettings.formOptions.NtpServer1 = sys.NtpServer1;
-config.systemSettings.formOptions.NtpServer2 = sys.NtpServer2;
+/*config.systemSettings.formOptions.NtpServer1 = sys.NtpServer1;
+config.systemSettings.formOptions.NtpServer2 = sys.NtpServer2;*/
+
+//ntpServer
+config.ntpServer = {
+    formData: {
+      NtpServer1: "0.openwrt.pool.ntp.org",
+      NtpServer2: "0.openwrt.pool.ntp.org"
+    },
+    formOptions: {
+      NtpServer1:[],
+      NtpServer2:[]
+    },
+    formRules: {}
+  }
+config.ntpServer.formOptions.NtpServer1 = sys.NtpServer1;
+config.ntpServer.formOptions.NtpServer2 = sys.NtpServer2;
 
   //backupRestore
 config.backupRestore = {

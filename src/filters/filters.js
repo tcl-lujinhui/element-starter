@@ -70,6 +70,30 @@ const filters = {
   },
   currentLang(value) {
     return sys.allLanguage[value]
+  },
+  formatTime(smsTime){
+    let formatType=0; 
+    let smsDay, smsMonth, smsYear, smsHour, smsMinutes, smsSeconds, tmpDate, tmpTime;
+    tmpDate = smsTime.split(" ")[0];
+    tmpTime = smsTime.split(" ")[1];
+    smsDay = tmpDate.split("-")[0];
+    smsMonth = tmpDate.split("-")[1];
+    smsYear = tmpDate.split("-")[2];
+    smsHour = tmpTime.split(":")[0];
+    smsMinutes = tmpTime.split(":")[1];
+    smsSeconds = tmpTime.split(":")[2];   
+    switch(formatType){
+      case 1:
+        tmpDate = smsYear + "-" + smsMonth + "-" + smsDay;
+        tmpTime = smsHour + ":" + smsMinutes + ":" + smsSeconds;
+        smsTime = tmpDate + " " + tmpTime;
+        break;
+      default:
+        tmpDate = smsDay + "-" + smsMonth + "-" + smsYear;
+        tmpTime = smsHour + ":" + smsMinutes + ":" + smsSeconds;
+        smsTime = tmpDate + " " + tmpTime; 
+    }
+    return smsTime;
   }
 }
 export default filters

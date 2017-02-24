@@ -64,7 +64,10 @@ menuConfig.sideMenu = {
     }, {
       text: "ids_sms_newMessage",
       router: "newSMS"
-    }, {
+    }/*, {
+      text: "ids_sms_smsForwarding",
+      router: "smsForwarding"
+    }*/,{
       text: "ids_menu_smsSettings",
       router: "smsSettings"
     }]
@@ -214,6 +217,9 @@ menuConfig.sideMenu = {
     }, {
       text: "ids_system_pageTitle",
       router: "systemSettings"
+    }, {
+      text: "ids_system_ntpServer",
+      router: "ntpServer"
     }, {
       text: "ids_system_backupRestore",
       router: "restore"

@@ -16,7 +16,8 @@
             el-table-column(prop="SMSContent" ,:label="vuex.res.ids_sms_content" width="298px" show-overflow-tooltip=true inline-template)
               span(@click="smsDetails(row)" v-html="row.SMSContent")
             el-table-column(prop="SMSTime" ,:label="vuex.res.ids_time" width="180px" inline-template)
-              span(@click="smsDetails(row)" v-html="row.SMSTime")
+              //-span(@click="smsDetails(row)" v-html="row.SMSTime")
+              span(@click="smsDetails(row)"){{row.SMSTime |formatTime}}
             el-table-column(prop="SMSId" type="selection" width="50px")
           //-div.jumper
             el-button.btnGo(type="primary" size="small" @click="jumperGo") {{vuex.res.ids_go}}

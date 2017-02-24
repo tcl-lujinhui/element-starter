@@ -38,6 +38,7 @@ import reset from './views/System/reset.vue';
 import resetReboot from './views/System/resetReboot.vue';
 import restore from './views/System/restore.vue';
 import systemSettings from './views/System/systemSettings.vue';
+import ntpServer from './views/System/ntpServer.vue';
 import tr069 from './views/System/tr069.vue';
 
 
@@ -137,6 +138,7 @@ let routers = [
   { name: 'resetReboot', path: '/resetReboot', component: resetReboot },
   { name: 'restore', path: '/restore', component: restore },
   { name: 'systemSettings', path: '/systemSettings', component: systemSettings },
+  { name: 'ntpServer', path: '/ntpServer', component: ntpServer },
   { name: 'tr069', path: '/tr069', component: tr069 },
 
   //NatSettings

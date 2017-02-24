@@ -204,6 +204,9 @@ menuConfig.sideMenu = {
       text: "ids_system_pageTitle",
       router: "systemSettings"
     }, {
+      text: "ids_system_ntpServer",
+      router: "ntpServer"
+    }, {
       text: "ids_system_backupRestore",
       router: "restore"
     }, {
